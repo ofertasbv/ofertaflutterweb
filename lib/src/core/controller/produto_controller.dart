@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
+import 'package:nosso/src/util/filter/produto_filter.dart';
 
 part 'produto_controller.g.dart';
 
@@ -26,6 +27,16 @@ abstract class ProdutoControllerBase with Store {
   Future<List<Produto>> getAll() async {
     try {
       produtos = await _produtoRepository.getAll();
+      return produtos;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<List<Produto>> getFilter(ProdutoFilter filter) async {
+    try {
+      produtos = await _produtoRepository.getFilter(filter);
       return produtos;
     } catch (e) {
       error = e;

@@ -1,5 +1,4 @@
-
-
+import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
@@ -13,7 +12,7 @@ class Produto {
   String descricao;
   String foto;
   bool favorito;
-  String dataRegistro;
+  DateTime dataRegistro;
   String codigoBarra;
   bool status;
   bool novo;
@@ -22,10 +21,11 @@ class Produto {
   String origem;
   String tamanho;
   String cor;
-  int desconto;
+  double desconto;
   SubCategoria subCategoria;
   List<Promocao> promocaos;
   Loja loja;
+  List<Arquivo> arquivos;
   Estoque estoque;
   Marca marca;
 
@@ -49,6 +49,7 @@ class Produto {
       this.subCategoria,
       this.promocaos,
       this.loja,
+      this.arquivos,
       this.estoque,
       this.marca});
 
@@ -59,7 +60,7 @@ class Produto {
     descricao = json['descricao'];
     foto = json['foto'];
     favorito = json['favorito'];
-    dataRegistro = json['dataRegistro'];
+    dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     codigoBarra = json['codigoBarra'];
     status = json['status'];
     novo = json['novo'];
@@ -79,6 +80,12 @@ class Produto {
       });
     }
     loja = json['loja'] != null ? new Loja.fromJson(json['loja']) : null;
+    if (json['arquivos'] != null) {
+      arquivos = new List<Arquivo>();
+      json['arquivos'].forEach((v) {
+        arquivos.add(new Arquivo.fromJson(v));
+      });
+    }
     estoque =
         json['estoque'] != null ? new Estoque.fromJson(json['estoque']) : null;
     marca = json['marca'] != null ? new Marca.fromJson(json['marca']) : null;
@@ -92,7 +99,7 @@ class Produto {
     data['descricao'] = this.descricao;
     data['foto'] = this.foto;
     data['favorito'] = this.favorito;
-    data['dataRegistro'] = this.dataRegistro;
+    data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['codigoBarra'] = this.codigoBarra;
     data['status'] = this.status;
     data['novo'] = this.novo;
@@ -111,6 +118,10 @@ class Produto {
     if (this.loja != null) {
       data['loja'] = this.loja.toJson();
     }
+    if (this.arquivos != null) {
+      data['arquivos'] = this.arquivos.map((v) => v.toJson()).toList();
+    }
+
     if (this.estoque != null) {
       data['estoque'] = this.estoque.toJson();
     }

@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:nosso/src/core/controller/arquivo_controller.dart';
+import 'package:nosso/src/core/controller/categoria_controller.dart';
+import 'package:nosso/src/core/controller/cliente_controller.dart';
+import 'package:nosso/src/core/controller/endereco_controller.dart';
+import 'package:nosso/src/core/controller/loja_controller.dart';
+import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
+import 'package:nosso/src/core/controller/pedido_controller.dart';
+import 'package:nosso/src/core/controller/permissao_controller.dart';
+import 'package:nosso/src/core/controller/promocao_controller.dart';
+import 'package:nosso/src/core/controller/subcategoria_controller.dart';
+import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/home/home.dart';
 
-void main() {
+void main() async {
+  GetIt getIt = GetIt.I;
+  getIt.registerSingleton<ArquivoController>(ArquivoController());
+  getIt.registerSingleton<CategoriaController>(CategoriaController());
+  getIt.registerSingleton<SubCategoriaController>(SubCategoriaController());
+  getIt.registerSingleton<PromoCaoController>(PromoCaoController());
+  getIt.registerSingleton<ProdutoController>(ProdutoController());
+  getIt.registerSingleton<EnderecoController>(EnderecoController());
+  getIt.registerSingleton<PedidoController>(PedidoController());
+  getIt.registerSingleton<PedidoItemController>(PedidoItemController());
+
+  getIt.registerSingleton<PermissaoController>(PermissaoController());
+  getIt.registerSingleton<ClienteController>(ClienteController());
+  getIt.registerSingleton<LojaController>(LojaController());
   runApp(MyApp());
 }
 
@@ -9,58 +35,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      home: HomePage(),
     );
   }
 }

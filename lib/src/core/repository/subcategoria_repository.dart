@@ -23,7 +23,7 @@ class SubCategoriaRepository {
 
   Future<List<SubCategoria>> getAll() async {
     try {
-      print("carregando produtos");
+      print("carregando subcategorias");
       var response = await dio.client.get("/subcategorias");
       return (response.data as List)
           .map((c) => SubCategoria.fromJson(c))

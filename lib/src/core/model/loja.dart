@@ -1,41 +1,56 @@
+import 'package:nosso/src/core/model/endereco.dart';
+import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/usuario.dart';
+
 class Loja {
   int id;
   String nome;
   String telefone;
-  bool ativo;
   String tipoPessoa;
-  String dataRegistro;
+  DateTime dataRegistro;
   String foto;
+  Usuario usuario;
+  List<Endereco> enderecos;
   String razaoSocial;
   String cnpj;
-  bool novo;
-  bool existente;
+  List<Produto> produtos;
 
   Loja(
       {this.id,
       this.nome,
       this.telefone,
-      this.ativo,
       this.tipoPessoa,
       this.dataRegistro,
       this.foto,
+      this.usuario,
+      this.enderecos,
       this.razaoSocial,
       this.cnpj,
-      this.novo,
-      this.existente});
+      this.produtos});
 
   Loja.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];
     telefone = json['telefone'];
-    ativo = json['ativo'];
     tipoPessoa = json['tipoPessoa'];
-    dataRegistro = json['dataRegistro'];
+    dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     foto = json['foto'];
+    usuario =
+        json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
+    if (json['enderecos'] != null) {
+      enderecos = new List<Endereco>();
+      json['enderecos'].forEach((v) {
+        enderecos.add(new Endereco.fromJson(v));
+      });
+    }
     razaoSocial = json['razaoSocial'];
     cnpj = json['cnpj'];
-    novo = json['novo'];
-    existente = json['existente'];
+    if (json['produtos'] != null) {
+      produtos = new List<Produto>();
+      json['produtos'].forEach((v) {
+        produtos.add(new Produto.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -43,14 +58,20 @@ class Loja {
     data['id'] = this.id;
     data['nome'] = this.nome;
     data['telefone'] = this.telefone;
-    data['ativo'] = this.ativo;
     data['tipoPessoa'] = this.tipoPessoa;
-    data['dataRegistro'] = this.dataRegistro;
+    data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['foto'] = this.foto;
+    if (this.usuario != null) {
+      data['usuario'] = this.usuario.toJson();
+    }
+    if (this.enderecos != null) {
+      data['enderecos'] = this.enderecos.map((v) => v.toJson()).toList();
+    }
     data['razaoSocial'] = this.razaoSocial;
     data['cnpj'] = this.cnpj;
-    data['novo'] = this.novo;
-    data['existente'] = this.existente;
+    if (this.produtos != null) {
+      data['produtos'] = this.produtos.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

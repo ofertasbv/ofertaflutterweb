@@ -1,43 +1,30 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
-import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
-import 'package:nosso/src/util/filter/produto_filter.dart';
+import 'package:nosso/src/core/controller/subcategoria_controller.dart';
+import 'package:nosso/src/core/model/subcategoria.dart';
 
-class ProdutoList extends StatefulWidget {
+class SubCategoriaList extends StatefulWidget {
   @override
-  _ProdutoListState createState() => _ProdutoListState();
+  _SubCategoriaListState createState() => _SubCategoriaListState();
 }
 
-class _ProdutoListState extends State<ProdutoList>
-    with AutomaticKeepAliveClientMixin<ProdutoList> {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-
-  ProdutoFilter filter = ProdutoFilter();
+class _SubCategoriaListState extends State<SubCategoriaList>
+    with AutomaticKeepAliveClientMixin<SubCategoriaList> {
+  final subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   @override
   void initState() {
-    var nomeProduto;
-    var nomeSubCategoria = "Ali";
-
-    if (nomeProduto != null) {
-      filter.nomeProduto = nomeProduto;
-    }
-
-    if (nomeSubCategoria != null) {
-      filter.nomeSubCategoria = nomeSubCategoria;
-    }
-
-    produtoController.getFilter(filter);
+    subCategoriaController.getAll();
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return produtoController.getAll();
+    return subCategoriaController.getAll();
   }
 
   @override
@@ -46,36 +33,39 @@ class _ProdutoListState extends State<ProdutoList>
   }
 
   builderConteudoList() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<Produto> produtos = produtoController.produtos;
-          if (produtoController.error != null) {
-            return Text("Não foi possível buscar produtos");
-          }
+    return Observer(
+      builder: (context) {
+        List<SubCategoria> categorias = subCategoriaController.subCategorias;
+        if (subCategoriaController.error != null) {
+          return Text("Não foi possível carregados dados");
+        }
 
-          if (produtos == null) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          return RefreshIndicator(
-            onRefresh: onRefresh,
-            child: builderList(produtos),
+        if (categorias == null) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.purple,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
+            ),
           );
-        },
-      ),
+        }
+
+        return RefreshIndicator(
+          onRefresh: onRefresh,
+          child: builderList(categorias),
+        );
+      },
     );
   }
 
-  ListView builderList(List<Produto> produtos) {
-    double containerWidth = 160;
-    double containerHeight = 30;
+  ListView builderList(List<SubCategoria> categorias) {
+    double containerWidth = 100;
+    double containerHeight = 40;
 
     return ListView.builder(
-      itemCount: produtos.length,
+      scrollDirection: Axis.vertical,
+      itemCount: categorias.length,
       itemBuilder: (context, index) {
-        Produto p = produtos[index];
+        SubCategoria c = categorias[index];
 
         return GestureDetector(
           child: Column(
@@ -92,7 +82,7 @@ class _ProdutoListState extends State<ProdutoList>
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          ConstantApi.urlArquivoProduto + p.foto,
+                          ConstantApi.urlArquivoSubCategoria + c.foto,
                           fit: BoxFit.cover,
                           width: 100,
                           height: 100,
@@ -109,7 +99,7 @@ class _ProdutoListState extends State<ProdutoList>
                               width: containerWidth,
                               //color: Colors.grey[300],
                               child: Text(
-                                p.nome,
+                                c.nome,
                               ),
                             ),
                             SizedBox(height: 5),
@@ -118,15 +108,7 @@ class _ProdutoListState extends State<ProdutoList>
                               width: containerWidth,
                               //color: Colors.grey[300],
                               child: Text(
-                                p.descricao,
-                              ),
-                            ),
-                            Container(
-                              height: 20,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                              child: Text(
-                                "R\$ ${p.estoque.valor}",
+                                c.categoria.nome,
                               ),
                             ),
                           ],
@@ -143,15 +125,7 @@ class _ProdutoListState extends State<ProdutoList>
               Divider(),
             ],
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ProdutoDetalhesTab(p);
-                },
-              ),
-            );
-          },
+          onTap: () {},
         );
       },
     );
