@@ -58,7 +58,7 @@ class CategoriaRepository {
     var fileDir = file.path;
 
     var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
+      "foto": await MultipartFile.fromFile(fileDir, filename: fileName)
     };
 
     FormData formData = FormData.fromMap(paramentros);

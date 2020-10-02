@@ -43,6 +43,17 @@ class ProdutoRepository {
     return null;
   }
 
+  Future<List<Produto>> getAllBySubCategoriaById(int id) async {
+    try {
+      print("carregando produtos da subcategoria");
+      var response = await dio.client.get("/produtos/subcategoria/$id");
+      return (response.data as List).map((c) => Produto.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     try {
       var response = await dio.client.post("/produtos/create", data: data);

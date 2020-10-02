@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/permissao.dart';
@@ -6,7 +7,8 @@ import 'package:nosso/src/core/repository/permissao_repository.dart';
 part 'permissao_controller.g.dart';
 
 class PermissaoController = PermissaoControllerBase with _$PermissaoController;
-abstract class PermissaoControllerBase with Store{
+
+abstract class PermissaoControllerBase with Store {
   PermissaoRepository _permissaoRepository;
 
   PermissaoControllerBase() {
@@ -21,6 +23,9 @@ abstract class PermissaoControllerBase with Store{
 
   @observable
   Exception error;
+
+  @observable
+  String errorMessage;
 
   @action
   Future<List<Permissao>> getAll() async {
@@ -37,8 +42,12 @@ abstract class PermissaoControllerBase with Store{
     try {
       permissao = await _permissaoRepository.create(p.toJson());
       return permissao;
-    } catch (e) {
-      error = e;
+    } on HttpException {
+      errorMessage = "Erro 404: Dados não encontrado";
+    } on SocketException {
+      errorMessage = "Internet não está conectada";
+    } on FormatException {
+      errorMessage = "Url inválida";
     }
   }
 }

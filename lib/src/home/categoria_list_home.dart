@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
+import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
 
 class CategoriaListHome extends StatefulWidget {
   @override
@@ -139,7 +140,17 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
               ),
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaSubCategoria(
+                    c: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

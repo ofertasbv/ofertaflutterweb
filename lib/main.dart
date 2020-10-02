@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.orange,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: Colors.white,
+        primaryColor: Colors.black,
+        accentColor: Colors.purple,
       ),
       home: HomePage(),
     );

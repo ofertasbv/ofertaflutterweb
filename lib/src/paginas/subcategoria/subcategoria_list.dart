@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class SubCategoriaList extends StatefulWidget {
   @override
@@ -41,12 +42,7 @@ class _SubCategoriaListState extends State<SubCategoriaList>
         }
 
         if (categorias == null) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.purple,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
-            ),
-          );
+          return CircularProgressor();
         }
 
         return RefreshIndicator(

@@ -7,6 +7,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class LojaList extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _LojaListState extends State<LojaList>
           }
 
           if (lojas == null) {
-            return Center(child: CircularProgressIndicator());
+            return CircularProgressor();
           }
 
           return RefreshIndicator(

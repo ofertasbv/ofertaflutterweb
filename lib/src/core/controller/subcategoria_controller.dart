@@ -2,10 +2,10 @@ import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/subcategoria_repository.dart';
 
-
 part 'subcategoria_controller.g.dart';
 
-class SubCategoriaController = SubCategoriaControllerBase with _$SubCategoriaController;
+class SubCategoriaController = SubCategoriaControllerBase
+    with _$SubCategoriaController;
 
 abstract class SubCategoriaControllerBase with Store {
   SubCategoriaRepository _subCategoriaRepository;
@@ -27,6 +27,16 @@ abstract class SubCategoriaControllerBase with Store {
   Future<List<SubCategoria>> getAll() async {
     try {
       subCategorias = await _subCategoriaRepository.getAll();
+      return subCategorias;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<List<SubCategoria>> getAllByCategoriaById(int id) async {
+    try {
+      subCategorias = await _subCategoriaRepository.getAllByCategoriaById(id);
       return subCategorias;
     } catch (e) {
       error = e;

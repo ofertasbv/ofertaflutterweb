@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/drawer_list.dart';
+import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
+import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_list.dart';
 
@@ -47,7 +49,12 @@ class _HomePageState extends State<HomePage>
               icon: Icon(
                 CupertinoIcons.search,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: ProdutoSearchDelegate(),
+                );
+              },
             ),
             buildGestureDetector(context),
             IconButton(
@@ -99,7 +106,7 @@ class _HomePageState extends State<HomePage>
             ),
           ],
           currentIndex: elementIndex,
-          selectedItemColor: Colors.yellow[900],
+          selectedItemColor: Colors.black54,
           unselectedItemColor: Colors.grey,
           unselectedLabelStyle: TextStyle(color: Colors.grey),
           backgroundColor: Colors.white,
@@ -145,7 +152,7 @@ class _HomePageState extends State<HomePage>
 
   List lista = [
     CatalogoHome(),
-    SubCategoriaList(),
+    CategoriaList(),
     LojaList(),
     PromocaoList(),
     ProdutoList(),

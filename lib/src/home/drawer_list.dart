@@ -1,7 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/home.dart';
+import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/util/config/config_page.dart';
+import 'package:nosso/src/util/sobre/sobre_page.dart';
 
 class DrawerList extends StatelessWidget {
   @override
@@ -95,7 +99,12 @@ class DrawerList extends StatelessWidget {
             "Buscar",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            showSearch(
+              context: context,
+              delegate: ProdutoSearchDelegate(),
+            );
+          },
         ),
         ListTile(
           selected: true,
@@ -128,7 +137,16 @@ class DrawerList extends StatelessWidget {
             "Ofertas",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PromocaoPage();
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           selected: true,
@@ -139,7 +157,16 @@ class DrawerList extends StatelessWidget {
             "Categorias",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaPage();
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           selected: true,
@@ -161,7 +188,16 @@ class DrawerList extends StatelessWidget {
             "Configurações",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ConfigPage();
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           selected: true,
@@ -172,7 +208,16 @@ class DrawerList extends StatelessWidget {
             "Sobre",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SobrePage();
+                },
+              ),
+            );
+          },
         )
       ],
     );

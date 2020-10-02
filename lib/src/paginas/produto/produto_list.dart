@@ -7,6 +7,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class ProdutoList extends StatefulWidget {
   @override
@@ -56,7 +57,7 @@ class _ProdutoListState extends State<ProdutoList>
           }
 
           if (produtos == null) {
-            return Center(child: CircularProgressIndicator());
+            return CircularProgressor();
           }
 
           return RefreshIndicator(

@@ -34,6 +34,19 @@ class SubCategoriaRepository {
     return null;
   }
 
+  Future<List<SubCategoria>> getAllByCategoriaById(int id) async {
+    try {
+      print("carregando subcategorias da categoria");
+      var response = await dio.client.get("/subcategorias/categoria/$id");
+      return (response.data as List)
+          .map((c) => SubCategoria.fromJson(c))
+          .toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     try {
       var response = await dio.client.post("/subcategorias/create", data: data);

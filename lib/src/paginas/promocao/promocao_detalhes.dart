@@ -1,93 +1,76 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/model/loja.dart';
+import 'package:nosso/src/core/controller/promocao_controller.dart';
+import 'package:nosso/src/core/model/promocao.dart';
 
-class LojaDetalhes extends StatefulWidget {
-  Loja loja;
+class PromocaoDetalhes extends StatefulWidget {
+  Promocao p;
 
-  LojaDetalhes({Key key, this.loja}) : super(key: key);
+  PromocaoDetalhes(this.p);
 
   @override
-  _LojaDetalhesState createState() => _LojaDetalhesState(p: this.loja);
+  _PromocaoDetalhesState createState() => _PromocaoDetalhesState();
 }
 
-class _LojaDetalhesState extends State<LojaDetalhes> {
-  Loja p;
+class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
+  var selectedCard = 'WEIGHT';
+  PromoCaoController _promocaoController = GetIt.I.get<PromoCaoController>();
 
-  _LojaDetalhesState({this.p});
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    Promocao p = widget.p;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(p.nome),
+        elevation: 0.0,
         actions: <Widget>[
           IconButton(
             icon: Icon(
               CupertinoIcons.search,
             ),
-            onPressed: () {},
+            onPressed: () {
+              // showSearch(
+              //   context: context,
+              //   delegate: ProdutoSearchDelegate(),
+              // );
+            },
           )
         ],
       ),
       body: buildContainer(p),
-      bottomNavigationBar: buildBottomNavigationBar(context),
+      bottomNavigationBar: buildBottomNavigationBar(context, p),
     );
   }
 
-  buildContainer(Loja p) {
+  buildContainer(Promocao p) {
     return ListView(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.2,
-          child: Image.network(ConstantApi.urlArquivoLoja + p.foto,
-              fit: BoxFit.fill),
+          child: Image.network(
+            ConstantApi.urlArquivoPromocao + p.foto,
+            fit: BoxFit.cover,
+          ),
         ),
-        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(10),
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    p.nome,
-                  ),
-                  SizedBox(height: 10),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[200],
-                    foregroundColor: Colors.redAccent,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.location_city,
-                        color: Colors.redAccent,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+              Text(
+                p.nome,
               ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    p.telefone,
-                  ),
-                  SizedBox(height: 10),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[200],
-                    foregroundColor: Colors.redAccent,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.phone_forwarded,
-                        color: Colors.greenAccent,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
+              Text(
+                p.descricao,
               ),
             ],
           ),
@@ -97,18 +80,33 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              ListTile(
-                title: Text(
-                  "${p.nome}",
-                ),
-                leading: Icon(Icons.local_convenience_store),
+              Text(
+                "Código: ${p.id}"
               ),
-              // ListTile(
-              //   title: Text(
-              //     "${p.enderecos[0].logradouro}, ${p.enderecos[0].numero} - ${p.enderecos[0].bairro}",
-              //   ),
-              //   leading: Icon(Icons.location_on),
-              // ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Promoção: ${p.nome}"
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Descrição: ${p.descricao}"
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Mercado: ${p.loja.nome}"
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Desconto: ${p.desconto} %",
+              ),
             ],
           ),
         ),
@@ -116,7 +114,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
     );
   }
 
-  buildBottomNavigationBar(BuildContext context) {
+  buildBottomNavigationBar(BuildContext context, Promocao p) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: 50.0,
@@ -129,7 +127,17 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) {
+                //       return ProdutoPage(
+                //         p: p,
+                //       );
+                //     },
+                //   ),
+                // );
+              },
               color: Colors.grey,
               child: Center(
                 child: Row(
@@ -143,7 +151,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                       width: 4.0,
                     ),
                     Text(
-                      "MAIS OFERTAS",
+                      "ESCOLHER MAIS",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -155,7 +163,15 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (BuildContext context) {
+                //       return PromocaoPage();
+                //     },
+                //   ),
+                // );
+              },
               color: Colors.yellow[800],
               child: Center(
                 child: Row(
@@ -169,7 +185,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                       width: 4.0,
                     ),
                     Text(
-                      "MAIS LOJAS",
+                      "MAIS OFERTAS",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

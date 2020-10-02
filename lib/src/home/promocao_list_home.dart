@@ -8,6 +8,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/paginas/promocao/promocao_detalhes.dart';
 
 class PromocaoListHome extends StatefulWidget {
   Loja p;
@@ -132,7 +133,15 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
               ),
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PromocaoDetalhes(p);
+                },
+              ),
+            );
+          },
         );
       },
     );
