@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
+import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
@@ -329,13 +331,13 @@ class _ConfigPageState extends State<ConfigPage> {
         ),
         GestureDetector(
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return MapaPageApp();
-            //     },
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaLocation();
+                },
+              ),
+            );
           },
           child: Column(
             children: <Widget>[
@@ -353,15 +355,16 @@ class _ConfigPageState extends State<ConfigPage> {
             ],
           ),
         ),
+
         GestureDetector(
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return TesteCard();
-            //     },
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MarcaPage();
+                },
+              ),
+            );
           },
           child: Column(
             children: <Widget>[
@@ -375,33 +378,7 @@ class _ConfigPageState extends State<ConfigPage> {
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text("Card"),
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return LayoutHomeApp();
-            //     },
-            //   ),
-            // );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.add_alert,
-                  size: 40,
-                ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Layout"),
+              Text("Marca"),
             ],
           ),
         ),

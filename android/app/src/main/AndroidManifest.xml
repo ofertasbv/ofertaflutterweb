@@ -10,6 +10,10 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="nosso">
+
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAEHyA8-iuEmiK1Yz0RiIHKsJ5h5jwpA6A"/>
+
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

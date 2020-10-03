@@ -98,26 +98,17 @@ class _LojaListState extends State<LojaList>
                               width: containerWidth,
                               //color: Colors.grey[300],
                               child: Text(
-                                p.nome,
+                                p.razaoSocial,
                               ),
                             ),
                             SizedBox(height: 5),
-                            // Container(
-                            //   height: containerHeight,
-                            //   width: containerWidth,
-                            //   color: Colors.grey[300],
-                            //  child: Text(
-                            //    "${p.enderecos[0].logradouro}, ${p.enderecos[0].numero} - ${p.enderecos[0].bairro}",
-                            //  ),
-                            // ),
-                            SizedBox(height: 5),
                             Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                              child: Text(
-                                p.razaoSocial,
-                              ),
+                              height: 40,
+                              width: containerWidth,
+                              color: Colors.grey[100],
+                             child: Text(
+                               "${p.enderecos[0].logradouro}, ${p.enderecos[0].numero} - ${p.enderecos[0].bairro}",
+                             ),
                             ),
                             SizedBox(height: 5),
                           ],

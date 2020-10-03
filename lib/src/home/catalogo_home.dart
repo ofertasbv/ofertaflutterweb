@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
+import 'package:nosso/src/paginas/loja/loja_location.dart';
 
 class CatalogoHome extends StatefulWidget {
   @override
@@ -43,6 +44,13 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                   ],
                 ),
                 onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return LojaLocation();
+                      },
+                    ),
+                  );
                 },
               ),
               VerticalDivider(color: Colors.grey),

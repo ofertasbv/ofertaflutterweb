@@ -5,6 +5,7 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
+import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/pedido_controller.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
@@ -27,6 +28,7 @@ void main() async {
   getIt.registerSingleton<PermissaoController>(PermissaoController());
   getIt.registerSingleton<ClienteController>(ClienteController());
   getIt.registerSingleton<LojaController>(LojaController());
+  getIt.registerSingleton<MarcaController>(MarcaController());
   runApp(MyApp());
 }
 
@@ -36,14 +38,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: Colors.white,
-        primaryColor: Colors.black,
-        accentColor: Colors.purple,
-      ),
+      theme: buildThemeDataBlack(),
       home: HomePage(),
+    );
+  }
+
+  ThemeData buildThemeDataBlack() {
+    return ThemeData(
+      primarySwatch: Colors.orange,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      scaffoldBackgroundColor: Colors.white,
+      primaryColor: Colors.black,
+      accentColor: Colors.purple,
+    );
+  }
+
+  ThemeData buildThemeDataYellow() {
+    return ThemeData(
+      primarySwatch: Colors.orange,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      scaffoldBackgroundColor: Colors.white,
+      primaryColor: Colors.yellow,
+      accentColor: Colors.purple,
     );
   }
 }

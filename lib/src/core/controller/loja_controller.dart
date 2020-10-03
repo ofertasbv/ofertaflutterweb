@@ -24,12 +24,12 @@ abstract class LojaControllerBase with Store {
 
   @action
   Future<List<Loja>> getAll() async {
-    try {
+    // try {
       lojas = await _lojaRepository.getAll();
       return lojas;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action

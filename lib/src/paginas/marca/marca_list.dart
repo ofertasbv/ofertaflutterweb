@@ -4,30 +4,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/controller/subcategoria_controller.dart';
-import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/paginas/subcategoria/subcategoria_create_page.dart';
+import 'package:nosso/src/core/controller/marca_controller.dart';
+import 'package:nosso/src/core/model/marca.dart';
+import 'package:nosso/src/paginas/marca/marca_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
-class SubCategoriaList extends StatefulWidget {
+class MarcaList extends StatefulWidget {
   @override
-  _SubCategoriaListState createState() => _SubCategoriaListState();
+  _MarcaListState createState() => _MarcaListState();
 }
 
-class _SubCategoriaListState extends State<SubCategoriaList>
-    with AutomaticKeepAliveClientMixin<SubCategoriaList> {
-  final subCategoriaController = GetIt.I.get<SubCategoriaController>();
+class _MarcaListState extends State<MarcaList>
+    with AutomaticKeepAliveClientMixin<MarcaList> {
+  MarcaController marcaController = GetIt.I.get<MarcaController>();
 
   @override
   void initState() {
-    subCategoriaController.getAll();
+    marcaController.getAll();
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return subCategoriaController.getAll();
+    return marcaController.getAll();
   }
+
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +36,41 @@ class _SubCategoriaListState extends State<SubCategoriaList>
   }
 
   builderConteudoList() {
-    return Observer(
-      builder: (context) {
-        List<SubCategoria> categorias = subCategoriaController.subCategorias;
-        if (subCategoriaController.error != null) {
-          return Text("Não foi possível carregados dados");
-        }
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Marca> marcas = marcaController.marcas;
+          if (marcaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
 
-        if (categorias == null) {
-          return CircularProgressor();
-        }
+          if (marcas == null) {
+            return CircularProgressor();
+          }
 
-        return RefreshIndicator(
-          onRefresh: onRefresh,
-          child: builderList(categorias),
-        );
-      },
+          return RefreshIndicator(
+            onRefresh: onRefresh,
+            child: builderList(marcas),
+          );
+        },
+      ),
     );
   }
 
-  ListView builderList(List<SubCategoria> categorias) {
-    double containerWidth = 100;
-    double containerHeight = 40;
+  ListView builderList(List<Marca> marcas) {
+    double containerWidth = 160;
+    double containerHeight = 30;
 
     return ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: categorias.length,
+      itemCount: marcas.length,
       itemBuilder: (context, index) {
-        SubCategoria c = categorias[index];
+        Marca c = marcas[index];
 
-        return GestureDetector(
-          child: Column(
-            children: <Widget>[
-              Padding(
+        return Column(
+          children: <Widget>[
+            GestureDetector(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),
                 child: Container(
                   //color: Colors.grey[200],
@@ -76,15 +79,6 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          ConstantApi.urlArquivoSubCategoria + c.foto,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
                       Container(
                         width: containerWidth,
                         //color: Colors.grey[200],
@@ -95,18 +89,20 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                               height: containerHeight,
                               width: containerWidth,
                               //color: Colors.grey[300],
-                              child: Text(
-                                c.nome,
-                              ),
+                              child: Text(c.nome),
                             ),
                             SizedBox(height: 5),
                             Container(
                               height: containerHeight,
                               width: containerWidth,
                               //color: Colors.grey[300],
-                              child: Text(
-                                c.categoria.nome,
-                              ),
+                              child: Text("Cód. ${c.id}"),
+                            ),
+                            SizedBox(height: 5),
+                            Container(
+                              height: containerHeight,
+                              width: containerWidth * 0.75,
+                              //color: Colors.grey[300],
                             ),
                           ],
                         ),
@@ -121,17 +117,18 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                   ),
                 ),
               ),
-              Divider(),
-            ],
-          ),
-          onTap: () {},
+              onTap: () {
+              },
+            ),
+            Divider(),
+          ],
         );
       },
     );
   }
 
   PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, SubCategoria c) {
+      BuildContext context, Marca c) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),
@@ -145,8 +142,8 @@ class _SubCategoriaListState extends State<SubCategoriaList>
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return SubCategoriaCreatePage(
-                  subCategoria: c,
+                return MarcaCreatePage(
+                  marca: c,
                 );
               },
             ),

@@ -113,15 +113,6 @@ class _PromocaoListState extends State<PromocaoList>
                             SizedBox(height: 5),
                             Container(
                               height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(
-                                p.descricao,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
                               width: containerWidth * 0.75,
                               //color: Colors.grey[300],
                               child: Text(
