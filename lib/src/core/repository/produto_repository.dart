@@ -54,6 +54,17 @@ class ProdutoRepository {
     return null;
   }
 
+  Future<Produto> getProdutoByCodBarra(String codigoBarra) async {
+    try {
+      print("carregando produtos by codigo de barra");
+      var response = await dio.client.get("/produtos/codigobarra/$codigoBarra");
+      return Produto.fromJson(response.data);
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     try {
       var response = await dio.client.post("/produtos/create", data: data);

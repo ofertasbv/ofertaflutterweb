@@ -1,4 +1,3 @@
-
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/repository/categoria_repository.dart';
@@ -6,7 +5,8 @@ import 'package:nosso/src/core/repository/categoria_repository.dart';
 part 'categoria_controller.g.dart';
 
 class CategoriaController = CategoriaControllerBase with _$CategoriaController;
-abstract class CategoriaControllerBase with Store{
+
+abstract class CategoriaControllerBase with Store {
   CategoriaRepository _categoriaRepository;
 
   CategoriaControllerBase() {
@@ -37,6 +37,15 @@ abstract class CategoriaControllerBase with Store{
     try {
       categoria = await _categoriaRepository.create(p.toJson());
       return categoria;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _categoriaRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

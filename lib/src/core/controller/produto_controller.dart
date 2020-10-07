@@ -21,6 +21,9 @@ abstract class ProdutoControllerBase with Store {
   int produto;
 
   @observable
+  Produto produtoSelecionado;
+
+  @observable
   Exception error;
 
   @action
@@ -48,6 +51,16 @@ abstract class ProdutoControllerBase with Store {
     try {
       produtos = await _produtoRepository.getAllBySubCategoriaById(id);
       return produtos;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<Produto> getCodigoBarra(String codBarra) async {
+    try {
+      produtoSelecionado = await _produtoRepository.getProdutoByCodBarra(codBarra);
+      return produtoSelecionado;
     } catch (e) {
       error = e;
     }

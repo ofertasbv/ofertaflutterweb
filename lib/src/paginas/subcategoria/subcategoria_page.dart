@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/paginas/subcategoria/subcategoria_create_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_list.dart';
 
 class SubcategoriaPage extends StatefulWidget {
@@ -73,12 +74,12 @@ class _SubcategoriaPageState extends State<SubcategoriaPage> {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => SubCategoriaCreatePage(),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SubCategoriaCreatePage(),
+                ),
+              );
             },
           )
         ],

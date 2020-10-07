@@ -7,7 +7,7 @@ import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 import 'package:nosso/src/util/sobre/sobre_page.dart';
 
-class DrawerList extends StatelessWidget {
+class DrawerFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -47,7 +47,7 @@ class DrawerList extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 child: Icon(
-                  Icons.account_circle,
+                  Icons.search,
                   size: 30,
                   color: Colors.black,
                 ),
@@ -62,7 +62,7 @@ class DrawerList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "Bem-vindo ao u-nosso",
+                      "Filtro de busca",
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ],

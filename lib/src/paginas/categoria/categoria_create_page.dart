@@ -186,7 +186,13 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text("vá para galeria do seu aparelho..."),
+                                    RaisedButton(
+                                      child: Icon(Icons.delete_forever),
+                                      shape: new CircleBorder(),
+                                      onPressed: () {
+                                        categoriaController.deleteFoto(c.foto);
+                                      },
+                                    ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),

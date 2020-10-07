@@ -38,28 +38,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: buildThemeDataBlack(),
+      theme: ThemeData(
+        // Define the default brightness and colors.
+        brightness: Brightness.light,
+        primaryColor: Colors.blue[900],
+        accentColor: Colors.yellow[700],
+
+        // Define the default font family.
+        fontFamily: 'Georgia',
+
+        // Define the default TextTheme. Use this to specify the default
+        // text styling for headlines, titles, bodies of text, and more.
+        textTheme: TextTheme(
+          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
+          headline6: TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.yellow[700],
+        ),
+        snackBarTheme: SnackBarThemeData(
+          actionTextColor: Colors.red,
+          backgroundColor: Colors.green,
+        ),
+
+        scaffoldBackgroundColor: Colors.grey[100],
+      ),
       home: HomePage(),
     );
   }
 
-  ThemeData buildThemeDataBlack() {
-    return ThemeData(
-      primarySwatch: Colors.orange,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      scaffoldBackgroundColor: Colors.white,
-      primaryColor: Colors.black,
-      accentColor: Colors.purple,
-    );
-  }
-
-  ThemeData buildThemeDataYellow() {
-    return ThemeData(
-      primarySwatch: Colors.orange,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      scaffoldBackgroundColor: Colors.white,
-      primaryColor: Colors.yellow,
-      accentColor: Colors.purple,
-    );
-  }
 }

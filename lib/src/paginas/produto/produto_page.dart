@@ -7,6 +7,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/paginas/produto/drawer_filter.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
@@ -107,6 +108,7 @@ class _ProdutoPageState extends State<ProdutoPage>
         ],
       ),
       body: ProdutoList(),
+      drawer: DrawerFilter(),
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         child: Icon(Icons.add),

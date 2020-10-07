@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
+import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
@@ -61,7 +62,14 @@ class _HomePageState extends State<HomePage>
               icon: Icon(
                 Icons.apps,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CatalogoMenu(),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -107,8 +115,8 @@ class _HomePageState extends State<HomePage>
           ],
           currentIndex: elementIndex,
           selectedItemColor: Colors.black54,
-          unselectedItemColor: Colors.grey,
-          unselectedLabelStyle: TextStyle(color: Colors.grey),
+          unselectedItemColor: Colors.black,
+          unselectedLabelStyle: TextStyle(color: Colors.yellow[900]),
           backgroundColor: Colors.white,
           onTap: changeIndex,
           elevation: 0,
