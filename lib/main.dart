@@ -13,6 +13,7 @@ import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/home/home.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -50,22 +51,34 @@ class MyApp extends StatelessWidget {
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
         textTheme: TextTheme(
-          headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
-          headline6: TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
+          headline1: TextStyle(
+              fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
+          headline6: TextStyle(
+              fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
+          bodyText2: TextStyle(
+              fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
         ),
         iconTheme: IconThemeData(
           color: Colors.yellow[700],
         ),
         snackBarTheme: SnackBarThemeData(
-          actionTextColor: Colors.red,
-          backgroundColor: Colors.green,
+          actionTextColor: Colors.blue,
+          backgroundColor: Colors.yellow,
         ),
-
         scaffoldBackgroundColor: Colors.grey[100],
+        bottomSheetTheme: BottomSheetThemeData(
+          modalElevation: 0,
+          backgroundColor: Colors.yellow.withOpacity(0.8),
+        ),
       ),
+
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [const Locale('pt', 'BR')],
+
       home: HomePage(),
     );
   }
-
 }

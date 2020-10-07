@@ -60,6 +60,7 @@ class CategoriaPage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(

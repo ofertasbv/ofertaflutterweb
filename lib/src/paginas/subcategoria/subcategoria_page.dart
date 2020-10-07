@@ -74,10 +74,13 @@ class _SubcategoriaPageState extends State<SubcategoriaPage> {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SubCategoriaCreatePage(),
+                  builder: (context) {
+                    return SubCategoriaCreatePage();
+                  }
                 ),
               );
             },

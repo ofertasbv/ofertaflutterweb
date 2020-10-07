@@ -9,8 +9,8 @@ class Loja {
   String tipoPessoa;
   DateTime dataRegistro;
   String foto;
-  Usuario usuario;
-  List<Endereco> enderecos;
+  Usuario usuario = new Usuario();
+  Endereco endereco = new Endereco();
   String razaoSocial;
   String cnpj;
   List<Produto> produtos;
@@ -23,7 +23,7 @@ class Loja {
       this.dataRegistro,
       this.foto,
       this.usuario,
-      this.enderecos,
+      this.endereco,
       this.razaoSocial,
       this.cnpj,
       this.produtos});
@@ -35,16 +35,17 @@ class Loja {
     tipoPessoa = json['tipoPessoa'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     foto = json['foto'];
+
     usuario =
         json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
-    if (json['enderecos'] != null) {
-      enderecos = new List<Endereco>();
-      json['enderecos'].forEach((v) {
-        enderecos.add(new Endereco.fromJson(v));
-      });
-    }
+
+    endereco = json['endereco'] != null
+        ? new Endereco.fromJson(json['endereco'])
+        : null;
+
     razaoSocial = json['razaoSocial'];
     cnpj = json['cnpj'];
+
     if (json['produtos'] != null) {
       produtos = new List<Produto>();
       json['produtos'].forEach((v) {
@@ -64,8 +65,8 @@ class Loja {
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
     }
-    if (this.enderecos != null) {
-      data['enderecos'] = this.enderecos.map((v) => v.toJson()).toList();
+    if (this.endereco != null) {
+      data['endereco'] = this.endereco.toJson();
     }
     data['razaoSocial'] = this.razaoSocial;
     data['cnpj'] = this.cnpj;

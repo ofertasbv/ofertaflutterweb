@@ -9,7 +9,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
+import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes.dart';
 
@@ -93,11 +95,11 @@ class _LojaLocationState extends State<LojaLocation> {
     completer.complete(controller);
   }
 
-  Marker markers(Loja p) {
+  markers(Loja p) {
     return Marker(
       markerId: MarkerId(p.nome),
-      position: LatLng(p.enderecos[0].latitude, p.enderecos[0].longitude),
-      infoWindow: InfoWindow(title: p.nome, snippet: p.enderecos[0].logradouro),
+      position: LatLng(p.endereco.latitude, p.endereco.longitude),
+      infoWindow: InfoWindow(title: p.nome, snippet: p.endereco.logradouro),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
   }
@@ -122,7 +124,7 @@ class _LojaLocationState extends State<LojaLocation> {
     }
   }
 
-  void getCurrentLocation() async {
+  getCurrentLocation() async {
     Position res = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState(() {
@@ -194,13 +196,12 @@ class _LojaLocationState extends State<LojaLocation> {
                           BitmapDescriptor.hueOrange),
                       infoWindow: InfoWindow(
                         title: p.nome,
-                        snippet: p.enderecos[0].logradouro +
-                            ", " +
-                            p.enderecos[0].numero,
+                        snippet:
+                            p.endereco.logradouro + ", " + p.endereco.numero,
                       ),
                       markerId: MarkerId(p.nome),
-                      position: LatLng(p.enderecos[0].latitude ?? 0.0,
-                          p.enderecos[0].longitude ?? 0.0),
+                      position: LatLng(p.endereco.latitude ?? 0.0,
+                          p.endereco.longitude ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, p);
                       });
@@ -239,11 +240,9 @@ class _LojaLocationState extends State<LojaLocation> {
                       showDialogAlertTypeMap(context);
                     },
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    backgroundColor: Colors.yellow[800],
                     child: Icon(
                       Icons.map,
                       size: 25,
-                      color: Colors.white,
                     ),
                     tooltip: "tipo de mapa",
                     focusElevation: 5,
@@ -262,19 +261,19 @@ class _LojaLocationState extends State<LojaLocation> {
               margin: EdgeInsets.only(bottom: 0),
               child: Observer(
                 builder: (context) {
-                  List<Loja> pessoas = lojaController.lojas;
+                  List<Loja> lojas = lojaController.lojas;
 
                   if (lojaController.error != null) {
                     return Text("Não foi possível buscar lojas");
                   }
 
-                  if (pessoas == null) {
+                  if (lojas == null) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
 
-                  return builderList(pessoas);
+                  return builderList(lojas);
                 },
               ),
             ),
@@ -336,7 +335,7 @@ class _LojaLocationState extends State<LojaLocation> {
           ),
           onTap: () {
             selectCard(p.nome);
-            movimentarCamera(p.enderecos[0].latitude, p.enderecos[0].longitude);
+            movimentarCamera(p.endereco.latitude, p.endereco.longitude);
           },
         );
       },
@@ -356,7 +355,7 @@ class _LojaLocationState extends State<LojaLocation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("${p.nome}"),
-                Text("${p.enderecos[0].logradouro}, ${p.enderecos[0].numero}"),
+                // Text("${p.enderecos[0].logradouro}, ${p.enderecos[0].numero}"),
               ],
             ),
           ),

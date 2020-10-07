@@ -1,9 +1,9 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
-import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
 import 'package:nosso/src/paginas/marca/marca_create_page.dart';
 import 'package:nosso/src/paginas/marca/marca_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
@@ -61,6 +61,7 @@ class MarcaPage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(

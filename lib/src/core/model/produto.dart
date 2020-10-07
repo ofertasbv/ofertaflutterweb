@@ -23,7 +23,7 @@ class Produto {
   String cor;
   double desconto;
   SubCategoria subCategoria;
-  List<Promocao> promocaos;
+  Promocao promocao;
   Loja loja;
   List<Arquivo> arquivos;
   Estoque estoque;
@@ -47,7 +47,7 @@ class Produto {
       this.cor,
       this.desconto,
       this.subCategoria,
-      this.promocaos,
+      this.promocao,
       this.loja,
       this.arquivos,
       this.estoque,
@@ -73,12 +73,9 @@ class Produto {
     subCategoria = json['subCategoria'] != null
         ? new SubCategoria.fromJson(json['subCategoria'])
         : null;
-    if (json['promocaos'] != null) {
-      promocaos = new List<Promocao>();
-      json['promocaos'].forEach((v) {
-        promocaos.add(new Promocao.fromJson(v));
-      });
-    }
+    promocao = json['promocao'] != null
+        ? new Promocao.fromJson(json['promocao'])
+        : null;
     loja = json['loja'] != null ? new Loja.fromJson(json['loja']) : null;
     if (json['arquivos'] != null) {
       arquivos = new List<Arquivo>();
@@ -112,8 +109,8 @@ class Produto {
     if (this.subCategoria != null) {
       data['subCategoria'] = this.subCategoria.toJson();
     }
-    if (this.promocaos != null) {
-      data['promocaos'] = this.promocaos.map((v) => v.toJson()).toList();
+    if (this.promocao != null) {
+      data['promocao'] = this.promocao.toJson();
     }
     if (this.loja != null) {
       data['loja'] = this.loja.toJson();

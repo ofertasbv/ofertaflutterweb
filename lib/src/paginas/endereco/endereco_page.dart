@@ -1,30 +1,28 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/permissao_controller.dart';
-import 'package:nosso/src/paginas/permissao/permissao_create_page.dart';
-import 'package:nosso/src/paginas/permissao/permissao_list.dart';
+import 'package:nosso/src/core/controller/endereco_controller.dart';
+import 'package:nosso/src/paginas/endereco/endereco_create_page.dart';
+import 'package:nosso/src/paginas/endereco/endereco_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 
-class PermissaoPage extends StatelessWidget {
-  PermissaoController permissaoController = GetIt.I.get<PermissaoController>();
+class EnderecoPage extends StatelessWidget {
+  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Permissões"),
+        title: Text("Endereços"),
         actions: <Widget>[
           Observer(
             builder: (context) {
-              if (permissaoController.error != null) {
+              if (enderecoController.error != null) {
                 return Text("Não foi possível carregar");
               }
 
-              if (permissaoController.permissoes == null) {
+              if (enderecoController.enderecos == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -32,25 +30,15 @@ class PermissaoPage extends StatelessWidget {
 
               return Chip(
                 label: Text(
-                  (permissaoController.permissoes.length ?? 0).toString(),
+                  (enderecoController.enderecos.length ?? 0).toString(),
                   style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },
           ),
-          SizedBox(width: 20),
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 30,
-            ),
-            onPressed: () {
-              showSearch(context: context, delegate: ProdutoSearchDelegate());
-            },
-          )
         ],
       ),
-      body: PermissaoList(),
+      body: EnderecoList(),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -62,11 +50,12 @@ class PermissaoPage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PermissaoCreatePage(),
+                  builder: (context) {
+                    return EnderecoCreatePage();
+                  },
                 ),
               );
             },
