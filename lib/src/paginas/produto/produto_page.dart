@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -8,6 +9,7 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/drawer_filter.dart';
+import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
@@ -113,8 +115,13 @@ class _ProdutoPageState extends State<ProdutoPage>
         elevation: 10,
         child: Icon(Icons.add),
         onPressed: () {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => ProdutoCreatePage()));
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return ProdutoCreatePage();
+            }),
+          );
         },
       ),
     );

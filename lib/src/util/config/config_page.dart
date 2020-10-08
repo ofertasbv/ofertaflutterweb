@@ -30,17 +30,6 @@ class _ConfigPageState extends State<ConfigPage> {
         title: Text("Configurações"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-            ),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: ProdutoSearchDelegate(),
-              );
-            },
-          ),
-          IconButton(
             icon: new Icon(
               Icons.home,
             ),
@@ -102,7 +91,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.shopping_basket,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -131,7 +120,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert_rounded,
+                  Icons.list,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -160,7 +149,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.backpack_rounded,
+                  Icons.list_alt,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -216,7 +205,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.shopping_bag_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -270,7 +259,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.account_circle_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -296,7 +285,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.wifi_lock_sharp,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -322,12 +311,38 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.photo_album_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
               ),
               Text("Arquivo"),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MarcaPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.shopping_bag_sharp,
+                  size: 40,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Marca"),
             ],
           ),
         ),
@@ -348,7 +363,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.map_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -358,32 +373,7 @@ class _ConfigPageState extends State<ConfigPage> {
           ),
         ),
 
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return MarcaPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.add_alert,
-                  size: 40,
-                ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Marca"),
-            ],
-          ),
-        ),
+
 
         GestureDetector(
           onTap: () {
@@ -402,7 +392,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.location_on_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),

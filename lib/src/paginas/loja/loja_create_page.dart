@@ -486,28 +486,28 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.latitude.toString(),
-                                  // onSaved: (value) => e.latitude = value.toString(),
+                                  onSaved: (value) => e.latitude = double.tryParse(value),
                                   validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
+                                  value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Latitude",
                                     hintText: "Latidute",
                                     prefixIcon: Icon(Icons.location_on),
                                   ),
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.longitude.toString(),
-                                  // onSaved: (value) => e.longitude = value,
+                                  onSaved: (value) => e.longitude = double.tryParse(value),
                                   validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
+                                  value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
-                                    labelText: "Latitude",
-                                    hintText: "Latidute",
+                                    labelText: "Longitude",
+                                    hintText: "Longitude",
                                     prefixIcon: Icon(Icons.location_on),
                                   ),
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                               ],
@@ -537,11 +537,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     color: Colors.black,
                     onPressed: () {
                       if (controller.validate()) {
-                        print("Logradouro: ${p.endereco.logradouro}");
-                        print("CNPJ: ${p.cnpj}");
-                        print("Data: ${p.dataRegistro}");
-                        print("Email: ${p.usuario.email}");
-                        print("Foto: ${p.foto}");
+                        // print("Logradouro: ${p.endereco.logradouro}");
+                        // print("CNPJ: ${p.cnpj}");
+                        // print("Data: ${p.dataRegistro}");
+                        // print("Email: ${p.usuario.email}");
+                        // print("Foto: ${p.foto}");
 
                         if (p.foto == null) {
                           showToast("deve anexar uma foto!");

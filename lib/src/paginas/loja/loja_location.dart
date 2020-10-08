@@ -209,8 +209,8 @@ class _LojaLocationState extends State<LojaLocation> {
 
                 return GoogleMap(
                   tiltGesturesEnabled: true,
-                  zoomControlsEnabled: true,
-                  zoomGesturesEnabled: true,
+                  zoomControlsEnabled: false,
+                  zoomGesturesEnabled: false,
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   rotateGesturesEnabled: true,
@@ -355,7 +355,7 @@ class _LojaLocationState extends State<LojaLocation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("${p.nome}"),
-                // Text("${p.enderecos[0].logradouro}, ${p.enderecos[0].numero}"),
+                Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
               ],
             ),
           ),

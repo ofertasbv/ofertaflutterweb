@@ -22,14 +22,6 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
     return Scaffold(
       appBar: AppBar(
         title: Text(p.nome),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-            ),
-            onPressed: () {},
-          )
-        ],
       ),
       body: buildContainer(p),
       bottomNavigationBar: buildBottomNavigationBar(context),

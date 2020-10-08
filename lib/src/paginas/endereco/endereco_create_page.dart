@@ -182,7 +182,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                 ),
                                 TextFormField(
                                   initialValue: e.latitude.toString(),
-                                  // onSaved: (value) => e.latitude = value.toString(),
+                                  onSaved: (value) => e.latitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -190,20 +190,20 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     hintText: "Latidute",
                                     prefixIcon: Icon(Icons.location_on),
                                   ),
-                                  keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                                 TextFormField(
                                   initialValue: e.longitude.toString(),
-                                  // onSaved: (value) => e.longitude = value,
+                                  onSaved: (value) => e.longitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
-                                    labelText: "Latitude",
-                                    hintText: "Latidute",
+                                    labelText: "Longitude",
+                                    hintText: "Longitude",
                                     prefixIcon: Icon(Icons.location_on),
                                   ),
-                                  keyboardType: TextInputType.text,
+                                  keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                               ],
