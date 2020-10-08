@@ -362,9 +362,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  initialValue: e.quantidade.toString(),
+                                  initialValue: p.estoque.quantidade,
                                   onSaved: (value) {
-                                    p.estoque.quantidade = int.parse(value);
+                                    p.estoque.quantidade = value;
                                   },
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
@@ -380,16 +380,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ),
                                   keyboardType: TextInputType.numberWithOptions(
                                       decimal: false, signed: false),
-                                  inputFormatters: <TextInputFormatter>[
-                                    WhitelistingTextInputFormatter.digitsOnly
-                                  ],
                                   maxLength: 6,
                                 ),
                                 TextFormField(
-                                  initialValue:
-                                      e == null ? 0 : e.valor.toString(),
-                                  onSaved: (value) =>
-                                      p.estoque.valor = double.parse(value),
+                                  initialValue: p.estoque.valor,
+                                  onSaved: (value) => p.estoque.valor = value,
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -406,9 +401,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 10,
                                 ),
                                 TextFormField(
-                                  initialValue: p.desconto.toString(),
-                                  onSaved: (value) =>
-                                      p.desconto = double.parse(value),
+                                  initialValue: p.desconto,
+                                  onSaved: (value) => p.desconto = value,
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -467,6 +461,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             child: Column(
                               children: <Widget>[
                                 SwitchListTile(
+                                  autofocus: true,
                                   title: Text("Produto Favorito? "),
                                   subtitle: Text("sim/não"),
                                   value: p.favorito = favorito,
@@ -483,6 +478,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 30),
                                 SwitchListTile(
+                                  autofocus: true,
                                   title: Text("Produto novo? "),
                                   subtitle: Text("sim/não"),
                                   value: p.novo = novo,
@@ -512,6 +508,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 30),
                                 SwitchListTile(
+                                  autofocus: true,
                                   subtitle: Text("sim/não"),
                                   title: Text("Produto destaque?"),
                                   value: p.destaque = destaque,
@@ -527,6 +524,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 30),
                                 SwitchListTile(
+                                  autofocus: true,
                                   subtitle: Text("sim/não"),
                                   title: Text("Produto status?"),
                                   value: p.status = status,
@@ -561,6 +559,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("UNIDADE"),
                                       value: "UNIDADE",
                                       groupValue: p.medida,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.medida = valor;
@@ -576,6 +575,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("PEÇA"),
                                       value: "PECA",
                                       groupValue: p.medida,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.medida = valor;
@@ -591,6 +591,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("QUILOGRAMA"),
                                       value: "QUILOGRAMA",
                                       groupValue: p.medida,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.medida = valor;
@@ -606,6 +607,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("OUTRO"),
                                       value: "OUTRO",
                                       groupValue: p.medida,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.medida = valor;
@@ -639,6 +641,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("PEQUENO"),
                                       value: "PEQUENO",
                                       groupValue: p.tamanho,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.tamanho = valor;
@@ -654,6 +657,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("MEDIO"),
                                       value: "MEDIO",
                                       groupValue: p.tamanho,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.tamanho = valor;
@@ -669,6 +673,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("GRANDE"),
                                       value: "GRANDE",
                                       groupValue: p.tamanho,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.tamanho = valor;
@@ -684,6 +689,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("OUTRO"),
                                       value: "OUTRO",
                                       groupValue: p.tamanho,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.tamanho = valor;
@@ -717,6 +723,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("NACIONAL"),
                                       value: "NACIONAL",
                                       groupValue: p.origem,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.origem = valor;
@@ -732,6 +739,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       title: Text("INTERNACIONAL"),
                                       value: "INTERNACIONAL",
                                       groupValue: p.origem,
+                                      selected: true,
                                       onChanged: (String valor) {
                                         setState(() {
                                           p.origem = valor;

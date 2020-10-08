@@ -1,7 +1,7 @@
 class Estoque {
   int id;
-  int quantidade;
-  double valor;
+  String quantidade;
+  String valor;
 
   Estoque({this.id, this.quantidade, this.valor});
 

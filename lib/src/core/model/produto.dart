@@ -21,7 +21,7 @@ class Produto {
   String origem;
   String tamanho;
   String cor;
-  double desconto;
+  String desconto;
   SubCategoria subCategoria;
   Promocao promocao;
   Loja loja;

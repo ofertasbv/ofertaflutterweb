@@ -140,6 +140,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     DateFormat dateFormatTeste = DateFormat('dd/MM/yyyy');
 
+    NumberFormat numberFormat = NumberFormat("00.00");
+
     p.loja = lojaSelecionada;
 
     return Scaffold(
@@ -172,6 +174,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
+                                  autofocus: true,
                                   initialValue: p.nome,
                                   onSaved: (value) => p.nome = value,
                                   validator: (value) =>
@@ -191,6 +194,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   maxLines: 2,
                                 ),
                                 TextFormField(
+                                  autofocus: true,
                                   initialValue: p.descricao,
                                   onSaved: (value) => p.descricao = value,
                                   validator: (value) =>
@@ -210,9 +214,10 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   keyboardType: TextInputType.text,
                                 ),
                                 TextFormField(
-                                  initialValue: p.desconto.toString(),
-                                  onSaved: (value) =>
-                                      p.desconto = double.parse(value),
+                                  showCursor: true,
+                                  autofocus: true,
+                                  initialValue: p.desconto,
+                                  onSaved: (value) => p.desconto = value,
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -225,14 +230,16 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.number,
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
                                   maxLength: 10,
                                   inputFormatters: [
-                                    ThousandsFormatter(allowFraction: true)
+                                    FilteringTextInputFormatter.digitsOnly
                                   ],
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
+                                  autofocus: true,
                                   initialValue: p.dataRegistro,
                                   format: dateFormatTeste,
                                   validator: (value) =>
@@ -264,6 +271,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
+                                  autofocus: true,
                                   initialValue: p.dataInicio,
                                   format: dateFormatTeste,
                                   validator: (value) =>
@@ -295,6 +303,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
+                                  autofocus: true,
                                   initialValue: p.dataFinal,
                                   format: dateFormatTeste,
                                   validator: (value) =>
