@@ -192,7 +192,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     p.estoque = e;
     p.loja = lojaSelecionada;
     p.subCategoria = subCategoriaSelecionada;
-    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 
     NumberFormat formatter = NumberFormat("00.00");
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
@@ -279,6 +279,36 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "Nome",
                                     hintText: "nome produto",
+                                    prefixIcon: Icon(Icons.shopping_cart),
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                  maxLength: 100,
+                                  maxLines: 3,
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  initialValue: p.sku,
+                                  onSaved: (value) => p.sku = value,
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "SKU",
+                                    hintText: "sku produto",
+                                    prefixIcon: Icon(Icons.shopping_cart),
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                  maxLength: 100,
+                                  maxLines: 3,
+                                ),
+                                SizedBox(height: 20),
+                                TextFormField(
+                                  initialValue: p.cor,
+                                  onSaved: (value) => p.cor = value,
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "Cor",
+                                    hintText: "cor produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
                                   ),
                                   keyboardType: TextInputType.text,
@@ -438,6 +468,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                           "resultado: " + destaque.toString());
                                       showDefaultSnackbar(context,
                                           "Produto disponível: ${destaque.toString()}");
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 30),
+                                SwitchListTile(
+                                  subtitle: Text("sim/não"),
+                                  title: Text("Produto status?"),
+                                  value: p.status = status,
+                                  onChanged: (bool valor) {
+                                    setState(() {
+                                      status = valor;
+                                      print("resultado: " + status.toString());
+                                      showDefaultSnackbar(context,
+                                          "Produto status: ${status.toString()}");
                                     });
                                   },
                                 ),
