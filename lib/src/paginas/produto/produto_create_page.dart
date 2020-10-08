@@ -25,6 +25,7 @@ import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/util/converter/thousandsFormatter.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -83,9 +84,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       e = p.estoque;
     }
 
-    lojaController.getAll();
-    subCategoriaController.getAll();
-    marcaController.getAll();
+    lojas = lojaController.getAll();
+    subCategorias = subCategoriaController.getAll();
+    marcas = marcaController.getAll();
+    promocoes = promocaoController.getAll();
+
     produtoController.getAll();
     audioCache.loadAll(["beep-07.mp3"]);
     super.initState();
@@ -192,11 +195,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     p.estoque = e;
     p.loja = lojaSelecionada;
     p.subCategoria = subCategoriaSelecionada;
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat formatter = NumberFormat("00.00");
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
     double value = 0.19;
+
+    final formata = new NumberFormat("#,##0.00", "pt_BR");
 
     print(formatter.format(initialValue));
     print(formatter.format(value));
@@ -224,6 +229,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   child: Form(
                     key: controller.formKey,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         /* ================ Pequisa codigo de barra ================ */
@@ -247,6 +253,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText:
                                         "Entre com código de barra ou clique (scanner)",
                                     hintText: "Código de barra",
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 20,
@@ -280,10 +291,34 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 3,
+                                  maxLines: 2,
+                                ),
+                                TextFormField(
+                                  initialValue: p.descricao,
+                                  onSaved: (value) => p.descricao = value,
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "Descrição",
+                                    hintText: "descrição produto",
+                                    prefixIcon: Icon(Icons.description),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  keyboardType: TextInputType.text,
+                                  maxLength: 100,
+                                  maxLines: 2,
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
@@ -295,10 +330,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "SKU",
                                     hintText: "sku produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 3,
+                                  maxLines: 1,
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
@@ -310,26 +350,17 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Cor",
                                     hintText: "cor produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 3,
+                                  maxLines: 1,
                                 ),
                                 SizedBox(height: 20),
-                                TextFormField(
-                                  initialValue: p.descricao,
-                                  onSaved: (value) => p.descricao = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Descrição",
-                                    hintText: "descrição produto",
-                                    prefixIcon: Icon(Icons.description),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 100,
-                                  maxLines: 2,
-                                ),
                                 TextFormField(
                                   initialValue: e.quantidade.toString(),
                                   onSaved: (value) {
@@ -341,6 +372,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Quantidade em estoque",
                                     hintText: "quantidade produto",
                                     prefixIcon: Icon(Icons.mode_edit),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.numberWithOptions(
                                       decimal: false, signed: false),
@@ -360,6 +396,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Valor do produto",
                                     hintText: "valor produto",
                                     prefixIcon: Icon(Icons.monetization_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
@@ -373,10 +414,18 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "Desconto do produto",
                                     hintText: "Desconto produto",
-                                    prefixIcon: Icon(Icons.monetization_on),
+                                    prefixIcon: Icon(Icons.money),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
+                                  inputFormatters: [
+                                    ThousandsFormatter(allowFraction: true)
+                                  ],
                                 ),
                                 DateTimeField(
                                   initialValue: p.dataRegistro,
@@ -391,6 +440,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       Icons.calendar_today,
                                       size: 24,
                                     ),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   onShowPicker: (context, currentValue) {
                                     return showDatePicker(
@@ -502,6 +556,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       style: TextStyle(fontSize: 18),
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("UNIDADE"),
                                       value: "UNIDADE",
                                       groupValue: p.medida,
@@ -515,6 +571,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("PEÇA"),
                                       value: "PECA",
                                       groupValue: p.medida,
@@ -528,6 +586,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("QUILOGRAMA"),
                                       value: "QUILOGRAMA",
                                       groupValue: p.medida,
@@ -541,6 +601,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("OUTRO"),
                                       value: "OUTRO",
                                       groupValue: p.medida,
@@ -572,6 +634,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       style: TextStyle(fontSize: 18),
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("PEQUENO"),
                                       value: "PEQUENO",
                                       groupValue: p.tamanho,
@@ -585,6 +649,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("MEDIO"),
                                       value: "MEDIO",
                                       groupValue: p.tamanho,
@@ -598,6 +664,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("GRANDE"),
                                       value: "GRANDE",
                                       groupValue: p.tamanho,
@@ -611,6 +679,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("OUTRO"),
                                       value: "OUTRO",
                                       groupValue: p.tamanho,
@@ -642,6 +712,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       style: TextStyle(fontSize: 18),
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("NACIONAL"),
                                       value: "NACIONAL",
                                       groupValue: p.origem,
@@ -655,6 +727,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
                                       title: Text("INTERNACIONAL"),
                                       value: "INTERNACIONAL",
                                       groupValue: p.origem,
@@ -704,6 +778,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             borderSide:
                                                 BorderSide(color: Colors.white),
                                           ),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 20.0, 20.0, 20.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
                                         ),
                                         hint: Text("Selecione subCategoria..."),
                                         onChanged: (SubCategoria c) {
@@ -717,7 +796,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Container(width: 0.0, height: 0.0);
+                                    return Text(
+                                        "não foi peossível carregar subCategorias");
                                   },
                                 ),
                               ],
@@ -754,6 +834,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             borderSide:
                                                 BorderSide(color: Colors.white),
                                           ),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 20.0, 20.0, 20.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
                                         ),
                                         hint: Text("Selecione marca..."),
                                         onChanged: (Marca c) {
@@ -767,7 +852,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Container(width: 0.0, height: 0.0);
+                                    return Text(
+                                        "não foi peossível carregar marcas");
                                   },
                                 ),
                               ],
@@ -804,6 +890,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             borderSide:
                                                 BorderSide(color: Colors.white),
                                           ),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 20.0, 20.0, 20.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
                                         ),
                                         hint: Text("Selecione loja..."),
                                         onChanged: (Loja c) {
@@ -817,7 +908,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Container(width: 0.0, height: 0.0);
+                                    return Text(
+                                        "não foi peossível carregar lojs");
                                   },
                                 ),
                               ],
@@ -829,6 +921,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             width: double.infinity,
                             padding: EdgeInsets.all(10),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 FutureBuilder<List<Promocao>>(
                                   future: promocoes,
@@ -854,6 +947,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             borderSide:
                                                 BorderSide(color: Colors.white),
                                           ),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 20.0, 20.0, 20.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
                                         ),
                                         hint: Text("Selecione promocao..."),
                                         onChanged: (Promocao c) {
@@ -867,7 +965,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Container(width: 0.0, height: 0.0);
+                                    return Text(
+                                        "não foi peossível carregar ofertas");
                                   },
                                 ),
                               ],

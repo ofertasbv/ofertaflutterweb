@@ -36,7 +36,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
 
   SubCategoria s;
   Categoria categoriaSelecionada;
-  var categoriaSelect = Categoria();
+  Categoria categoriaSelect = Categoria();
 
   Controller controller;
 
@@ -158,7 +158,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(2),
                   child: Form(
                     autovalidate: true,
                     key: controller.formKey,
@@ -179,6 +179,11 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome subcategoria",
                                     prefixIcon: Icon(Icons.edit),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -231,7 +236,8 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Container(width: 0.0, height: 0.0);
+                                    return Text(
+                                        "não foi peossível carregar categorias");
                                   },
                                 ),
                               ],

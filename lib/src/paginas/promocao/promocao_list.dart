@@ -8,6 +8,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PromocaoList extends StatefulWidget {
@@ -153,6 +154,15 @@ class _PromocaoListState extends State<PromocaoList>
         }
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return PromocaoCreatePage(
+                  promocao: p,
+                );
+              },
+            ),
+          );
         }
         if (valor == "delete") {
           print("delete");

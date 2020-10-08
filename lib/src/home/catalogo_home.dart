@@ -1,10 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
+import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
+import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 
 class CatalogoHome extends StatefulWidget {
   @override
@@ -69,12 +70,17 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     ),
                     Text(
                       "publicar",
-
                     ),
                   ],
                 ),
                 onTap: () {
-
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return ProdutoCreatePage();
+                      },
+                    ),
+                  );
                 },
               ),
               VerticalDivider(color: Colors.grey),
@@ -93,12 +99,17 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     ),
                     Text(
                       "cadastre-se",
-
                     ),
                   ],
                 ),
                 onTap: () {
-
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return LojaCreatePage();
+                      },
+                    ),
+                  );
                 },
               ),
             ],
@@ -115,16 +126,12 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                 children: <Widget>[
                   Text(
                     " departamento",
-
                   ),
                   FlatButton(
                     child: Text(
                       "veja mais",
-
                     ),
-                    onPressed: () {
-
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -154,8 +161,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     child: Text(
                       "veja mais",
                     ),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -183,8 +189,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     child: Text(
                       "veja mais",
                     ),
-                    onPressed: () {
-                    },
+                    onPressed: () {},
                   ),
                 ],
               ),

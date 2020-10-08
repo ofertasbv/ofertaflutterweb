@@ -169,7 +169,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -180,12 +180,13 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             padding: EdgeInsets.all(10),
                             child: Column(
                               children: <Widget>[
-                                Text("Dados Comeciais"),
                                 SizedBox(height: 15),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     RadioListTile(
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
                                       title: Text("PESSOA FISICA"),
                                       value: "FISICA",
                                       groupValue: p.tipoPessoa,
@@ -199,6 +200,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                       },
                                     ),
                                     RadioListTile(
+                                      controlAffinity:
+                                      ListTileControlAffinity.trailing,
                                       title: Text("PESSOA JURIDICA"),
                                       value: "JURIDICA",
                                       groupValue: p.tipoPessoa,
@@ -231,6 +234,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome",
                                     prefixIcon: Icon(Icons.people),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -244,6 +252,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Razão social ",
                                     hintText: "razão social",
                                     prefixIcon: Icon(Icons.people),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -257,6 +270,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Cnpj",
                                     hintText: "Cnpj",
                                     prefixIcon: Icon(Icons.contact_mail),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [maskFormatter],
@@ -271,6 +289,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Telefone",
                                     hintText: "Telefone celular",
                                     prefixIcon: Icon(Icons.phone),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.phone,
                                   inputFormatters: [
@@ -292,6 +315,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                       Icons.calendar_today,
                                       size: 24,
                                     ),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   onShowPicker: (context, currentValue) {
                                     return showDatePicker(
@@ -322,6 +350,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Email",
                                     hintText: "Email",
                                     prefixIcon: Icon(Icons.email),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
@@ -337,6 +370,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Senha",
                                     hintText: "Senha",
                                     prefixIcon: Icon(Icons.security),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   obscureText: true,
@@ -409,6 +447,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Logradouro",
                                     hintText: "Logradouro",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -423,6 +466,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Complemento",
                                     hintText: "Complemento",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -437,6 +485,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "TipoEndereço",
                                     hintText: "TipoEndereço",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -450,6 +503,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Número",
                                     hintText: "Número",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
@@ -463,6 +521,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Cep",
                                     hintText: "Cep",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -480,34 +543,53 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Bairro",
                                     hintText: "Bairro",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.latitude.toString(),
-                                  onSaved: (value) => e.latitude = double.tryParse(value),
+                                  onSaved: (value) =>
+                                      e.latitude = double.tryParse(value),
                                   validator: (value) =>
-                                  value.isEmpty ? "campo obrigário" : null,
+                                      value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Latitude",
                                     hintText: "Latidute",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.numberWithOptions(),
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.longitude.toString(),
-                                  onSaved: (value) => e.longitude = double.tryParse(value),
+                                  onSaved: (value) =>
+                                      e.longitude = double.tryParse(value),
                                   validator: (value) =>
-                                  value.isEmpty ? "campo obrigário" : null,
+                                      value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Longitude",
                                     hintText: "Longitude",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.numberWithOptions(),
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                               ],

@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/model/permissao.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
-import 'package:nosso/src/util/componets/button_form.dart';
 
 class PermissaoCreatePage extends StatefulWidget {
   Permissao permissao;
@@ -82,7 +81,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(2),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -102,6 +101,10 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                             labelText: "Nome",
                             hintText: "exe: CADASTRO_ROLE",
                             prefixIcon: Icon(Icons.edit),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,

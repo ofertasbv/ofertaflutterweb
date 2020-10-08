@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
@@ -41,7 +42,7 @@ class DrawerList extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.blue[900],
+          color: Colors.purple[800],
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -52,7 +53,7 @@ class DrawerList extends StatelessWidget {
                   color: Colors.black,
                 ),
                 maxRadius: 20,
-                backgroundColor: Colors.yellow[700],
+                backgroundColor: Colors.yellow[800],
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -178,7 +179,14 @@ class DrawerList extends StatelessWidget {
             "Apps",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CatalogoMenu(),
+              ),
+            );
+          },
         ),
         ListTile(
           selected: true,

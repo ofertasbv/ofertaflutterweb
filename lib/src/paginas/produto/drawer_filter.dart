@@ -41,7 +41,7 @@ class DrawerFilter extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.blue[900],
+          color: Colors.purple[800],
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -52,7 +52,7 @@ class DrawerFilter extends StatelessWidget {
                   color: Colors.black,
                 ),
                 maxRadius: 20,
-                backgroundColor: Colors.yellow[700],
+                backgroundColor: Colors.yellow[800],
               ),
               Container(
                 padding: EdgeInsets.all(10),

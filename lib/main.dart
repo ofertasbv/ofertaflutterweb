@@ -38,47 +38,51 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // Define the default brightness and colors.
-        brightness: Brightness.light,
-        primaryColor: Colors.blue[900],
-        accentColor: Colors.yellow[700],
-
-        // Define the default font family.
-        fontFamily: 'Georgia',
-
-        // Define the default TextTheme. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
-        textTheme: TextTheme(
-          headline1: TextStyle(
-              fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
-          headline6: TextStyle(
-              fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
-          bodyText2: TextStyle(
-              fontSize: 14.0, fontFamily: 'Hind', color: Colors.black),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.yellow[700],
-        ),
-        snackBarTheme: SnackBarThemeData(
-          actionTextColor: Colors.blue,
-          backgroundColor: Colors.yellow,
-        ),
-        scaffoldBackgroundColor: Colors.grey[100],
-        bottomSheetTheme: BottomSheetThemeData(
-          modalElevation: 0,
-          backgroundColor: Colors.yellow.withOpacity(0.8),
-        ),
-      ),
-
+      theme: buildThemeDataBlue(context),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-
       home: HomePage(),
+    );
+  }
+
+  buildThemeDataBlue(BuildContext context) {
+    return ThemeData(
+      backgroundColor: Theme.of(context).bottomAppBarColor,
+      // Define the default brightness and colors.
+      brightness: Brightness.light,
+      primaryColor: Colors.purple[800],
+      accentColor: Colors.yellow[800],
+
+      // Define the default font family.
+      fontFamily: 'Georgia',
+
+      // Define the default TextTheme. Use this to specify the default
+      // text styling for headlines, titles, bodies of text, and more.
+      textTheme: TextTheme(
+        headline1: TextStyle(
+            fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
+        headline6: TextStyle(
+            fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
+        bodyText2:
+            TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.grey[900]),
+      ),
+      iconTheme: IconThemeData(
+        color: Colors.yellow[700],
+      ),
+      snackBarTheme: SnackBarThemeData(
+        actionTextColor: Colors.blue,
+        backgroundColor: Colors.yellow[800],
+      ),
+      scaffoldBackgroundColor: Colors.grey[100],
+      bottomSheetTheme: BottomSheetThemeData(
+        modalElevation: 0,
+        backgroundColor: Colors.yellow.withOpacity(0.8),
+      ),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
 import 'promocao_list.dart';
 
 class PromocaoPage extends StatefulWidget {
@@ -50,15 +51,6 @@ class _PromocaoPageState extends State<PromocaoPage> {
             },
           ),
           SizedBox(width: 20),
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 30,
-            ),
-            onPressed: () {
-              showSearch(context: context, delegate: ProdutoSearchDelegate());
-            },
-          ),
         ],
       ),
       body: PromocaoList(p: p),
@@ -73,10 +65,12 @@ class _PromocaoPageState extends State<PromocaoPage> {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => PromocaoCreatePage()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return PromocaoCreatePage();
+                }),
+              );
             },
           )
         ],

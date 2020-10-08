@@ -9,9 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
-import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes.dart';
 
@@ -27,7 +25,7 @@ class _LojaLocationState extends State<LojaLocation> {
   var selectedCard = 'WEIGHT';
   double distanciaKilomentros = 0;
 
-  //GeolocationStatus geolocationStatus  = await Geolocator().checkGeolocationPermissionStatus();
+  // GeolocationStatus geolocationStatus  = await Geolocator().checkGeolocationPermissionStatus();
   Geolocator geolocator;
   Position position;
 
@@ -185,8 +183,23 @@ class _LojaLocationState extends State<LojaLocation> {
                 }
 
                 if (lojas == null) {
-                  return Center(
-                    child: CircularProgressIndicator(),
+                  return GoogleMap(
+                    tiltGesturesEnabled: true,
+                    zoomControlsEnabled: false,
+                    zoomGesturesEnabled: false,
+                    myLocationEnabled: true,
+                    myLocationButtonEnabled: true,
+                    rotateGesturesEnabled: true,
+                    trafficEnabled: false,
+                    onCameraMove: onCamaraMove,
+                    mapType: mapType,
+                    onMapCreated: criarMapa,
+                    initialCameraPosition: CameraPosition(
+                      target: position != null
+                          ? LatLng(position.latitude, position.longitude)
+                          : lastMapPosition,
+                      zoom: 16.0,
+                    ),
                   );
                 }
 
@@ -269,7 +282,7 @@ class _LojaLocationState extends State<LojaLocation> {
 
                   if (lojas == null) {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: Text("não foi possível carregar lojas"),
                     );
                   }
 

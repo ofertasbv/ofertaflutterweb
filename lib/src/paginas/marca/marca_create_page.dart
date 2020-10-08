@@ -63,7 +63,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -83,6 +83,11 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome categoria",
                                     prefixIcon: Icon(Icons.edit),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,

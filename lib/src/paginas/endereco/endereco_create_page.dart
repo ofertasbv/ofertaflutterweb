@@ -111,7 +111,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -133,6 +133,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Logradouro",
                                     hintText: "Logradouro",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -146,6 +151,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Número",
                                     hintText: "Número",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
@@ -159,6 +169,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Cep",
                                     hintText: "Cep",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -176,6 +191,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Bairro",
                                     hintText: "Bairro",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -189,6 +209,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Latitude",
                                     hintText: "Latidute",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
@@ -202,6 +227,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     labelText: "Longitude",
                                     hintText: "Longitude",
                                     prefixIcon: Icon(Icons.location_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.numberWithOptions(),
                                   maxLength: 50,
