@@ -135,7 +135,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.bar_chart,
+                  Icons.qr_code,
                   size: 30,
                 ),
                 padding: EdgeInsets.all(20),
@@ -163,7 +163,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.search,
+                  Icons.aspect_ratio,
                   size: 30,
                 ),
                 padding: EdgeInsets.all(20),

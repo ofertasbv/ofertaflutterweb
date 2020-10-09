@@ -92,7 +92,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.shopping_basket,
+                  Icons.shopping_basket_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -121,7 +121,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.list,
+                  Icons.list_alt_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -150,7 +150,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.list_alt,
+                  Icons.list_alt_sharp,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -178,7 +178,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.add_alert,
+                  Icons.add_alert_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -234,7 +234,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.people,
+                  Icons.people_alt_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -286,7 +286,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.wifi_lock_sharp,
+                  Icons.account_tree_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),
@@ -338,7 +338,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
-                  Icons.shopping_bag_sharp,
+                  Icons.shopping_bag_outlined,
                   size: 40,
                 ),
                 padding: EdgeInsets.all(20),

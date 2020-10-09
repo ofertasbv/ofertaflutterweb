@@ -23,15 +23,15 @@ class _WebViewSiteState extends State<WebViewSite> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: _clickRefresh,
+            onPressed: clickRefresh,
           )
         ],
       ),
-      body: _webView(),
+      body: webView(),
     );
   }
 
-  _webView() {
+  webView() {
     return IndexedStack(
       index: stackIndex,
       children: <Widget>[
@@ -47,23 +47,26 @@ class _WebViewSiteState extends State<WebViewSite> {
                 navigationDelegate: (request) {
                   return NavigationDecision.navigate;
                 },
-                onPageFinished: _onPageFinished,
+                onPageFinished: onPageFinished,
               ),
             ),
           ],
         ),
         Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.purple,
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
+          ),
         ),
       ],
     );
   }
 
-  void _clickRefresh() {
+  clickRefresh() {
     this.conroller.reload();
   }
 
-  void _onPageFinished(String url) {
+  onPageFinished(String url) {
     setState(() {
       stackIndex = 0;
     });
