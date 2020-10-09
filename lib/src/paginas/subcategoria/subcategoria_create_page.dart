@@ -160,8 +160,8 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 Container(
                   padding: EdgeInsets.all(2),
                   child: Form(
-                    autovalidate: true,
                     key: controller.formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

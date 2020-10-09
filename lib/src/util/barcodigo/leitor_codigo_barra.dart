@@ -100,7 +100,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
           Container(
             padding: EdgeInsets.all(20),
             child: Form(
-              autovalidate: true,
+              autovalidateMode: AutovalidateMode.always,
               key: formkey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,6 +113,12 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                     decoration: InputDecoration(
                       labelText: "Codigo de barra",
                       hintText: "Digite o código de barra",
+                      prefixIcon: Icon(Icons.camera_alt),
+                      contentPadding: EdgeInsets.fromLTRB(
+                          20.0, 20.0, 20.0, 20.0),
+                      border: OutlineInputBorder(
+                          borderRadius:
+                          BorderRadius.circular(5.0)),
                     ),
                     maxLength: 20,
                   ),

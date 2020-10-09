@@ -228,6 +228,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,

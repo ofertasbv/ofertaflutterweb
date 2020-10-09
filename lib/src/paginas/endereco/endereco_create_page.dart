@@ -114,6 +114,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                   padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

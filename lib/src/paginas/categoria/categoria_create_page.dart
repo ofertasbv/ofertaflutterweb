@@ -148,6 +148,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                 Container(
                   padding: EdgeInsets.all(2),
                   child: Form(
+                    autovalidateMode: AutovalidateMode.always,
                     key: controller.formKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

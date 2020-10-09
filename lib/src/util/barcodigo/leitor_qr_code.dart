@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/webview/web_view_site.dart';
 
-
 class LeitorQRCode extends StatefulWidget {
   @override
   _LeitorQRCodeState createState() => new _LeitorQRCodeState();
@@ -65,9 +64,7 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Leitor qr code'
-        ),
+        title: Text('Leitor qr code'),
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
@@ -121,7 +118,7 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
     );
   }
 
-  Widget displayImage() {
+  displayImage() {
     return new SizedBox(
       height: 300.0,
       width: 400.0,
