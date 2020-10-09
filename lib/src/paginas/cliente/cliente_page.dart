@@ -1,29 +1,27 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/marca_controller.dart';
-import 'package:nosso/src/paginas/marca/marca_create_page.dart';
-import 'package:nosso/src/paginas/marca/marca_list.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/core/controller/cliente_controller.dart';
+import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
+import 'package:nosso/src/paginas/cliente/cliente_list.dart';
 
-class MarcaPage extends StatelessWidget {
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
+class ClientePage extends StatelessWidget {
+  ClienteController clienteController = GetIt.I.get<ClienteController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Marcas"),
+        title: Text("Clientes"),
         actions: <Widget>[
           Observer(
             builder: (context) {
-              if (marcaController.error != null) {
+              if (clienteController.error != null) {
                 return Text("Não foi possível carregar");
               }
 
-              if (marcaController.marcas == null) {
+              if (clienteController.clientes == null) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
@@ -31,7 +29,7 @@ class MarcaPage extends StatelessWidget {
 
               return Chip(
                 label: Text(
-                  (marcaController.marcas.length ?? 0).toString(),
+                  (clienteController.clientes.length ?? 0).toString(),
                   style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
@@ -40,7 +38,7 @@ class MarcaPage extends StatelessWidget {
           SizedBox(width: 20),
         ],
       ),
-      body: MarcaList(),
+      body: ClienteList(),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -52,13 +50,10 @@ class MarcaPage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.pop(context);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return MarcaCreatePage();
-                  },
+                  builder: (context) => ClienteCreatePage(),
                 ),
               );
             },

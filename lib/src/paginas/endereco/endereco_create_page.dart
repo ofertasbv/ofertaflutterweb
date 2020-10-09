@@ -137,7 +137,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
@@ -155,7 +155,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
@@ -173,7 +173,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
@@ -195,14 +195,14 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: e.latitude.toString(),
-                                  onSaved: (value) => e.latitude = double.tryParse(value),
+                                  initialValue: e.latitude,
+                                  onSaved: (value) => e.latitude = value,
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -213,14 +213,15 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.numberWithOptions(),
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: e.longitude.toString(),
-                                  onSaved: (value) => e.longitude = double.tryParse(value),
+                                  initialValue: e.longitude,
+                                  onSaved: (value) => e.longitude = value,
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -231,9 +232,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.numberWithOptions(),
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
                                   maxLength: 50,
                                 ),
                               ],

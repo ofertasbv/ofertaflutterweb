@@ -9,8 +9,8 @@ class Endereco {
   String complemento;
   String bairro;
   String cep;
-  double latitude;
-  double longitude;
+  String latitude;
+  String longitude;
   String tipoEndereco;
   Cidade cidade;
 

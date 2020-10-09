@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage>
           unselectedLabelStyle: TextStyle(color: Colors.yellow[900]),
           backgroundColor: Colors.white,
           onTap: changeIndex,
-          elevation: 0,
+          elevation: 1,
         ),
 
 /* ======================= Menu lateral ======================= */

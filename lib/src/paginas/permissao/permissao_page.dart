@@ -39,15 +39,6 @@ class PermissaoPage extends StatelessWidget {
             },
           ),
           SizedBox(width: 20),
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 30,
-            ),
-            onPressed: () {
-              showSearch(context: context, delegate: ProdutoSearchDelegate());
-            },
-          )
         ],
       ),
       body: PermissaoList(),

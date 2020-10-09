@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
@@ -218,13 +219,13 @@ class _ConfigPageState extends State<ConfigPage> {
         ),
         GestureDetector(
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return ClientePage();
-            //     },
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ClientePage();
+                },
+              ),
+            );
           },
           child: Column(
             children: <Widget>[

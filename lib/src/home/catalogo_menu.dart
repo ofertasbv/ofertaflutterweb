@@ -31,17 +31,6 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         title: Text("u-nosso app"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-            ),
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: ProdutoSearchDelegate(),
-              );
-            },
-          ),
-          IconButton(
             icon: new Icon(
               Icons.home,
             ),
@@ -69,25 +58,34 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  color: Colors.transparent,
-                  height: 140,
-                  child: CategoriaListHome(),
-                ),
-                SizedBox(height: 4),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(0),
+                Card(
+                  elevation: 1,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 10),
+                    color: Colors.white,
+                    height: 140,
+                    child: CategoriaListHome(),
                   ),
-                  height: 350,
-                  child: buildGridView(context),
                 ),
                 SizedBox(height: 4),
-                Container(
-                  height: 130,
-                  child: ProdutoListHome(),
+                Card(
+                  elevation: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                    height: 350,
+                    child: buildGridView(context),
+                  ),
+                ),
+                SizedBox(height: 4),
+                Card(
+                  elevation: 1,
+                  child: Container(
+                    height: 130,
+                    child: ProdutoListHome(),
+                  ),
                 ),
               ],
             ),
@@ -97,7 +95,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
     );
   }
 
-  Widget _builderBodyBack() => Container(
+  builderBodyBack() => Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -110,7 +108,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         ),
       );
 
-  GridView buildGridView(BuildContext context) {
+  buildGridView(BuildContext context) {
     return GridView.count(
       padding: EdgeInsets.only(top: 2),
       crossAxisSpacing: 10,

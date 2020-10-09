@@ -36,6 +36,7 @@ class EnderecoPage extends StatelessWidget {
               );
             },
           ),
+          SizedBox(width: 20),
         ],
       ),
       body: EnderecoList(),

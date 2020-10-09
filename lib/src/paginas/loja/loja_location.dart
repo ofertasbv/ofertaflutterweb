@@ -96,7 +96,8 @@ class _LojaLocationState extends State<LojaLocation> {
   markers(Loja p) {
     return Marker(
       markerId: MarkerId(p.nome),
-      position: LatLng(p.endereco.latitude, p.endereco.longitude),
+      position: LatLng(double.tryParse(p.endereco.latitude),
+          double.tryParse(p.endereco.longitude)),
       infoWindow: InfoWindow(title: p.nome, snippet: p.endereco.logradouro),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
@@ -185,8 +186,8 @@ class _LojaLocationState extends State<LojaLocation> {
                 if (lojas == null) {
                   return GoogleMap(
                     tiltGesturesEnabled: true,
-                    zoomControlsEnabled: false,
-                    zoomGesturesEnabled: false,
+                    zoomControlsEnabled: true,
+                    zoomGesturesEnabled: true,
                     myLocationEnabled: true,
                     myLocationButtonEnabled: true,
                     rotateGesturesEnabled: true,
@@ -222,8 +223,8 @@ class _LojaLocationState extends State<LojaLocation> {
 
                 return GoogleMap(
                   tiltGesturesEnabled: true,
-                  zoomControlsEnabled: false,
-                  zoomGesturesEnabled: false,
+                  zoomControlsEnabled: true,
+                  zoomGesturesEnabled: true,
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   rotateGesturesEnabled: true,
@@ -348,7 +349,8 @@ class _LojaLocationState extends State<LojaLocation> {
           ),
           onTap: () {
             selectCard(p.nome);
-            movimentarCamera(p.endereco.latitude, p.endereco.longitude);
+            movimentarCamera(double.tryParse(p.endereco.latitude),
+                double.tryParse(p.endereco.longitude));
           },
         );
       },

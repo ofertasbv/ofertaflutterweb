@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/util/config/config_page.dart';
@@ -117,7 +118,16 @@ class DrawerList extends StatelessWidget {
             "Minha Conta",
           ),
           trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaPage();
+                },
+              ),
+            );
+          },
         ),
         ListTile(
           selected: true,

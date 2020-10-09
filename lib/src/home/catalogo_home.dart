@@ -18,107 +18,110 @@ class _CatalogoHomeState extends State<CatalogoHome> {
     return ListView(
       padding: EdgeInsets.all(0),
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(10),
-          color: Colors.white,
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.green[500],
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "locais",
-                    ),
-                  ],
+        Card(
+          elevation: 1,
+          child: Container(
+            padding: EdgeInsets.all(0),
+            color: Colors.white,
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.green[500],
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "locais",
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return LojaLocation();
+                        },
+                      ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return LojaLocation();
-                      },
-                    ),
-                  );
-                },
-              ),
-              VerticalDivider(color: Colors.grey),
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.shopping_basket,
-                      color: Colors.red[500],
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "publicar",
-                    ),
-                  ],
+                VerticalDivider(color: Colors.grey),
+                GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.shopping_basket,
+                        color: Colors.red[500],
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "publicar",
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return ProdutoCreatePage();
+                        },
+                      ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return ProdutoCreatePage();
-                      },
-                    ),
-                  );
-                },
-              ),
-              VerticalDivider(color: Colors.grey),
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      color: Colors.purple[500],
-                      size: 20,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "cadastre-se",
-                    ),
-                  ],
+                VerticalDivider(color: Colors.grey),
+                GestureDetector(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.edit,
+                        color: Colors.purple[500],
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "cadastre-se",
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return LojaCreatePage();
+                        },
+                      ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return LojaCreatePage();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.grey[100],
-          elevation: 0,
+          color: Colors.white,
+          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(
@@ -147,8 +150,8 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.grey[100],
-          elevation: 0,
+          color: Colors.white,
+          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(
@@ -175,8 +178,8 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.grey[100],
-          elevation: 0,
+          color: Colors.white,
+          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(

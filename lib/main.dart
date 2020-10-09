@@ -75,13 +75,13 @@ class MyApp extends StatelessWidget {
         color: Colors.yellow[700],
       ),
       snackBarTheme: SnackBarThemeData(
-        actionTextColor: Colors.blue,
+        actionTextColor: Colors.purple[800],
         backgroundColor: Colors.yellow[800],
       ),
       scaffoldBackgroundColor: Colors.grey[100],
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
-        backgroundColor: Colors.yellow.withOpacity(0.8),
+        backgroundColor: Colors.yellow[800],
       ),
     );
   }
