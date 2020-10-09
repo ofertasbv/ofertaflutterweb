@@ -166,6 +166,21 @@ class _LojaListState extends State<LojaList>
             ),
           );
         }
+
+        if (valor == "detalhes") {
+          print("detalhes");
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return LojaDetalhes(
+                  loja: p,
+                );
+              },
+            ),
+          );
+        }
+
         if (valor == "delete") {
           print("delete");
         }
@@ -187,6 +202,13 @@ class _LojaListState extends State<LojaList>
           child: ListTile(
             leading: Icon(Icons.edit),
             title: Text('editar'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'detalhes',
+          child: ListTile(
+            leading: Icon(Icons.search),
+            title: Text('detalhes'),
           ),
         ),
         const PopupMenuItem<String>(

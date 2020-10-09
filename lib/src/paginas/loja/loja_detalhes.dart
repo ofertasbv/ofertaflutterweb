@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/loja.dart';
+import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
+import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
 class LojaDetalhes extends StatefulWidget {
   Loja loja;
@@ -37,71 +40,73 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
               fit: BoxFit.fill),
         ),
         SizedBox(height: 0),
-        Container(
-          padding: EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Text(
-                    p.nome,
-                  ),
-                  SizedBox(height: 10),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[200],
-                    foregroundColor: Colors.redAccent,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.location_city,
-                        color: Colors.redAccent,
+        Card(
+          elevation: 1,
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                    Text(p.nome),
+                    SizedBox(height: 10),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      foregroundColor: Colors.redAccent,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.location_city,
+                          color: Colors.redAccent,
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Text(
-                    p.telefone,
-                  ),
-                  SizedBox(height: 10),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[200],
-                    foregroundColor: Colors.redAccent,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.phone_forwarded,
-                        color: Colors.greenAccent,
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    Text(p.telefone),
+                    SizedBox(height: 10),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      foregroundColor: Colors.redAccent,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.phone_forwarded,
+                          color: Colors.greenAccent,
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  "${p.nome}",
+        Card(
+          elevation: 1,
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    "${p.nome}",
+                  ),
+                  leading: Icon(Icons.local_convenience_store),
                 ),
-                leading: Icon(Icons.local_convenience_store),
-              ),
-              // ListTile(
-              //   title: Text(
-              //     "${p.enderecos[0].logradouro}, ${p.enderecos[0].numero} - ${p.enderecos[0].bairro}",
-              //   ),
-              //   leading: Icon(Icons.location_on),
-              // ),
-            ],
+                ListTile(
+                  title: Text(
+                    "${p.endereco.logradouro}, ${p.endereco.numero} - ${p.endereco.bairro}",
+                  ),
+                  leading: Icon(Icons.location_on),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -121,7 +126,15 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PromocaoPage();
+                    },
+                  ),
+                );
+              },
               color: Colors.grey,
               child: Center(
                 child: Row(
@@ -147,7 +160,15 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return LojaPage();
+                    },
+                  ),
+                );
+              },
               color: Colors.yellow[800],
               child: Center(
                 child: Row(
