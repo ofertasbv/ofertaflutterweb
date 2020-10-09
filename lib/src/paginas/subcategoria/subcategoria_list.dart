@@ -81,8 +81,8 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                         child: Image.network(
                           ConstantApi.urlArquivoSubCategoria + c.foto,
                           fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
+                          width: 80,
+                          height: 80,
                         ),
                       ),
                       Container(

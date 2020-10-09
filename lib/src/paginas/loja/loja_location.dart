@@ -214,8 +214,8 @@ class _LojaLocationState extends State<LojaLocation> {
                             p.endereco.logradouro + ", " + p.endereco.numero,
                       ),
                       markerId: MarkerId(p.nome),
-                      position: LatLng(p.endereco.latitude ?? 0.0,
-                          p.endereco.longitude ?? 0.0),
+                      position: LatLng(double.tryParse(p.endereco.latitude) ?? 0.0,
+                          double.tryParse(p.endereco.longitude) ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, p);
                       });

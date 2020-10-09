@@ -266,7 +266,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   elevation: 0.0,
                                   textColor: Colors.grey[200],
                                   color: Colors.orangeAccent,
-                                  icon: Icon(Icons.bar_chart),
+                                  icon: Icon(Icons.photo_camera_outlined),
                                   label: Text("Scanner"),
                                   onPressed: () {
                                     barcodeScanning();

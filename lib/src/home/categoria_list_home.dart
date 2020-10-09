@@ -101,42 +101,43 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
-            child: Container(
-              height: 80,
-              width: 100,
-              //margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    maxRadius: 40,
-                    minRadius: 40,
-                    backgroundColor: Colors.white,
-                    child: Image.network(
-                      ConstantApi.urlArquivoCategoria + c.foto,
-                      fit: BoxFit.fill,
-                      width: 90,
-                      height: 90,
-                    ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    height: 30,
-                    width: containerWidth,
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        c.nome,
+            child: Card(
+              elevation: 1,
+              child: Container(
+                height: 80,
+                width: 100,
+                //margin: EdgeInsets.symmetric(vertical: 7.5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        ConstantApi.urlArquivoCategoria + c.foto,
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 80,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 0),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      height: 30,
+                      width: containerWidth,
+                      color: Colors.transparent,
+                      child: Center(
+                        child: Text(
+                          c.nome,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

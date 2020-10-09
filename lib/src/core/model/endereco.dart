@@ -33,8 +33,8 @@ class Endereco {
     complemento = json['complemento'];
     bairro = json['bairro'];
     cep = json['cep'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
+    latitude = json['latitude'].toString();
+    longitude = json['longitude'].toString();
     tipoEndereco = json['tipoEndereco'];
     cidade =
     json['cidade'] != null ? new Cidade.fromJson(json['cidade']) : null;
@@ -48,8 +48,8 @@ class Endereco {
     data['complemento'] = this.complemento;
     data['bairro'] = this.bairro;
     data['cep'] = this.cep;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
+    data['latitude'] = this.latitude.toString();
+    data['longitude'] = this.longitude.toString();
     data['tipoEndereco'] = this.tipoEndereco;
     if (this.cidade != null) {
       data['cidade'] = this.cidade.toJson();

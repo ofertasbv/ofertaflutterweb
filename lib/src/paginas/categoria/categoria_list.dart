@@ -86,8 +86,8 @@ class _CategoriaListState extends State<CategoriaList>
                         child: Image.network(
                           ConstantApi.urlArquivoCategoria + c.foto,
                           fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
+                          width: 80,
+                          height: 80,
                         ),
                       ),
                       Container(
