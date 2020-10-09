@@ -64,7 +64,6 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
   void showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.greenAccent,
         content: Text(content),
         action: SnackBarAction(
           label: "OK",
@@ -83,9 +82,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
       child: Scaffold(
         backgroundColor: Colors.grey[100],
         appBar: AppBar(
-          title: Text(
-            "Detalhes",
-          ),
+          title: Text("Detalhes"),
           actions: <Widget>[
             IconButton(
               icon: Icon(
@@ -121,11 +118,10 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         border: Border.all(color: Colors.black, width: 1),
-                        color: Colors.greenAccent.withOpacity(.7),
+                        color: Colors.purple.withOpacity(.7),
                       ),
                       child: Center(
-                        child: Text("0"
-                        ),
+                        child: Text("0"),
                       ),
                     ),
                   )
@@ -141,13 +137,11 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
               Tab(
                 child: Text(
                   "VISÃO GERAL",
-
                 ),
               ),
               Tab(
                 child: Text(
                   "INFORMAÇÕES",
-
                 ),
               ),
             ],
@@ -178,8 +172,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {
-              },
+              onPressed: () {},
               color: Colors.grey,
               child: Center(
                 child: Row(
@@ -205,8 +198,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {
-              },
+              onPressed: () {},
               color: Colors.yellow[800],
               child: Center(
                 child: Row(

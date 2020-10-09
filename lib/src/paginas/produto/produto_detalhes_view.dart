@@ -60,7 +60,6 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
   void showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.greenAccent,
         content: Text(content),
         action: SnackBarAction(
           label: "OK",

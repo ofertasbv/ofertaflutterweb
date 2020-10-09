@@ -24,30 +24,16 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   var codigoBarraController = TextEditingController();
   var descricaoController = TextEditingController();
 
-  AudioCache _audioCache = AudioCache(prefix: "audios/");
+  AudioCache audioCache = AudioCache(prefix: "audios/");
 
-  // DateFormat dateFormat = DateFormat('dd-MM-yyyy');
-
-  _executar(String nomeAudio) {
-    _audioCache.play(nomeAudio + ".mp3");
+  executar(String nomeAudio) {
+    audioCache.play(nomeAudio + ".mp3");
   }
 
   @override
   initState() {
+    audioCache.loadAll(["beep-07.mp3"]);
     super.initState();
-    _audioCache.loadAll(["beep-07.mp3"]);
-  }
-
-  File galleryFile;
-
-  imageSelectorGallery() async {
-    galleryFile = await ImagePicker.pickImage(
-      source: ImageSource.gallery,
-      // maxHeight: 50.0,
-      // maxWidth: 50.0,
-    );
-    print("You selected gallery image : " + galleryFile.path);
-    setState(() {});
   }
 
   Controller controller;
@@ -114,11 +100,10 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                       labelText: "Codigo de barra",
                       hintText: "Digite o código de barra",
                       prefixIcon: Icon(Icons.camera_alt),
-                      contentPadding: EdgeInsets.fromLTRB(
-                          20.0, 20.0, 20.0, 20.0),
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                       border: OutlineInputBorder(
-                          borderRadius:
-                          BorderRadius.circular(5.0)),
+                          borderRadius: BorderRadius.circular(5.0)),
                     ),
                     maxLength: 20,
                   ),
@@ -140,45 +125,25 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
     );
   }
 
-  pesquisarCodigo(String codbar) async {
-    // p = await ProdutoApiProvider.getProdutoByCodBarra(codbar);
+  pesquisarCodigo(String codBarra) async {
+    p = await produtoController.getCodigoBarra(codBarra);
     print(p.descricao);
   }
 
-  void showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "Atenção: $cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
 
-  Widget displayImage() {
-    return new SizedBox(
-      height: 300.0,
-      width: 400.0,
-      child: galleryFile == null
-          ? Text('Sorry nothing to display')
-          : Image.file(galleryFile),
-    );
-  }
-
-  // getDateNow() {
-  //   var now = new DateTime.now();
-  //   var formatter = new DateFormat('MM-dd-yyyy H:mm');
-  //   return formatter.format(now);
-  // }
-
-// Method for scanning barcode....
   Future barcodeScanning() async {
-    //imageSelectorGallery();
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() {
-        _executar("beep-07");
+        executar("beep-07");
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;
         pesquisarCodigo(this.barcode);
