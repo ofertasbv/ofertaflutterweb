@@ -107,18 +107,14 @@ class _PromocaoListState extends State<PromocaoList>
                               height: containerHeight,
                               width: containerWidth,
                               //color: Colors.grey[300],
-                              child: Text(
-                                p.nome,
-                              ),
+                              child: Text(p.nome),
                             ),
                             SizedBox(height: 5),
                             Container(
                               height: containerHeight,
                               width: containerWidth * 0.75,
                               //color: Colors.grey[300],
-                              child: Text(
-                                "${p.loja.nome}",
-                              ),
+                              child: Text("${p.desconto}"),
                             ),
                             SizedBox(height: 5),
                           ],

@@ -17,29 +17,34 @@ abstract class PromoCaoControllerBase with Store {
   List<Promocao> promocoes;
 
   @observable
-  int promocao;
+  Promocao promocao;
 
   @observable
   Exception error;
 
-
   @action
   Future<List<Promocao>> getAll() async {
-    try {
-      promocoes = await _promocaoRepository.getAll();
-      return promocoes;
-    } catch (e) {
-      error = e;
-    }
+    // try {
+    promocoes = await _promocaoRepository.getAll();
+    return promocoes;
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action
-  Future<int> create(Promocao p) async {
-    try {
+  Future<Promocao> create(Promocao p) async {
+    // try {
+    if (p.id == null) {
       promocao = await _promocaoRepository.create(p.toJson());
       return promocao;
-    } catch (e) {
-      error = e;
+    } else {
+      promocao = await _promocaoRepository.update(p.toJson(), p.id);
+      return promocao;
     }
+
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 }

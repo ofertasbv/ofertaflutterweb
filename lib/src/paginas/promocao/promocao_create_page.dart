@@ -67,14 +67,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
   onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    String dataAtual = DateFormat("dd/MM/yyyy-HH:mm:ss").format(DateTime.now());
-
+    var atual = DateTime.now();
     setState(() {
       this.file = f;
       String arquivo = file.path.split('/').last;
-      String filePath =
-          arquivo.replaceAll("$arquivo", "promocao-" + dataAtual + ".png");
+      String filePath = arquivo.replaceAll(
+          "$arquivo", "categoria-" + atual.toString() + ".png");
       print("arquivo: $arquivo");
       print("filePath: $filePath");
       p.foto = filePath;
@@ -138,7 +136,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    DateFormat dateFormatTeste = DateFormat('dd/MM/yyyy');
 
     NumberFormat numberFormat = NumberFormat("00.00");
 
@@ -214,35 +211,31 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   maxLines: 2,
                                   keyboardType: TextInputType.text,
                                 ),
-                                TextFormField(
-                                  showCursor: true,
-                                  autofocus: true,
-                                  initialValue: p.desconto,
-                                  onSaved: (value) => p.desconto = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Desconto",
-                                    hintText: "desconto promoção",
-                                    prefixIcon: Icon(Icons.monetization_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  maxLength: 10,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ],
-                                ),
+                                // TextFormField(
+                                //   showCursor: true,
+                                //   autofocus: true,
+                                //   initialValue: p.desconto.toString(),
+                                //   onSaved: (value) => p.desconto = double.parse(value),
+                                //   validator: (value) =>
+                                //       value.isEmpty ? "campo obrigário" : null,
+                                //   decoration: InputDecoration(
+                                //     labelText: "Desconto",
+                                //     hintText: "desconto promoção",
+                                //     prefixIcon: Icon(Icons.monetization_on),
+                                //     contentPadding: EdgeInsets.fromLTRB(
+                                //         20.0, 20.0, 20.0, 20.0),
+                                //     border: OutlineInputBorder(
+                                //         borderRadius:
+                                //             BorderRadius.circular(5.0)),
+                                //   ),
+                                //   keyboardType:
+                                //       TextInputType.number,
+                                //   maxLength: 10,
+                                // ),
                                 SizedBox(height: 15),
                                 DateTimeField(
-                                  autofocus: true,
                                   initialValue: p.dataRegistro,
-                                  format: dateFormatTeste,
+                                  format: dateFormat,
                                   validator: (value) =>
                                       value == null ? "campo obrigário" : null,
                                   onSaved: (value) => p.dataRegistro = value,
@@ -272,14 +265,13 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
-                                  autofocus: true,
                                   initialValue: p.dataInicio,
-                                  format: dateFormatTeste,
+                                  format: dateFormat,
                                   validator: (value) =>
                                       value == null ? "campo obrigário" : null,
                                   onSaved: (value) => p.dataInicio = value,
                                   decoration: InputDecoration(
-                                    labelText: "data início",
+                                    labelText: "data inicio",
                                     hintText: "99-09-9999",
                                     prefixIcon: Icon(
                                       Icons.calendar_today,
@@ -304,14 +296,13 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
-                                  autofocus: true,
                                   initialValue: p.dataFinal,
-                                  format: dateFormatTeste,
+                                  format: dateFormat,
                                   validator: (value) =>
                                       value == null ? "campo obrigário" : null,
                                   onSaved: (value) => p.dataFinal = value,
                                   decoration: InputDecoration(
-                                    labelText: "data ençerramento",
+                                    labelText: "data encerramento",
                                     hintText: "99-09-9999",
                                     prefixIcon: Icon(
                                       Icons.calendar_today,
@@ -332,12 +323,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       locale: Locale('pt', 'BR'),
                                       lastDate: DateTime(2030),
                                     );
-                                  },
-                                  onChanged: (DateTime teste) {
-                                    setState(() {
-                                      p.dataInicio = teste;
-                                      print("${p.dataInicio}");
-                                    });
                                   },
                                 ),
                               ],
@@ -467,6 +452,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           showToast("deve anexar uma foto!");
                         } else {
                           onClickUpload();
+                          // p.desconto = 20.0;
                           promocaoController.create(p);
 
                           Navigator.of(context).pop();

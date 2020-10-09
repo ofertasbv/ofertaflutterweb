@@ -120,12 +120,8 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              Text(
-                                p.nome,
-                              ),
-                              Text(
-                                p.descricao,
-                              )
+                              Text(p.nome),
+                              Text(p.descricao),
                             ],
                           ),
                         ),

@@ -32,35 +32,32 @@ class PromocaoRepository {
     return null;
   }
 
-  Future<int> create(Map<String, dynamic> data) async {
+  Future<Promocao> create(Map<String, dynamic> data) async {
     try {
       var response = await dio.client.post("/promocoes/create", data: data);
-      return response.statusCode;
+      return response.data;
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<Promocao> update(Map<String, dynamic> data, int id) async {
     try {
       var response = await dio.client.patch("/promocoes/$id", data: data);
-      return response.statusCode;
+      return response.data;
     } on DioError catch (e) {
       throw (e.message);
     }
   }
 
   static Future<FormData> upload(File file, String fileName) async {
-    var arquivo = file.path;
+
     var fileDir = file.path;
-
     var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
+      "foto": await MultipartFile.fromFile(fileDir, filename: fileName)
     };
-
     FormData formData = FormData.fromMap(paramentros);
-
     var response = await Dio().post(ConstantApi.urlList + "/promocoes/upload", data: formData);
     print("RESPONSE: $response");
     print("fileDir: $fileDir");
