@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
@@ -28,7 +29,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
   _CategoriaSubCategoriaState({this.c});
 
-  var selectedCard = 'WEIGHT';
+  String selectedCard = 'WEIGHT';
 
   @override
   void initState() {
@@ -58,24 +59,74 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             icon: Icon(Icons.refresh),
             onPressed: () {
               subCategoriaController.getAll();
+              setState(() {
+                c = c;
+              });
             },
           ),
         ],
       ),
       body: Container(
-        //color: Colors.grey,
-        child: Row(
+        height: MediaQuery.of(context).size.height,
+        color: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(2),
-              width: 80,
-              child: builderConteudoListCategoria(),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: 150,
+                child: builderConteudoListCategoria(),
+              ),
             ),
-            Container(
-              padding: EdgeInsets.all(2),
-              width: 262,
-              child: builderConteutoListSubCategoria(),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: 50,
+                width: double.infinity,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Chip(
+                      label: Text(
+                        c == null ? "sem busca" : (c.nome),
+                      ),
+                    ),
+                    Observer(
+                      builder: (context) {
+                        if (subCategoriaController.error != null) {
+                          return Text("Não foi possível carregar");
+                        }
+
+                        if (subCategoriaController.subCategorias == null) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return Chip(
+                          label: Text(
+                            (subCategoriaController.subCategorias.length ?? 0)
+                                .toString(),
+                            style: TextStyle(color: Colors.deepOrangeAccent),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: 380,
+                color: Colors.transparent,
+                child: builderConteutoListSubCategoria(),
+              ),
+            )
           ],
         ),
       ),
@@ -108,61 +159,61 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   }
 
   builderListCategoria(List<Categoria> categorias) {
-    double containerWidth = 80;
-    double containerHeight = 30;
+    double containerWidth = 110;
+    double containerHeight = 15;
 
     return ListView.builder(
+      scrollDirection: Axis.horizontal,
       itemCount: categorias.length,
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
-        return Column(
-          children: [
-            GestureDetector(
-              child: AnimatedContainer(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(0),
-                ),
-                duration: Duration(seconds: 2),
-                curve: Curves.bounceIn,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(2),
-                            topRight: Radius.circular(2)),
-                        color: Colors.yellow,
+
+        return GestureDetector(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6),
+            child: AnimatedContainer(
+              width: 100,
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                color:
+                    c.nome == selectedCard ? Colors.greenAccent : Colors.white,
+              ),
+              margin: EdgeInsets.symmetric(vertical: 7.5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Image.network(
+                          ConstantApi.urlArquivoCategoria + c.foto,
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 80,
+                        ),
                       ),
-                      child: Image.network(
-                        ConstantApi.urlArquivoCategoria + c.foto,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: 51,
-                      ),
-                    ),
-                    SizedBox(height: 0),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      height: 30,
-                      width: containerWidth,
-                      color: Colors.white,
-                      child: Center(
+                      SizedBox(height: 0),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        height: 40,
+                        width: containerWidth,
+                        color: Colors.grey[100],
                         child: Text(c.nome),
                       ),
-                    ),
-                    SizedBox(height: 4),
-                  ],
-                ),
+                    ],
+                  )
+                ],
               ),
-              onTap: () {
-                subCategoriaController.getAllByCategoriaById(c.id);
-              },
             ),
-            Divider()
-          ],
+          ),
+          onTap: () {
+            selectCard(c.nome);
+            print("id catgeoria ${c.id}");
+            subCategoriaController.getAllByCategoriaById(c.id);
+          },
         );
       },
     );
@@ -213,7 +264,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   }
 
   builderListSubCategoria(List<SubCategoria> subCategorias) {
-    double containerWidth = 200;
+    double containerWidth = MediaQuery.of(context).size.width;
     double containerHeight = 30;
 
     return ListView.builder(
@@ -226,6 +277,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           children: [
             GestureDetector(
               child: Container(
+                width: containerWidth,
                 color: Colors.white,
                 child: Row(
                   children: <Widget>[

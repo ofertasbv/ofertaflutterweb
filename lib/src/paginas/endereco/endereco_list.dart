@@ -102,6 +102,7 @@ class _EnderecoListState extends State<EnderecoList>
                             Container(
                               height: containerHeight,
                               width: containerWidth * 0.75,
+                              child: Text(c.cep),
                               //color: Colors.grey[300],
                             ),
                           ],

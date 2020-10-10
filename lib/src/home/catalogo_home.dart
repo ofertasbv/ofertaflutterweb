@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
+import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
+import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
 class CatalogoHome extends StatefulWidget {
   @override
@@ -139,7 +142,15 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     child: Text(
                       "veja mais",
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return CategoriaPage();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -169,7 +180,15 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     child: Text(
                       "veja mais",
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return PromocaoPage();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -197,7 +216,15 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     child: Text(
                       "veja mais",
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ProdutoPage();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

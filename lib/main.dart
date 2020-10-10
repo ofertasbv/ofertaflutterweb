@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
-        color: Colors.grey[100],
+        color: Colors.white,
         elevation: 1,
       ),
 

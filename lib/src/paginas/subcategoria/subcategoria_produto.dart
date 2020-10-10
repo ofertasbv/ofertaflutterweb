@@ -77,7 +77,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Departamento"),
+        title: Text("Produtos por departamento"),
         actions: <Widget>[
           SizedBox(width: 20),
           IconButton(
@@ -95,48 +95,55 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(5),
-              height: 150,
-              child: builderConteudoListSubCategoria(),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                height: 150,
+                child: builderConteudoListSubCategoria(),
+              ),
             ),
-            Container(
-              padding: EdgeInsets.only(left: 15, right: 10),
-              height: 50,
-              width: double.infinity,
-//              color: Colors.grey,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    subCategoria == null ? "sem busca" : (subCategoria.nome),
-                  ),
-                  Observer(
-                    builder: (context) {
-                      if (produtoController.error != null) {
-                        return Text("Não foi possível carregar");
-                      }
+            Card(
+              child: Container(
+                padding: EdgeInsets.only(left: 15, right: 10),
+                height: 50,
+                width: double.infinity,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Chip(
+                      label: Text(
+                        subCategoria == null
+                            ? "sem busca"
+                            : (subCategoria.nome),
+                      ),
+                    ),
+                    Observer(
+                      builder: (context) {
+                        if (produtoController.error != null) {
+                          return Text("Não foi possível carregar");
+                        }
 
-                      if (produtoController.produtos == null) {
-                        return Center(
-                          child: CircularProgressIndicator(),
+                        if (produtoController.produtos == null) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return Chip(
+                          label: Text(
+                            (produtoController.produtos.length ?? 0).toString(),
+                            style: TextStyle(color: Colors.deepOrangeAccent),
+                          ),
                         );
-                      }
-
-                      return Chip(
-                        label: Text(
-                          (produtoController.produtos.length ?? 0).toString(),
-                          style: TextStyle(color: Colors.deepOrangeAccent),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
-              height: 400,
+              height: 380,
               color: Colors.transparent,
               child: builderConteudoListProduto(),
             )
@@ -166,7 +173,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     );
   }
 
-  ListView builderListSubCategoria(List<SubCategoria> categorias) {
+  builderListSubCategoria(List<SubCategoria> categorias) {
     double containerWidth = 110;
     double containerHeight = 15;
 
@@ -208,10 +215,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                         padding: EdgeInsets.all(5),
                         height: 40,
                         width: containerWidth,
-                        //color: Colors.grey[200],
-                        child: Text(
-                          c.nome,
-                        ),
+                        color: Colors.grey[100],
+                        child: Text(c.nome),
                       ),
                     ],
                   )

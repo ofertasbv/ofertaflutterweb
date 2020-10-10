@@ -41,18 +41,18 @@ class DrawerFilter extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.purple[800],
+          color: Colors.amber,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
                 child: Icon(
-                  Icons.search,
-                  size: 30,
+                  Icons.search_outlined,
+                  size: 25,
                   color: Colors.black,
                 ),
-                maxRadius: 20,
-                backgroundColor: Colors.yellow[800],
+                maxRadius: 15,
+                backgroundColor: Colors.yellow[600],
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -61,10 +61,7 @@ class DrawerFilter extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Filtro de busca",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
+                    Text("Opções de pesquisa"),
                   ],
                 ),
               ),

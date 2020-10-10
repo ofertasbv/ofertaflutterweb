@@ -75,7 +75,7 @@ class _CategoriaListState extends State<CategoriaList>
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5),
                 child: Container(
-                  //color: Colors.grey[200],
+                  // color: Colors.grey[200],
                   margin: EdgeInsets.symmetric(vertical: 7.5),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,14 +102,14 @@ class _CategoriaListState extends State<CategoriaList>
                               //color: Colors.grey[300],
                               child: Text(c.nome),
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(height: 2),
                             Container(
                               height: containerHeight,
                               width: containerWidth,
                               //color: Colors.grey[300],
                               child: Text("Cód. ${c.id}"),
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(height: 2),
                             Container(
                               height: containerHeight,
                               width: containerWidth * 0.75,
@@ -119,9 +119,8 @@ class _CategoriaListState extends State<CategoriaList>
                         ),
                       ),
                       Container(
-                        height: 100,
+                        height: 80,
                         width: 50,
-                        //color: Colors.grey[300],
                         child: buildPopupMenuButton(context, c),
                       ),
                     ],

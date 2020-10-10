@@ -118,7 +118,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
                         border: Border.all(color: Colors.black, width: 1),
-                        color: Colors.purple.withOpacity(.7),
+                        color: Colors.white.withOpacity(.7),
                       ),
                       child: Center(
                         child: Text("0"),
