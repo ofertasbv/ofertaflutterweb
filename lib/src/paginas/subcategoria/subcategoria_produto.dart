@@ -77,61 +77,13 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Departamento - produtos"),
+        title: Text("Departamento"),
         actions: <Widget>[
           SizedBox(width: 20),
           IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 30,
-            ),
+            icon: Icon(Icons.refresh_outlined),
             onPressed: () {
-              showSearch(context: context, delegate: ProdutoSearchDelegate());
-            },
-          ),
-          GestureDetector(
-            child: Stack(
-              alignment: Alignment.topRight,
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(top: 16, right: 16),
-                  child: Icon(
-                    Icons.shopping_basket,
-                    color: text == "0" ? Colors.white : Colors.white,
-                    size: 26,
-                  ),
-                ),
-                AnimatedBuilder(
-                  animation: animation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _scaleTween.evaluate(animation),
-                      child: child,
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(top: 12, right: 10),
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: Colors.black, width: 1),
-                      color: Colors.purple,
-                    ),
-                    child: Center(
-                      child: Text("0"),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => PedidoPage(),
-              //   ),
-              // );
+              produtoController.getAll();
             },
           ),
         ],
@@ -146,7 +98,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             Container(
               padding: EdgeInsets.all(5),
               height: 150,
-//              color: Colors.blue,
               child: builderConteudoListSubCategoria(),
             ),
             Container(
@@ -232,7 +183,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               width: 100,
               duration: Duration(seconds: 1),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(0),
                 color:
                     c.nome == selectedCard ? Colors.greenAccent : Colors.white,
               ),
@@ -244,8 +195,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                      Container(
                         child: Image.network(
                           ConstantApi.urlArquivoSubCategoria + c.foto,
                           fit: BoxFit.cover,

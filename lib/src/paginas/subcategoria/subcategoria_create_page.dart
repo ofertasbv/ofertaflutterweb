@@ -86,7 +86,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.green,
         content: Text(content),
         action: SnackBarAction(
           label: "OK",
@@ -105,15 +104,11 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text("Photos"),
+              trailing: Icon(Icons.arrow_forward),
+              title: Text("ir para galeria"),
               onTap: () {
                 onClickFoto();
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
             ),
           ],
         );

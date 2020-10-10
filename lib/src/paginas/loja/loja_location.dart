@@ -407,6 +407,10 @@ class _LojaLocationState extends State<LojaLocation> {
       barrierDismissible: false, // user must tap button for close dialog!
       builder: (BuildContext context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(18.0),
+            side: BorderSide(color: Colors.white),
+          ),
           title: Text('Tipo de mapa'),
           content: Container(
             height: 200,

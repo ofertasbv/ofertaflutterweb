@@ -118,15 +118,11 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text("Photos"),
+              trailing: Icon(Icons.arrow_forward),
+              title: Text("ir para galeria"),
               onTap: () {
                 onClickFoto();
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
             ),
           ],
         );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
@@ -38,7 +39,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       theme: buildThemeDataBlue(context),
       localizationsDelegates: [
@@ -55,33 +55,62 @@ class MyApp extends StatelessWidget {
       backgroundColor: Theme.of(context).bottomAppBarColor,
       // Define the default brightness and colors.
       brightness: Brightness.light,
-      primaryColor: Colors.purple[800],
-      accentColor: Colors.yellow[800],
+      primaryColor: Colors.amber,
+      accentColor: Colors.indigo[900],
 
-      // Define the default font family.
-      fontFamily: 'Georgia',
+      // fontFamily: 'Georgia',
+      dialogBackgroundColor: Colors.grey[100],
+      cardTheme: CardTheme(
+        color: Colors.grey[100],
+        elevation: 1,
+      ),
+
+      hintColor: Colors.amber,
+
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.amber,
+        textTheme: ButtonTextTheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(0.0),
+          side: BorderSide(color: Colors.white),
+        ),
+      ),
+
+      inputDecorationTheme: InputDecorationTheme(
+        prefixStyle: TextStyle(color: Colors.amber),
+        hintStyle: TextStyle(color: Colors.indigo[900]),
+        fillColor: Colors.amber,
+      ),
 
       // Define the default TextTheme. Use this to specify the default
       // text styling for headlines, titles, bodies of text, and more.
       textTheme: TextTheme(
         headline1: TextStyle(
-            fontSize: 72.0, fontWeight: FontWeight.bold, color: Colors.green),
+            fontSize: 50.0, fontWeight: FontWeight.w600, color: Colors.green),
         headline6: TextStyle(
-            fontSize: 24.0, fontStyle: FontStyle.italic, color: Colors.blue),
-        bodyText2:
-            TextStyle(fontSize: 14.0, fontFamily: 'Hind', color: Colors.grey[900]),
+            fontSize: 22.0,
+            fontStyle: FontStyle.normal,
+            color: Colors.indigo[900]),
+        bodyText2: TextStyle(
+            fontSize: 14.0, fontFamily: 'Hind', color: Colors.indigo[900]),
       ),
       iconTheme: IconThemeData(
-        color: Colors.yellow[700],
+        color: Colors.amber,
       ),
       snackBarTheme: SnackBarThemeData(
-        actionTextColor: Colors.purple[800],
-        backgroundColor: Colors.yellow[800],
+        actionTextColor: Colors.indigo[900],
+        backgroundColor: Colors.amber,
       ),
       scaffoldBackgroundColor: Colors.grey[100],
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
-        backgroundColor: Colors.yellow[800],
+        backgroundColor: Colors.amber,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: Colors.amber,
+        unselectedItemColor: Colors.indigo[900],
+        unselectedLabelStyle: TextStyle(color: Colors.amber),
+        backgroundColor: Colors.grey[100],
       ),
     );
   }

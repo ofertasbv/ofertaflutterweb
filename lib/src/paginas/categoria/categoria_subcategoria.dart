@@ -21,7 +21,8 @@ class CategoriaSubCategoria extends StatefulWidget {
 
 class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
-  SubCategoriaController subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  SubCategoriaController subCategoriaController =
+      GetIt.I.get<SubCategoriaController>();
 
   Categoria c;
 
@@ -54,18 +55,9 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         title: Text("Departamento"),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
-              CupertinoIcons.refresh,
-            ),
+            icon: Icon(Icons.refresh),
             onPressed: () {
               subCategoriaController.getAll();
-            },
-          ),
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-            ),
-            onPressed: () {
             },
           ),
         ],
@@ -74,24 +66,16 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         //color: Colors.grey,
         child: Row(
           children: <Widget>[
-            Card(
-              elevation: 0,
-              color: Colors.grey[100],
-              child: Container(
-                padding: EdgeInsets.all(2),
-                width: 110,
-                child: builderConteudoListCategoria(),
-              ),
+            Container(
+              padding: EdgeInsets.all(2),
+              width: 80,
+              child: builderConteudoListCategoria(),
             ),
-            Card(
-              elevation: 0,
-              color: Colors.grey[100],
-              child: Container(
-                padding: EdgeInsets.all(2),
-                width: 230,
-                child: builderConteutoListSubCategoria(),
-              ),
-            )
+            Container(
+              padding: EdgeInsets.all(2),
+              width: 262,
+              child: builderConteutoListSubCategoria(),
+            ),
           ],
         ),
       ),
@@ -111,8 +95,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           if (categorias == null) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.purple,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
               ),
             );
           }
@@ -124,60 +108,61 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   }
 
   builderListCategoria(List<Categoria> categorias) {
-    double containerWidth = 100;
+    double containerWidth = 80;
     double containerHeight = 30;
 
-    return GridView.builder(
-      padding: EdgeInsets.only(top: 5),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        childAspectRatio: 0.9,
-      ),
+    return ListView.builder(
       itemCount: categorias.length,
       itemBuilder: (context, index) {
-        Categoria p = categorias[index];
-        return GestureDetector(
-          child: AnimatedContainer(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            duration: Duration(seconds: 2),
-            curve: Curves.bounceIn,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  maxRadius: 40,
-                  minRadius: 40,
-                  backgroundColor: Colors.white,
-                  child: Image.network(
-                    ConstantApi.urlArquivoCategoria + p.foto,
-                  ),
+        Categoria c = categorias[index];
+        return Column(
+          children: [
+            GestureDetector(
+              child: AnimatedContainer(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(0),
                 ),
-                SizedBox(height: 0),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  height: 30,
-                  width: containerWidth,
-                  decoration: BoxDecoration(
-                    color: p.nome == selectedCard
-                        ? Colors.greenAccent
-                        : Colors.white,
-                  ),
-                  child: Text(
-                    p.nome,
-                  ),
+                duration: Duration(seconds: 2),
+                curve: Curves.bounceIn,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(2),
+                            topRight: Radius.circular(2)),
+                        color: Colors.yellow,
+                      ),
+                      child: Image.network(
+                        ConstantApi.urlArquivoCategoria + c.foto,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 51,
+                      ),
+                    ),
+                    SizedBox(height: 0),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      height: 30,
+                      width: containerWidth,
+                      color: Colors.white,
+                      child: Center(
+                        child: Text(c.nome),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                  ],
                 ),
-              ],
+              ),
+              onTap: () {
+                subCategoriaController.getAllByCategoriaById(c.id);
+              },
             ),
-          ),
-          onTap: () {
-            subCategoriaController.getAllByCategoriaById(p.id);
-          },
+            Divider()
+          ],
         );
       },
     );
@@ -195,7 +180,9 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           }
 
           if (subCategorias == null) {
-            return Center(child: CircularProgressIndicator(),);
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
 
           if (subCategorias.length == 0) {
@@ -226,64 +213,57 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   }
 
   builderListSubCategoria(List<SubCategoria> subCategorias) {
-    double containerWidth = double.infinity;
+    double containerWidth = 200;
     double containerHeight = 30;
 
-    return GridView.builder(
-      padding: EdgeInsets.only(top: 5),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 6,
-        crossAxisSpacing: 6,
-        childAspectRatio: 0.95,
-      ),
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
       itemCount: subCategorias.length,
       itemBuilder: (context, index) {
-        SubCategoria p = subCategorias[index];
-        return GestureDetector(
-          child: AnimatedContainer(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            duration: Duration(seconds: 2),
-            curve: Curves.bounceIn,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                CircleAvatar(
-                  maxRadius: 40,
-                  minRadius: 40,
-                  backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(
-                    ConstantApi.urlArquivoSubCategoria + p.foto,
-                  ),
+        SubCategoria c = subCategorias[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: Container(
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(2),
+                      child: Image.network(
+                        ConstantApi.urlArquivoSubCategoria + c.foto,
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 85,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Text(c.nome),
+                          Text(c.categoria.nome),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                SizedBox(height: 0),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  height: 30,
-                  width: containerWidth,
-                  color: Colors.transparent,
-                  child: Text(
-                    p.nome,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return SubCategoriaProduto(
-                    s: p,
-                  );
-                },
               ),
-            );
-          },
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return SubCategoriaProduto(
+                        s: c,
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+            Divider()
+          ],
         );
       },
     );

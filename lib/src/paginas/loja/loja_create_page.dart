@@ -99,7 +99,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     );
   }
 
-  void showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
@@ -119,15 +119,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text("Photos"),
+              trailing: Icon(Icons.arrow_forward),
+              title: Text("ir para galeria"),
               onTap: () {
                 onClickFoto();
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
             ),
           ],
         );

@@ -12,9 +12,7 @@ class LojaRepository {
     try {
       print("carregando lojas by id");
       var response = await dio.client.get("/lojas/${id}");
-      return (response.data as List)
-          .map((c) => Loja.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Loja.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -23,11 +21,9 @@ class LojaRepository {
 
   Future<List<Loja>> getAll() async {
     try {
-      print("carregando categorias");
+      print("carregando lojas");
       var response = await dio.client.get("/lojas");
-      return (response.data as List)
-          .map((c) => Loja.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Loja.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -63,8 +59,8 @@ class LojaRepository {
 
     FormData formData = FormData.fromMap(paramentros);
 
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/lojas/upload", data: formData);
+    var response =
+        await Dio().post(ConstantApi.urlList + "/lojas/upload", data: formData);
     print("RESPONSE: $response");
     print("fileDir: $fileDir");
     return formData;

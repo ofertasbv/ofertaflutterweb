@@ -119,7 +119,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     }
   }
 
-  void _onClickFoto() async {
+  onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     String dataAtual = DateFormat("dd-MM-yyyy-HH:mm:ss").format(DateTime.now());
@@ -135,14 +135,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     });
   }
 
-  void _onClickUpload() async {
+  onClickUpload() async {
     if (file != null) {
       var url = await ProdutoRepository.upload(file, p.foto);
       print(" URL : $url");
     }
   }
 
-  void showDefaultSnackbar(BuildContext context, String content) {
+   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(content),
@@ -154,7 +154,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     );
   }
 
-  void showToast(String cardTitle) {
+   showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
@@ -174,15 +174,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text("Photos"),
+              trailing: Icon(Icons.arrow_forward),
+              title: Text("ir para galeria"),
               onTap: () {
-                _onClickFoto();
+                onClickFoto();
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
             ),
           ],
         );
@@ -213,7 +209,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.file_upload),
-            onPressed: _onClickFoto,
+            onPressed: onClickFoto,
           )
         ],
       ),
@@ -236,7 +232,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         /* ================ Pequisa codigo de barra ================ */
                         Card(
                           child: Container(
-                            color: Colors.grey[200],
                             width: double.maxFinite,
                             padding: EdgeInsets.all(10),
                             child: Column(
@@ -265,8 +260,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 RaisedButton.icon(
                                   elevation: 0.0,
-                                  textColor: Colors.grey[200],
-                                  color: Colors.orangeAccent,
                                   icon: Icon(Icons.photo_camera_outlined),
                                   label: Text("Scanner"),
                                   onPressed: () {
@@ -1053,7 +1046,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         if (p.foto == null) {
                           showToast("deve anexar uma foto!");
                         } else {
-                          _onClickUpload();
+                          onClickUpload();
                           produtoController.create(p);
 
                           Navigator.of(context).pop();

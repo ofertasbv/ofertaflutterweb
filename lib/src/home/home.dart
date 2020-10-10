@@ -47,9 +47,7 @@ class _HomePageState extends State<HomePage>
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(
-                CupertinoIcons.search,
-              ),
+              icon: Icon(Icons.search_outlined),
               onPressed: () {
                 showSearch(
                   context: context,
@@ -59,9 +57,7 @@ class _HomePageState extends State<HomePage>
             ),
             buildGestureDetector(context),
             IconButton(
-              icon: Icon(
-                Icons.apps,
-              ),
+              icon: Icon(Icons.apps),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -114,10 +110,6 @@ class _HomePageState extends State<HomePage>
             ),
           ],
           currentIndex: elementIndex,
-          selectedItemColor: Colors.yellow[800],
-          unselectedItemColor: Colors.purple[800],
-          unselectedLabelStyle: TextStyle(color: Colors.yellow[900]),
-          backgroundColor: Colors.white,
           onTap: changeIndex,
           elevation: 4,
         ),
@@ -146,7 +138,7 @@ class _HomePageState extends State<HomePage>
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               border: Border.all(color: Colors.black, width: 1),
-              color: Colors.purple.withOpacity(.7),
+              color: Colors.white.withOpacity(.7),
             ),
             child: Center(
               child: Text("0"),

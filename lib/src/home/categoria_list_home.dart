@@ -73,8 +73,8 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
           if (categorias == null) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.purple,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
               ),
             );
           }
@@ -100,44 +100,46 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
-            child: Card(
-              elevation: 1,
-              child: Container(
-                height: 80,
-                width: 100,
-                //margin: EdgeInsets.symmetric(vertical: 7.5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        ConstantApi.urlArquivoCategoria + c.foto,
-                        fit: BoxFit.cover,
-                        width: 80,
-                        height: 80,
-                      ),
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: Container(
+              height: 90,
+              width: 100,
+              //margin: EdgeInsets.symmetric(vertical: 7.5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10)),
+                      color: Colors.grey[100],
                     ),
-                    SizedBox(height: 0),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      height: 30,
-                      width: containerWidth,
-                      color: Colors.transparent,
-                      child: Center(
-                        child: Text(
-                          c.nome,
-                        ),
-                      ),
+                    child: Image.network(
+                      ConstantApi.urlArquivoCategoria + c.foto,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 80,
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    height: 35,
+                    width: containerWidth,
+                    color: Colors.grey[100],
+                    child: Center(
+                      child: Text(c.nome),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

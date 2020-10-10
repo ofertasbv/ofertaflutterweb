@@ -98,15 +98,6 @@ class _ProdutoPageState extends State<ProdutoPage>
             },
           ),
           SizedBox(width: 5),
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              size: 30,
-            ),
-            onPressed: () {
-              showSearch(context: context, delegate: ProdutoSearchDelegate());
-            },
-          )
         ],
       ),
       body: ProdutoList(),

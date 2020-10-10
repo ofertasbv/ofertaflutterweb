@@ -16,8 +16,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-
-  cupertino_icons: ^1.0.0
   dio: ^3.0.10
 
   mobx: ^1.1.1
@@ -44,7 +42,6 @@ dependencies:
   flutter_masked_text: ^0.8.0
   mask_text_input_formatter: ^1.1.0
   intl: ^0.16.1
-
 
 dev_dependencies:
   flutter_test:

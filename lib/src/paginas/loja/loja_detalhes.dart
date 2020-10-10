@@ -135,7 +135,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.purple[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +169,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   ),
                 );
               },
-              color: Colors.yellow[800],
+              color: Colors.yellow[600],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

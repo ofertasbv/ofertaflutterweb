@@ -43,18 +43,18 @@ class DrawerList extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.purple[800],
+          color: Colors.amber,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
                 child: Icon(
                   Icons.account_circle,
-                  size: 30,
+                  size: 25,
                   color: Colors.black,
                 ),
-                maxRadius: 20,
-                backgroundColor: Colors.yellow[800],
+                maxRadius: 15,
+                backgroundColor: Colors.yellow[600],
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -63,10 +63,7 @@ class DrawerList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Bem-vindo ao u-nosso",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
+                    Text("Bem-vindo ao u-nosso"),
                   ],
                 ),
               ),
@@ -237,7 +234,7 @@ class DrawerList extends StatelessWidget {
               ),
             );
           },
-        )
+        ),
       ],
     );
   }

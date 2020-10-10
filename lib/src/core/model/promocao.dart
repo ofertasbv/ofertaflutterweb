@@ -42,7 +42,7 @@ class Promocao {
     data['nome'] = this.nome;
     data['descricao'] = this.descricao;
     data['foto'] = this.foto;
-    data['desconto'] = this.desconto;
+    data['desconto'] = this.desconto.toString();
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['dataInicio'] = this.dataInicio.toIso8601String();
     data['dataFinal'] = this.dataFinal.toIso8601String();

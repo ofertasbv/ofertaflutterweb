@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/repository/loja_repository.dart';
@@ -12,6 +15,9 @@ abstract class LojaControllerBase with Store {
   LojaControllerBase() {
     _lojaRepository = LojaRepository();
   }
+
+  @observable
+  Completer<GoogleMapController> completer;
 
   @observable
   List<Loja> lojas;

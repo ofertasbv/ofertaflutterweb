@@ -58,8 +58,8 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
           if (promocoes == null) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.purple,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
               ),
             );
           }
@@ -86,49 +86,46 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
-            child: Card(
-              elevation: 1,
-              child: AnimatedContainer(
-                duration: Duration(seconds: 2),
-                margin: EdgeInsets.symmetric(vertical: 7.5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            ConstantApi.urlArquivoPromocao + p.foto,
-                            fit: BoxFit.cover,
-                            width: 165,
-                            height: 120,
-                          ),
+            child: AnimatedContainer(
+              duration: Duration(seconds: 2),
+              margin: EdgeInsets.symmetric(vertical: 7.5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                          ConstantApi.urlArquivoPromocao + p.foto,
+                          fit: BoxFit.cover,
+                          width: 165,
+                          height: 120,
                         ),
-                        SizedBox(height: 0),
-                        Container(
-                          padding: EdgeInsets.all(5),
-                          height: 80,
-                          width: containerWidth,
-                          color: Colors.white,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Text(p.nome),
-                              Text(p.descricao),
-                            ],
-                          ),
+                      ),
+                      SizedBox(height: 0),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        height: 80,
+                        width: containerWidth,
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Text(p.nome),
+                            Text(p.descricao),
+                          ],
                         ),
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
           ),

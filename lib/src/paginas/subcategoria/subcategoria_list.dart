@@ -54,7 +54,7 @@ class _SubCategoriaListState extends State<SubCategoriaList>
     );
   }
 
-  ListView builderList(List<SubCategoria> categorias) {
+  builderList(List<SubCategoria> categorias) {
     double containerWidth = 100;
     double containerHeight = 40;
 

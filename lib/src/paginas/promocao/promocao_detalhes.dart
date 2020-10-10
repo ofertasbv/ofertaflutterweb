@@ -4,6 +4,8 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
 class PromocaoDetalhes extends StatefulWidget {
   Promocao p;
@@ -31,19 +33,6 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
       appBar: AppBar(
         title: Text(p.nome),
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-            ),
-            onPressed: () {
-              // showSearch(
-              //   context: context,
-              //   delegate: ProdutoSearchDelegate(),
-              // );
-            },
-          )
-        ],
       ),
       body: buildContainer(p),
       bottomNavigationBar: buildBottomNavigationBar(context, p),
@@ -60,54 +49,50 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
             fit: BoxFit.cover,
           ),
         ),
-        Container(
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                p.nome,
-              ),
-              Text(
-                p.descricao,
-              ),
-            ],
+        Card(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  p.nome,
+                ),
+                Text(
+                  p.descricao,
+                ),
+              ],
+            ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                "Código: ${p.id}"
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Promoção: ${p.nome}"
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Descrição: ${p.descricao}"
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Mercado: ${p.loja.nome}"
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Desconto: ${p.desconto} %",
-              ),
-            ],
+        Card(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("Código: ${p.id}"),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Promoção: ${p.nome}"),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Descrição: ${p.descricao}"),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Mercado: ${p.loja.nome}"),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Desconto: ${p.desconto} %",
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -128,15 +113,15 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
             child: RaisedButton(
               elevation: 0,
               onPressed: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) {
-                //       return ProdutoPage(
-                //         p: p,
-                //       );
-                //     },
-                //   ),
-                // );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ProdutoPage(
+                        p: p,
+                      );
+                    },
+                  ),
+                );
               },
               color: Colors.grey,
               child: Center(
@@ -148,7 +133,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                       color: Colors.white,
                     ),
                     SizedBox(
-                      width: 4.0,
+                      width: 0.0,
                     ),
                     Text(
                       "ESCOLHER MAIS",
@@ -164,15 +149,14 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
             child: RaisedButton(
               elevation: 0,
               onPressed: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) {
-                //       return PromocaoPage();
-                //     },
-                //   ),
-                // );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PromocaoPage();
+                    },
+                  ),
+                );
               },
-              color: Colors.yellow[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

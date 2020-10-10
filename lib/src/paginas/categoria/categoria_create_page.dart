@@ -73,7 +73,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     }
   }
 
-  void showDefaultSnackbar(BuildContext context, String content) {
+  showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         backgroundColor: Colors.pink[900],
@@ -86,7 +86,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     );
   }
 
-  void showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
@@ -106,15 +106,11 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              title: Text("Photos"),
+              trailing: Icon(Icons.arrow_forward),
+              title: Text("ir para galeria"),
               onTap: () {
                 onClickFoto();
               },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
             ),
           ],
         );
@@ -171,7 +167,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
