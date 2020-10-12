@@ -97,14 +97,14 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           children: <Widget>[
             Card(
               child: Container(
-                padding: EdgeInsets.all(5),
-                height: 150,
+                padding: EdgeInsets.all(2),
+                height: 140,
                 child: builderConteudoListSubCategoria(),
               ),
             ),
             Card(
               child: Container(
-                padding: EdgeInsets.only(left: 15, right: 10),
+                padding: EdgeInsets.all(2),
                 height: 50,
                 width: double.infinity,
                 child: Row(
@@ -286,60 +286,49 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         Produto p = produtos[index];
 
         return GestureDetector(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12),
-                child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          ConstantApi.urlArquivoProduto + p.foto,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: containerHeight,
-                            width: containerWidth,
-                            //color: Colors.grey[300],
-                            child: Text(p.nome),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            height: containerHeight,
-                            width: containerWidth,
-                            //color: Colors.grey[300],
-                            child: Text(
-                              p.loja != null ? (p.loja.nome) : "sem loja",
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            height: 30,
-                            width: containerWidth * 0.75,
-                            //color: Colors.grey[300],
-                            child: Text(
-                              "R\$ ${p.estoque.valor}",
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoProduto + p.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(p.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(p.subCategoria.nome),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                  ),
+                ],
               ),
-              Divider(),
-            ],
+            ),
           ),
           onTap: () {
             Navigator.of(context).push(

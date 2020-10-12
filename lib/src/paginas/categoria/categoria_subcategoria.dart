@@ -11,13 +11,13 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
 
 class CategoriaSubCategoria extends StatefulWidget {
-  Categoria c;
+  Categoria categoria;
 
-  CategoriaSubCategoria({Key key, this.c}) : super(key: key);
+  CategoriaSubCategoria({Key key, this.categoria}) : super(key: key);
 
   @override
   _CategoriaSubCategoriaState createState() =>
-      _CategoriaSubCategoriaState(c: this.c);
+      _CategoriaSubCategoriaState(categoria: this.categoria);
 }
 
 class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
@@ -25,16 +25,16 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   SubCategoriaController subCategoriaController =
       GetIt.I.get<SubCategoriaController>();
 
-  Categoria c;
+  Categoria categoria;
 
-  _CategoriaSubCategoriaState({this.c});
+  _CategoriaSubCategoriaState({this.categoria});
 
   String selectedCard = 'WEIGHT';
 
   @override
   void initState() {
-    if (c.id != null) {
-      subCategoriaController.getAllByCategoriaById(c.id);
+    if (categoria.id != null) {
+      subCategoriaController.getAllByCategoriaById(categoria.id);
     } else {
       subCategoriaController.getAll();
     }
@@ -51,6 +51,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
   @override
   Widget build(BuildContext context) {
+    var text = "";
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Departamento"),
@@ -60,7 +62,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             onPressed: () {
               subCategoriaController.getAll();
               setState(() {
-                c = c;
+                categoria = categoria;
               });
             },
           ),
@@ -75,14 +77,14 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           children: <Widget>[
             Card(
               child: Container(
-                padding: EdgeInsets.all(5),
-                height: 150,
+                padding: EdgeInsets.all(2),
+                height: 140,
                 child: builderConteudoListCategoria(),
               ),
             ),
             Card(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(2),
                 height: 50,
                 width: double.infinity,
                 child: Row(
@@ -91,7 +93,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   children: <Widget>[
                     Chip(
                       label: Text(
-                        c == null ? "sem busca" : (c.nome),
+                        categoria == null ? "sem busca" : (categoria.nome),
                       ),
                     ),
                     Observer(
@@ -121,7 +123,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             ),
             Card(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(2),
                 height: 380,
                 color: Colors.transparent,
                 child: builderConteutoListSubCategoria(),
@@ -213,6 +215,9 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             selectCard(c.nome);
             print("id catgeoria ${c.id}");
             subCategoriaController.getAllByCategoriaById(c.id);
+            setState(() {
+              categoria = c;
+            });
           },
         );
       },
@@ -264,7 +269,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   }
 
   builderListSubCategoria(List<SubCategoria> subCategorias) {
-    double containerWidth = MediaQuery.of(context).size.width;
+    double containerWidth = 160;
     double containerHeight = 30;
 
     return ListView.builder(
@@ -273,49 +278,62 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
       itemBuilder: (context, index) {
         SubCategoria c = subCategorias[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: Container(
-                width: containerWidth,
-                color: Colors.white,
-                child: Row(
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(2),
-                      child: Image.network(
-                        ConstantApi.urlArquivoSubCategoria + c.foto,
-                        fit: BoxFit.cover,
-                        width: 80,
-                        height: 85,
-                      ),
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoSubCategoria + c.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
                     ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Text(c.nome),
-                          Text(c.categoria.nome),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return SubCategoriaProduto(
-                        s: c,
-                      );
-                    },
                   ),
-                );
-              },
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.categoria.nome),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                  ),
+                ],
+              ),
             ),
-            Divider()
-          ],
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SubCategoriaProduto(
+                    s: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

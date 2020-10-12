@@ -100,45 +100,36 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4),
-            child: Container(
-              height: 90,
+            padding: EdgeInsets.symmetric(horizontal: 6),
+            child: AnimatedContainer(
               width: 100,
-              //margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
-                color: Colors.white,
-              ),
+              duration: Duration(seconds: 1),
+              margin: EdgeInsets.symmetric(vertical: 7.5),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10)),
-                      color: Colors.grey[100],
-                    ),
-                    child: Image.network(
-                      ConstantApi.urlArquivoCategoria + c.foto,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 80,
-                    ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    height: 35,
-                    width: containerWidth,
-                    color: Colors.grey[100],
-                    child: Center(
-                      child: Text(c.nome),
-                    ),
-                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Image.network(
+                          ConstantApi.urlArquivoSubCategoria + c.foto,
+                          fit: BoxFit.cover,
+                          width: 100,
+                          height: 80,
+                        ),
+                      ),
+                      SizedBox(height: 0),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        height: 40,
+                        width: containerWidth,
+                        color: Colors.grey[100],
+                        child: Text(c.nome),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -148,7 +139,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return CategoriaSubCategoria(
-                    c: c,
+                    categoria: c,
                   );
                 },
               ),

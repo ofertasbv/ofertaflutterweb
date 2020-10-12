@@ -16,7 +16,7 @@ class ClienteList extends StatefulWidget {
 
 class _ClienteListState extends State<ClienteList>
     with AutomaticKeepAliveClientMixin<ClienteList> {
-   ClienteController clienteController = GetIt.I.get<ClienteController>();
+  ClienteController clienteController = GetIt.I.get<ClienteController>();
 
   @override
   void initState() {
@@ -67,74 +67,53 @@ class _ClienteListState extends State<ClienteList>
       itemBuilder: (context, index) {
         Cliente p = clientes[index];
 
-        return Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              child: Container(
-                //color: Colors.grey[200],
-                margin: EdgeInsets.symmetric(vertical: 7.5),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        ConstantApi.urlArquivoCliente + p.foto,
-                        fit: BoxFit.cover,
-                        width: 100,
-                        height: 100,
-                      ),
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoCliente + p.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
                     ),
-                    Container(
-                      //color: Colors.greenAccent,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: containerHeight,
-                            width: containerWidth,
-                            //color: Colors.grey[300],
-                            child: Text(
-                              p.nome
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            height: containerHeight,
-                            width: containerWidth,
-                            //color: Colors.grey[300],
-                            child: p.endereco == null
-                                ? Text(
-                                    "${p.endereco.logradouro}, ${p.endereco.numero} - ${p.endereco.bairro}",
-                                  )
-                                : Text("sem endereços"),
-                          ),
-                          SizedBox(height: 5),
-                          Container(
-                            height: containerHeight,
-                            width: containerWidth * 0.75,
-                            //color: Colors.grey[300],
-                            child: Text(
-                              p.cpf
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(p.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("Cód. ${p.id}"),
+                        ),
+                      ],
                     ),
-                    Container(
-                      height: 100,
-                      width: 50,
-                      //color: Colors.grey[300],
-                      child: buildPopupMenuButton(context, p),
-                    ),
-                  ],
-                ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, p),
+                  ),
+                ],
               ),
             ),
-            Divider(),
-          ],
+          ),
+          onTap: () {},
         );
       },
     );

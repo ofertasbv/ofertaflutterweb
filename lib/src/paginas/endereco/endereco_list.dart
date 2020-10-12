@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/paginas/endereco/endereco_create_page.dart';
@@ -67,71 +68,53 @@ class _EnderecoListState extends State<EnderecoList>
       itemBuilder: (context, index) {
         Endereco c = enderecos[index];
 
-        return Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  //color: Colors.grey[200],
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: containerWidth,
-                        //color: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(c.logradouro + ", " + c.numero),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(c.bairro),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              child: Text(c.cep),
-                              //color: Colors.grey[300],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 50,
-                        //color: Colors.grey[300],
-                        child: buildPopupMenuButton(context, c),
-                      ),
-                    ],
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.asset(
+                      ConstantApi.urlNormal,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("${c.logradouro}, ${c.numero}"),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.bairro),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, c),
+                  ),
+                ],
               ),
-              onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (BuildContext context) {
-                //       return CategoriaSubCategoria(
-                //         c: c,
-                //       );
-                //     },
-                //   ),
-                // );
-              },
             ),
-            Divider(),
-          ],
+          ),
+          onTap: () {},
         );
       },
     );

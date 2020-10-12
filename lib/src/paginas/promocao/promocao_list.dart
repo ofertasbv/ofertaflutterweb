@@ -77,69 +77,53 @@ class _PromocaoListState extends State<PromocaoList>
       itemBuilder: (context, index) {
         Promocao p = promocoes[index];
 
-        return Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  //color: Colors.grey[200],
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          ConstantApi.urlArquivoPromocao + p.foto,
-                          fit: BoxFit.cover,
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                      Container(
-                        //color: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(p.nome),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                              child: Text("${p.loja.nome}"),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                              child: Text("${p.desconto}"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 50,
-                        //color: Colors.grey[300],
-                        child: buildPopupMenuButton(context, p),
-                      ),
-                    ],
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoPromocao + p.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(p.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("Cód. ${p.id}"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, p),
+                  ),
+                ],
               ),
-              onTap: () {},
             ),
-            Divider(),
-          ],
+          ),
+          onTap: () {},
         );
       },
     );

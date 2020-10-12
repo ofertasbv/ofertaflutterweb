@@ -77,7 +77,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
                   MaterialPageRoute(
                     builder: (BuildContext context) {
                       return CategoriaSubCategoria(
-                        c: c,
+                        categoria: c,
                       );
                     },
                   ),

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/paginas/marca/marca_create_page.dart';
@@ -67,68 +68,59 @@ class _MarcaListState extends State<MarcaList>
       itemBuilder: (context, index) {
         Marca c = marcas[index];
 
-        return Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  //color: Colors.grey[200],
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: containerWidth,
-                        //color: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(c.nome),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text("Cód. ${c.id}"),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 50,
-                        //color: Colors.grey[300],
-                        child: buildPopupMenuButton(context, c),
-                      ),
-                    ],
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.asset(
+                      ConstantApi.urlLogo,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("Cód. ${c.id}"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, c),
+                  ),
+                ],
               ),
-              onTap: () {
-              },
             ),
-            Divider(),
-          ],
+          ),
+          onTap: () {},
         );
       },
     );
   }
 
-  PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Marca c) {
+  PopupMenuButton<String> buildPopupMenuButton(BuildContext context, Marca c) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),

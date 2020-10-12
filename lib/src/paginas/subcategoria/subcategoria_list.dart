@@ -55,8 +55,8 @@ class _SubCategoriaListState extends State<SubCategoriaList>
   }
 
   builderList(List<SubCategoria> categorias) {
-    double containerWidth = 100;
-    double containerHeight = 40;
+    double containerWidth = 160;
+    double containerHeight = 20;
 
     return ListView.builder(
       scrollDirection: Axis.vertical,
@@ -65,64 +65,50 @@ class _SubCategoriaListState extends State<SubCategoriaList>
         SubCategoria c = categorias[index];
 
         return GestureDetector(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  //color: Colors.grey[200],
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          ConstantApi.urlArquivoSubCategoria + c.foto,
-                          fit: BoxFit.cover,
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                      Container(
-                        width: containerWidth,
-                        //color: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(
-                                c.nome,
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(
-                                c.categoria.nome,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 100,
-                        width: 50,
-                        //color: Colors.grey[300],
-                        child: buildPopupMenuButton(context, c),
-                      ),
-                    ],
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoSubCategoria + c.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("Cód. ${c.id}"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, c),
+                  ),
+                ],
               ),
-              Divider(),
-            ],
+            ),
           ),
           onTap: () {},
         );

@@ -62,85 +62,70 @@ class _CategoriaListState extends State<CategoriaList>
 
   builderList(List<Categoria> categorias) {
     double containerWidth = 160;
-    double containerHeight = 30;
+    double containerHeight = 20;
 
     return ListView.builder(
       itemCount: categorias.length,
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
-        return Column(
-          children: <Widget>[
-            GestureDetector(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  // color: Colors.grey[200],
-                  margin: EdgeInsets.symmetric(vertical: 7.5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          ConstantApi.urlArquivoCategoria + c.foto,
-                          fit: BoxFit.cover,
-                          width: 80,
-                          height: 80,
-                        ),
-                      ),
-                      Container(
-                        width: containerWidth,
-                        //color: Colors.grey[200],
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text(c.nome),
-                            ),
-                            SizedBox(height: 2),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Text("Cód. ${c.id}"),
-                            ),
-                            SizedBox(height: 2),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth * 0.75,
-                              //color: Colors.grey[300],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 80,
-                        width: 50,
-                        child: buildPopupMenuButton(context, c),
-                      ),
-                    ],
+        return GestureDetector(
+          child: Card(
+            child: Container(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    child: Image.network(
+                      ConstantApi.urlArquivoCategoria + c.foto,
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 80,
+                    ),
                   ),
-                ),
+                  Container(
+                    width: containerWidth,
+                    //color: Colors.grey[200],
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text(c.nome),
+                        ),
+                        SizedBox(height: 2),
+                        Container(
+                          height: containerHeight,
+                          width: containerWidth,
+                          //color: Colors.grey[300],
+                          child: Text("Cód. ${c.id}"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 80,
+                    width: 50,
+                    child: buildPopupMenuButton(context, c),
+                  ),
+                ],
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return CategoriaSubCategoria(
-                        c: c,
-                      );
-                    },
-                  ),
-                );
-              },
             ),
-            Divider(),
-          ],
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaSubCategoria(
+                    categoria: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );
