@@ -309,7 +309,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard ? Colors.grey[300] : Colors.white,
+              color: p.nome == selectedCard ? Colors.amber : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,
@@ -337,9 +337,7 @@ class _LojaLocationState extends State<LojaLocation> {
                         Text(p.nome),
                         ListTile(
                           leading: Icon(Icons.directions_run),
-                          trailing: Text(
-                            "0.0 km",
-                          ),
+                          trailing: Text("0.0 km"),
                         ),
                       ],
                     ),

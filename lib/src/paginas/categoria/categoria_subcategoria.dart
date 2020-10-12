@@ -92,6 +92,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Chip(
+                      backgroundColor: Colors.amber,
                       label: Text(
                         categoria == null ? "sem busca" : (categoria.nome),
                       ),
@@ -109,10 +110,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                         }
 
                         return Chip(
+                          backgroundColor: Colors.amber,
                           label: Text(
                             (subCategoriaController.subCategorias.length ?? 0)
                                 .toString(),
-                            style: TextStyle(color: Colors.deepOrangeAccent),
                           ),
                         );
                       },
