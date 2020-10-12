@@ -88,9 +88,9 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                 SizedBox(
                   height: 10,
                 ),
-                Text(
-                  "Desconto: ${p.desconto} %",
-                ),
+                // Text(
+                //   "Desconto: ${p.desconto} %",
+                // ),
               ],
             ),
           ),
@@ -128,17 +128,9 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.list,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 0.0,
-                    ),
-                    Text(
-                      "ESCOLHER MAIS",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Icon(Icons.list),
+                    SizedBox(width: 0),
+                    Text("ESCOLHER MAIS"),
                   ],
                 ),
               ),
@@ -161,17 +153,9 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(
-                      "MAIS OFERTAS",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Icon(Icons.shopping_basket),
+                    SizedBox(width: 0),
+                    Text("MAIS OFERTAS"),
                   ],
                 ),
               ),

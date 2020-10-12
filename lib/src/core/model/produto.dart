@@ -21,7 +21,7 @@ class Produto {
   String origem;
   String tamanho;
   String cor;
-  String desconto;
+  double desconto;
   SubCategoria subCategoria;
   Promocao promocao;
   Loja loja;
@@ -69,7 +69,7 @@ class Produto {
     origem = json['origem'];
     tamanho = json['tamanho'];
     cor = json['cor'];
-    desconto = json['desconto'];
+    desconto = double.tryParse(json['desconto'].toString());
     subCategoria = json['subCategoria'] != null
         ? new SubCategoria.fromJson(json['subCategoria'])
         : null;
@@ -105,7 +105,7 @@ class Produto {
     data['origem'] = this.origem;
     data['tamanho'] = this.tamanho;
     data['cor'] = this.cor;
-    data['desconto'] = this.desconto;
+    data['desconto'] = this.desconto.toString();
     if (this.subCategoria != null) {
       data['subCategoria'] = this.subCategoria.toJson();
     }

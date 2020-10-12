@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
@@ -67,6 +68,12 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
               child: Container(
                 padding: EdgeInsets.all(2),
                 child: ListTile(
+                  leading: CircleAvatar(
+                    child: ClipRRect(
+                      borderRadius: new BorderRadius.circular(100.0),
+                      child: Image.network(ConstantApi.urlArquivoCategoria + c.foto),
+                    ),
+                  ),
                   title: Text(c.nome),
                   trailing: Icon(Icons.arrow_forward),
                 ),

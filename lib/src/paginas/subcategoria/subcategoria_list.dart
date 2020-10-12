@@ -80,15 +80,14 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.all(5),
                     width: containerWidth,
-                    //color: Colors.grey[200],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          //color: Colors.grey[300],
                           child: Text(c.nome),
                         ),
                         SizedBox(height: 2),
@@ -96,7 +95,7 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                           height: containerHeight,
                           width: containerWidth,
                           //color: Colors.grey[300],
-                          child: Text("Cód. ${c.id}"),
+                          child: Text("${c.categoria.nome}"),
                         ),
                       ],
                     ),

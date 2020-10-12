@@ -31,9 +31,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         title: Text("u-nosso app"),
         actions: <Widget>[
           IconButton(
-            icon: new Icon(
-              Icons.home,
-            ),
+            icon: new Icon(Icons.home),
             onPressed: () {
               Navigator.push(
                 context,
@@ -59,29 +57,22 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Card(
-                  elevation: 1,
                   child: Container(
-                    padding: EdgeInsets.only(top: 10),
-                    color: Colors.white,
+                    padding: EdgeInsets.all(2),
                     height: 140,
                     child: CategoriaListHome(),
                   ),
                 ),
-                SizedBox(height: 4),
                 Card(
-                  elevation: 1,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
                       borderRadius: BorderRadius.circular(0),
                     ),
                     height: 350,
                     child: buildGridView(context),
                   ),
                 ),
-                SizedBox(height: 4),
                 Card(
-                  elevation: 1,
                   child: Container(
                     height: 130,
                     child: ProdutoListHome(),

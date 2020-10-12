@@ -77,6 +77,7 @@ class MyApp extends StatelessWidget {
         headline6: TextStyle(color: Colors.indigo[900]),
       ),
 
+
       primaryIconTheme: IconThemeData(color: Colors.indigo[900]),
 
       // fontFamily: 'Georgia',
@@ -97,7 +98,7 @@ class MyApp extends StatelessWidget {
         textTheme: ButtonTextTheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(0.0),
-          side: BorderSide(color: Colors.white),
+          side: BorderSide(color: Colors.transparent),
         ),
       ),
 

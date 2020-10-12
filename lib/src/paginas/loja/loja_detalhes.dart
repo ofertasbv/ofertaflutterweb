@@ -135,22 +135,16 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   ),
                 );
               },
-              color: Colors.indigo[900],
+              color: Colors.grey,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.list,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.list),
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text(
-                      "MAIS OFERTAS",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Text("MAIS OFERTAS"),
                   ],
                 ),
               ),
@@ -174,17 +168,11 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.shopping_basket),
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text(
-                      "MAIS LOJAS",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Text("MAIS LOJAS"),
                   ],
                 ),
               ),

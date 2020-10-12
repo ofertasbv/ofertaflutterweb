@@ -87,12 +87,9 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
             child: AnimatedContainer(
-              duration: Duration(seconds: 2),
+              width: containerWidth,
+              duration: Duration(seconds: 1),
               margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,28 +97,28 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
+                      Container(
                         child: Image.network(
                           ConstantApi.urlArquivoPromocao + p.foto,
                           fit: BoxFit.cover,
-                          width: 165,
-                          height: 120,
+                          width: containerWidth,
+                          height: 130,
                         ),
                       ),
                       SizedBox(height: 0),
                       Container(
                         padding: EdgeInsets.all(5),
-                        height: 80,
+                        height: 40,
                         width: containerWidth,
-                        color: Colors.white,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(p.nome),
-                            Text(p.descricao),
-                          ],
-                        ),
+                        color: Colors.grey[100],
+                        child: Text(p.nome),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        height: 40,
+                        width: containerWidth,
+                        color: Colors.grey[100],
+                        child: Text(p.descricao),
                       ),
                     ],
                   )

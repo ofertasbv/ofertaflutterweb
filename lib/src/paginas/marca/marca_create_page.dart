@@ -53,7 +53,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Categoria cadastros"),
+        title: Text("Marcas cadastros"),
       ),
       body: Observer(
         builder: (context) {
@@ -63,7 +63,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
                     autovalidateMode: AutovalidateMode.always,
@@ -72,7 +72,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                       children: <Widget>[
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -105,7 +105,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),

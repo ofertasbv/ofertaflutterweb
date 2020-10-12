@@ -150,314 +150,322 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
       body: Observer(
         builder: (context) {
           if (promocaoController.error != null) {
+            print("erro1: ${promocaoController.error}");
             return Text("Não foi possível cadastrar promoção");
-          }
-          if (promocaoController.promocao == null) {
-            return buildListViewForm(dateFormat, context);
           } else {
-            return Center(child: Text("operação não realizada"));
-          }
-        },
-      ),
-    );
-  }
-
-  buildListViewForm(DateFormat dateFormat, BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(2),
-          child: Form(
-            key: controller.formKey,
-            autovalidateMode: AutovalidateMode.always,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+            return ListView(
               children: <Widget>[
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
+                Container(
+                  padding: EdgeInsets.all(0),
+                  child: Form(
+                    key: controller.formKey,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        TextFormField(
-                          autofocus: true,
-                          initialValue: p.nome,
-                          onSaved: (value) => p.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Título",
-                            hintText: "título promoção",
-                            prefixIcon: Icon(Icons.edit),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 100,
-                          maxLines: 2,
-                        ),
-                        TextFormField(
-                          autofocus: true,
-                          initialValue: p.descricao,
-                          onSaved: (value) => p.descricao = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "descrição promoção",
-                            prefixIcon: Icon(Icons.description),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          maxLength: 100,
-                          maxLines: 2,
-                          keyboardType: TextInputType.text,
-                        ),
-                        TextFormField(
-                          showCursor: true,
-                          autofocus: true,
-                          initialValue: p.desconto.toString(),
-                          onSaved: (value) => p.desconto = double.parse(value),
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Desconto",
-                            hintText: "desconto promoção",
-                            prefixIcon: Icon(Icons.monetization_on),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 10,
-                        ),
-                        SizedBox(height: 15),
-                        DateTimeField(
-                          initialValue: p.dataRegistro,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataRegistro = value,
-                          decoration: InputDecoration(
-                            labelText: "data registro",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(
-                              Icons.calendar_today,
-                              size: 24,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 15),
-                        DateTimeField(
-                          initialValue: p.dataInicio,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataInicio = value,
-                          decoration: InputDecoration(
-                            labelText: "data inicio",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(
-                              Icons.calendar_today,
-                              size: 24,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 15),
-                        DateTimeField(
-                          initialValue: p.dataFinal,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataFinal = value,
-                          decoration: InputDecoration(
-                            labelText: "data encerramento",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(
-                              Icons.calendar_today,
-                              size: 24,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        FutureBuilder<List<Loja>>(
-                          future: lojas,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return DropdownButtonFormField<Loja>(
-                                validator: (value) =>
-                                    value == null ? 'selecione uma loja' : null,
-                                value: lojaSelecionada,
-                                items: snapshot.data.map((loja) {
-                                  return DropdownMenuItem<Loja>(
-                                    value: loja,
-                                    child: Text(loja.nome),
-                                  );
-                                }).toList(),
-                                decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  autofocus: true,
+                                  initialValue: p.nome,
+                                  onSaved: (value) => p.nome = value,
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "Título",
+                                    hintText: "título promoção",
+                                    prefixIcon: Icon(Icons.edit),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                  ),
+                                  keyboardType: TextInputType.text,
+                                  maxLength: 100,
+                                  maxLines: 2,
                                 ),
-                                hint: Text("Selecione loja..."),
-                                onChanged: (Loja c) {
-                                  setState(() {
-                                    lojaSelecionada = c;
-                                    print(lojaSelecionada.nome);
-                                  });
-                                },
-                              );
-                            } else if (snapshot.hasError) {
-                              return Text("${snapshot.error}");
-                            }
+                                TextFormField(
+                                  autofocus: true,
+                                  initialValue: p.descricao,
+                                  onSaved: (value) => p.descricao = value,
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "Descrição",
+                                    hintText: "descrição promoção",
+                                    prefixIcon: Icon(Icons.description),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  maxLength: 100,
+                                  maxLines: 2,
+                                  keyboardType: TextInputType.text,
+                                ),
+                                TextFormField(
+                                  showCursor: true,
+                                  autofocus: true,
+                                  initialValue: p.desconto.toString(),
+                                  onSaved: (value) =>
+                                      p.desconto = double.parse(value),
+                                  validator: (value) =>
+                                      value.isEmpty ? "campo obrigário" : null,
+                                  decoration: InputDecoration(
+                                    labelText: "Desconto",
+                                    hintText: "desconto promoção",
+                                    prefixIcon: Icon(Icons.monetization_on),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 10,
+                                ),
+                                SizedBox(height: 15),
+                                DateTimeField(
+                                  initialValue: p.dataRegistro,
+                                  format: dateFormat,
+                                  validator: (value) =>
+                                      value == null ? "campo obrigário" : null,
+                                  onSaved: (value) => p.dataRegistro = value,
+                                  decoration: InputDecoration(
+                                    labelText: "data registro",
+                                    hintText: "99-09-9999",
+                                    prefixIcon: Icon(
+                                      Icons.calendar_today,
+                                      size: 24,
+                                    ),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  onShowPicker: (context, currentValue) {
+                                    return showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(2000),
+                                      initialDate:
+                                          currentValue ?? DateTime.now(),
+                                      locale: Locale('pt', 'BR'),
+                                      lastDate: DateTime(2030),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 15),
+                                DateTimeField(
+                                  initialValue: p.dataInicio,
+                                  format: dateFormat,
+                                  validator: (value) =>
+                                      value == null ? "campo obrigário" : null,
+                                  onSaved: (value) => p.dataInicio = value,
+                                  decoration: InputDecoration(
+                                    labelText: "data inicio",
+                                    hintText: "99-09-9999",
+                                    prefixIcon: Icon(
+                                      Icons.calendar_today,
+                                      size: 24,
+                                    ),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  onShowPicker: (context, currentValue) {
+                                    return showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(2000),
+                                      initialDate:
+                                          currentValue ?? DateTime.now(),
+                                      locale: Locale('pt', 'BR'),
+                                      lastDate: DateTime(2030),
+                                    );
+                                  },
+                                ),
+                                SizedBox(height: 15),
+                                DateTimeField(
+                                  initialValue: p.dataFinal,
+                                  format: dateFormat,
+                                  validator: (value) =>
+                                      value == null ? "campo obrigário" : null,
+                                  onSaved: (value) => p.dataFinal = value,
+                                  decoration: InputDecoration(
+                                    labelText: "data encerramento",
+                                    hintText: "99-09-9999",
+                                    prefixIcon: Icon(
+                                      Icons.calendar_today,
+                                      size: 24,
+                                    ),
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 20.0, 20.0, 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                  ),
+                                  onShowPicker: (context, currentValue) {
+                                    return showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(2000),
+                                      initialDate:
+                                          currentValue ?? DateTime.now(),
+                                      locale: Locale('pt', 'BR'),
+                                      lastDate: DateTime(2030),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                FutureBuilder<List<Loja>>(
+                                  future: lojas,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      return DropdownButtonFormField<Loja>(
+                                        validator: (value) => value == null
+                                            ? 'selecione uma categoria'
+                                            : null,
+                                        value: lojaSelecionada,
+                                        items: snapshot.data.map((loja) {
+                                          return DropdownMenuItem<Loja>(
+                                            value: loja,
+                                            child: Text(loja.nome),
+                                          );
+                                        }).toList(),
+                                        decoration: InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.white),
+                                          ),
+                                        ),
+                                        hint: Text("Selecione categoria..."),
+                                        onChanged: (Loja c) {
+                                          setState(() {
+                                            lojaSelecionada = c;
+                                            print(lojaSelecionada.nome);
+                                          });
+                                        },
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
 
-                            return Text("não foi peossível carregar lojas");
-                          },
+                                    return Text(
+                                        "não foi peossível carregar lojas");
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.all(5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("vá para galeria do seu aparelho..."),
+                                    RaisedButton(
+                                      child: Icon(Icons.photo),
+                                      shape: new CircleBorder(),
+                                      onPressed: () {
+                                        openBottomSheet(context);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(file,
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.fill)
+                                        : Image.asset(
+                                            ConstantApi.urlUpload,
+                                            height: 100,
+                                            width: 100,
+                                          ),
+                                    SizedBox(height: 15),
+                                    p.foto != null
+                                        ? Text("${p.foto}")
+                                        : Text("sem arquivo"),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                Card(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text("vá para galeria do seu aparelho..."),
-                            RaisedButton(
-                              child: Icon(Icons.photo),
-                              shape: new CircleBorder(),
-                              onPressed: () {
-                                openBottomSheet(context);
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: <Widget>[
-                            file != null
-                                ? Image.file(file,
-                                    height: 100, width: 100, fit: BoxFit.fill)
-                                : Image.asset(
-                                    ConstantApi.urlUpload,
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                            SizedBox(height: 15),
-                            p.foto != null
-                                ? Text("${p.foto}")
-                                : Text("sem arquivo"),
-                          ],
-                        ),
-                      ),
-                    ],
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: RaisedButton.icon(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    ),
+                    label: Text("Enviar formulário"),
+                    icon: Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                    textColor: Colors.white,
+                    splashColor: Colors.red,
+                    color: Colors.black,
+                    onPressed: () {
+                      if (controller.validate()) {
+                        if (p.foto == null) {
+                          showToast("deve anexar uma foto!");
+                        } else {
+                          onClickUpload();
+                          // p.desconto = 20.0;
+                          promocaoController.create(p);
+
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PromocaoPage(),
+                            ),
+                          );
+                        }
+                      }
+                    },
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.all(20),
-          child: RaisedButton.icon(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-            ),
-            label: Text(
-              "Enviar formulário",
-              style: TextStyle(color: Colors.white),
-            ),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            textColor: Colors.white,
-            splashColor: Colors.red,
-            color: Colors.black,
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  showToast("deve anexar uma foto!");
-                } else {
-                  onClickUpload();
-                  // p.desconto = 20.0;
-                  promocaoController.create(p);
-
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PromocaoPage(),
-                    ),
-                  );
-                }
-              }
-            },
-          ),
-        ),
-      ],
+            );
+          }
+        },
+      ),
     );
   }
 }

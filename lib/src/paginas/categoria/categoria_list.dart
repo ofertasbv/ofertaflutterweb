@@ -85,8 +85,8 @@ class _CategoriaListState extends State<CategoriaList>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.all(5),
                     width: containerWidth,
-                    //color: Colors.grey[200],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

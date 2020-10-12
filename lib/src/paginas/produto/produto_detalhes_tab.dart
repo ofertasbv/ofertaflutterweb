@@ -6,6 +6,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_info.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_view.dart';
+import 'package:nosso/src/paginas/produto/produto_page.dart';
 
 class ProdutoDetalhesTab extends StatefulWidget {
   Produto p;
@@ -80,15 +81,11 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.grey[100],
         appBar: AppBar(
           title: Text("Detalhes"),
           actions: <Widget>[
             IconButton(
-              icon: Icon(
-                CupertinoIcons.search,
-                size: 30,
-              ),
+              icon: Icon(Icons.search_outlined),
               onPressed: () {},
             ),
             GestureDetector(
@@ -97,11 +94,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 children: <Widget>[
                   Container(
                     padding: const EdgeInsets.only(top: 16, right: 16),
-                    child: Icon(
-                      Icons.shopping_basket,
-                      color: text == "0" ? Colors.white : Colors.white,
-                      size: 26,
-                    ),
+                    child: Icon(Icons.shopping_basket),
                   ),
                   AnimatedBuilder(
                     animation: animation,
@@ -135,14 +128,10 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             labelPadding: EdgeInsets.only(right: 6, left: 6),
             tabs: <Widget>[
               Tab(
-                child: Text(
-                  "VISÃO GERAL",
-                ),
+                child: Text("VISÃO GERAL"),
               ),
               Tab(
-                child: Text(
-                  "INFORMAÇÕES",
-                ),
+                child: Text("INFORMAÇÕES"),
               ),
             ],
           ),
@@ -172,23 +161,23 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ProdutoPage();
+                    },
+                  ),
+                );
+              },
               color: Colors.grey,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.list,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(
-                      "ESCOLHER MAIS",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Icon(Icons.list),
+                    SizedBox(width: 0),
+                    Text("ESCOLHER MAIS"),
                   ],
                 ),
               ),
@@ -198,23 +187,23 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             flex: 2,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
-              color: Colors.yellow[800],
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ProdutoPage();
+                    },
+                  ),
+                );
+              },
+              color: Colors.amber,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.shopping_basket,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(
-                      "ADICIONAR",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    Icon(Icons.shopping_basket),
+                    SizedBox(width:0),
+                    Text("ADICIONAR"),
                   ],
                 ),
               ),

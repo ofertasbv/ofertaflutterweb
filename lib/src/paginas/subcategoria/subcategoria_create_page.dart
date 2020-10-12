@@ -146,14 +146,13 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          List<Categoria> lista = categoriaController.categorias;
           if (categoriaController.error != null) {
             return Text("Não foi possível cadastrar subcategoria");
           } else {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
                     autovalidateMode: AutovalidateMode.always,
@@ -162,7 +161,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                       children: <Widget>[
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -191,7 +190,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 FutureBuilder<List<Categoria>>(
@@ -243,7 +242,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -261,7 +260,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                               ),
                               Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Column(
                                   children: <Widget>[
                                     file != null
@@ -290,7 +289,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),

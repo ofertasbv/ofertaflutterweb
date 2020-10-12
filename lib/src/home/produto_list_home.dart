@@ -87,8 +87,8 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    color: Colors.grey[200],
                     child: Image.network(
                       ConstantApi.urlArquivoProduto + p.foto,
                       fit: BoxFit.cover,
@@ -98,26 +98,20 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
-                    color: Colors.transparent,
+                    color: Colors.grey[100],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          color: Colors.white,
-                          child: Text(
-                            p.nome,
-                          ),
+                          child: Text(p.nome),
                         ),
                         SizedBox(height: 5),
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(
-                            p.descricao,
-                          ),
+                          child: Text(p.descricao),
                         ),
                         SizedBox(height: 5),
                         Container(

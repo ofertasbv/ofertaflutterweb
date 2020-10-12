@@ -142,7 +142,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(0),
                   child: Form(
                     autovalidateMode: AutovalidateMode.always,
                     key: controller.formKey,
@@ -151,7 +151,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                       children: <Widget>[
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -183,7 +183,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -207,7 +207,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                               ),
                               Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Column(
                                   children: <Widget>[
                                     file != null
@@ -235,7 +235,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),

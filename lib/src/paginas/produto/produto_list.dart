@@ -34,7 +34,7 @@ class _ProdutoListState extends State<ProdutoList>
       filter.nomeSubCategoria = nomeSubCategoria;
     }
 
-    produtoController.getFilter(filter);
+    produtoController.getAll();
     super.initState();
   }
 
@@ -95,23 +95,21 @@ class _ProdutoListState extends State<ProdutoList>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.all(5),
                     width: containerWidth,
-                    //color: Colors.grey[200],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          //color: Colors.grey[300],
                           child: Text(p.nome),
                         ),
                         SizedBox(height: 2),
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text("Cód. ${p.id}"),
+                          child: Text("R\$. ${p.estoque.valor}"),
                         ),
                       ],
                     ),

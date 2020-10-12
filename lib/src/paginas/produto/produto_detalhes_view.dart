@@ -95,49 +95,46 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                 ),
         ),
         Card(
-          elevation: 0.0,
           child: Container(
-              color: Colors.grey[100],
-              padding: EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        p.nome,
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      p.nome,
+                    ),
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[200],
+                      foregroundColor: Colors.redAccent,
+                      child: IconButton(
+                        icon: (p.favorito == false
+                            ? Icon(
+                                Icons.favorite_border,
+                                color: Colors.redAccent,
+                              )
+                            : Icon(
+                                Icons.favorite,
+                                color: Colors.redAccent,
+                              )),
+                        onPressed: () {
+                          setState(() {
+                            p.favorito = true;
+                            print(p.favorito);
+                          });
+                        },
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.grey[200],
-                        foregroundColor: Colors.redAccent,
-                        child: IconButton(
-                          icon: (p.favorito == false
-                              ? Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.redAccent,
-                                )
-                              : Icon(
-                                  Icons.favorite,
-                                  color: Colors.redAccent,
-                                )),
-                          onPressed: () {
-                            setState(() {
-                              p.favorito = true;
-                              print(p.favorito);
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "R\$ ${p.estoque.valor}",
-                  ),
-                ],
-              )),
+                    ),
+                  ],
+                ),
+                Text("R\$ ${p.estoque.valor}"),
+              ],
+            ),
+          ),
         ),
       ],
     );

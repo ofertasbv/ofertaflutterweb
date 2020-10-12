@@ -24,7 +24,7 @@ class ProdutoRepository {
   Future<List<Produto>> getAll() async {
     try {
       print("carregando produtos");
-      var response = await dio.client.get("/produtos");
+      var response = await dio.client.get("/produtos/pesquisa");
       return (response.data as List).map((c) => Produto.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
@@ -77,7 +77,7 @@ class ProdutoRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/produtos/$id", data: data);
+      var response = await dio.client.patch("/produtos/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

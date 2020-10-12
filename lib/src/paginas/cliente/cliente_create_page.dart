@@ -164,7 +164,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
                     autovalidateMode: AutovalidateMode.always,
@@ -173,7 +173,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       children: <Widget>[
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 Text("Dados Pessoais"),
@@ -219,7 +219,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -314,7 +314,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -366,7 +366,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -411,7 +411,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
@@ -577,7 +577,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),

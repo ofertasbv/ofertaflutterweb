@@ -27,7 +27,7 @@ class Promocao {
     nome = json['nome'];
     descricao = json['descricao'];
     foto = json['foto'];
-    desconto = json['desconto'];
+    desconto = double.tryParse(json['desconto'].toString());
 
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     dataInicio = DateTime.tryParse(json['dataInicio'].toString());

@@ -142,7 +142,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     }
   }
 
-   showDefaultSnackbar(BuildContext context, String content) {
+  showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(content),
@@ -154,7 +154,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     );
   }
 
-   showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
@@ -221,7 +221,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             return ListView(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(2),
                   child: Form(
                     key: controller.formKey,
                     autovalidateMode: AutovalidateMode.always,
@@ -232,8 +231,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         /* ================ Pequisa codigo de barra ================ */
                         Card(
                           child: Container(
+                            padding: EdgeInsets.all(5),
                             width: double.maxFinite,
-                            padding: EdgeInsets.all(10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
@@ -273,7 +272,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         /* ================ Cadastro produto ================ */
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
@@ -356,9 +355,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  initialValue: p.estoque.quantidade,
+                                  initialValue: p.estoque.quantidade.toString(),
                                   onSaved: (value) {
-                                    p.estoque.quantidade = value;
+                                    p.estoque.quantidade = int.tryParse(value);
                                   },
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
@@ -377,8 +376,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 6,
                                 ),
                                 TextFormField(
-                                  initialValue: p.estoque.valor,
-                                  onSaved: (value) => p.estoque.valor = value,
+                                  initialValue: p.estoque.valor.toString(),
+                                  onSaved: (value) =>
+                                      p.estoque.valor = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -395,8 +395,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 10,
                                 ),
                                 TextFormField(
-                                  initialValue: p.desconto,
-                                  onSaved: (value) => p.desconto = value,
+                                  initialValue: p.desconto.toString(),
+                                  onSaved: (value) => p.desconto = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -451,7 +451,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 SwitchListTile(
@@ -537,7 +537,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 Column(
@@ -619,7 +619,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 Column(
@@ -701,7 +701,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 Column(
@@ -752,7 +752,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 FutureBuilder<List<SubCategoria>>(
@@ -809,7 +809,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 FutureBuilder<List<Marca>>(
@@ -865,7 +865,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
                                 FutureBuilder<List<Loja>>(
@@ -921,7 +921,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         Card(
                           child: Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(5),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -979,7 +979,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -1025,7 +1025,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0)),

@@ -96,9 +96,7 @@ class _PermissaoListState extends State<PermissaoList>
           child: ListTile(
             isThreeLine: true,
             leading: Icon(Icons.vpn_key),
-            title: Text(
-              c.descricao,
-            ),
+            title: Text(c.descricao),
             subtitle: Text("Permissão e autorização"),
             trailing: buildPopupMenuButton(context, c),
             onLongPress: () {

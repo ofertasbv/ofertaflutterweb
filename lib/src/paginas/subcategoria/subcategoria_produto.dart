@@ -302,15 +302,14 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.all(5),
                     width: containerWidth,
-                    //color: Colors.grey[200],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
                           height: containerHeight,
                           width: containerWidth,
-                          //color: Colors.grey[300],
                           child: Text(p.nome),
                         ),
                         SizedBox(height: 2),
@@ -318,7 +317,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                           height: containerHeight,
                           width: containerWidth,
                           //color: Colors.grey[300],
-                          child: Text(p.subCategoria.nome),
+                          child: Text("R\$ ${p.estoque.valor}"),
                         ),
                       ],
                     ),

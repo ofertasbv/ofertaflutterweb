@@ -84,8 +84,8 @@ class _LojaListState extends State<LojaList>
                     ),
                   ),
                   Container(
+                    padding: EdgeInsets.all(5),
                     width: containerWidth,
-                    //color: Colors.grey[200],
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -100,7 +100,7 @@ class _LojaListState extends State<LojaList>
                           height: containerHeight,
                           width: containerWidth,
                           //color: Colors.grey[300],
-                          child: Text("Cód. ${p.id}"),
+                          child: Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
                         ),
                       ],
                     ),

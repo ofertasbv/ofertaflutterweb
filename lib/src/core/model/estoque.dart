@@ -1,21 +1,21 @@
 class Estoque {
   int id;
-  String quantidade;
-  String valor;
+  int quantidade;
+  double valor;
 
   Estoque({this.id, this.quantidade, this.valor});
 
   Estoque.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    quantidade = json['quantidade'];
-    valor = json['valor'];
+    quantidade = int.tryParse(json['quantidade'].toString());
+    valor = double.tryParse(json['valor'].toString());
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['quantidade'] = this.quantidade;
-    data['valor'] = this.valor;
+    data['quantidade'] = this.quantidade.toString();
+    data['valor'] = this.valor.toString();
     return data;
   }
 }
