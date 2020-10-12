@@ -49,25 +49,17 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(0),
-            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Card(
                   child: Container(
-                    padding: EdgeInsets.all(2),
                     height: 140,
                     child: CategoriaListHome(),
                   ),
                 ),
                 Card(
                   child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
                     height: 350,
                     child: buildGridView(context),
                   ),

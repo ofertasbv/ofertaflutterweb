@@ -70,14 +70,12 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
-        color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Card(
               child: Container(
-                padding: EdgeInsets.all(2),
                 height: 140,
                 child: builderConteudoListCategoria(),
               ),
@@ -122,14 +120,11 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 ),
               ),
             ),
-            Card(
-              child: Container(
-                padding: EdgeInsets.all(2),
-                height: 380,
-                color: Colors.transparent,
-                child: builderConteutoListSubCategoria(),
-              ),
-            )
+            Container(
+              height: 380,
+              color: Colors.transparent,
+              child: builderConteutoListSubCategoria(),
+            ),
           ],
         ),
       ),
@@ -173,7 +168,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: EdgeInsets.symmetric(horizontal: 4),
             child: AnimatedContainer(
               width: 100,
               duration: Duration(seconds: 1),

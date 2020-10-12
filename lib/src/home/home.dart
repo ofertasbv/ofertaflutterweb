@@ -116,7 +116,6 @@ class _HomePageState extends State<HomePage>
 
 /* ======================= Menu lateral ======================= */
         drawer: DrawerList(),
-        backgroundColor: Colors.grey[100],
 /* ======================= Botão Flutuante ======================= */
       ),
     );

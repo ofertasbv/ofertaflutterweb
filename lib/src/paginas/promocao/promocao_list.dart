@@ -85,6 +85,7 @@ class _PromocaoListState extends State<PromocaoList>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoPromocao + p.foto,
                       fit: BoxFit.cover,

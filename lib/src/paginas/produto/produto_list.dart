@@ -87,6 +87,7 @@ class _ProdutoListState extends State<ProdutoList>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoProduto + p.foto,
                       fit: BoxFit.cover,

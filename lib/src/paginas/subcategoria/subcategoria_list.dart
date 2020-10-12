@@ -72,6 +72,7 @@ class _SubCategoriaListState extends State<SubCategoriaList>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoSubCategoria + c.foto,
                       fit: BoxFit.cover,

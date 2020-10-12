@@ -77,6 +77,7 @@ class _CategoriaListState extends State<CategoriaList>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoCategoria + c.foto,
                       fit: BoxFit.cover,

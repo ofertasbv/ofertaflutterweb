@@ -77,14 +77,14 @@ class MyApp extends StatelessWidget {
         headline6: TextStyle(color: Colors.indigo[900]),
       ),
 
-
       primaryIconTheme: IconThemeData(color: Colors.indigo[900]),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
+
       cardTheme: CardTheme(
-        color: Colors.white,
-        elevation: 0.5,
+        elevation: 1,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(0.0),
           side: BorderSide(color: Colors.white),
@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
         actionTextColor: Colors.indigo[900],
         backgroundColor: Colors.amber,
       ),
-      scaffoldBackgroundColor: Colors.grey[100],
+      scaffoldBackgroundColor: Colors.white,
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
         backgroundColor: Colors.amber,

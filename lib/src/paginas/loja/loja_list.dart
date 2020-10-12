@@ -76,6 +76,7 @@ class _LojaListState extends State<LojaList>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoLoja + p.foto,
                       fit: BoxFit.cover,

@@ -79,7 +79,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
       appBar: AppBar(
         title: Text("Produtos por departamento"),
         actions: <Widget>[
-          SizedBox(width: 20),
           IconButton(
             icon: Icon(Icons.refresh_outlined),
             onPressed: () {
@@ -97,7 +96,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           children: <Widget>[
             Card(
               child: Container(
-                padding: EdgeInsets.all(2),
                 height: 140,
                 child: builderConteudoListSubCategoria(),
               ),
@@ -145,7 +143,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             ),
             Container(
               height: 380,
-              color: Colors.transparent,
               child: builderConteudoListProduto(),
             )
           ],
@@ -156,7 +153,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
   builderConteudoListSubCategoria() {
     return Container(
-      padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
           List<SubCategoria> categorias = subCategoriaController.subCategorias;
@@ -186,7 +182,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: EdgeInsets.symmetric(horizontal: 4),
             child: AnimatedContainer(
               width: 100,
               duration: Duration(seconds: 1),
@@ -294,6 +290,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
+                    color: Colors.grey[100],
                     child: Image.network(
                       ConstantApi.urlArquivoProduto + p.foto,
                       fit: BoxFit.cover,

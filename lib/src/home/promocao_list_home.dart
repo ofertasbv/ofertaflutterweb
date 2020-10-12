@@ -98,6 +98,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
+                        color: Colors.grey[200],
                         child: Image.network(
                           ConstantApi.urlArquivoPromocao + p.foto,
                           fit: BoxFit.cover,

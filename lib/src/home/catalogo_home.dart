@@ -127,7 +127,6 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ],
           ),
         ),
-        SizedBox(height: 2),
         Card(
           child: Column(
             children: <Widget>[
@@ -149,17 +148,15 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                   ),
                 ],
               ),
-              SizedBox(height: 2),
               Container(
                 padding: EdgeInsets.all(2),
                 height: 140,
                 child: CategoriaListHome(),
               ),
-              SizedBox(height: 10),
             ],
           ),
         ),
-        SizedBox(height: 2),
+
         Card(
           child: Column(
             children: <Widget>[
@@ -189,7 +186,6 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ],
           ),
         ),
-        SizedBox(height: 2),
         Card(
           child: Column(
             children: <Widget>[
@@ -219,7 +215,6 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ],
           ),
         ),
-        SizedBox(height: 20),
       ],
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
@@ -36,8 +35,10 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.2,
-          child: Image.network(ConstantApi.urlArquivoLoja + p.foto,
-              fit: BoxFit.fill),
+          child: Image.network(
+            ConstantApi.urlArquivoLoja + p.foto,
+            fit: BoxFit.fill,
+          ),
         ),
         SizedBox(height: 0),
         Card(
