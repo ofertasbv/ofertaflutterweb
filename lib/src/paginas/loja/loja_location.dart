@@ -214,7 +214,8 @@ class _LojaLocationState extends State<LojaLocation> {
                             p.endereco.logradouro + ", " + p.endereco.numero,
                       ),
                       markerId: MarkerId(p.nome),
-                      position: LatLng(double.tryParse(p.endereco.latitude) ?? 0.0,
+                      position: LatLng(
+                          double.tryParse(p.endereco.latitude) ?? 0.0,
                           double.tryParse(p.endereco.longitude) ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, p);
@@ -349,8 +350,10 @@ class _LojaLocationState extends State<LojaLocation> {
           ),
           onTap: () {
             selectCard(p.nome);
-            movimentarCamera(double.tryParse(p.endereco.latitude),
-                double.tryParse(p.endereco.longitude));
+            movimentarCamera(
+              double.tryParse(p.endereco.latitude),
+              double.tryParse(p.endereco.longitude),
+            );
           },
         );
       },
@@ -407,10 +410,6 @@ class _LojaLocationState extends State<LojaLocation> {
       barrierDismissible: false, // user must tap button for close dialog!
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(18.0),
-            side: BorderSide(color: Colors.white),
-          ),
           title: Text('Tipo de mapa'),
           content: Container(
             height: 200,

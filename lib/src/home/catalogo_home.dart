@@ -41,13 +41,12 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                       color: Colors.green[500],
                       size: 20,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     Text(
                       "locais",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -78,7 +77,8 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     Text(
                       "publicar",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -109,7 +109,8 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     Text(
                       "cadastre-se",
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -128,20 +129,14 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.white,
-          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    " departamento",
-                  ),
+                  Text(" departamento"),
                   FlatButton(
-                    child: Text(
-                      "veja mais",
-                    ),
+                    child: Text("veja mais"),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -166,20 +161,14 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.white,
-          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    " ofertas",
-                  ),
+                  Text(" ofertas"),
                   FlatButton(
-                    child: Text(
-                      "veja mais",
-                    ),
+                    child: Text("veja mais"),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -202,20 +191,14 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         ),
         SizedBox(height: 2),
         Card(
-          color: Colors.white,
-          elevation: 1,
           child: Column(
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    " produtos em destaque",
-                  ),
+                  Text(" produtos em destaque"),
                   FlatButton(
-                    child: Text(
-                      "veja mais",
-                    ),
+                    child: Text("veja mais"),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

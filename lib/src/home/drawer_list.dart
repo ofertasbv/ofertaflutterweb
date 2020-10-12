@@ -72,12 +72,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.home,
-          ),
-          title: Text(
-            "Home",
-          ),
+          leading: Icon(Icons.home),
+          title: Text("Home"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -92,12 +88,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.search,
-          ),
-          title: Text(
-            "Buscar",
-          ),
+          leading: Icon(Icons.search),
+          title: Text("Buscar"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             showSearch(
@@ -108,12 +100,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.account_circle,
-          ),
-          title: Text(
-            "Minha Conta",
-          ),
+          leading: Icon(Icons.account_circle),
+          title: Text("Minha Conta"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -128,23 +116,15 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.shopping_basket,
-          ),
-          title: Text(
-            "Meus pedidos",
-          ),
+          leading: Icon(Icons.shopping_basket),
+          title: Text("Meus pedidos"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.shop_two,
-          ),
-          title: Text(
-            "Ofertas",
-          ),
+          leading: Icon(Icons.shop_two),
+          title: Text("Ofertas"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -159,12 +139,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.list,
-          ),
-          title: Text(
-            "Categorias",
-          ),
+          leading: Icon(Icons.list),
+          title: Text("Categorias"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -179,12 +155,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.apps,
-          ),
-          title: Text(
-            "Apps",
-          ),
+          leading: Icon(Icons.apps),
+          title: Text("Apps"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.push(
@@ -197,12 +169,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.settings,
-          ),
-          title: Text(
-            "Configurações",
-          ),
+          leading: Icon(Icons.settings),
+          title: Text("Configurações"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -217,12 +185,8 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.ios_share,
-          ),
-          title: Text(
-            "Sobre",
-          ),
+          leading: Icon(Icons.ios_share),
+          title: Text("Sobre"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);

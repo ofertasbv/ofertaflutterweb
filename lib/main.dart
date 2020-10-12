@@ -53,16 +53,41 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       backgroundColor: Theme.of(context).bottomAppBarColor,
-      // Define the default brightness and colors.
       brightness: Brightness.light,
       primaryColor: Colors.amber,
       accentColor: Colors.indigo[900],
+      primarySwatch: Colors.amber,
+
+      textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Colors.indigo[900],
+            displayColor: Colors.amber,
+          ),
+
+      dialogTheme: DialogTheme(
+        backgroundColor: Colors.grey[100],
+        elevation: 2,
+        titleTextStyle: TextStyle(color: Colors.indigo[900]),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(10),
+          side: BorderSide(color: Colors.white),
+        ),
+      ),
+
+      primaryTextTheme: TextTheme(
+        headline6: TextStyle(color: Colors.indigo[900]),
+      ),
+
+      primaryIconTheme: IconThemeData(color: Colors.indigo[900]),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
         color: Colors.white,
-        elevation: 1,
+        elevation: 0.5,
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(0.0),
+          side: BorderSide(color: Colors.white),
+        ),
       ),
 
       hintColor: Colors.amber,
@@ -82,18 +107,6 @@ class MyApp extends StatelessWidget {
         fillColor: Colors.amber,
       ),
 
-      // Define the default TextTheme. Use this to specify the default
-      // text styling for headlines, titles, bodies of text, and more.
-      textTheme: TextTheme(
-        headline1: TextStyle(
-            fontSize: 50.0, fontWeight: FontWeight.w600, color: Colors.green),
-        headline6: TextStyle(
-            fontSize: 22.0,
-            fontStyle: FontStyle.normal,
-            color: Colors.indigo[900]),
-        bodyText2: TextStyle(
-            fontSize: 14.0, fontFamily: 'Hind', color: Colors.indigo[900]),
-      ),
       iconTheme: IconThemeData(
         color: Colors.amber,
       ),
