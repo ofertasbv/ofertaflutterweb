@@ -66,51 +66,27 @@ class _EnderecoListState extends State<EnderecoList>
     return ListView.builder(
       itemCount: enderecos.length,
       itemBuilder: (context, index) {
-        Endereco c = enderecos[index];
+        Endereco e = enderecos[index];
 
         return GestureDetector(
           child: Card(
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    child: Image.asset(
-                      ConstantApi.urlNormal,
-                      fit: BoxFit.cover,
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  Container(
-                    width: containerWidth,
-                    //color: Colors.grey[200],
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text("${c.logradouro}, ${c.numero}"),
-                        ),
-                        SizedBox(height: 2),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(c.bairro),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 50,
-                    child: buildPopupMenuButton(context, c),
-                  ),
-                ],
+            child: ListTile(
+              isThreeLine: true,
+              leading: Container(
+                color: Colors.grey[100],
+                child: Image.asset(
+                  ConstantApi.urlNormal,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              title: Text("${e.logradouro}, ${e.numero}"),
+              subtitle: Text("${e.cep}"),
+              trailing: Container(
+                height: 80,
+                width: 50,
+                child: buildPopupMenuButton(context, e),
               ),
             ),
           ),

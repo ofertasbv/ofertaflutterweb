@@ -191,6 +191,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     p.estoque = e;
     p.loja = lojaSelecionada;
     p.subCategoria = subCategoriaSelecionada;
+    p.marca = marcaSelecionada;
+    p.promocao = promocaoSelecionada;
 
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat formatter = NumberFormat("00.00");
@@ -1048,14 +1050,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         } else {
                           onClickUpload();
                           produtoController.create(p);
-
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ProdutoPage(),
-                            ),
-                          );
+                          //
+                          // Navigator.of(context).pop();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ProdutoPage(),
+                          //   ),
+                          // );
                         }
                       }
                     },

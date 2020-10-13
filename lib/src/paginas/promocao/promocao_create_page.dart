@@ -47,6 +47,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  TextEditingController descontoController = TextEditingController();
+
   @override
   void initState() {
     promocaoController.getAll();
@@ -132,8 +134,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-
     NumberFormat numberFormat = NumberFormat("00.00");
+
+    // p.desconto = double.tryParse(descontoController.text);
 
     p.loja = lojaSelecionada;
 
@@ -213,7 +216,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   autofocus: true,
                                   initialValue: p.desconto.toString(),
                                   onSaved: (value) =>
-                                      p.desconto = double.parse(value),
+                                      p.desconto = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -226,8 +229,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                         borderRadius:
                                             BorderRadius.circular(5.0)),
                                   ),
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
+                                  keyboardType:
+                                      TextInputType.numberWithOptions(),
+                                  maxLength: 4,
                                 ),
                                 SizedBox(height: 15),
                                 DateTimeField(
@@ -338,7 +342,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     if (snapshot.hasData) {
                                       return DropdownButtonFormField<Loja>(
                                         validator: (value) => value == null
-                                            ? 'selecione uma categoria'
+                                            ? 'selecione uma loja'
                                             : null,
                                         value: lojaSelecionada,
                                         items: snapshot.data.map((loja) {
@@ -357,7 +361,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                                 BorderSide(color: Colors.white),
                                           ),
                                         ),
-                                        hint: Text("Selecione categoria..."),
+                                        hint: Text("Selecione uma loja..."),
                                         onChanged: (Loja c) {
                                           setState(() {
                                             lojaSelecionada = c;
@@ -446,7 +450,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           showToast("deve anexar uma foto!");
                         } else {
                           onClickUpload();
-                          // p.desconto = 20.0;
+                          p.desconto = 20.0;
                           promocaoController.create(p);
 
                           Navigator.of(context).pop();

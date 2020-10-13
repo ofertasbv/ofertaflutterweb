@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -13,8 +14,11 @@ import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
-import 'package:nosso/src/home/home.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:flutter/services.dart';
+import 'package:nosso/src/home/home.dart';
+
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -129,3 +133,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

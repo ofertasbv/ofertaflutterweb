@@ -91,8 +91,6 @@ class _PermissaoListState extends State<PermissaoList>
         Permissao c = permissoes[index];
 
         return Card(
-          margin: EdgeInsets.all(1),
-          elevation: 0.0,
           child: ListTile(
             isThreeLine: true,
             leading: Icon(Icons.vpn_key),

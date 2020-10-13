@@ -71,48 +71,23 @@ class _CategoriaListState extends State<CategoriaList>
 
         return GestureDetector(
           child: Card(
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[100],
-                    child: Image.network(
-                      ConstantApi.urlArquivoCategoria + c.foto,
-                      fit: BoxFit.cover,
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    width: containerWidth,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(c.nome),
-                        ),
-                        SizedBox(height: 2),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text("Cód. ${c.id}"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 50,
-                    child: buildPopupMenuButton(context, c),
-                  ),
-                ],
+            child: ListTile(
+              isThreeLine: true,
+              leading: Container(
+                color: Colors.grey[100],
+                child: Image.network(
+                  ConstantApi.urlArquivoCategoria + c.foto,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              title: Text(c.nome),
+              subtitle: Text("${c.id}"),
+              trailing: Container(
+                height: 80,
+                width: 50,
+                child: buildPopupMenuButton(context, c),
               ),
             ),
           ),

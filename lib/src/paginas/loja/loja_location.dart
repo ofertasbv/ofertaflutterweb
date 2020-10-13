@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location_permissions/location_permissions.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
@@ -24,6 +25,8 @@ class _LojaLocationState extends State<LojaLocation> {
 
   var selectedCard = 'WEIGHT';
   double distanciaKilomentros = 0;
+
+  PermissionStatus permission;
 
   // GeolocationStatus geolocationStatus  = await Geolocator().checkGeolocationPermissionStatus();
   Geolocator geolocator;
@@ -112,6 +115,7 @@ class _LojaLocationState extends State<LojaLocation> {
 
   getLocation() async {
     try {
+      permission = await LocationPermissions().requestPermissions();
       geolocator = Geolocator();
       LocationOptions locationOptions =
           LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);
@@ -143,7 +147,7 @@ class _LojaLocationState extends State<LojaLocation> {
         CameraPosition(
           target: LatLng(latitude, longitude),
           zoom: 16.0,
-          tilt: 54,
+          tilt: 20,
         ),
       ),
     );
@@ -185,6 +189,12 @@ class _LojaLocationState extends State<LojaLocation> {
 
                 if (lojas == null) {
                   return GoogleMap(
+                    onTap: (valor) {
+                      print("Lat: ${valor.latitude}, Long: ${valor.longitude}");
+                    },
+                    indoorViewEnabled: true,
+                    mapToolbarEnabled: true,
+                    buildingsEnabled: true,
                     tiltGesturesEnabled: true,
                     zoomControlsEnabled: true,
                     zoomGesturesEnabled: true,
@@ -196,18 +206,18 @@ class _LojaLocationState extends State<LojaLocation> {
                     mapType: mapType,
                     onMapCreated: criarMapa,
                     initialCameraPosition: CameraPosition(
-                      target: position != null
-                          ? LatLng(position.latitude, position.longitude)
-                          : lastMapPosition,
-                      zoom: 16.0,
-                    ),
+                        target: position != null
+                            ? LatLng(position.latitude, position.longitude)
+                            : lastMapPosition,
+                        zoom: 13,
+                        tilt: 54),
                   );
                 }
 
                 allMarkers = lojas.map((p) {
                   return Marker(
                       icon: BitmapDescriptor.defaultMarkerWithHue(
-                          BitmapDescriptor.hueOrange),
+                          BitmapDescriptor.hueYellow),
                       infoWindow: InfoWindow(
                         title: p.nome,
                         snippet:
@@ -223,6 +233,12 @@ class _LojaLocationState extends State<LojaLocation> {
                 }).toList();
 
                 return GoogleMap(
+                  onTap: (valor) {
+                    print("Lat: ${valor.latitude}, Long: ${valor.longitude}");
+                  },
+                  indoorViewEnabled: true,
+                  mapToolbarEnabled: true,
+                  buildingsEnabled: true,
                   tiltGesturesEnabled: true,
                   zoomControlsEnabled: true,
                   zoomGesturesEnabled: true,
@@ -234,11 +250,11 @@ class _LojaLocationState extends State<LojaLocation> {
                   mapType: mapType,
                   onMapCreated: criarMapa,
                   initialCameraPosition: CameraPosition(
-                    target: position != null
-                        ? LatLng(position.latitude, position.longitude)
-                        : lastMapPosition,
-                    zoom: 16.0,
-                  ),
+                      target: position != null
+                          ? LatLng(position.latitude, position.longitude)
+                          : lastMapPosition,
+                      zoom: 16.0,
+                      tilt: 54),
                   markers: Set.of(allMarkers),
                 );
               },

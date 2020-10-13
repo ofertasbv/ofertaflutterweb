@@ -9,6 +9,7 @@ import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
+import 'package:nosso/src/paginas/promocao/promocao_detalhes.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PromocaoList extends StatefulWidget {
@@ -79,52 +80,35 @@ class _PromocaoListState extends State<PromocaoList>
 
         return GestureDetector(
           child: Card(
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[100],
-                    child: Image.network(
-                      ConstantApi.urlArquivoPromocao + p.foto,
-                      fit: BoxFit.cover,
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    width: containerWidth,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(p.nome),
-                        ),
-                        SizedBox(height: 2),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text("Cód. ${p.id}"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 50,
-                    child: buildPopupMenuButton(context, p),
-                  ),
-                ],
+            child: ListTile(
+              isThreeLine: true,
+              leading: Container(
+                color: Colors.grey[100],
+                child: Image.network(
+                  ConstantApi.urlArquivoPromocao + p.foto,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              title: Text(p.nome),
+              subtitle: Text("${p.loja.nome}"),
+              trailing: Container(
+                height: 80,
+                width: 50,
+                child: buildPopupMenuButton(context, p),
               ),
             ),
           ),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PromocaoDetalhes(p);
+                },
+              ),
+            );
+          },
         );
       },
     );

@@ -81,7 +81,6 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(2),
           child: Form(
             key: controller.formKey,
             autovalidateMode: AutovalidateMode.always,
@@ -90,7 +89,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
               children: <Widget>[
                 Card(
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
                         TextFormField(
@@ -109,7 +108,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,
-                          maxLines: 2,
+                          maxLines: 1,
                           //initialValue: c.nome,
                         ),
                       ],
@@ -127,7 +126,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
 
   buildContainerButton(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(5),
       child: RaisedButton.icon(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30.0)),

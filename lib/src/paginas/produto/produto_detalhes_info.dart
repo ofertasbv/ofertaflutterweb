@@ -28,36 +28,88 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
         children: <Widget>[
           Card(
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(0),
               width: double.infinity,
-              height: 80,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text("${p.nome}"),
-                  Text("Código ${p.id}"),
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("Produto: ${p.nome}"),
+                        subtitle: Text("Descrição: ${p.descricao}"),
+                        trailing: Text("R\$: ${p.estoque.valor}"),
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("Loja: ${p.loja.nome}"),
+                        subtitle: Text("Oferta: ${p.promocao.nome}"),
+                        trailing: Text("Quant: ${p.estoque.quantidade}"),
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("SubCategoria: ${p.subCategoria.nome}"),
+                        subtitle: Text("Marca: ${p.marca.nome}"),
+                        trailing: Text("Descont: ${p.desconto}"),
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("Origem: ${p.origem}"),
+                        subtitle: Text("Tamanho: ${p.tamanho}"),
+                        trailing: Text("Media: ${p.medida}"),
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("CodBar: ${p.codigoBarra}"),
+                        subtitle: Text("SKU: ${p.sku}"),
+                        trailing: Text("Cor: ${p.cor}"),
+                      ),
+                    ),
+                  ),
+
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(0),
+                      width: double.infinity,
+                      child: ListTile(
+                        title: Text("Favorito: ${p.favorito}"),
+                        subtitle: Text("Destaque: ${p.destaque}"),
+                        trailing: Text("Novo: ${p.novo}"),
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
             ),
           ),
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(15),
-              width: double.infinity,
-              child: Text("${p.descricao}"),
-            ),
-          ),
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(15),
-              width: double.infinity,
-              child: Text(
-                "${p.loja.nome}",
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
         ],
       ),
     );

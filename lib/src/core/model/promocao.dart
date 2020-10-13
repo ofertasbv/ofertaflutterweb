@@ -5,7 +5,7 @@ class Promocao {
   String nome;
   String descricao;
   String foto;
-  double desconto;
+  double desconto = 0.0;
   DateTime dataRegistro;
   DateTime dataInicio;
   DateTime dataFinal;

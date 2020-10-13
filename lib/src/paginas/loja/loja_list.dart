@@ -70,48 +70,23 @@ class _LojaListState extends State<LojaList>
 
         return GestureDetector(
           child: Card(
-            child: Container(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[100],
-                    child: Image.network(
-                      ConstantApi.urlArquivoLoja + p.foto,
-                      fit: BoxFit.cover,
-                      width: 80,
-                      height: 80,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    width: containerWidth,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(p.nome),
-                        ),
-                        SizedBox(height: 2),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    width: 50,
-                    child: buildPopupMenuButton(context, p),
-                  ),
-                ],
+            child: ListTile(
+              isThreeLine: true,
+              leading: Container(
+                color: Colors.grey[100],
+                child: Image.network(
+                  ConstantApi.urlArquivoLoja + p.foto,
+                  fit: BoxFit.cover,
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              title: Text(p.nome),
+              subtitle: Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
+              trailing: Container(
+                height: 80,
+                width: 50,
+                child: buildPopupMenuButton(context, p),
               ),
             ),
           ),
