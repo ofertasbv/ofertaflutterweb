@@ -28,6 +28,14 @@ abstract class LojaControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  bool senhaVisivel = false;
+
+  @action
+  visualizarSenha() {
+    senhaVisivel = !senhaVisivel;
+  }
+
   @action
   Future<List<Loja>> getAll() async {
     try {

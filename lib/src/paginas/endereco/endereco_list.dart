@@ -82,7 +82,7 @@ class _EnderecoListState extends State<EnderecoList>
                 ),
               ),
               title: Text("${e.logradouro}, ${e.numero}"),
-              subtitle: Text("${e.cep}"),
+              subtitle: Text("${e.cidade.nome}"),
               trailing: Container(
                 height: 80,
                 width: 50,

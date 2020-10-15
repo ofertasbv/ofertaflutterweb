@@ -22,6 +22,14 @@ abstract class ClienteControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  bool senhaVisivel = false;
+
+  @action
+  visualizarSenha() {
+    senhaVisivel = !senhaVisivel;
+  }
+
   @action
   Future<List<Cliente>> getAll() async {
     try {

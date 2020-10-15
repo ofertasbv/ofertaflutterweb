@@ -341,20 +341,25 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   initialValue: p.usuario.senha,
                                   onSaved: (value) => p.usuario.senha = value,
                                   validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
+                                  value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Senha",
                                     hintText: "Senha",
                                     prefixIcon: Icon(Icons.security),
-                                    suffixIcon: Icon(Icons.visibility),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.visibility),
+                                      onPressed: () {
+                                        clienteController.visualizarSenha();
+                                      },
+                                    ),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                            BorderRadius.circular(5.0)),
+                                        BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
-                                  obscureText: true,
+                                  obscureText: !clienteController.senhaVisivel,
                                   maxLength: 8,
                                 ),
                               ],

@@ -364,7 +364,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Senha",
                                     hintText: "Senha",
                                     prefixIcon: Icon(Icons.security),
-                                    suffixIcon: Icon(Icons.visibility),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(Icons.visibility),
+                                      onPressed: () {
+                                        lojaController.visualizarSenha();
+                                      },
+                                    ),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -372,7 +377,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                             BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
-                                  obscureText: true,
+                                  obscureText: !lojaController.senhaVisivel,
                                   maxLength: 8,
                                 ),
                               ],

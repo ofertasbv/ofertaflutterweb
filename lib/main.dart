@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
+import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
@@ -35,6 +36,7 @@ void main() async {
   getIt.registerSingleton<ClienteController>(ClienteController());
   getIt.registerSingleton<LojaController>(LojaController());
   getIt.registerSingleton<MarcaController>(MarcaController());
+  getIt.registerSingleton<CidadeController>(CidadeController());
   runApp(MyApp());
 }
 
