@@ -38,14 +38,13 @@ class _PromocaoPageState extends State<PromocaoPage> {
 
               if (promocaoController.promocoes == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (promocaoController.promocoes.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/model/permissao.dart';
 import 'package:nosso/src/paginas/permissao/permissao_create_page.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PermissaoList extends StatefulWidget {
   @override
@@ -71,7 +72,7 @@ class _PermissaoListState extends State<PermissaoList>
 
           if (permissoes == null) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressor(),
             );
           }
 

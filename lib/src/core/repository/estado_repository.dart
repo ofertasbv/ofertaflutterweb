@@ -46,7 +46,7 @@ class EstadoRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/estados/$id", data: data);
+      var response = await dio.client.patch("/estados/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

@@ -43,6 +43,16 @@ abstract class CategoriaControllerBase with Store {
   }
 
   @action
+  Future<int> update(int id, Categoria p) async {
+    try {
+      categoria = await _categoriaRepository.update(id, p.toJson());
+      return categoria;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<void> deleteFoto(String foto) async {
     try {
       await _categoriaRepository.deleteFoto(foto);

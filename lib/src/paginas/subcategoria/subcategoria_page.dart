@@ -18,7 +18,8 @@ class SubcategoriaPage extends StatefulWidget {
 }
 
 class _SubcategoriaPageState extends State<SubcategoriaPage> {
-  SubCategoriaController subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  SubCategoriaController subCategoriaController =
+      GetIt.I.get<SubCategoriaController>();
 
   Categoria c;
 
@@ -38,14 +39,13 @@ class _SubcategoriaPageState extends State<SubcategoriaPage> {
 
               if (subCategoriaController.subCategorias == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (subCategoriaController.subCategorias.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },
@@ -68,11 +68,9 @@ class _SubcategoriaPageState extends State<SubcategoriaPage> {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return SubCategoriaCreatePage();
-                  }
-                ),
+                MaterialPageRoute(builder: (context) {
+                  return SubCategoriaCreatePage();
+                }),
               );
             },
           )

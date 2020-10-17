@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -85,14 +84,13 @@ class _ProdutoPageState extends State<ProdutoPage>
 
               if (produtoController.produtos == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (produtoController.produtos.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },

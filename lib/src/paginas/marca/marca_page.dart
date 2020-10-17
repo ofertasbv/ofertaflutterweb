@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -25,14 +24,13 @@ class MarcaPage extends StatelessWidget {
 
               if (marcaController.marcas == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (marcaController.marcas.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },

@@ -24,14 +24,13 @@ class CategoriaPage extends StatelessWidget {
 
               if (categoriaController.categorias == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (categoriaController.categorias.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },

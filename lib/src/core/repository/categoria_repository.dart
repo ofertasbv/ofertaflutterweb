@@ -12,9 +12,7 @@ class CategoriaRepository {
     try {
       print("carregando categorias by id");
       var response = await dio.client.get("/categorias/${id}");
-      return (response.data as List)
-          .map((c) => Categoria.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Categoria.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class CategoriaRepository {
     try {
       print("carregando categorias");
       var response = await dio.client.get("/categorias");
-      return (response.data as List)
-          .map((c) => Categoria.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Categoria.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -44,9 +40,10 @@ class CategoriaRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/categorias/$id", data: data);
+      var response =
+          await dio.client.put("/categorias/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

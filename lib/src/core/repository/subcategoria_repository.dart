@@ -59,7 +59,7 @@ class SubCategoriaRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/subcategorias/$id", data: data);
+      var response = await dio.client.patch("/subcategorias/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

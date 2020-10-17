@@ -125,12 +125,11 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
                         if (produtoController.produtos == null) {
                           return Center(
-                            child: CircularProgressIndicator(),
+                            child: Icon(Icons.warning_amber_outlined),
                           );
                         }
 
                         return Chip(
-                          backgroundColor: Colors.amber,
                           label: Text(
                             (produtoController.produtos.length ?? 0).toString(),
                           ),
@@ -257,7 +256,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                   Center(
                     child: Icon(
                       Icons.mood_bad,
-                      color: Colors.grey[300],
                       size: 100,
                     ),
                   ),

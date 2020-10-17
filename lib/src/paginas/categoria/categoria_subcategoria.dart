@@ -103,12 +103,11 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
                         if (subCategoriaController.subCategorias == null) {
                           return Center(
-                            child: CircularProgressIndicator(),
+                            child: Icon(Icons.warning_amber_outlined),
                           );
                         }
 
                         return Chip(
-                          backgroundColor: Colors.amber,
                           label: Text(
                             (subCategoriaController.subCategorias.length ?? 0)
                                 .toString(),
@@ -246,7 +245,6 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   Center(
                     child: Icon(
                       Icons.mood_bad,
-                      color: Colors.grey[300],
                       size: 100,
                     ),
                   ),

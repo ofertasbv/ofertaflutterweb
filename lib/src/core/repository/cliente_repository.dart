@@ -42,7 +42,7 @@ class ClienteRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/clientes/$id", data: data);
+      var response = await dio.client.patch("/clientes/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

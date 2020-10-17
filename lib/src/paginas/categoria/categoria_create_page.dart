@@ -52,6 +52,20 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     super.didChangeDependencies();
   }
 
+  bool isEnabled = false;
+
+  enableButton() {
+    setState(() {
+      isEnabled = true;
+    });
+  }
+
+  disableButton() {
+    setState(() {
+      isEnabled = false;
+    });
+  }
+
   onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
     var atual = DateTime.now();
@@ -109,6 +123,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
               trailing: Icon(Icons.arrow_forward),
               title: Text("ir para galeria"),
               onTap: () {
+                enableButton();
                 onClickFoto();
               },
             ),
@@ -171,7 +186,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
-                                  maxLines: 2,
+                                  maxLines: 1,
                                   //initialValue: c.nome,
                                 ),
                                 SizedBox(height: 10),
@@ -183,7 +198,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -191,9 +206,10 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                     RaisedButton(
                                       child: Icon(Icons.delete_forever),
                                       shape: new CircleBorder(),
-                                      onPressed: () {
-                                        categoriaController.deleteFoto(c.foto);
-                                      },
+                                      onPressed: isEnabled
+                                          ? () => categoriaController
+                                              .deleteFoto(c.foto)
+                                          : null,
                                     ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
@@ -201,33 +217,50 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                       onPressed: () {
                                         openBottomSheet(context);
                                       },
+                                    ),
+                                    RaisedButton(
+                                      child: Icon(Icons.check),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabled
+                                          ? () => onClickUpload()
+                                          : null,
                                     )
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(5),
-                                child: Column(
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(file,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.fill)
-                                        : Image.asset(
-                                            ConstantApi.urlUpload,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                    SizedBox(height: 15),
-                                    c.foto != null
-                                        ? Text("${c.foto}")
-                                        : Text("sem arquivo"),
-                                  ],
-                                ),
-                              ),
                             ],
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                              ),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                file != null
+                                    ? Image.file(
+                                  file,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.fitWidth,
+                                )
+                                    : c.foto != null
+                                    ? Image.network(
+                                  ConstantApi
+                                      .urlArquivoCategoria +
+                                      c.foto,
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.fitWidth,
+                                )
+                                    : Text("anexar"),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -253,20 +286,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     color: Colors.black,
                     onPressed: () {
                       if (controller.validate()) {
-                        if (c.foto == null) {
-                          showToast("deve anexar uma foto!");
-                        } else {
-                          onClickUpload();
-                          categoriaController.create(c);
-
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CategoriaPage(),
-                            ),
-                          );
-                        }
+                        showDialogAlert(context, c);
                       }
                     },
                   ),
@@ -276,6 +296,58 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
           }
         },
       ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CategoriaPage(),
+      ),
+    );
+  }
+
+  showDialogAlert(BuildContext context, Categoria c) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button for close dialog!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Dados da categoria'),
+          content: Container(
+            height: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("${c.nome}"),
+                Text("${c.foto}"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('CANCELAR'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: const Text('CONFIRMAR'),
+              onPressed: () {
+                if (c.id == null) {
+                  categoriaController.create(c);
+                  showToast("Cadastro  realizado com sucesso");
+                } else {
+                  Navigator.of(context).pop();
+                  categoriaController.update(c.id, c);
+                  showToast("Cadastro  alterado com sucesso");
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

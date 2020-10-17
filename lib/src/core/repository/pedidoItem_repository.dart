@@ -46,7 +46,7 @@ class PedidoItemRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/pedidoitens/$id", data: data);
+      var response = await dio.client.patch("/pedidoitens/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

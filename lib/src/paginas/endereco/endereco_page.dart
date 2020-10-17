@@ -24,14 +24,13 @@ class EnderecoPage extends StatelessWidget {
 
               if (enderecoController.enderecos == null) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Icon(Icons.warning_amber_outlined),
                 );
               }
 
               return Chip(
                 label: Text(
                   (enderecoController.enderecos.length ?? 0).toString(),
-                  style: TextStyle(color: Colors.deepOrangeAccent),
                 ),
               );
             },

@@ -46,7 +46,7 @@ class EnderecoRepository {
 
   Future<int> update(Map<String, dynamic> data, int id) async {
     try {
-      var response = await dio.client.patch("/enderecos/$id", data: data);
+      var response = await dio.client.patch("/enderecos//update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);
