@@ -1,4 +1,3 @@
-
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/cidade.dart';
 import 'package:nosso/src/core/repository/cidade_repository.dart';
@@ -6,7 +5,8 @@ import 'package:nosso/src/core/repository/cidade_repository.dart';
 part 'cidade_controller.g.dart';
 
 class CidadeController = CidadeControllerBase with _$CidadeController;
-abstract class CidadeControllerBase with Store{
+
+abstract class CidadeControllerBase with Store {
   CidadeRepository _cidadeRepository;
 
   CidadeControllerBase() {
@@ -46,6 +46,16 @@ abstract class CidadeControllerBase with Store{
   Future<int> create(Cidade p) async {
     try {
       cidade = await _cidadeRepository.create(p.toJson());
+      return cidade;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<int> update(int id, Cidade p) async {
+    try {
+      cidade = await _cidadeRepository.update(id, p.toJson());
       return cidade;
     } catch (e) {
       error = e;

@@ -52,4 +52,23 @@ abstract class SubCategoriaControllerBase with Store {
       error = e;
     }
   }
+
+  @action
+  Future<int> update(int id, SubCategoria p) async {
+    try {
+      subCategoria = await _subCategoriaRepository.update(id, p.toJson());
+      return subCategoria;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _subCategoriaRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
 }

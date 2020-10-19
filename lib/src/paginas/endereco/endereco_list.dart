@@ -68,29 +68,32 @@ class _EnderecoListState extends State<EnderecoList>
       itemBuilder: (context, index) {
         Endereco e = enderecos[index];
 
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.asset(
-                  ConstantApi.urlNormal,
-                  fit: BoxFit.cover,
-                  width: 80,
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  maxRadius: 35,
+                  minRadius: 35,
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.circular(100),
+                    child: Image.asset(ConstantApi.urlSatelite),
+                  ),
+                ),
+                title: Text("${e.logradouro}, ${e.numero}"),
+                subtitle: Text("${e.cidade.nome}"),
+                trailing: Container(
                   height: 80,
+                  width: 50,
+                  child: buildPopupMenuButton(context, e),
                 ),
               ),
-              title: Text("${e.logradouro}, ${e.numero}"),
-              subtitle: Text("${e.cidade.nome}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, e),
-              ),
+              onTap: () {},
             ),
-          ),
-          onTap: () {},
+            Divider()
+          ],
         );
       },
     );

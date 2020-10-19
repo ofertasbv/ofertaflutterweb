@@ -12,9 +12,7 @@ class ArquivoRepository {
     try {
       print("carregando arquivos by id");
       var response = await dio.client.get("/arquivos/${id}");
-      return (response.data as List)
-          .map((c) => Arquivo.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Arquivo.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class ArquivoRepository {
     try {
       print("carregando arquivos");
       var response = await dio.client.get("/arquivos");
-      return (response.data as List)
-          .map((c) => Arquivo.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Arquivo.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -44,9 +40,9 @@ class ArquivoRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/categorias//update/$id", data: data);
+      var response = await dio.client.put("/arquivos/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);
@@ -58,7 +54,7 @@ class ArquivoRepository {
     var fileDir = file.path;
 
     var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
+      "foto": await MultipartFile.fromFile(fileDir, filename: fileName)
     };
 
     FormData formData = FormData.fromMap(paramentros);

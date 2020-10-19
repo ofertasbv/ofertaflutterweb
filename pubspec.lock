@@ -35,7 +35,7 @@ packages:
       name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.13.2"
   barcode_scan:
     dependency: "direct main"
     description:
@@ -275,11 +275,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   fluttertoast:
     dependency: "direct main"
     description:
@@ -398,7 +393,7 @@ packages:
       name: js
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.3-nullsafety.1"
+    version: "0.6.2"
   json_annotation:
     dependency: transitive
     description:

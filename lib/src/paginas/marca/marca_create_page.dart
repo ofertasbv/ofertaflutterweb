@@ -3,11 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
-import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 
 class MarcaCreatePage extends StatefulWidget {
@@ -92,8 +90,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 50,
-                                  maxLines: 2,
-                                  //initialValue: c.nome,
+                                  maxLines: 1,
                                 ),
                                 SizedBox(height: 10),
                               ],

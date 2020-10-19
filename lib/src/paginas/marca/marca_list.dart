@@ -68,29 +68,32 @@ class _MarcaListState extends State<MarcaList>
       itemBuilder: (context, index) {
         Marca c = marcas[index];
 
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.asset(
-                  ConstantApi.urlLogo,
-                  fit: BoxFit.cover,
-                  width: 80,
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  maxRadius: 35,
+                  minRadius: 35,
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.circular(100.0),
+                    child: Image.asset(ConstantApi.urlLogo),
+                  ),
+                ),
+                title: Text(c.nome),
+                subtitle: Text("${c.id}"),
+                trailing: Container(
                   height: 80,
+                  width: 50,
+                  child: buildPopupMenuButton(context, c),
                 ),
               ),
-              title: Text(c.nome),
-              subtitle: Text("${c.id}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, c),
-              ),
+              onTap: () {},
             ),
-          ),
-          onTap: () {},
+            Divider()
+          ],
         );
       },
     );

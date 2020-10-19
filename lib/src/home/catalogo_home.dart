@@ -45,7 +45,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     Text(
                       "locais",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -77,7 +77,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     Text(
                       "publicar",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -109,7 +109,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                     Text(
                       "cadastre-se",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -156,7 +156,6 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ],
           ),
         ),
-
         Card(
           child: Column(
             children: <Widget>[

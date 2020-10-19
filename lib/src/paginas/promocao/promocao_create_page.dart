@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
@@ -67,6 +68,21 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     super.didChangeDependencies();
   }
 
+  bool isEnabledEnviar = false;
+  bool isEnabledDelete = false;
+
+  enableButton() {
+    setState(() {
+      isEnabledEnviar = true;
+    });
+  }
+
+  disableButton() {
+    setState(() {
+      isEnabledDelete = true;
+    });
+  }
+
   onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
     var atual = DateTime.now();
@@ -85,16 +101,21 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     if (file != null) {
       var url = await PromocaoRepository.upload(file, p.foto);
       print(" URL : $url");
+      disableButton();
     }
   }
 
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text(content),
+        duration: Duration(seconds: 2),
+        content: Icon(Icons.photo_album),
         action: SnackBarAction(
-          label: "OK",
-          onPressed: () {},
+          label: content,
+          onPressed: () {
+            enableButton();
+            onClickFoto();
+          },
         ),
       ),
     );
@@ -110,27 +131,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     );
   }
 
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              trailing: Icon(Icons.arrow_forward),
-              title: Text("ir para galeria"),
-              onTap: () {
-                onClickFoto();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
@@ -141,6 +141,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     p.loja = lojaSelecionada;
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Promoção cadastro"),
         actions: <Widget>[
@@ -214,7 +215,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 TextFormField(
                                   showCursor: true,
                                   autofocus: true,
-                                  initialValue: p.desconto.toString(),
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -352,6 +352,11 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                           );
                                         }).toList(),
                                         decoration: InputDecoration(
+                                          labelText: "Loja",
+                                          filled: true,
+                                          fillColor: Colors.white,
+                                          prefixIcon:
+                                              Icon(Icons.local_convenience_store_outlined),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.white),
@@ -360,8 +365,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                             borderSide:
                                                 BorderSide(color: Colors.white),
                                           ),
+                                          contentPadding: EdgeInsets.fromLTRB(
+                                              20.0, 20.0, 20.0, 20.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0)),
                                         ),
-                                        hint: Text("Selecione uma loja..."),
                                         onChanged: (Loja c) {
                                           setState(() {
                                             lojaSelecionada = c;
@@ -381,88 +390,125 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 0),
                         Card(
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text("vá para galeria do seu aparelho..."),
+                                    RaisedButton(
+                                      child: Icon(Icons.delete_forever),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledDelete
+                                          ? () => promocaoController
+                                              .deleteFoto(p.foto)
+                                          : null,
+                                    ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        openBottomSheet(context);
+                                        showDefaultSnackbar(context, "ir para galeria");
                                       },
+                                    ),
+                                    RaisedButton(
+                                      child: Icon(Icons.check),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledEnviar
+                                          ? () => onClickUpload()
+                                          : null,
                                     )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(file,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.fill)
-                                        : Image.asset(
-                                            ConstantApi.urlUpload,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                    SizedBox(height: 15),
-                                    p.foto != null
-                                        ? Text("${p.foto}")
-                                        : Text("sem arquivo"),
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            child: Container(
+                              height: 120,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: Colors.grey[300],
+                                ),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            height: 80,
+                                            width: 80,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : p.foto != null
+                                            ? Image.network(
+                                                ConstantApi.urlArquivoPromocao +
+                                                    p.foto,
+                                                height: 80,
+                                                width: 80,
+                                                fit: BoxFit.fitWidth,
+                                              )
+                                            : Text("anexar arquivo"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                SizedBox(height: 0),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RaisedButton.icon(
+                          label: Text(
+                            "Cancelar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                          color: Colors.grey,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        RaisedButton.icon(
+                          label: Text(
+                            "Cadastrar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (controller.validate()) {
+                              openAlertBox(context, p);
+                            }
+                          },
+                        ),
+                      ],
                     ),
-                    label: Text("Enviar formulário"),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                    textColor: Colors.white,
-                    splashColor: Colors.red,
-                    color: Colors.black,
-                    onPressed: () {
-                      if (controller.validate()) {
-                        if (p.foto == null) {
-                          showToast("deve anexar uma foto!");
-                        } else {
-                          onClickUpload();
-                          p.desconto = 20.0;
-                          promocaoController.create(p);
-
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PromocaoPage(),
-                            ),
-                          );
-                        }
-                      }
-                    },
                   ),
                 ),
               ],
@@ -470,6 +516,119 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
           }
         },
       ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PromocaoPage(),
+      ),
+    );
+  }
+
+  openAlertBox(BuildContext context, Promocao p) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Detalhes de categoria",
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(
+                          Icons.star_border,
+                          size: 30.0,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Container(
+                  child: ListTile(
+                    title: Text("Nome"),
+                    subtitle: Text("${p.nome}"),
+                  ),
+                ),
+                Container(
+                  child: ListTile(
+                    title: Text("Foto"),
+                    subtitle: Text("${p.foto}"),
+                  ),
+                ),
+                SizedBox(height: 5),
+                InkWell(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(32.0),
+                        bottomRight: Radius.circular(32.0),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FlatButton(
+                          color: Colors.blueGrey[900],
+                          child: const Text('CANCELAR'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          color: Colors.indigo[900],
+                          child: const Text('CONFIRMAR'),
+                          onPressed: () {
+                            if (p.id == null) {
+                              Timer(Duration(seconds: 3), () {
+                                promocaoController.create(p);
+                                showToast("Cadastro  realizado com sucesso");
+                                Navigator.of(context).pop();
+                                buildPush(context);
+                              });
+                            } else {
+                              Timer(Duration(seconds: 3), () {
+                                promocaoController.update(p.id, p);
+                                showToast("Cadastro  alterado com sucesso");
+                                Navigator.of(context).pop();
+                                buildPush(context);
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

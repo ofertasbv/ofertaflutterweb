@@ -58,14 +58,13 @@ class MyApp extends StatelessWidget {
 
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
-      backgroundColor: Theme.of(context).bottomAppBarColor,
       brightness: Brightness.light,
       primaryColor: Colors.amber,
-      accentColor: Colors.indigo[900],
+      accentColor: Colors.black,
       primarySwatch: Colors.amber,
 
       textTheme: Theme.of(context).textTheme.apply(
-            bodyColor: Colors.indigo[900],
+            bodyColor: Colors.black,
             displayColor: Colors.amber,
           ),
 
@@ -80,17 +79,20 @@ class MyApp extends StatelessWidget {
       ),
 
       primaryTextTheme: TextTheme(
-        headline6: TextStyle(color: Colors.indigo[900]),
+        headline6: TextStyle(color: Colors.black),
+        headline5: TextStyle(color: Colors.indigo[900]),
+        headline4: TextStyle(color: Colors.indigo[900]),
+        headline3: TextStyle(color: Colors.indigo[900]),
       ),
 
-      primaryIconTheme: IconThemeData(color: Colors.indigo[900]),
+      primaryIconTheme: IconThemeData(color: Colors.black),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
         elevation: 1,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(0.0),
           side: BorderSide(color: Colors.white),
@@ -100,11 +102,10 @@ class MyApp extends StatelessWidget {
       hintColor: Colors.amber,
 
       buttonTheme: ButtonThemeData(
-        buttonColor: Colors.amber,
         textTheme: ButtonTextTheme.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(0.0),
-          side: BorderSide(color: Colors.transparent),
+          borderRadius: new BorderRadius.circular(32),
+          side: BorderSide(color: Colors.white),
         ),
       ),
 
@@ -121,14 +122,17 @@ class MyApp extends StatelessWidget {
         actionTextColor: Colors.indigo[900],
         backgroundColor: Colors.amber,
       ),
-      scaffoldBackgroundColor: Colors.white,
+
+      scaffoldBackgroundColor: Colors.grey[100],
+
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
         backgroundColor: Colors.amber,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        elevation: 0,
         selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.indigo[900],
+        unselectedItemColor: Colors.black,
         unselectedLabelStyle: TextStyle(color: Colors.amber),
         backgroundColor: Colors.grey[100],
       ),

@@ -5,7 +5,8 @@ import 'package:nosso/src/core/repository/estado_repository.dart';
 part 'estado_controller.g.dart';
 
 class EstadoController = EstadoControllerBase with _$EstadoController;
-abstract class EstadoControllerBase with Store{
+
+abstract class EstadoControllerBase with Store {
   EstadoRepository _estadoRepository;
 
   EstadoControllerBase() {
@@ -35,6 +36,16 @@ abstract class EstadoControllerBase with Store{
   Future<int> create(Estado p) async {
     try {
       estado = await _estadoRepository.create(p.toJson());
+      return estado;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<int> update(int id, Estado p) async {
+    try {
+      estado = await _estadoRepository.update(id, p.toJson());
       return estado;
     } catch (e) {
       error = e;

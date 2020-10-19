@@ -41,4 +41,14 @@ abstract class EnderecoControllerBase with Store{
       error = e;
     }
   }
+
+  @action
+  Future<int> update(int id, Endereco p) async {
+    try {
+      endereco = await _enderecoRepository.update(id, p.toJson());
+      return endereco;
+    } catch (e) {
+      error = e;
+    }
+  }
 }

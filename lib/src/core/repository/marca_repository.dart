@@ -12,9 +12,7 @@ class MarcaRepository {
     try {
       print("carregando marcas by id");
       var response = await dio.client.get("/marcas/${id}");
-      return (response.data as List)
-          .map((c) => Marca.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Marca.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class MarcaRepository {
     try {
       print("carregando marcas");
       var response = await dio.client.get("/marcas");
-      return (response.data as List)
-          .map((c) => Marca.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Marca.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -44,9 +40,9 @@ class MarcaRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/marcas/update/$id", data: data);
+      var response = await dio.client.put("/marcas/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

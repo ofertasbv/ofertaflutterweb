@@ -1,4 +1,3 @@
-
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/repository/marca_repository.dart';
@@ -6,7 +5,8 @@ import 'package:nosso/src/core/repository/marca_repository.dart';
 part 'marca_controller.g.dart';
 
 class MarcaController = MarcaControllerBase with _$MarcaController;
-abstract class MarcaControllerBase with Store{
+
+abstract class MarcaControllerBase with Store {
   MarcaRepository _marcaRepository;
 
   MarcaControllerBase() {
@@ -36,6 +36,16 @@ abstract class MarcaControllerBase with Store{
   Future<int> create(Marca p) async {
     try {
       marca = await _marcaRepository.create(p.toJson());
+      return marca;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<int> update(int id, Marca p) async {
+    try {
+      marca = await _marcaRepository.update(id, p.toJson());
       return marca;
     } catch (e) {
       error = e;

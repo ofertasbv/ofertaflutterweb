@@ -91,17 +91,27 @@ class _PermissaoListState extends State<PermissaoList>
       itemBuilder: (context, index) {
         Permissao c = permissoes[index];
 
-        return Card(
-          child: ListTile(
-            isThreeLine: true,
-            leading: Icon(Icons.vpn_key),
-            title: Text(c.descricao),
-            subtitle: Text("Permissão e autorização"),
-            trailing: buildPopupMenuButton(context, c),
-            onLongPress: () {
-              showDialogAlert(context, c);
-            },
-          ),
+        return Column(
+          children: [
+            Container(
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  maxRadius: 35,
+                  minRadius: 35,
+                  child: Icon(Icons.vpn_key),
+                ),
+                title: Text(c.descricao),
+                subtitle: Text("Permissão e autorização"),
+                trailing: buildPopupMenuButton(context, c),
+                onLongPress: () {
+                  showDialogAlert(context, c);
+                },
+              ),
+            ),
+            Divider()
+          ],
         );
       },
     );

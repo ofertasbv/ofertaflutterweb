@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
@@ -52,17 +55,18 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     super.didChangeDependencies();
   }
 
-  bool isEnabled = false;
+  bool isEnabledEnviar = false;
+  bool isEnabledDelete = false;
 
   enableButton() {
     setState(() {
-      isEnabled = true;
+      isEnabledEnviar = true;
     });
   }
 
   disableButton() {
     setState(() {
-      isEnabled = false;
+      isEnabledDelete = true;
     });
   }
 
@@ -84,17 +88,21 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     if (file != null) {
       var url = await CategoriaRepository.upload(file, c.foto);
       print(" URL : $url");
+      disableButton();
     }
   }
 
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.pink[900],
-        content: Text(content),
+        duration: Duration(seconds: 2),
+        content: Icon(Icons.photo_album),
         action: SnackBarAction(
-          label: "OK",
-          onPressed: () {},
+          label: content,
+          onPressed: () {
+            enableButton();
+            onClickFoto();
+          },
         ),
       ),
     );
@@ -111,31 +119,10 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     );
   }
 
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              trailing: Icon(Icons.arrow_forward),
-              title: Text("ir para galeria"),
-              onTap: () {
-                enableButton();
-                onClickFoto();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Categoria cadastros"),
         actions: <Widget>[
@@ -198,7 +185,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(0),
+                                padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -206,7 +193,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                     RaisedButton(
                                       child: Icon(Icons.delete_forever),
                                       shape: new CircleBorder(),
-                                      onPressed: isEnabled
+                                      onPressed: isEnabledDelete
                                           ? () => categoriaController
                                               .deleteFoto(c.foto)
                                           : null,
@@ -215,13 +202,13 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        openBottomSheet(context);
+                                        showDefaultSnackbar(context, "ir para galeria");
                                       },
                                     ),
                                     RaisedButton(
                                       child: Icon(Icons.check),
                                       shape: new CircleBorder(),
-                                      onPressed: isEnabled
+                                      onPressed: isEnabledEnviar
                                           ? () => onClickUpload()
                                           : null,
                                     )
@@ -233,33 +220,40 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                         ),
                         Card(
                           child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white,
+                            padding: EdgeInsets.all(2),
+                            child: Container(
+                              height: 120,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: Colors.grey[300],
+                                ),
+                                borderRadius: BorderRadius.circular(2),
                               ),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                file != null
-                                    ? Image.file(
-                                  file,
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.fitWidth,
-                                )
-                                    : c.foto != null
-                                    ? Image.network(
-                                  ConstantApi
-                                      .urlArquivoCategoria +
-                                      c.foto,
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.fitWidth,
-                                )
-                                    : Text("anexar"),
-                              ],
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                      file,
+                                      height: 80,
+                                      width: 80,
+                                      fit: BoxFit.fitWidth,
+                                    )
+                                        : c.foto != null
+                                        ? Image.network(
+                                      ConstantApi.urlArquivoCategoria +
+                                          c.foto,
+                                      height: 80,
+                                      width: 80,
+                                      fit: BoxFit.fitWidth,
+                                    )
+                                        : Text("anexar arquivo"),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -267,28 +261,43 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RaisedButton.icon(
+                          label: Text(
+                            "Cancelar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                          color: Colors.grey,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        RaisedButton.icon(
+                          label: Text(
+                            "Cadastrar",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          icon: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (controller.validate()) {
+                              openAlertBox(context, c);
+                            }
+                          },
+                        ),
+                      ],
                     ),
-                    label: Text(
-                      "Enviar formulário",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                    textColor: Colors.white,
-                    splashColor: Colors.red,
-                    color: Colors.black,
-                    onPressed: () {
-                      if (controller.validate()) {
-                        showDialogAlert(context, c);
-                      }
-                    },
                   ),
                 ),
               ],
@@ -308,44 +317,105 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     );
   }
 
-  showDialogAlert(BuildContext context, Categoria c) async {
+  openAlertBox(BuildContext context, Categoria c) {
     return showDialog(
       context: context,
-      barrierDismissible: false, // user must tap button for close dialog!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Dados da categoria'),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
-            height: 200,
+            width: 300.0,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("${c.nome}"),
-                Text("${c.foto}"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      "Detalhes de categoria",
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(
+                          Icons.star_border,
+                          size: 30.0,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 5),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Container(
+                  child: ListTile(
+                    title: Text("Nome"),
+                    subtitle: Text("${c.nome}"),
+                  ),
+                ),
+                Container(
+                  child: ListTile(
+                    title: Text("Foto"),
+                    subtitle: Text("${c.foto}"),
+                  ),
+                ),
+                SizedBox(height: 5),
+                InkWell(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(32.0),
+                        bottomRight: Radius.circular(32.0),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        FlatButton(
+                          color: Colors.blueGrey[900],
+                          child: const Text('CANCELAR'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          color: Colors.indigo[900],
+                          child: const Text('CONFIRMAR'),
+                          onPressed: () {
+                            if (c.id == null) {
+                              Timer(Duration(seconds: 3), () {
+                                categoriaController.create(c);
+                                showToast("Cadastro  realizado com sucesso");
+                                Navigator.of(context).pop();
+                                buildPush(context);
+                              });
+                            } else {
+                              Timer(Duration(seconds: 3), () {
+                                categoriaController.update(c.id, c);
+                                showToast("Cadastro  alterado com sucesso");
+                                Navigator.of(context).pop();
+                                buildPush(context);
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text('CANCELAR'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: const Text('CONFIRMAR'),
-              onPressed: () {
-                if (c.id == null) {
-                  categoriaController.create(c);
-                  showToast("Cadastro  realizado com sucesso");
-                } else {
-                  Navigator.of(context).pop();
-                  categoriaController.update(c.id, c);
-                  showToast("Cadastro  alterado com sucesso");
-                }
-              },
-            ),
-          ],
         );
       },
     );

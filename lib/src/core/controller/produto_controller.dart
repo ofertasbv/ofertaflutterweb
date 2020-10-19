@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
@@ -59,7 +60,8 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<Produto> getCodigoBarra(String codBarra) async {
     try {
-      produtoSelecionado = await _produtoRepository.getProdutoByCodBarra(codBarra);
+      produtoSelecionado =
+          await _produtoRepository.getProdutoByCodBarra(codBarra);
       return produtoSelecionado;
     } catch (e) {
       error = e;
@@ -71,6 +73,25 @@ abstract class ProdutoControllerBase with Store {
     try {
       produto = await _produtoRepository.create(p.toJson());
       return produto;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<int> update(int id, Produto p) async {
+    try {
+      produto = await _produtoRepository.update(id, p.toJson());
+      return produto;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _produtoRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

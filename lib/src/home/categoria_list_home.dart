@@ -102,34 +102,30 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
             child: AnimatedContainer(
-              color: Colors.grey[200],
               width: 100,
               duration: Duration(seconds: 1),
               margin: EdgeInsets.symmetric(vertical: 7.5),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Image.network(
-                          ConstantApi.urlArquivoSubCategoria + c.foto,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 80,
-                        ),
-                      ),
-                      SizedBox(height: 0),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        height: 40,
-                        width: containerWidth,
-                        color: Colors.grey[100],
-                        child: Text(c.nome),
-                      ),
-                    ],
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    maxRadius: 35,
+                    minRadius: 35,
+                    child: ClipRRect(
+                      borderRadius: new BorderRadius.circular(100.0),
+                      child: Image.network(
+                          ConstantApi.urlArquivoCategoria + c.foto),
+                    ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(5),
+                    height: 40,
+                    width: containerWidth,
+                    child: Text(c.nome),
                   )
                 ],
               ),

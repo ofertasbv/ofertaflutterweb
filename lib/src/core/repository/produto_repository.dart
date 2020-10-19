@@ -75,9 +75,18 @@ class ProdutoRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/produtos/update/$id", data: data);
+      var response = await dio.client.put("/produtos/update/$id", data: data);
+      return response.statusCode;
+    } on DioError catch (e) {
+      throw (e.message);
+    }
+  }
+
+  Future<void> deleteFoto(String foto) async {
+    try {
+      var response = await dio.client.delete("/produtos/delete/foto/$foto");
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

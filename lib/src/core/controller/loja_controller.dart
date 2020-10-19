@@ -55,4 +55,23 @@ abstract class LojaControllerBase with Store {
       error = e;
     }
   }
+
+  @action
+  Future<int> update(int id, Loja p) async {
+    try {
+      loja = await _lojaRepository.update(id, p.toJson());
+      return loja;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _lojaRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
 }

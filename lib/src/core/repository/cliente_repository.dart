@@ -40,9 +40,18 @@ class ClienteRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/clientes/update/$id", data: data);
+      var response = await dio.client.put("/clientes/update/$id", data: data);
+      return response.statusCode;
+    } on DioError catch (e) {
+      throw (e.message);
+    }
+  }
+
+  Future<void> deleteFoto(String foto) async {
+    try {
+      var response = await dio.client.delete("/clientes/delete/foto/$foto");
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

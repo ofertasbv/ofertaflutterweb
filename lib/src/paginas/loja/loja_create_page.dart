@@ -65,16 +65,29 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     super.didChangeDependencies();
   }
 
+  bool isEnabledEnviar = false;
+  bool isEnabledDelete = false;
+
+  enableButton() {
+    setState(() {
+      isEnabledEnviar = true;
+    });
+  }
+
+  disableButton() {
+    setState(() {
+      isEnabledDelete = true;
+    });
+  }
+
   onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    String dataAtual = DateFormat("dd-MM-yyyy-HH:mm:ss").format(DateTime.now());
-
+    var atual = DateTime.now();
     setState(() {
       this.file = f;
       String arquivo = file.path.split('/').last;
-      String filePath =
-          arquivo.replaceAll("$arquivo", "loja-" + dataAtual + ".png");
+      String filePath = arquivo.replaceAll(
+          "$arquivo", "loja-" + atual.toString() + ".png");
       print("arquivo: $arquivo");
       print("filePath: $filePath");
       p.foto = filePath;
@@ -84,16 +97,22 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
   onClickUpload() async {
     if (file != null) {
       var url = await LojaRepository.upload(file, p.foto);
+      print(" URL : $url");
+      disableButton();
     }
   }
 
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text(content),
+        duration: Duration(seconds: 2),
+        content: Icon(Icons.photo_album),
         action: SnackBarAction(
-          label: "OK",
-          onPressed: () {},
+          label: content,
+          onPressed: () {
+            enableButton();
+            onClickFoto();
+          },
         ),
       ),
     );
@@ -384,50 +403,81 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 0),
                         Card(
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text("vá para galeria do seu aparelho..."),
+                                    RaisedButton(
+                                      child: Icon(Icons.delete_forever),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledDelete
+                                          ? () => lojaController
+                                          .deleteFoto(p.foto)
+                                          : null,
+                                    ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        openBottomSheet(context);
+                                        showDefaultSnackbar(context, "ir para galeria");
                                       },
+                                    ),
+                                    RaisedButton(
+                                      child: Icon(Icons.check),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledEnviar
+                                          ? () => onClickUpload()
+                                          : null,
                                     )
                                   ],
                                 ),
                               ),
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(10),
+                            ],
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            child: Container(
+                              height: 120,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: Colors.grey[300],
+                                ),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              child: Center(
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     file != null
-                                        ? Image.file(file,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.fill)
-                                        : Image.asset(
-                                            ConstantApi.urlUpload,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                    SizedBox(height: 15),
-                                    p.foto != null
-                                        ? Text("${p.foto}")
-                                        : Text("sem arquivo"),
+                                        ? Image.file(
+                                      file,
+                                      height: 80,
+                                      width: 80,
+                                      fit: BoxFit.fitWidth,
+                                    )
+                                        : p.foto != null
+                                        ? Image.network(
+                                      ConstantApi.urlArquivoLoja +
+                                          p.foto,
+                                      height: 80,
+                                      width: 80,
+                                      fit: BoxFit.fitWidth,
+                                    )
+                                        : Text("anexar arquivo"),
                                   ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Card(

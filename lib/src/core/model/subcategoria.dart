@@ -8,6 +8,19 @@ class SubCategoria {
 
   SubCategoria({this.id, this.nome, this.foto, this.categoria});
 
+  // int get hashCode => id.hashCode;
+  // bool operator==(Object other) => other is SubCategoria && other.id == id;
+
+  @override
+  int get hashCode {
+    int hashCode = 1;
+    hashCode = (23 * hashCode) + this.id.hashCode;
+    hashCode = (23 * hashCode) + this.nome.hashCode;
+    hashCode = (23 * hashCode) + this.foto.hashCode;
+    hashCode = (23 * hashCode) + this.categoria.hashCode;
+    return hashCode;
+  }
+
   SubCategoria.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];

@@ -41,4 +41,23 @@ abstract class PromoCaoControllerBase with Store {
       error = e;
     }
   }
+
+  @action
+  Future<int> update(int id, Promocao p) async {
+    try {
+      promocao = await _promocaoRepository.update(id, p.toJson());
+      return promocao;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _promocaoRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
 }

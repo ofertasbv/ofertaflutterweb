@@ -69,39 +69,42 @@ class _CategoriaListState extends State<CategoriaList>
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoCategoria + c.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  maxRadius: 35,
+                  minRadius: 35,
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.circular(100.0),
+                    child: Image.network(ConstantApi.urlArquivoCategoria + c.foto),
+                  ),
+                ),
+                title: Text(c.nome),
+                subtitle: Text("${c.id}"),
+                trailing: Container(
                   height: 80,
+                  width: 50,
+                  child: buildPopupMenuButton(context, c),
                 ),
               ),
-              title: Text(c.nome),
-              subtitle: Text("${c.id}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, c),
-              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return CategoriaSubCategoria(
+                        categoria: c,
+                      );
+                    },
+                  ),
+                );
+              },
             ),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return CategoriaSubCategoria(
-                    categoria: c,
-                  );
-                },
-              ),
-            );
-          },
+            Divider()
+          ],
         );
       },
     );

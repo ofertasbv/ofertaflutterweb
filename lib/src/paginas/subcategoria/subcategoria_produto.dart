@@ -91,7 +91,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         height: MediaQuery.of(context).size.height,
         color: Colors.transparent,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Card(
@@ -102,7 +101,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             ),
             Card(
               child: Container(
-                padding: EdgeInsets.all(2),
+                padding: EdgeInsets.all(10),
                 height: 50,
                 width: double.infinity,
                 child: Row(
@@ -140,9 +139,11 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                 ),
               ),
             ),
-            Container(
-              height: 380,
-              child: builderConteudoListProduto(),
+            Card(
+              child: Container(
+                height: 380,
+                child: builderConteudoListProduto(),
+              ),
             )
           ],
         ),
@@ -181,40 +182,38 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.symmetric(horizontal: 6),
             child: AnimatedContainer(
               width: 100,
               duration: Duration(seconds: 1),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(0),
-                color:
-                    c.nome == selectedCard ? Colors.greenAccent : Colors.white,
+                color: c.nome == selectedCard
+                    ? Colors.greenAccent
+                    : Colors.grey[100],
               ),
               margin: EdgeInsets.symmetric(vertical: 7.5),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Image.network(
-                          ConstantApi.urlArquivoSubCategoria + c.foto,
-                          fit: BoxFit.cover,
-                          width: 100,
-                          height: 80,
-                        ),
-                      ),
-                      SizedBox(height: 0),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        height: 40,
-                        width: containerWidth,
-                        color: Colors.grey[100],
-                        child: Text(c.nome),
-                      ),
-                    ],
+                  CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    maxRadius: 35,
+                    minRadius: 35,
+                    child: ClipRRect(
+                      borderRadius: new BorderRadius.circular(100.0),
+                      child: Image.network(
+                          ConstantApi.urlArquivoSubCategoria + c.foto),
+                    ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(5),
+                    height: 40,
+                    width: containerWidth,
+                    child: Text(c.nome),
                   )
                 ],
               ),
@@ -280,36 +279,39 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
       itemBuilder: (context, index) {
         Produto p = produtos[index];
 
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoProduto + p.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                isThreeLine: true,
+                leading: Container(
+                  color: Colors.grey[100],
+                  child: Image.network(
+                    ConstantApi.urlArquivoProduto + p.foto,
+                    fit: BoxFit.cover,
+                    width: 80,
+                    height: 80,
+                  ),
+                ),
+                title: Text(p.nome),
+                subtitle: Text("R\$ ${p.estoque.valor}"),
+                trailing: Container(
                   height: 80,
+                  width: 50,
                 ),
               ),
-              title: Text(p.nome),
-              subtitle: Text("R\$ ${p.estoque.valor}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ProdutoDetalhesTab(p);
+                    },
+                  ),
+                );
+              },
             ),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ProdutoDetalhesTab(p);
-                },
-              ),
-            );
-          },
+            Divider()
+          ],
         );
       },
     );

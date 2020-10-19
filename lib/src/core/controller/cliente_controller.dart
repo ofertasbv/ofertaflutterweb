@@ -49,4 +49,23 @@ abstract class ClienteControllerBase with Store {
       error = e;
     }
   }
+
+  @action
+  Future<int> update(int id, Cliente p) async {
+    try {
+      cliente = await _clienteRepository.update(id, p.toJson());
+      return cliente;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _clienteRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
 }

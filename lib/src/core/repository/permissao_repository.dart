@@ -12,9 +12,7 @@ class PermissaoRepository {
     try {
       print("carregando permissoes by id");
       var response = await dio.client.get("/permissoes/${id}");
-      return (response.data as List)
-          .map((c) => Permissao.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Permissao.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class PermissaoRepository {
     try {
       print("carregando permissoes");
       var response = await dio.client.get("/permissoes");
-      return (response.data as List)
-          .map((c) => Permissao.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Permissao.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -44,9 +40,9 @@ class PermissaoRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/permissoes/update/$id", data: data);
+      var response = await dio.client.put("/permissoes/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

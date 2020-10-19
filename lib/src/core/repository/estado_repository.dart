@@ -12,9 +12,7 @@ class EstadoRepository {
     try {
       print("carregando estados by id");
       var response = await dio.client.get("/estados/${id}");
-      return (response.data as List)
-          .map((c) => Estado.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Estado.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class EstadoRepository {
     try {
       print("carregando estados");
       var response = await dio.client.get("/estados");
-      return (response.data as List)
-          .map((c) => Estado.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Estado.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -44,9 +40,9 @@ class EstadoRepository {
     return null;
   }
 
-  Future<int> update(Map<String, dynamic> data, int id) async {
+  Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response = await dio.client.patch("/estados/update/$id", data: data);
+      var response = await dio.client.put("/estados/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

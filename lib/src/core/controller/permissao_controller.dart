@@ -50,4 +50,14 @@ abstract class PermissaoControllerBase with Store {
       errorMessage = "Url inválida";
     }
   }
+
+  @action
+  Future<int> update(int id, Permissao p) async {
+    try {
+      permissao = await _permissaoRepository.update(id, p.toJson());
+      return permissao;
+    } catch (e) {
+      error = e;
+    }
+  }
 }

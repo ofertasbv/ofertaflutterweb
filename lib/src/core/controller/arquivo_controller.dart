@@ -2,7 +2,6 @@ import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/repository/arquivo_repository.dart';
 
-
 part 'arquivo_controller.g.dart';
 
 class ArquivoController = ArquivoControllerBase with _$ArquivoController;
@@ -37,6 +36,16 @@ abstract class ArquivoControllerBase with Store {
   Future<int> create(Arquivo p) async {
     try {
       arquivo = await _arquivoRepository.create(p.toJson());
+      return arquivo;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<int> update(int id, Arquivo p) async {
+    try {
+      arquivo = await _arquivoRepository.update(id, p.toJson());
       return arquivo;
     } catch (e) {
       error = e;
