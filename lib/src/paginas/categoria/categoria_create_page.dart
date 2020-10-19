@@ -165,6 +165,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome categoria",
                                     prefixIcon: Icon(Icons.edit),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(

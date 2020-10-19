@@ -82,6 +82,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome categoria",
                                     prefixIcon: Icon(Icons.edit),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(

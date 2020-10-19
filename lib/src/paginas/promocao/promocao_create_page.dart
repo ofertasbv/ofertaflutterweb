@@ -182,6 +182,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     labelText: "Título",
                                     hintText: "título promoção",
                                     prefixIcon: Icon(Icons.edit),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -202,6 +203,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     labelText: "Descrição",
                                     hintText: "descrição promoção",
                                     prefixIcon: Icon(Icons.description),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -223,6 +225,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     labelText: "Desconto",
                                     hintText: "desconto promoção",
                                     prefixIcon: Icon(Icons.monetization_on),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -233,7 +236,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       TextInputType.numberWithOptions(),
                                   maxLength: 4,
                                 ),
-                                SizedBox(height: 15),
+                                SizedBox(height: 0),
                                 DateTimeField(
                                   initialValue: p.dataRegistro,
                                   format: dateFormat,
@@ -243,10 +246,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data registro",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -264,7 +265,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 15),
+                                SizedBox(height: 0),
                                 DateTimeField(
                                   initialValue: p.dataInicio,
                                   format: dateFormat,
@@ -275,9 +276,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     labelText: "data inicio",
                                     hintText: "99-09-9999",
                                     prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
+                                      Icons.calendar_today
                                     ),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -295,7 +296,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 15),
+                                SizedBox(height: 0),
                                 DateTimeField(
                                   initialValue: p.dataFinal,
                                   format: dateFormat,
@@ -306,9 +307,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     labelText: "data encerramento",
                                     hintText: "99-09-9999",
                                     prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
+                                      Icons.calendar_today
                                     ),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -355,8 +356,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                           labelText: "Loja",
                                           filled: true,
                                           fillColor: Colors.white,
-                                          prefixIcon:
-                                              Icon(Icons.local_convenience_store_outlined),
+                                          prefixIcon: Icon(Icons
+                                              .local_convenience_store_outlined),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
                                                 BorderSide(color: Colors.white),
@@ -412,7 +413,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(context, "ir para galeria");
+                                        showDefaultSnackbar(
+                                            context, "ir para galeria");
                                       },
                                     ),
                                     RaisedButton(

@@ -86,8 +86,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     setState(() {
       this.file = f;
       String arquivo = file.path.split('/').last;
-      String filePath = arquivo.replaceAll(
-          "$arquivo", "loja-" + atual.toString() + ".png");
+      String filePath =
+          arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
       print("arquivo: $arquivo");
       print("filePath: $filePath");
       p.foto = filePath;
@@ -250,6 +250,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome",
                                     prefixIcon: Icon(Icons.people),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -268,6 +269,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Razão social ",
                                     hintText: "razão social",
                                     prefixIcon: Icon(Icons.people),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -286,6 +288,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Cnpj",
                                     hintText: "Cnpj",
                                     prefixIcon: Icon(Icons.contact_mail),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -305,6 +308,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Telefone",
                                     hintText: "Telefone celular",
                                     prefixIcon: Icon(Icons.phone),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -324,10 +328,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data registro",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -363,6 +365,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                     labelText: "Email",
                                     hintText: "Email",
                                     prefixIcon: Icon(Icons.email),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -411,21 +414,22 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     RaisedButton(
                                       child: Icon(Icons.delete_forever),
                                       shape: new CircleBorder(),
                                       onPressed: isEnabledDelete
-                                          ? () => lojaController
-                                          .deleteFoto(p.foto)
+                                          ? () =>
+                                              lojaController.deleteFoto(p.foto)
                                           : null,
                                     ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(context, "ir para galeria");
+                                        showDefaultSnackbar(
+                                            context, "ir para galeria");
                                       },
                                     ),
                                     RaisedButton(
@@ -460,20 +464,20 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                   children: <Widget>[
                                     file != null
                                         ? Image.file(
-                                      file,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
+                                            file,
+                                            height: 80,
+                                            width: 80,
+                                            fit: BoxFit.fitWidth,
+                                          )
                                         : p.foto != null
-                                        ? Image.network(
-                                      ConstantApi.urlArquivoLoja +
-                                          p.foto,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
-                                        : Text("anexar arquivo"),
+                                            ? Image.network(
+                                                ConstantApi.urlArquivoLoja +
+                                                    p.foto,
+                                                height: 80,
+                                                width: 80,
+                                                fit: BoxFit.fitWidth,
+                                              )
+                                            : Text("anexar arquivo"),
                                   ],
                                 ),
                               ),

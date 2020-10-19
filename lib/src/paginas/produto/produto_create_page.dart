@@ -64,7 +64,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Controller controller;
   var controllerCodigoBarra = TextEditingController();
 
-  AudioCache audioCache = AudioCache(prefix: "audios/");
+  // AudioCache audioCache = AudioCache(prefix: "audios/");
   String barcode = "";
 
   bool favorito = false;
@@ -89,7 +89,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     promocoes = promocaoController.getAll();
 
     produtoController.getAll();
-    audioCache.loadAll(["beep-07.mp3"]);
+    // audioCache.loadAll(["beep-07.mp3"]);
     super.initState();
   }
 
@@ -100,7 +100,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   }
 
   executar(String nomeAudio) {
-    audioCache.play(nomeAudio + ".mp3");
+    // audioCache.play(nomeAudio + ".mp3");
   }
 
   barcodeScanning() async {
@@ -264,6 +264,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.camera_alt_outlined),
+                                    suffixIcon: Icon(Icons.close),
                                     labelText:
                                         "Entre com código de barra ou clique (scanner)",
                                     hintText: "Código de barra",
@@ -303,6 +305,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -322,6 +325,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Descrição",
                                     hintText: "descrição produto",
                                     prefixIcon: Icon(Icons.description),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -342,6 +346,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "SKU",
                                     hintText: "sku produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -362,6 +367,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Cor",
                                     hintText: "cor produto",
                                     prefixIcon: Icon(Icons.shopping_cart),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -383,6 +389,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Quantidade em estoque",
                                     hintText: "quantidade produto",
                                     prefixIcon: Icon(Icons.mode_edit),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -402,6 +409,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Valor do produto",
                                     hintText: "valor produto",
                                     prefixIcon: Icon(Icons.monetization_on),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -420,6 +428,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     labelText: "Desconto do produto",
                                     hintText: "Desconto produto",
                                     prefixIcon: Icon(Icons.money),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -441,10 +450,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data registro",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -1013,21 +1020,22 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     RaisedButton(
                                       child: Icon(Icons.delete_forever),
                                       shape: new CircleBorder(),
                                       onPressed: isEnabledDelete
-                                          ? () => lojaController
-                                          .deleteFoto(p.foto)
+                                          ? () =>
+                                              lojaController.deleteFoto(p.foto)
                                           : null,
                                     ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(context, "ir para galeria");
+                                        showDefaultSnackbar(
+                                            context, "ir para galeria");
                                       },
                                     ),
                                     RaisedButton(
@@ -1062,20 +1070,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   children: <Widget>[
                                     file != null
                                         ? Image.file(
-                                      file,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
+                                            file,
+                                            height: 80,
+                                            width: 80,
+                                            fit: BoxFit.fitWidth,
+                                          )
                                         : p.foto != null
-                                        ? Image.network(
-                                      ConstantApi.urlArquivoLoja +
-                                          p.foto,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
-                                        : Text("anexar arquivo"),
+                                            ? Image.network(
+                                                ConstantApi.urlArquivoLoja +
+                                                    p.foto,
+                                                height: 80,
+                                                width: 80,
+                                                fit: BoxFit.fitWidth,
+                                              )
+                                            : Text("anexar arquivo"),
                                   ],
                                 ),
                               ),

@@ -220,6 +220,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                           filled: true,
                                           fillColor: Colors.white,
                                           prefixIcon: Icon(Icons.list_alt_outlined),
+                                          suffixIcon: Icon(Icons.close),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
                                             BorderSide(color: Colors.white),

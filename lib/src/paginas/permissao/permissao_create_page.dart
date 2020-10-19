@@ -101,6 +101,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                             labelText: "Nome",
                             hintText: "exe: CADASTRO_ROLE",
                             prefixIcon: Icon(Icons.edit),
+                            suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(

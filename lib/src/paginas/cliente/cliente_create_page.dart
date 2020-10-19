@@ -64,16 +64,29 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     super.didChangeDependencies();
   }
 
+  bool isEnabledEnviar = false;
+  bool isEnabledDelete = false;
+
+  enableButton() {
+    setState(() {
+      isEnabledEnviar = true;
+    });
+  }
+
+  disableButton() {
+    setState(() {
+      isEnabledDelete = true;
+    });
+  }
+
   onClickFoto() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    String dataAtual = DateFormat("dd-MM-yyyy-HH:mm:ss").format(DateTime.now());
-
+    var atual = DateTime.now();
     setState(() {
       this.file = f;
       String arquivo = file.path.split('/').last;
-      String filePath =
-          arquivo.replaceAll("$arquivo", "loja-" + dataAtual + ".png");
+      String filePath = arquivo.replaceAll(
+          "$arquivo", "cliente-" + atual.toString() + ".png");
       print("arquivo: $arquivo");
       print("filePath: $filePath");
       p.foto = filePath;
@@ -83,16 +96,22 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   onClickUpload() async {
     if (file != null) {
       var url = await ClienteRepository.upload(file, p.foto);
+      print(" URL : $url");
+      disableButton();
     }
   }
 
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text(content),
+        duration: Duration(seconds: 2),
+        content: Icon(Icons.photo_album),
         action: SnackBarAction(
-          label: "OK",
-          onPressed: () {},
+          label: content,
+          onPressed: () {
+            enableButton();
+            onClickFoto();
+          },
         ),
       ),
     );
@@ -231,6 +250,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                     labelText: "Nome",
                                     hintText: "nome",
                                     prefixIcon: Icon(Icons.people),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -249,6 +269,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                     labelText: "cpf",
                                     hintText: "cpf",
                                     prefixIcon: Icon(Icons.contact_mail),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -268,6 +289,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                     labelText: "Telefone",
                                     hintText: "Telefone celular",
                                     prefixIcon: Icon(Icons.phone),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -277,7 +299,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   keyboardType: TextInputType.phone,
                                   inputFormatters: [maskFormatterCelular],
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: 0),
                                 DateTimeField(
                                   initialValue: p.dataRegistro,
                                   format: dateFormat,
@@ -288,9 +310,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                     labelText: "data registro",
                                     hintText: "99-09-9999",
                                     prefixIcon: Icon(
-                                      Icons.calendar_today,
-                                      size: 24,
+                                      Icons.calendar_today
                                     ),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -326,6 +348,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                     labelText: "Email",
                                     hintText: "Email",
                                     prefixIcon: Icon(Icons.email),
+                                    suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
@@ -341,7 +364,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   initialValue: p.usuario.senha,
                                   onSaved: (value) => p.usuario.senha = value,
                                   validator: (value) =>
-                                  value.isEmpty ? "campo obrigário" : null,
+                                      value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Senha",
                                     hintText: "Senha",
@@ -356,7 +379,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                         20.0, 20.0, 20.0, 20.0),
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                   ),
                                   keyboardType: TextInputType.text,
                                   obscureText: !clienteController.senhaVisivel,
@@ -366,53 +389,85 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: 0),
                         Card(
                           child: Column(
                             children: <Widget>[
                               Container(
-                                padding: EdgeInsets.all(5),
+                                padding: EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Text("vá para galeria do seu aparelho..."),
+                                    RaisedButton(
+                                      child: Icon(Icons.delete_forever),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledDelete
+                                          ? () => clienteController
+                                              .deleteFoto(p.foto)
+                                          : null,
+                                    ),
                                     RaisedButton(
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        openBottomSheet(context);
+                                        showDefaultSnackbar(
+                                            context, "ir para galeria");
                                       },
+                                    ),
+                                    RaisedButton(
+                                      child: Icon(Icons.check),
+                                      shape: new CircleBorder(),
+                                      onPressed: isEnabledEnviar
+                                          ? () => onClickUpload()
+                                          : null,
                                     )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(file,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.fill)
-                                        : Image.asset(
-                                            ConstantApi.urlUpload,
-                                            height: 100,
-                                            width: 100,
-                                          ),
-                                    SizedBox(height: 15),
-                                    p.foto != null
-                                        ? Text("${p.foto}")
-                                        : Text("sem arquivo"),
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 30),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(2),
+                            child: Container(
+                              height: 120,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  style: BorderStyle.solid,
+                                  color: Colors.grey[300],
+                                ),
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            height: 80,
+                                            width: 80,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : p.foto != null
+                                            ? Image.network(
+                                                ConstantApi.urlArquivoLoja +
+                                                    p.foto,
+                                                height: 80,
+                                                width: 80,
+                                                fit: BoxFit.fitWidth,
+                                              )
+                                            : Text("anexar arquivo"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 0),
                         Card(
                           child: Container(
                             width: double.infinity,
