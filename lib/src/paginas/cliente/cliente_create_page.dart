@@ -591,8 +591,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: p.endereco.latitude,
-                                  onSaved: (value) => e.latitude = value,
+                                  initialValue: p.endereco.latitude.toString(),
+                                  onSaved: (value) => e.latitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -610,8 +610,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: p.endereco.longitude,
-                                  onSaved: (value) => e.longitude = value,
+                                  initialValue: p.endereco.longitude.toString(),
+                                  onSaved: (value) => e.longitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(

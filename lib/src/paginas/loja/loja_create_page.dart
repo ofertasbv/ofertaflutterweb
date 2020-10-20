@@ -486,6 +486,53 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                         ),
                         Card(
                           child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                      title: Text("ENDEREÇO COMERCIAL"),
+                                      value: "COMERCIAL",
+                                      groupValue: p.endereco.tipoEndereco,
+                                      onChanged: (String valor) {
+                                        setState(() {
+                                          p.endereco.tipoEndereco = valor;
+                                          print("resultado: " +
+                                              p.endereco.tipoEndereco);
+                                          showDefaultSnackbar(context,
+                                              "Endereço: ${p.endereco.tipoEndereco}");
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                      title: Text("ENDEREÇO RESIDENCIAL"),
+                                      value: "RESIDENCIAL",
+                                      groupValue: p.endereco.tipoEndereco,
+                                      onChanged: (String valor) {
+                                        setState(() {
+                                          p.endereco.tipoEndereco = valor;
+                                          print("resultado: " +
+                                              p.endereco.tipoEndereco);
+                                          showDefaultSnackbar(context,
+                                              "Endereço: ${p.endereco.tipoEndereco}");
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
                             width: double.infinity,
                             padding: EdgeInsets.all(5),
                             child: Column(
@@ -607,8 +654,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: p.endereco.latitude,
-                                  onSaved: (value) => e.latitude = value,
+                                  initialValue: p.endereco.latitude.toString(),
+                                  onSaved: (value) =>
+                                      e.latitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -626,8 +674,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                   maxLength: 50,
                                 ),
                                 TextFormField(
-                                  initialValue: p.endereco.longitude,
-                                  onSaved: (value) => e.longitude = value,
+                                  initialValue: p.endereco.longitude.toString(),
+                                  onSaved: (value) =>
+                                      e.longitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(

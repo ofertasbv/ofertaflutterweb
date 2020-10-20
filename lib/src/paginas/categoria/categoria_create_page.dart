@@ -262,6 +262,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ),
                   ),
                 ),
+
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),

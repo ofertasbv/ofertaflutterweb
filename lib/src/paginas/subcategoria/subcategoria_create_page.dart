@@ -220,7 +220,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                           filled: true,
                                           fillColor: Colors.white,
                                           prefixIcon: Icon(Icons.list_alt_outlined),
-                                          suffixIcon: Icon(Icons.close),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
                                             BorderSide(color: Colors.white),
@@ -239,6 +238,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                           setState(() {
                                             categoriaSelecionada = c;
                                             s.categoria = c;
+                                            controller.formKey.currentState;
                                             // print(
                                             //     "Categoria Selecionada: ${categoriaSelecionada.nome}");
                                           });
@@ -252,6 +252,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                         "não foi peossível carregar categorias");
                                   },
                                 ),
+
                               ],
                             ),
                           ),

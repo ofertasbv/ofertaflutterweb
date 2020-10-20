@@ -47,7 +47,7 @@ class DrawerFilter extends StatelessWidget {
             children: <Widget>[
               CircleAvatar(
                 child: Icon(
-                  Icons.search_outlined,
+                  Icons.add_box_outlined,
                   size: 25,
                   color: Colors.black,
                 ),
@@ -70,12 +70,8 @@ class DrawerFilter extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.home,
-          ),
-          title: Text(
-            "Home",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("categoria"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -90,12 +86,8 @@ class DrawerFilter extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.search,
-          ),
-          title: Text(
-            "Buscar",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("marca"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             showSearch(
@@ -106,34 +98,22 @@ class DrawerFilter extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.account_circle,
-          ),
-          title: Text(
-            "Minha Conta",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("preço"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.shopping_basket,
-          ),
-          title: Text(
-            "Meus pedidos",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("produto"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.shop_two,
-          ),
-          title: Text(
-            "Ofertas",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("oferta"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -148,12 +128,8 @@ class DrawerFilter extends StatelessWidget {
         ),
         ListTile(
           selected: true,
-          leading: Icon(
-            Icons.list,
-          ),
-          title: Text(
-            "Categorias",
-          ),
+          leading: Icon(Icons.add_box_outlined),
+          title: Text("loja"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -166,57 +142,6 @@ class DrawerFilter extends StatelessWidget {
             );
           },
         ),
-        ListTile(
-          selected: true,
-          leading: Icon(
-            Icons.apps,
-          ),
-          title: Text(
-            "Apps",
-          ),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
-        ),
-        ListTile(
-          selected: true,
-          leading: Icon(
-            Icons.settings,
-          ),
-          title: Text(
-            "Configurações",
-          ),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ConfigPage();
-                },
-              ),
-            );
-          },
-        ),
-        ListTile(
-          selected: true,
-          leading: Icon(
-            Icons.ios_share,
-          ),
-          title: Text(
-            "Sobre",
-          ),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return SobrePage();
-                },
-              ),
-            );
-          },
-        )
       ],
     );
   }

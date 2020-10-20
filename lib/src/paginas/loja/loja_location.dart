@@ -99,8 +99,7 @@ class _LojaLocationState extends State<LojaLocation> {
   markers(Loja p) {
     return Marker(
       markerId: MarkerId(p.nome),
-      position: LatLng(double.tryParse(p.endereco.latitude),
-          double.tryParse(p.endereco.longitude)),
+      position: LatLng(p.endereco.latitude, p.endereco.longitude),
       infoWindow: InfoWindow(title: p.nome, snippet: p.endereco.logradouro),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
@@ -196,7 +195,7 @@ class _LojaLocationState extends State<LojaLocation> {
                     mapToolbarEnabled: true,
                     buildingsEnabled: true,
                     tiltGesturesEnabled: true,
-                    zoomControlsEnabled: true,
+                    zoomControlsEnabled: false,
                     zoomGesturesEnabled: true,
                     myLocationEnabled: true,
                     myLocationButtonEnabled: true,
@@ -224,9 +223,8 @@ class _LojaLocationState extends State<LojaLocation> {
                             p.endereco.logradouro + ", " + p.endereco.numero,
                       ),
                       markerId: MarkerId(p.nome),
-                      position: LatLng(
-                          double.tryParse(p.endereco.latitude) ?? 0.0,
-                          double.tryParse(p.endereco.longitude) ?? 0.0),
+                      position: LatLng(p.endereco.latitude ?? 0.0,
+                          p.endereco.longitude ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, p);
                       });
@@ -240,7 +238,7 @@ class _LojaLocationState extends State<LojaLocation> {
                   mapToolbarEnabled: true,
                   buildingsEnabled: true,
                   tiltGesturesEnabled: true,
-                  zoomControlsEnabled: true,
+                  zoomControlsEnabled: false,
                   zoomGesturesEnabled: true,
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
@@ -365,8 +363,8 @@ class _LojaLocationState extends State<LojaLocation> {
           onTap: () {
             selectCard(p.nome);
             movimentarCamera(
-              double.tryParse(p.endereco.latitude),
-              double.tryParse(p.endereco.longitude),
+              p.endereco.latitude,
+              p.endereco.longitude,
             );
           },
         );

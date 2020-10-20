@@ -7,8 +7,8 @@ class Estoque {
 
   Estoque.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    quantidade = int.tryParse(json['quantidade'].toString());
-    valor = double.tryParse(json['valor'].toString());
+    quantidade = json['quantidade'] + 0;
+    valor = json['valor'] + 0.0;
   }
 
   Map<String, dynamic> toJson() {

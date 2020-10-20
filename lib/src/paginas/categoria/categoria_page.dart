@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
 
 class CategoriaPage extends StatelessWidget {
   CategoriaController categoriaController = GetIt.I.get<CategoriaController>();

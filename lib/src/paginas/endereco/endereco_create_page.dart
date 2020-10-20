@@ -119,10 +119,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           setState(() {
             valor != null
                 ? latitudeController.text = valor.latitude.toString()
-                : latitudeController.text = endereco.latitude;
+                : latitudeController.text = endereco.latitude.toString();
             valor != null
                 ? longitudeController.text = valor.longitude.toString()
-                : longitudeController.text = endereco.longitude;
+                : longitudeController.text = endereco.longitude.toString();
           });
         },
         myLocationEnabled: true,
@@ -166,6 +166,51 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       criaMapa(),
+                      Card(
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(height: 15),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  RadioListTile(
+                                    controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                    title: Text("COMERCIAL"),
+                                    value: "COMERCIAL",
+                                    groupValue: endereco.tipoEndereco,
+                                    onChanged: (String valor) {
+                                      setState(() {
+                                        endereco.tipoEndereco = valor;
+                                        print("resultado: " + endereco.tipoEndereco);
+                                        showDefaultSnackbar(context,
+                                            "Endereço: ${endereco.tipoEndereco}");
+                                      });
+                                    },
+                                  ),
+                                  RadioListTile(
+                                    controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                    title: Text("RESIDENCIAL"),
+                                    value: "RESIDENCIAL",
+                                    groupValue: endereco.tipoEndereco,
+                                    onChanged: (String valor) {
+                                      setState(() {
+                                        endereco.tipoEndereco = valor;
+                                        print("resultado: " + endereco.tipoEndereco);
+                                        showDefaultSnackbar(context,
+                                            "Endereço: ${endereco.tipoEndereco}");
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Card(
                         child: Container(
                           width: double.infinity,
@@ -248,7 +293,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               TextFormField(
                                 controller: latitudeController,
                                 // initialValue: endereco.latitude,
-                                onSaved: (value) => endereco.latitude = value,
+                                onSaved: (value) => endereco.latitude = double.tryParse(value),
                                 validator: (value) =>
                                     value.isEmpty ? "campo obrigário" : null,
                                 decoration: InputDecoration(
@@ -266,7 +311,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               TextFormField(
                                 controller: longitudeController,
                                 // initialValue: endereco.longitude,
-                                onSaved: (value) => endereco.longitude = value,
+                                onSaved: (value) => endereco.longitude = double.tryParse(value),
                                 validator: (value) =>
                                     value.isEmpty ? "campo obrigário" : null,
                                 decoration: InputDecoration(

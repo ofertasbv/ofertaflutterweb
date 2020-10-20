@@ -5,7 +5,7 @@ class Promocao {
   String nome;
   String descricao;
   String foto;
-  double desconto = 0.0;
+  double desconto;
   DateTime dataRegistro;
   DateTime dataInicio;
   DateTime dataFinal;
@@ -27,7 +27,7 @@ class Promocao {
     nome = json['nome'];
     descricao = json['descricao'];
     foto = json['foto'];
-    desconto = double.tryParse(json['desconto'].toString());
+    desconto = json['desconto'] + 0.0;
 
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     dataInicio = DateTime.tryParse(json['dataInicio'].toString());

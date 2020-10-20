@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
@@ -10,10 +9,8 @@ import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
-
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -373,9 +370,6 @@ class _ConfigPageState extends State<ConfigPage> {
             ],
           ),
         ),
-
-
-
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(

@@ -386,8 +386,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
-                                    labelText: "Quantidade em estoque",
-                                    hintText: "quantidade produto",
+                                    labelText: "Quantidade",
+                                    hintText: "quantidade",
                                     prefixIcon: Icon(Icons.mode_edit),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
@@ -406,8 +406,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
-                                    labelText: "Valor do produto",
-                                    hintText: "valor produto",
+                                    labelText: "Valor",
+                                    hintText: "valor",
                                     prefixIcon: Icon(Icons.monetization_on),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
@@ -425,15 +425,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
-                                    labelText: "Desconto do produto",
-                                    hintText: "Desconto produto",
+                                    labelText: "Desconto",
+                                    hintText: "Desconto",
                                     prefixIcon: Icon(Icons.money),
                                     suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
+
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
@@ -488,9 +484,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       favorito = valor;
                                       print(
                                           "resultado: " + favorito.toString());
-
-                                      showDefaultSnackbar(context,
-                                          "Produto favorito: ${favorito.toString()}");
                                     });
                                   },
                                 ),
@@ -504,9 +497,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     setState(() {
                                       novo = valor;
                                       print("resultado: " + novo.toString());
-
-                                      showDefaultSnackbar(context,
-                                          "Produto novo: ${novo.toString()}");
                                     });
                                   },
                                 ),
@@ -519,8 +509,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     setState(() {
                                       status = valor;
                                       print("resultado: " + status.toString());
-                                      showDefaultSnackbar(context,
-                                          "Produto disponível: ${status.toString()}");
                                     });
                                   },
                                 ),
@@ -535,26 +523,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       destaque = valor;
                                       print(
                                           "resultado: " + destaque.toString());
-                                      showDefaultSnackbar(context,
-                                          "Produto disponível: ${destaque.toString()}");
                                     });
                                   },
                                 ),
                                 SizedBox(height: 30),
-                                SwitchListTile(
-                                  autofocus: true,
-                                  subtitle: Text("sim/não"),
-                                  title: Text("Produto status?"),
-                                  value: p.status = status,
-                                  onChanged: (bool valor) {
-                                    setState(() {
-                                      status = valor;
-                                      print("resultado: " + status.toString());
-                                      showDefaultSnackbar(context,
-                                          "Produto status: ${status.toString()}");
-                                    });
-                                  },
-                                ),
                               ],
                             ),
                           ),
@@ -582,8 +554,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.medida = valor;
                                           print("resultado: " + p.medida);
-                                          showDefaultSnackbar(context,
-                                              "Tipo de medida: ${p.medida.toString()}");
                                         });
                                       },
                                     ),
@@ -598,8 +568,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.medida = valor;
                                           print("resultado: " + p.medida);
-                                          showDefaultSnackbar(context,
-                                              "Tipo de medida: ${p.medida.toString()}");
                                         });
                                       },
                                     ),
@@ -614,8 +582,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.medida = valor;
                                           print("resultado: " + p.medida);
-                                          showDefaultSnackbar(context,
-                                              "Tipo de medida: ${p.medida.toString()}");
                                         });
                                       },
                                     ),
@@ -630,8 +596,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.medida = valor;
                                           print("resultado: " + p.medida);
-                                          showDefaultSnackbar(context,
-                                              "Tipo de medida: ${p.medida.toString()}");
                                         });
                                       },
                                     ),
@@ -664,8 +628,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.tamanho = valor;
                                           print("resultado: " + p.tamanho);
-                                          showDefaultSnackbar(context,
-                                              "Tamanho: ${p.tamanho.toString()}");
                                         });
                                       },
                                     ),
@@ -680,8 +642,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.tamanho = valor;
                                           print("resultado: " + p.tamanho);
-                                          showDefaultSnackbar(context,
-                                              "Tamanho: ${p.tamanho.toString()}");
                                         });
                                       },
                                     ),
@@ -696,8 +656,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.tamanho = valor;
                                           print("resultado: " + p.tamanho);
-                                          showDefaultSnackbar(context,
-                                              "Tamanho: ${p.tamanho.toString()}");
                                         });
                                       },
                                     ),
@@ -712,8 +670,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.tamanho = valor;
                                           print("resultado: " + p.tamanho);
-                                          showDefaultSnackbar(context,
-                                              "Tamanho: ${p.tamanho.toString()}");
                                         });
                                       },
                                     ),
@@ -746,8 +702,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.origem = valor;
                                           print("resultado: " + p.origem);
-                                          showDefaultSnackbar(context,
-                                              "Origem: ${p.origem.toString()}");
                                         });
                                       },
                                     ),
@@ -762,8 +716,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         setState(() {
                                           p.origem = valor;
                                           print("resultado: " + p.origem);
-                                          showDefaultSnackbar(context,
-                                              "Origem: ${p.origem.toString()}");
                                         });
                                       },
                                     ),

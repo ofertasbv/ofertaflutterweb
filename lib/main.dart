@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -19,7 +18,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/services.dart';
 import 'package:nosso/src/home/home.dart';
-
+import 'package:nosso/src/util/Examples/buttons.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -80,9 +79,9 @@ class MyApp extends StatelessWidget {
 
       primaryTextTheme: TextTheme(
         headline6: TextStyle(color: Colors.black),
-        headline5: TextStyle(color: Colors.indigo[900]),
-        headline4: TextStyle(color: Colors.indigo[900]),
-        headline3: TextStyle(color: Colors.indigo[900]),
+        headline5: TextStyle(color: Colors.blueAccent),
+        headline4: TextStyle(color: Colors.black),
+        headline3: TextStyle(color: Colors.pink),
       ),
 
       primaryIconTheme: IconThemeData(color: Colors.black),
@@ -92,28 +91,37 @@ class MyApp extends StatelessWidget {
 
       cardTheme: CardTheme(
         elevation: 1,
+        color: Colors.white,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(0.0),
-          side: BorderSide(color: Colors.white),
+          side: BorderSide(color: Colors.grey[100]),
         ),
       ),
 
-      hintColor: Colors.amber,
 
       buttonTheme: ButtonThemeData(
         textTheme: ButtonTextTheme.primary,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(32),
-          side: BorderSide(color: Colors.white),
+          side: BorderSide(color: Colors.black),
         ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
-        prefixStyle: TextStyle(color: Colors.amber),
-        hintStyle: TextStyle(color: Colors.indigo[900]),
+        prefixStyle: TextStyle(color: Colors.black),
+        hintStyle: TextStyle(color: Colors.black),
         fillColor: Colors.amber,
+        alignLabelWithHint: true,
+        contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+        border: OutlineInputBorder(
+          gapPadding: 1,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        errorStyle: TextStyle(color: Colors.red),
       ),
+
+      hintColor: Colors.amber,
 
       iconTheme: IconThemeData(
         color: Colors.amber,
@@ -123,7 +131,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
 
-      scaffoldBackgroundColor: Colors.grey[100],
+      scaffoldBackgroundColor: Colors.white,
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
@@ -139,4 +147,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

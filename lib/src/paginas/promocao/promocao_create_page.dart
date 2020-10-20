@@ -138,6 +138,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
     // p.desconto = double.tryParse(descontoController.text);
 
+    descontoController.text = p.desconto as String;
+
     p.loja = lojaSelecionada;
 
     return Scaffold(
@@ -217,6 +219,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 TextFormField(
                                   showCursor: true,
                                   autofocus: true,
+                                  controller: descontoController,
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -236,7 +239,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       TextInputType.numberWithOptions(),
                                   maxLength: 4,
                                 ),
-                                SizedBox(height: 0),
+                                SizedBox(height: 10),
                                 DateTimeField(
                                   initialValue: p.dataRegistro,
                                   format: dateFormat,
@@ -265,7 +268,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 0),
+                                SizedBox(height: 10),
                                 DateTimeField(
                                   initialValue: p.dataInicio,
                                   format: dateFormat,
@@ -296,7 +299,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     );
                                   },
                                 ),
-                                SizedBox(height: 0),
+                                SizedBox(height: 10),
                                 DateTimeField(
                                   initialValue: p.dataFinal,
                                   format: dateFormat,

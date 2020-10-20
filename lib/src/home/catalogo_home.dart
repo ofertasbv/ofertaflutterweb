@@ -134,9 +134,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(" departamento"),
-                  FlatButton(
+                  GestureDetector(
                     child: Text("veja mais"),
-                    onPressed: () {
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -163,9 +163,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(" ofertas"),
-                  FlatButton(
+                  GestureDetector(
                     child: Text("veja mais"),
-                    onPressed: () {
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -192,9 +192,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(" produtos em destaque"),
-                  FlatButton(
+                  GestureDetector(
                     child: Text("veja mais"),
-                    onPressed: () {
+                    onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {

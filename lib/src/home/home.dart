@@ -10,7 +10,6 @@ import 'package:nosso/src/paginas/loja/loja_list.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
-import 'package:nosso/src/paginas/subcategoria/subcategoria_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
