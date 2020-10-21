@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -193,7 +194,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 2,
+                                  maxLines: null,
                                 ),
                                 TextFormField(
                                   autofocus: true,
@@ -213,7 +214,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                             BorderRadius.circular(5.0)),
                                   ),
                                   maxLength: 100,
-                                  maxLines: 2,
+                                  maxLines: null,
                                   keyboardType: TextInputType.text,
                                 ),
                                 TextFormField(
@@ -226,7 +227,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Desconto",
-                                    hintText: "desconto promoção",
+                                    hintText: "R\$ ",
                                     prefixIcon: Icon(Icons.monetization_on),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
@@ -237,7 +238,10 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   ),
                                   keyboardType:
                                       TextInputType.numberWithOptions(),
-                                  maxLength: 4,
+                                  inputFormatters: [
+                                    WhitelistingTextInputFormatter.digitsOnly,
+                                    RealInputFormatter(centavos: true)
+                                  ],
                                 ),
                                 SizedBox(height: 10),
                                 DateTimeField(

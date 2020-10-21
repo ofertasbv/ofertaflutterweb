@@ -24,8 +24,8 @@ class EnderecoCreatePage extends StatefulWidget {
 }
 
 class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
 
+  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
   CidadeController cidadeController = GetIt.I.get<CidadeController>();
 
   Endereco endereco;

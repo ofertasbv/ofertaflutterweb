@@ -74,13 +74,10 @@ class _MarcaListState extends State<MarcaList>
               child: ListTile(
                 isThreeLine: true,
                 leading: CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.grey[100],
                   maxRadius: 35,
                   minRadius: 35,
-                  child: ClipRRect(
-                    borderRadius: new BorderRadius.circular(100.0),
-                    child: Image.asset(ConstantApi.urlLogo),
-                  ),
+                  child: Icon(Icons.shopping_bag),
                 ),
                 title: Text(c.nome),
                 subtitle: Text("${c.id}"),

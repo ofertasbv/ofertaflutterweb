@@ -8,6 +8,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/paginas/endereco/endereco_create_page.dart';
+import 'package:nosso/src/paginas/endereco/endereco_location.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class EnderecoList extends StatefulWidget {
@@ -74,15 +75,12 @@ class _EnderecoListState extends State<EnderecoList>
               child: ListTile(
                 isThreeLine: true,
                 leading: CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.grey[100],
                   maxRadius: 35,
                   minRadius: 35,
-                  child: ClipRRect(
-                    borderRadius: new BorderRadius.circular(100),
-                    child: Image.asset(ConstantApi.urlSatelite),
-                  ),
+                  child: Icon(Icons.location_on_outlined),
                 ),
-                title: Text("${e.logradouro}, ${e.numero}"),
+                title: Text("${e.logradouro}, ${e.numero}, ${e.latitude}/${e.longitude}"),
                 subtitle: Text("${e.cidade.nome}"),
                 trailing: Container(
                   height: 80,
@@ -100,7 +98,7 @@ class _EnderecoListState extends State<EnderecoList>
   }
 
   PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Endereco c) {
+      BuildContext context, Endereco e) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),
@@ -115,8 +113,19 @@ class _EnderecoListState extends State<EnderecoList>
             MaterialPageRoute(
               builder: (BuildContext context) {
                 return EnderecoCreatePage(
-                  endereco: c,
+                  endereco: e,
                 );
+              },
+            ),
+          );
+        }
+        if (valor == "detalhes") {
+          print("detalhes");
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return EnderecoLocation(endereco: e);
               },
             ),
           );
@@ -138,6 +147,13 @@ class _EnderecoListState extends State<EnderecoList>
           child: ListTile(
             leading: Icon(Icons.edit),
             title: Text('editar'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'detalhes',
+          child: ListTile(
+            leading: Icon(Icons.location_on_outlined),
+            title: Text('detalhes'),
           ),
         ),
         const PopupMenuItem<String>(
