@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -314,7 +315,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 2,
+                                  maxLines: null,
                                 ),
                                 TextFormField(
                                   initialValue: p.descricao,
@@ -334,7 +335,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ),
                                   keyboardType: TextInputType.text,
                                   maxLength: 100,
-                                  maxLines: 2,
+                                  maxLines: null,
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
@@ -407,7 +408,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Valor",
-                                    hintText: "valor",
+                                    hintText: "R\$ ",
                                     prefixIcon: Icon(Icons.monetization_on),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
@@ -418,6 +419,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
+                                  inputFormatters: [
+                                    WhitelistingTextInputFormatter.digitsOnly,
+                                    RealInputFormatter(centavos: true)
+                                  ],
                                 ),
                                 TextFormField(
                                   onSaved: (value) =>
@@ -426,15 +431,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
                                     labelText: "Desconto",
-                                    hintText: "Desconto",
+                                    hintText: "R\$ ",
                                     prefixIcon: Icon(Icons.money),
                                     suffixIcon: Icon(Icons.close),
-
                                   ),
                                   keyboardType: TextInputType.number,
                                   maxLength: 10,
                                   inputFormatters: [
-                                    ThousandsFormatter(allowFraction: true)
+                                    WhitelistingTextInputFormatter.digitsOnly,
+                                    RealInputFormatter(centavos: true)
                                   ],
                                 ),
                                 DateTimeField(
