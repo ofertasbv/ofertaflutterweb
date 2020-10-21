@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
@@ -80,18 +79,42 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     });
   }
 
-  onClickFoto() async {
+  getFromGallery() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-    var atual = DateTime.now();
-    setState(() {
-      this.file = f;
-      String arquivo = file.path.split('/').last;
-      String filePath =
-          arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
-      print("arquivo: $arquivo");
-      print("filePath: $filePath");
-      p.foto = filePath;
-    });
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "loja-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
+  }
+
+  getFromCamera() async {
+    File f = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "loja-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
   }
 
   onClickUpload() async {
@@ -100,33 +123,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       print(" URL : $url");
       disableButton();
     }
-  }
-
-  showDefaultSnackbar(BuildContext context, String content) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 2),
-        content: Icon(Icons.photo_album),
-        action: SnackBarAction(
-          label: content,
-          onPressed: () {
-            enableButton();
-            onClickFoto();
-          },
-        ),
-      ),
-    );
-  }
-
-  showToast(String cardTitle) {
-    Fluttertoast.showToast(
-      msg: "$cardTitle",
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 
   openBottomSheet(BuildContext context) {
@@ -138,15 +134,34 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              trailing: Icon(Icons.arrow_forward),
-              title: Text("ir para galeria"),
+              title: Text("Galeria"),
               onTap: () {
-                onClickFoto();
+                enableButton();
+                getFromGallery();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt_outlined),
+              title: Text("Camera"),
+              onTap: () {
+                enableButton();
+                getFromCamera();
               },
             ),
           ],
         );
       },
+    );
+  }
+
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      backgroundColor: Colors.indigo,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 
@@ -167,14 +182,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Cadastro de loja"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.file_upload,
-            ),
-            onPressed: onClickFoto,
-          )
-        ],
       ),
       body: Observer(
         builder: (context) {
@@ -210,8 +217,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                         setState(() {
                                           p.tipoPessoa = valor;
                                           print("resultado: " + p.tipoPessoa);
-                                          showDefaultSnackbar(context,
-                                              "Pessoa: ${p.tipoPessoa}");
                                         });
                                       },
                                     ),
@@ -225,8 +230,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                         setState(() {
                                           p.tipoPessoa = valor;
                                           print("resultado: " + p.tipoPessoa);
-                                          showDefaultSnackbar(context,
-                                              "Pessoa: ${p.tipoPessoa}");
                                         });
                                       },
                                     ),
@@ -428,8 +431,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(
-                                            context, "ir para galeria");
+                                        openBottomSheet(context);
                                       },
                                     ),
                                     RaisedButton(
@@ -446,40 +448,38 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Container(
-                            padding: EdgeInsets.all(2),
+                          child: GestureDetector(
+                            onTap: () {
+                              openBottomSheet(context);
+                            },
                             child: Container(
-                              height: 120,
+                              padding: EdgeInsets.all(10),
                               width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  color: Colors.grey[300],
-                                ),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                            file,
-                                            height: 80,
-                                            width: 80,
-                                            fit: BoxFit.fitWidth,
-                                          )
-                                        : p.foto != null
-                                            ? Image.network(
-                                                ConstantApi.urlArquivoLoja +
-                                                    p.foto,
-                                                height: 80,
-                                                width: 80,
-                                                fit: BoxFit.fitWidth,
-                                              )
-                                            : Text("anexar arquivo"),
-                                  ],
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  file != null
+                                      ? Image.file(
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
+                                      : p.foto != null
+                                      ? CircleAvatar(
+                                    radius: 50,
+                                    child: Image.network(
+                                      ConstantApi
+                                          .urlArquivoLoja +
+                                          p.foto,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                      : CircleAvatar(
+                                    radius: 50,
+                                    child: Icon(
+                                      Icons.camera_alt_outlined,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -504,8 +504,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                           p.endereco.tipoEndereco = valor;
                                           print("resultado: " +
                                               p.endereco.tipoEndereco);
-                                          showDefaultSnackbar(context,
-                                              "Endereço: ${p.endereco.tipoEndereco}");
                                         });
                                       },
                                     ),
@@ -520,8 +518,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                           p.endereco.tipoEndereco = valor;
                                           print("resultado: " +
                                               p.endereco.tipoEndereco);
-                                          showDefaultSnackbar(context,
-                                              "Endereço: ${p.endereco.tipoEndereco}");
                                         });
                                       },
                                     ),

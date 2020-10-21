@@ -70,18 +70,42 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     });
   }
 
-  onClickFoto() async {
+  getFromGallery() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-    var atual = DateTime.now();
-    setState(() {
-      this.file = f;
-      String arquivo = file.path.split('/').last;
-      String filePath = arquivo.replaceAll(
-          "$arquivo", "categoria-" + atual.toString() + ".png");
-      print("arquivo: $arquivo");
-      print("filePath: $filePath");
-      c.foto = filePath;
-    });
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "produto-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        c.foto = filePath;
+      });
+    }
+  }
+
+  getFromCamera() async {
+    File f = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "promocao-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        c.foto = filePath;
+      });
+    }
   }
 
   onClickUpload() async {
@@ -92,19 +116,32 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     }
   }
 
-  showDefaultSnackbar(BuildContext context, String content) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 2),
-        content: Icon(Icons.photo_album),
-        action: SnackBarAction(
-          label: content,
-          onPressed: () {
-            enableButton();
-            onClickFoto();
-          },
-        ),
-      ),
+  openBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.photo),
+              title: Text("Galeria"),
+              onTap: () {
+                enableButton();
+                getFromGallery();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt_outlined),
+              title: Text("Camera"),
+              onTap: () {
+                enableButton();
+                getFromCamera();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -125,16 +162,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Categoria cadastros"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.file_upload,
-            ),
-            onPressed: () {
-              onClickFoto();
-            },
-          )
-        ],
       ),
       body: Observer(
         builder: (context) {
@@ -203,7 +230,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(context, "ir para galeria");
+                                        openBottomSheet(context);
                                       },
                                     ),
                                     RaisedButton(
@@ -220,40 +247,38 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Container(
-                            padding: EdgeInsets.all(2),
+                          child: GestureDetector(
+                            onTap: () {
+                              openBottomSheet(context);
+                            },
                             child: Container(
-                              height: 120,
+                              padding: EdgeInsets.all(10),
                               width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  color: Colors.grey[300],
-                                ),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                      file,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
-                                        : c.foto != null
-                                        ? Image.network(
-                                      ConstantApi.urlArquivoCategoria +
-                                          c.foto,
-                                      height: 80,
-                                      width: 80,
-                                      fit: BoxFit.fitWidth,
-                                    )
-                                        : Text("anexar arquivo"),
-                                  ],
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  file != null
+                                      ? Image.file(
+                                          file,
+                                          fit: BoxFit.fitWidth,
+                                        )
+                                      : c.foto != null
+                                          ? CircleAvatar(
+                                              radius: 50,
+                                              child: Image.network(
+                                                ConstantApi
+                                                        .urlArquivoCategoria +
+                                                    c.foto,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : CircleAvatar(
+                                              radius: 50,
+                                              child: Icon(
+                                                Icons.camera_alt_outlined,
+                                              ),
+                                            ),
+                                ],
                               ),
                             ),
                           ),
@@ -262,7 +287,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ),
                   ),
                 ),
-
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),

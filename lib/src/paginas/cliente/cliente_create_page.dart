@@ -79,18 +79,42 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     });
   }
 
-  onClickFoto() async {
+  getFromGallery() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-    var atual = DateTime.now();
-    setState(() {
-      this.file = f;
-      String arquivo = file.path.split('/').last;
-      String filePath = arquivo.replaceAll(
-          "$arquivo", "cliente-" + atual.toString() + ".png");
-      print("arquivo: $arquivo");
-      print("filePath: $filePath");
-      p.foto = filePath;
-    });
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "cliente-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
+  }
+
+  getFromCamera() async {
+    File f = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "cliente-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
   }
 
   onClickUpload() async {
@@ -99,33 +123,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
       print(" URL : $url");
       disableButton();
     }
-  }
-
-  showDefaultSnackbar(BuildContext context, String content) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 2),
-        content: Icon(Icons.photo_album),
-        action: SnackBarAction(
-          label: content,
-          onPressed: () {
-            enableButton();
-            onClickFoto();
-          },
-        ),
-      ),
-    );
-  }
-
-  showToast(String cardTitle) {
-    Fluttertoast.showToast(
-      msg: "$cardTitle",
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 
   openBottomSheet(BuildContext context) {
@@ -137,15 +134,34 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.photo),
-              trailing: Icon(Icons.arrow_forward),
-              title: Text("ir para galeria"),
+              title: Text("Galeria"),
               onTap: () {
-                onClickFoto();
+                enableButton();
+                getFromGallery();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt_outlined),
+              title: Text("Camera"),
+              onTap: () {
+                enableButton();
+                getFromCamera();
               },
             ),
           ],
         );
       },
+    );
+  }
+
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      backgroundColor: Colors.indigo,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 
@@ -166,14 +182,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Cadastro de cliente"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.file_upload,
-            ),
-            onPressed: onClickFoto,
-          )
-        ],
       ),
       body: Observer(
         builder: (context) {
@@ -210,8 +218,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                         setState(() {
                                           p.tipoPessoa = valor;
                                           print("resultado: " + p.tipoPessoa);
-                                          showDefaultSnackbar(context,
-                                              "Pessoa: ${p.tipoPessoa}");
                                         });
                                       },
                                     ),
@@ -225,8 +231,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                         setState(() {
                                           p.tipoPessoa = valor;
                                           print("resultado: " + p.tipoPessoa);
-                                          showDefaultSnackbar(context,
-                                              "Pessoa: ${p.tipoPessoa}");
                                         });
                                       },
                                     ),
@@ -309,9 +313,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data registro",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
@@ -411,8 +413,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(
-                                            context, "ir para galeria");
+                                        openBottomSheet(context);
                                       },
                                     ),
                                     RaisedButton(
@@ -429,40 +430,37 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Container(
-                            padding: EdgeInsets.all(2),
+                          child: GestureDetector(
+                            onTap: () {
+                              openBottomSheet(context);
+                            },
                             child: Container(
-                              height: 120,
+                              padding: EdgeInsets.all(10),
                               width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  color: Colors.grey[300],
-                                ),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                            file,
-                                            height: 80,
-                                            width: 80,
-                                            fit: BoxFit.fitWidth,
-                                          )
-                                        : p.foto != null
-                                            ? Image.network(
-                                                ConstantApi.urlArquivoLoja +
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  file != null
+                                      ? Image.file(
+                                          file,
+                                          fit: BoxFit.fitWidth,
+                                        )
+                                      : p.foto != null
+                                          ? CircleAvatar(
+                                              radius: 50,
+                                              child: Image.network(
+                                                ConstantApi.urlArquivoCliente +
                                                     p.foto,
-                                                height: 80,
-                                                width: 80,
-                                                fit: BoxFit.fitWidth,
-                                              )
-                                            : Text("anexar arquivo"),
-                                  ],
-                                ),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : CircleAvatar(
+                                              radius: 50,
+                                              child: Icon(
+                                                Icons.camera_alt_outlined,
+                                              ),
+                                            ),
+                                ],
                               ),
                             ),
                           ),
@@ -592,7 +590,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.latitude.toString(),
-                                  onSaved: (value) => e.latitude = double.tryParse(value),
+                                  onSaved: (value) =>
+                                      e.latitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(
@@ -611,7 +610,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                 ),
                                 TextFormField(
                                   initialValue: p.endereco.longitude.toString(),
-                                  onSaved: (value) => e.longitude = double.tryParse(value),
+                                  onSaved: (value) =>
+                                      e.longitude = double.tryParse(value),
                                   validator: (value) =>
                                       value.isEmpty ? "campo obrigário" : null,
                                   decoration: InputDecoration(

@@ -84,18 +84,42 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     });
   }
 
-  onClickFoto() async {
+  getFromGallery() async {
     File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-    var atual = DateTime.now();
-    setState(() {
-      this.file = f;
-      String arquivo = file.path.split('/').last;
-      String filePath = arquivo.replaceAll(
-          "$arquivo", "categoria-" + atual.toString() + ".png");
-      print("arquivo: $arquivo");
-      print("filePath: $filePath");
-      p.foto = filePath;
-    });
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "promocao-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
+  }
+
+  getFromCamera() async {
+    File f = await ImagePicker.pickImage(source: ImageSource.camera);
+
+    if (f == null) {
+      return;
+    } else {
+      var atual = DateTime.now();
+      setState(() {
+        this.file = f;
+        String arquivo = file.path.split('/').last;
+        String filePath = arquivo.replaceAll(
+            "$arquivo", "promocao-" + atual.toString() + ".png");
+        print("arquivo: $arquivo");
+        print("filePath: $filePath");
+        p.foto = filePath;
+      });
+    }
   }
 
   onClickUpload() async {
@@ -106,19 +130,32 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     }
   }
 
-  showDefaultSnackbar(BuildContext context, String content) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        duration: Duration(seconds: 2),
-        content: Icon(Icons.photo_album),
-        action: SnackBarAction(
-          label: content,
-          onPressed: () {
-            enableButton();
-            onClickFoto();
-          },
-        ),
-      ),
+  openBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.photo),
+              title: Text("Galeria"),
+              onTap: () {
+                enableButton();
+                getFromGallery();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt_outlined),
+              title: Text("Camera"),
+              onTap: () {
+                enableButton();
+                getFromCamera();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -147,12 +184,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
       key: scaffoldKey,
       appBar: AppBar(
         title: Text("Promoção cadastro"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.file_upload),
-            onPressed: onClickFoto,
-          )
-        ],
       ),
       body: Observer(
         builder: (context) {
@@ -282,9 +313,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data inicio",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
@@ -313,9 +342,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   decoration: InputDecoration(
                                     labelText: "data encerramento",
                                     hintText: "99-09-9999",
-                                    prefixIcon: Icon(
-                                      Icons.calendar_today
-                                    ),
+                                    prefixIcon: Icon(Icons.calendar_today),
                                     suffixIcon: Icon(Icons.close),
                                     contentPadding: EdgeInsets.fromLTRB(
                                         20.0, 20.0, 20.0, 20.0),
@@ -420,8 +447,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       child: Icon(Icons.photo),
                                       shape: new CircleBorder(),
                                       onPressed: () {
-                                        showDefaultSnackbar(
-                                            context, "ir para galeria");
+                                        openBottomSheet(context);
                                       },
                                     ),
                                     RaisedButton(
@@ -438,40 +464,38 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Container(
-                            padding: EdgeInsets.all(2),
+                          child: GestureDetector(
+                            onTap: () {
+                              openBottomSheet(context);
+                            },
                             child: Container(
-                              height: 120,
+                              padding: EdgeInsets.all(10),
                               width: double.infinity,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  style: BorderStyle.solid,
-                                  color: Colors.grey[300],
-                                ),
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                            file,
-                                            height: 80,
-                                            width: 80,
-                                            fit: BoxFit.fitWidth,
-                                          )
-                                        : p.foto != null
-                                            ? Image.network(
-                                                ConstantApi.urlArquivoPromocao +
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  file != null
+                                      ? Image.file(
+                                          file,
+                                          fit: BoxFit.fitWidth,
+                                        )
+                                      : p.foto != null
+                                          ? CircleAvatar(
+                                              radius: 50,
+                                              child: Image.network(
+                                                ConstantApi
+                                                        .urlArquivoPromocao +
                                                     p.foto,
-                                                height: 80,
-                                                width: 80,
-                                                fit: BoxFit.fitWidth,
-                                              )
-                                            : Text("anexar arquivo"),
-                                  ],
-                                ),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )
+                                          : CircleAvatar(
+                                              radius: 50,
+                                              child: Icon(
+                                                Icons.camera_alt_outlined,
+                                              ),
+                                            ),
+                                ],
                               ),
                             ),
                           ),
