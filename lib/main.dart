@@ -43,7 +43,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.amber,
+      systemNavigationBarColor: Colors.grey[100],
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.light,
       //
@@ -73,12 +73,12 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.white,
+      primaryColor: Colors.grey[100],
       accentColor: Colors.black,
       primarySwatch: Colors.amber,
 
       appBarTheme: AppBarTheme(
-        elevation: 2,
+        elevation: 1,
       ),
 
       textTheme: Theme.of(context).textTheme.apply(
@@ -156,11 +156,11 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        elevation: 0,
+        elevation: 1,
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.black,
         unselectedLabelStyle: TextStyle(color: Colors.amber),
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.white,
       ),
     );
   }
