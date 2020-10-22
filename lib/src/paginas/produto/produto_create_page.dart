@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -25,7 +24,6 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
-import 'package:nosso/src/util/converter/thousandsFormatter.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;

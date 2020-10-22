@@ -8,7 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location_permissions/location_permissions.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
@@ -28,7 +27,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
   _EnderecoLocationState({this.endereco});
 
   double distanciaKilomentros = 0;
-  PermissionStatus permission;
 
   Geolocator geolocator;
   Position position;
@@ -103,7 +101,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
 
   getLocation() async {
     try {
-      permission = await LocationPermissions().checkPermissionStatus();
       geolocator = Geolocator();
       LocationOptions locationOptions =
           LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);

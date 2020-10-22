@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
@@ -24,15 +21,8 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   var codigoBarraController = TextEditingController();
   var descricaoController = TextEditingController();
 
-  AudioCache audioCache = AudioCache(prefix: "audios/");
-
-  executar(String nomeAudio) {
-    audioCache.play(nomeAudio + ".mp3");
-  }
-
   @override
   initState() {
-    audioCache.loadAll(["beep-07.mp3"]);
     super.initState();
   }
 
@@ -143,7 +133,6 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() {
-        executar("beep-07");
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;
         pesquisarCodigo(this.barcode);

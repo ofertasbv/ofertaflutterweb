@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:audioplayers/audio_cache.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,18 +17,9 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
   String barcode = "";
   String urlSite;
 
-  AudioCache audioCache = AudioCache(prefix: "audios/");
-
-  // DateFormat dateFormat = DateFormat('dd-MM-yyyy');
-
-  executar(String nomeAudio) {
-    audioCache.play(nomeAudio + ".mp3");
-  }
-
   @override
   initState() {
     super.initState();
-    audioCache.loadAll(["beep-07.mp3"]);
   }
 
   @override
@@ -128,19 +118,12 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
     );
   }
 
-  // getDateNow() {
-  //   var now = new DateTime.now();
-  //   var formatter = new DateFormat('MM-dd-yyyy H:mm');
-  //   return formatter.format(now);
-  // }
-
 // Method for scanning barcode....
   Future barcodeScanning() async {
     //imageSelectorGallery();
     try {
       String barcode = await BarcodeScanner.scan();
       setState(() {
-        executar("beep-07");
         this.barcode = barcode;
         urlSite = this.barcode;
       });

@@ -36,6 +36,21 @@ void main() async {
   getIt.registerSingleton<LojaController>(LojaController());
   getIt.registerSingleton<MarcaController>(MarcaController());
   getIt.registerSingleton<CidadeController>(CidadeController());
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.amber,
+      // cor da barra superior
+      statusBarIconBrightness: Brightness.light,
+      // ícones da barra superior
+      systemNavigationBarColor: Colors.amber,
+      // cor da barra inferior
+      systemNavigationBarIconBrightness: Brightness.light,
+      //
+      systemNavigationBarDividerColor: Colors.black, // ícones da barra inferior
+    ),
+  );
+
   runApp(MyApp());
 }
 
@@ -58,9 +73,13 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.amber,
+      primaryColor: Colors.white,
       accentColor: Colors.black,
       primarySwatch: Colors.amber,
+
+      appBarTheme: AppBarTheme(
+        elevation: 2,
+      ),
 
       textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,
@@ -98,7 +117,6 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.grey[100]),
         ),
       ),
-
 
       buttonTheme: ButtonThemeData(
         textTheme: ButtonTextTheme.primary,

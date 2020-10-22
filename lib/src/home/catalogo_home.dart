@@ -25,7 +25,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(10),
-          color: Colors.grey[100],
+          color: Colors.white,
           height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
