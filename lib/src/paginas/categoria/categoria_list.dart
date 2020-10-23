@@ -75,16 +75,13 @@ class _CategoriaListState extends State<CategoriaList>
               child: ListTile(
                 isThreeLine: true,
                 leading: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  maxRadius: 35,
-                  minRadius: 35,
-                  child: ClipRRect(
-                    borderRadius: new BorderRadius.circular(100.0),
-                    child: Image.network(ConstantApi.urlArquivoCategoria + c.foto),
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoCategoria + c.foto}",
                   ),
                 ),
                 title: Text(c.nome),
-                subtitle: Text("${c.id}"),
+                subtitle: Text("cod: ${c.id}"),
                 trailing: Container(
                   height: 80,
                   width: 50,
