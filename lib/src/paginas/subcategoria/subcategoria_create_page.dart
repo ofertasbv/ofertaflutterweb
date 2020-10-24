@@ -59,6 +59,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       s = SubCategoria();
       subCategoriaController.getAll();
     }
+    categoriaSelecionada = s.categoria;
     super.initState();
   }
 
@@ -171,7 +172,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    // print("Categoria: ${s.categoria.nome}");
+
 
     return Scaffold(
       key: scaffoldKey,
@@ -224,71 +225,21 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 0),
                         Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                FutureBuilder<List<Categoria>>(
-                                  future: categorias,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<Categoria>(
-                                        onSaved: (value) => s.categoria = value,
-                                        validator: (value) => value == null
-                                            ? 'campo obrigatório'
-                                            : null,
-                                        value: categoriaSelecionada,
-                                        items: snapshot.data.map((categoria) {
-                                          return DropdownMenuItem<Categoria>(
-                                            value: categoria,
-                                            child: Text(categoria.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Categoria",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon:
-                                              Icon(Icons.list_alt_outlined),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (Categoria c) {
-                                          setState(() {
-                                            categoriaSelecionada = c;
-                                            s.categoria = c;
-                                            controller.formKey.currentState;
-                                            // print(
-                                            //     "Categoria Selecionada: ${categoriaSelecionada.nome}");
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Text(
-                                        "não foi peossível carregar categorias");
-                                  },
-                                ),
-                              ],
-                            ),
+                          child: ListTile(
+                            title: Text("Categoria *"),
+                            subtitle: categoriaSelecionada == null
+                                ? Text("Selecione uma categoria")
+                                : Text(categoriaSelecionada.nome),
+                            leading: Icon(Icons.list_alt_outlined),
+                            trailing: Icon(Icons.arrow_drop_down_sharp),
+                            onTap: () {
+                              alertSelectCategorias(
+                                  context, categoriaSelecionada);
+                            },
                           ),
                         ),
-                        SizedBox(height: 0),
                         Card(
                           child: Column(
                             children: <Widget>[
@@ -345,11 +296,10 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                                       : s.foto != null
                                           ? CircleAvatar(
                                               radius: 50,
-                                              child: Image.network(
+                                              backgroundImage: NetworkImage(
                                                 ConstantApi
                                                         .urlArquivoSubCategoria +
                                                     s.foto,
-                                                fit: BoxFit.fill,
                                               ),
                                             )
                                           : CircleAvatar(
@@ -369,42 +319,17 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 ),
                 SizedBox(height: 0),
                 Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cancelar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          color: Colors.grey,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cadastrar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (controller.validate()) {
-                              openAlertBox(context, s);
-                            }
-                          },
-                        ),
-                      ],
+                  child: RaisedButton.icon(
+                    label: Text("Enviar formulário"),
+                    icon: Icon(
+                      Icons.check,
+                      color: Colors.white,
                     ),
+                    onPressed: () {
+                      if (controller.validate()) {
+                        openAlertBox(context, s);
+                      }
+                    },
                   ),
                 ),
               ],
@@ -502,6 +427,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             if (c.id == null) {
                               Timer(Duration(seconds: 3), () {
                                 onClickUpload();
+                                s.categoria = categoriaSelecionada;
                                 subCategoriaController.create(s);
                                 showToast("Cadastro  realizado com sucesso");
                                 Navigator.of(context).pop();
@@ -510,6 +436,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             } else {
                               Timer(Duration(seconds: 3), () {
                                 onClickUpload();
+                                s.categoria = categoriaSelecionada;
                                 subCategoriaController.update(c.id, c);
                                 showToast("Cadastro  alterado com sucesso");
                                 Navigator.of(context).pop();
@@ -525,6 +452,84 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  alertSelectCategorias(BuildContext context, Categoria c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoList(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoList() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Categoria> categorias = categoriaController.categorias;
+          if (categoriaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (categorias == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListCategorias(categorias);
+        },
+      ),
+    );
+  }
+
+  builderListCategorias(List<Categoria> categorias) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: categorias.length,
+      itemBuilder: (context, index) {
+        Categoria c = categorias[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoCategoria + c.foto}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  categoriaSelecionada = c;
+                  print("${categoriaSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
         );
       },
     );
