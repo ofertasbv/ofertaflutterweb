@@ -7,15 +7,15 @@ class Estoque {
 
   Estoque.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    quantidade = json['quantidade'] + 0;
-    valor = json['valor'] + 0.0;
+    quantidade = int.tryParse(json['quantidade'].toString());
+    valor = double.tryParse(json['valor'].toString());
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['quantidade'] = this.quantidade.toString();
-    data['valor'] = this.valor.toString();
+    data['valor'] = this.valor.toStringAsFixed(2);
     return data;
   }
 }

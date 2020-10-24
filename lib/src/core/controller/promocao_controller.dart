@@ -34,22 +34,22 @@ abstract class PromoCaoControllerBase with Store {
 
   @action
   Future<int> create(Promocao p) async {
-    try {
+    // try {
       promocao = await _promocaoRepository.create(p.toJson());
       return promocao;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action
   Future<int> update(int id, Promocao p) async {
-    try {
+    // try {
       promocao = await _promocaoRepository.update(id, p.toJson());
       return promocao;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action

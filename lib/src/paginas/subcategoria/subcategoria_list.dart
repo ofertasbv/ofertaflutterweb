@@ -70,13 +70,9 @@ class _SubCategoriaListState extends State<SubCategoriaList>
               child: ListTile(
                 isThreeLine: true,
                 leading: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  maxRadius: 35,
-                  minRadius: 35,
-                  child: ClipRRect(
-                    borderRadius: new BorderRadius.circular(100.0),
-                    child: Image.network(
-                        ConstantApi.urlArquivoSubCategoria + c.foto),
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoSubCategoria + c.foto}",
                   ),
                 ),
                 title: Text(c.nome),

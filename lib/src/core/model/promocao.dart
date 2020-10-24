@@ -27,7 +27,7 @@ class Promocao {
     nome = json['nome'];
     descricao = json['descricao'];
     foto = json['foto'];
-    desconto = json['desconto'] + 0.0;
+    desconto = json['desconto'];
 
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     dataInicio = DateTime.tryParse(json['dataInicio'].toString());
@@ -42,10 +42,12 @@ class Promocao {
     data['nome'] = this.nome;
     data['descricao'] = this.descricao;
     data['foto'] = this.foto;
-    data['desconto'] = this.desconto.toString();
+    data['desconto'] = this.desconto;
+
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['dataInicio'] = this.dataInicio.toIso8601String();
     data['dataFinal'] = this.dataFinal.toIso8601String();
+
     if (this.loja != null) {
       data['loja'] = this.loja.toJson();
     }

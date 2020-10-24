@@ -50,7 +50,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       e = Endereco();
     } else {
       u = p.usuario;
-      e = p.endereco;
     }
 
     super.initState();
@@ -89,8 +88,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "loja-" + atual.toString() + ".png");
+        String filePath =
+            arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
         print("arquivo: $arquivo");
         print("filePath: $filePath");
         p.foto = filePath;
@@ -108,8 +107,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "loja-" + atual.toString() + ".png");
+        String filePath =
+            arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
         print("arquivo: $arquivo");
         print("filePath: $filePath");
         p.foto = filePath;
@@ -121,7 +120,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     if (file != null) {
       var url = await LojaRepository.upload(file, p.foto);
       print(" URL : $url");
-      disableButton();
     }
   }
 
@@ -175,7 +173,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     var maskFormatterCNPJ = new MaskTextInputFormatter(
         mask: '##.###.###/###-##', filter: {"#": RegExp(r'[0-9]')});
 
-    p.endereco = e;
     p.usuario = u;
 
     return Scaffold(
@@ -460,236 +457,27 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 children: <Widget>[
                                   file != null
                                       ? Image.file(
-                                    file,
-                                    fit: BoxFit.fitWidth,
-                                  )
+                                          file,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: 300,
+                                        )
                                       : p.foto != null
-                                      ? CircleAvatar(
-                                    radius: 50,
-                                    child: Image.network(
-                                      ConstantApi
-                                          .urlArquivoLoja +
-                                          p.foto,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
-                                      : CircleAvatar(
-                                    radius: 50,
-                                    child: Icon(
-                                      Icons.camera_alt_outlined,
-                                    ),
-                                  ),
+                                          ? CircleAvatar(
+                                              radius: 50,
+                                              backgroundImage: NetworkImage(
+                                                ConstantApi.urlArquivoLoja +
+                                                    p.foto,
+                                              ),
+                                            )
+                                          : CircleAvatar(
+                                              radius: 50,
+                                              child: Icon(
+                                                Icons.camera_alt_outlined,
+                                              ),
+                                            ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(height: 15),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("ENDEREÇO COMERCIAL"),
-                                      value: "COMERCIAL",
-                                      groupValue: p.endereco.tipoEndereco,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.endereco.tipoEndereco = valor;
-                                          print("resultado: " +
-                                              p.endereco.tipoEndereco);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("ENDEREÇO RESIDENCIAL"),
-                                      value: "RESIDENCIAL",
-                                      groupValue: p.endereco.tipoEndereco,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.endereco.tipoEndereco = valor;
-                                          print("resultado: " +
-                                              p.endereco.tipoEndereco);
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: p.endereco.logradouro,
-                                  onSaved: (value) =>
-                                      p.endereco.logradouro = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Logradouro",
-                                    hintText: "Logradouro",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.complemento,
-                                  onSaved: (value) =>
-                                      p.endereco.complemento = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Complemento",
-                                    hintText: "Complemento",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.tipoEndereco,
-                                  onSaved: (value) =>
-                                      p.endereco.tipoEndereco = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "TipoEndereço",
-                                    hintText: "TipoEndereço",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.numero,
-                                  onSaved: (value) => p.endereco.numero = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Número",
-                                    hintText: "Número",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.cep,
-                                  onSaved: (value) => p.endereco.cep = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Cep",
-                                    hintText: "Cep",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    MaskedTextInputFormatter(
-                                        mask: '99999-999', separator: '-')
-                                  ],
-                                  maxLength: 9,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.bairro,
-                                  onSaved: (value) => p.endereco.bairro = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Bairro",
-                                    hintText: "Bairro",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.latitude.toString(),
-                                  onSaved: (value) =>
-                                      e.latitude = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Latitude",
-                                    hintText: "Latidute",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.longitude.toString(),
-                                  onSaved: (value) =>
-                                      e.longitude = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Longitude",
-                                    hintText: "Longitude",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  maxLength: 50,
-                                ),
-                              ],
                             ),
                           ),
                         ),
@@ -698,22 +486,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
                   child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    ),
-                    label: Text(
-                      "Enviar",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    label: Text("Enviar formulário"),
                     icon: Icon(
                       Icons.check,
                       color: Colors.white,
                     ),
-                    textColor: Colors.white,
-                    splashColor: Colors.red,
-                    color: Colors.black,
                     onPressed: () {
                       if (controller.validate()) {
                         // print("Logradouro: ${p.endereco.logradouro}");

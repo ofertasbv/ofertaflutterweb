@@ -42,19 +42,19 @@ class _ConfigPageState extends State<ConfigPage> {
       ),
       body: Stack(
         children: <Widget>[
-          _builderBodyBack(),
+          builderBodyBack(),
           buildGridView(context),
         ],
       ),
     );
   }
 
-  Widget _builderBodyBack() => Container(
+  builderBodyBack() => Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.grey[200],
-              Colors.grey[200],
+              Colors.white,
+              Colors.white,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

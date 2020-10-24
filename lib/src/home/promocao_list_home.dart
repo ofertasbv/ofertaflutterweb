@@ -112,14 +112,26 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                         height: 40,
                         width: containerWidth,
                         color: Colors.grey[100],
-                        child: Text(p.nome),
+                        child: Text(
+                          p.nome,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                       Container(
                         padding: EdgeInsets.all(5),
                         height: 40,
                         width: containerWidth,
                         color: Colors.grey[100],
-                        child: Text(p.descricao),
+                        child: Text(
+                          p.descricao,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ],
                   )

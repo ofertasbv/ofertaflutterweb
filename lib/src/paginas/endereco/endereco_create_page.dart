@@ -24,7 +24,6 @@ class EnderecoCreatePage extends StatefulWidget {
 }
 
 class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
-
   EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
   CidadeController cidadeController = GetIt.I.get<CidadeController>();
 
@@ -177,14 +176,15 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                 children: <Widget>[
                                   RadioListTile(
                                     controlAffinity:
-                                    ListTileControlAffinity.trailing,
+                                        ListTileControlAffinity.trailing,
                                     title: Text("COMERCIAL"),
                                     value: "COMERCIAL",
                                     groupValue: endereco.tipoEndereco,
                                     onChanged: (String valor) {
                                       setState(() {
                                         endereco.tipoEndereco = valor;
-                                        print("resultado: " + endereco.tipoEndereco);
+                                        print("resultado: " +
+                                            endereco.tipoEndereco);
                                         showDefaultSnackbar(context,
                                             "Endereço: ${endereco.tipoEndereco}");
                                       });
@@ -192,14 +192,15 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                   ),
                                   RadioListTile(
                                     controlAffinity:
-                                    ListTileControlAffinity.trailing,
+                                        ListTileControlAffinity.trailing,
                                     title: Text("RESIDENCIAL"),
                                     value: "RESIDENCIAL",
                                     groupValue: endereco.tipoEndereco,
                                     onChanged: (String valor) {
                                       setState(() {
                                         endereco.tipoEndereco = valor;
-                                        print("resultado: " + endereco.tipoEndereco);
+                                        print("resultado: " +
+                                            endereco.tipoEndereco);
                                         showDefaultSnackbar(context,
                                             "Endereço: ${endereco.tipoEndereco}");
                                       });
@@ -293,7 +294,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               TextFormField(
                                 controller: latitudeController,
                                 // initialValue: endereco.latitude,
-                                onSaved: (value) => endereco.latitude = double.tryParse(value),
+                                onSaved: (value) =>
+                                    endereco.latitude = double.tryParse(value),
                                 validator: (value) =>
                                     value.isEmpty ? "campo obrigário" : null,
                                 decoration: InputDecoration(
@@ -311,7 +313,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               TextFormField(
                                 controller: longitudeController,
                                 // initialValue: endereco.longitude,
-                                onSaved: (value) => endereco.longitude = double.tryParse(value),
+                                onSaved: (value) =>
+                                    endereco.longitude = double.tryParse(value),
                                 validator: (value) =>
                                     value.isEmpty ? "campo obrigário" : null,
                                 decoration: InputDecoration(
@@ -381,23 +384,13 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                   ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(20),
+              Card(
                 child: RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  ),
-                  label: Text(
-                    "Enviar formulário",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  label: Text("Enviar formulário"),
                   icon: Icon(
                     Icons.check,
                     color: Colors.white,
                   ),
-                  textColor: Colors.white,
-                  splashColor: Colors.red,
-                  color: Colors.black,
                   onPressed: () {
                     if (controller.validate()) {
                       enderecoController.create(endereco);

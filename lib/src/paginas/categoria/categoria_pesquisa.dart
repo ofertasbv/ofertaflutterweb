@@ -32,6 +32,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
   builderConteudoList() {
     return Container(
       padding: EdgeInsets.only(top: 0),
+      color: Colors.white,
       child: Observer(
         builder: (context) {
           List<Categoria> categorias = categoriaController.categorias;
@@ -65,19 +66,17 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             GestureDetector(
-              child: Container(
-                padding: EdgeInsets.all(2),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(100.0),
-                      child: Image.network(ConstantApi.urlArquivoCategoria + c.foto),
-                    ),
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoCategoria + c.foto}",
                   ),
-                  title: Text(c.nome),
-                  trailing: Icon(Icons.arrow_forward),
                 ),
-                margin: EdgeInsets.symmetric(vertical: 7.5),
+                title: Text(c.nome),
+                subtitle: Text("cod: ${c.id}"),
+                trailing: Icon(Icons.arrow_forward_outlined)
               ),
               onTap: () {
                 Navigator.of(context).push(

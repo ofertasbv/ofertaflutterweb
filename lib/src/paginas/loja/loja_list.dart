@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
@@ -63,44 +64,47 @@ class _LojaListState extends State<LojaList>
     double containerWidth = 160;
     double containerHeight = 30;
 
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+
     return ListView.builder(
       itemCount: lojas.length,
       itemBuilder: (context, index) {
         Loja p = lojas[index];
+        print("${p.dataRegistro}");
 
-        return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoLoja + p.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                isThreeLine: true,
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoLoja + p.foto}",
+                  ),
+                ),
+                title: Text(p.nome),
+                subtitle: Text("${p.dataRegistro}"),
+                trailing: Container(
                   height: 80,
+                  width: 50,
+                  child: buildPopupMenuButton(context, p),
                 ),
               ),
-              title: Text(p.nome),
-              subtitle: Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, p),
-              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return LojaDetalhes(
+                        loja: p,
+                      );
+                    },
+                  ),
+                );
+              },
             ),
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LojaDetalhes(
-                    loja: p,
-                  );
-                },
-              ),
-            );
-          },
+            Divider()
+          ],
         );
       },
     );

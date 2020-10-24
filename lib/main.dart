@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -41,13 +43,15 @@ void main() async {
     SystemUiOverlayStyle(
       statusBarColor: Colors.amber,
       // cor da barra superior
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.grey[100],
+      systemNavigationBarColor: Colors.amber,
       // cor da barra inferior
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark,
       //
-      systemNavigationBarDividerColor: Colors.black, // ícones da barra inferior
+      systemNavigationBarDividerColor: Colors.white, // ícones da barra inferior
+
+      statusBarBrightness: Brightness.dark,
     ),
   );
 
@@ -78,7 +82,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.amber,
 
       appBarTheme: AppBarTheme(
-        elevation: 1,
+        elevation: 0,
       ),
 
       textTheme: Theme.of(context).textTheme.apply(
@@ -101,6 +105,8 @@ class MyApp extends StatelessWidget {
         headline5: TextStyle(color: Colors.blueAccent),
         headline4: TextStyle(color: Colors.black),
         headline3: TextStyle(color: Colors.pink),
+        headline2: TextStyle(color: Colors.green),
+        headline1: TextStyle(color: Colors.cyan),
       ),
 
       primaryIconTheme: IconThemeData(color: Colors.black),
@@ -111,18 +117,23 @@ class MyApp extends StatelessWidget {
       cardTheme: CardTheme(
         elevation: 1,
         color: Colors.white,
-        clipBehavior: Clip.antiAlias,
+        clipBehavior: Clip.none,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(0.0),
-          side: BorderSide(color: Colors.grey[100]),
+          borderRadius: new BorderRadius.circular(5),
+          side: BorderSide(color: Colors.transparent),
         ),
       ),
 
       buttonTheme: ButtonThemeData(
+        splashColor: Colors.amber,
         textTheme: ButtonTextTheme.primary,
+        height: 50,
+        padding: EdgeInsets.all(10),
+        alignedDropdown: true,
+        buttonColor: Colors.black,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(32),
-          side: BorderSide(color: Colors.black),
+          borderRadius: new BorderRadius.circular(0),
+          side: BorderSide(color: Colors.transparent),
         ),
       ),
 
@@ -133,6 +144,7 @@ class MyApp extends StatelessWidget {
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
         border: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.indigo),
           gapPadding: 1,
           borderRadius: BorderRadius.circular(5.0),
         ),
@@ -155,8 +167,9 @@ class MyApp extends StatelessWidget {
         modalElevation: 0,
         backgroundColor: Colors.amber,
       ),
+
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        elevation: 1,
+        elevation: 0,
         selectedItemColor: Colors.amber,
         unselectedItemColor: Colors.black,
         unselectedLabelStyle: TextStyle(color: Colors.amber),

@@ -44,7 +44,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(1),
+        padding: EdgeInsets.all(0),
         scrollDirection: Axis.vertical,
         children: <Widget>[
           Container(
@@ -54,7 +54,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
               children: <Widget>[
                 Card(
                   child: Container(
-                    height: 140,
+                    height: 150,
                     child: CategoriaListHome(),
                   ),
                 ),

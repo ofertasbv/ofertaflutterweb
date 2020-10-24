@@ -10,23 +10,24 @@ class Loja {
   DateTime dataRegistro;
   String foto;
   Usuario usuario = new Usuario();
-  Endereco endereco = new Endereco();
   String razaoSocial;
   String cnpj;
   List<Produto> produtos;
+  List<Endereco> enderecos;
 
-  Loja(
-      {this.id,
-      this.nome,
-      this.telefone,
-      this.tipoPessoa,
-      this.dataRegistro,
-      this.foto,
-      this.usuario,
-      this.endereco,
-      this.razaoSocial,
-      this.cnpj,
-      this.produtos});
+  Loja({
+    this.id,
+    this.nome,
+    this.telefone,
+    this.tipoPessoa,
+    this.dataRegistro,
+    this.foto,
+    this.usuario,
+    this.razaoSocial,
+    this.cnpj,
+    this.produtos,
+    this.enderecos,
+  });
 
   Loja.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -39,10 +40,6 @@ class Loja {
     usuario =
         json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
 
-    endereco = json['endereco'] != null
-        ? new Endereco.fromJson(json['endereco'])
-        : null;
-
     razaoSocial = json['razaoSocial'];
     cnpj = json['cnpj'];
 
@@ -50,6 +47,13 @@ class Loja {
       produtos = new List<Produto>();
       json['produtos'].forEach((v) {
         produtos.add(new Produto.fromJson(v));
+      });
+    }
+
+    if (json['enderecos'] != null) {
+      enderecos = new List<Endereco>();
+      json['enderecos'].forEach((v) {
+        enderecos.add(new Endereco.fromJson(v));
       });
     }
   }
@@ -62,16 +66,19 @@ class Loja {
     data['tipoPessoa'] = this.tipoPessoa;
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['foto'] = this.foto;
+
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
     }
-    if (this.endereco != null) {
-      data['endereco'] = this.endereco.toJson();
-    }
     data['razaoSocial'] = this.razaoSocial;
     data['cnpj'] = this.cnpj;
+
     if (this.produtos != null) {
       data['produtos'] = this.produtos.map((v) => v.toJson()).toList();
+    }
+
+    if (this.enderecos != null) {
+      data['enderecos'] = this.enderecos.map((v) => v.toJson()).toList();
     }
     return data;
   }

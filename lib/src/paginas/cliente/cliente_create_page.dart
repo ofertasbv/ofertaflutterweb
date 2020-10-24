@@ -8,7 +8,6 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
@@ -50,7 +49,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
       e = Endereco();
     } else {
       u = p.usuario;
-      e = p.endereco;
     }
 
     super.initState();
@@ -121,7 +119,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     if (file != null) {
       var url = await ClienteRepository.upload(file, p.foto);
       print(" URL : $url");
-      disableButton();
     }
   }
 
@@ -175,7 +172,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     var maskFormatterCPF = new MaskTextInputFormatter(
         mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
 
-    p.endereco = e;
     p.usuario = u;
 
     return Scaffold(
@@ -303,7 +299,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   keyboardType: TextInputType.phone,
                                   inputFormatters: [maskFormatterCelular],
                                 ),
-                                SizedBox(height: 0),
+                                SizedBox(height: 10),
                                 DateTimeField(
                                   initialValue: p.dataRegistro,
                                   format: dateFormat,
@@ -359,9 +355,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   ),
                                   keyboardType: TextInputType.emailAddress,
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                SizedBox(height: 10),
                                 TextFormField(
                                   initialValue: p.usuario.senha,
                                   onSaved: (value) => p.usuario.senha = value,
@@ -443,15 +437,16 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   file != null
                                       ? Image.file(
                                           file,
-                                          fit: BoxFit.fitWidth,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: 300,
                                         )
                                       : p.foto != null
                                           ? CircleAvatar(
                                               radius: 50,
-                                              child: Image.network(
+                                              backgroundImage: NetworkImage(
                                                 ConstantApi.urlArquivoCliente +
                                                     p.foto,
-                                                fit: BoxFit.fill,
                                               ),
                                             )
                                           : CircleAvatar(
@@ -465,194 +460,17 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 0),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: p.endereco.logradouro,
-                                  onSaved: (value) =>
-                                      p.endereco.logradouro = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Logradouro",
-                                    hintText: "Logradouro",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.complemento,
-                                  onSaved: (value) =>
-                                      p.endereco.complemento = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Complemento",
-                                    hintText: "Complemento",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.tipoEndereco,
-                                  onSaved: (value) =>
-                                      p.endereco.tipoEndereco = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "TipoEndereço",
-                                    hintText: "TipoEndereço",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.numero,
-                                  onSaved: (value) => p.endereco.numero = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Número",
-                                    hintText: "Número",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.cep,
-                                  onSaved: (value) => p.endereco.cep = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Cep",
-                                    hintText: "Cep",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    MaskedTextInputFormatter(
-                                        mask: '99999-999', separator: '-')
-                                  ],
-                                  maxLength: 9,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.bairro,
-                                  onSaved: (value) => p.endereco.bairro = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Bairro",
-                                    hintText: "Bairro",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.latitude.toString(),
-                                  onSaved: (value) =>
-                                      e.latitude = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Latitude",
-                                    hintText: "Latidute",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  maxLength: 50,
-                                ),
-                                TextFormField(
-                                  initialValue: p.endereco.longitude.toString(),
-                                  onSaved: (value) =>
-                                      e.longitude = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Longitude",
-                                    hintText: "Longitude",
-                                    prefixIcon: Icon(Icons.location_on),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType:
-                                      TextInputType.numberWithOptions(),
-                                  maxLength: 50,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
+                Card(
                   child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    ),
-                    label: Text(
-                      "Enviar formulário",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    label: Text("Enviar formulário"),
                     icon: Icon(
                       Icons.check,
                       color: Colors.white,
                     ),
-                    textColor: Colors.white,
-                    splashColor: Colors.red,
-                    color: Colors.black,
                     onPressed: () {
                       if (controller.validate()) {
                         if (p.foto == null) {

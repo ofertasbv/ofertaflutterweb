@@ -82,17 +82,14 @@ class _PromocaoListState extends State<PromocaoList>
           child: Card(
             child: ListTile(
               isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoPromocao + p.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
-                  height: 80,
+              leading: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  "${ConstantApi.urlArquivoPromocao + p.foto}",
                 ),
               ),
               title: Text(p.nome),
-              subtitle: Text("${p.loja.nome}"),
+              subtitle: Text("${p.dataInicio}"),
               trailing: Container(
                 height: 80,
                 width: 50,

@@ -4,8 +4,6 @@ import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
-import 'package:nosso/src/util/config/config_page.dart';
-import 'package:nosso/src/util/sobre/sobre_page.dart';
 
 class DrawerFilter extends StatelessWidget {
   @override
@@ -14,7 +12,6 @@ class DrawerFilter extends StatelessWidget {
       elevation: 0.0,
       child: Stack(
         children: <Widget>[
-          builderBodyBack(),
           menuLateral(context),
         ],
       ),
@@ -27,7 +24,7 @@ class DrawerFilter extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Colors.grey[100],
-            Colors.grey[100],
+            Colors.white,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -41,7 +38,7 @@ class DrawerFilter extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.amber,
+          color: Colors.grey[100],
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -69,7 +66,7 @@ class DrawerFilter extends StatelessWidget {
           ),
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("categoria"),
           trailing: Icon(Icons.arrow_forward),
@@ -85,7 +82,7 @@ class DrawerFilter extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("marca"),
           trailing: Icon(Icons.arrow_forward),
@@ -97,21 +94,21 @@ class DrawerFilter extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("preço"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("produto"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("oferta"),
           trailing: Icon(Icons.arrow_forward),
@@ -127,7 +124,7 @@ class DrawerFilter extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.add_box_outlined),
           title: Text("loja"),
           trailing: Icon(Icons.arrow_forward),

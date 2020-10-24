@@ -10,22 +10,23 @@ class Cliente {
   DateTime dataRegistro;
   String foto;
   Usuario usuario = new Usuario();
-  Endereco endereco = new Endereco();
   String cpf;
   String sexo;
+  List<Endereco> enderecos;
 
-  Cliente(
-      {this.id,
-      this.nome,
-      this.telefone,
-      this.ativo,
-      this.tipoPessoa,
-      this.dataRegistro,
-      this.foto,
-      this.usuario,
-      this.endereco,
-      this.cpf,
-      this.sexo});
+  Cliente({
+    this.id,
+    this.nome,
+    this.telefone,
+    this.ativo,
+    this.tipoPessoa,
+    this.dataRegistro,
+    this.foto,
+    this.usuario,
+    this.cpf,
+    this.sexo,
+    this.enderecos,
+  });
 
   Cliente.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,9 +39,12 @@ class Cliente {
     usuario =
         json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
 
-    endereco = json['endereco'] != null
-        ? new Endereco.fromJson(json['endereco'])
-        : null;
+    if (json['enderecos'] != null) {
+      enderecos = new List<Endereco>();
+      json['enderecos'].forEach((v) {
+        enderecos.add(new Endereco.fromJson(v));
+      });
+    }
 
     cpf = json['cpf'];
     sexo = json['sexo'];
@@ -58,11 +62,14 @@ class Cliente {
     if (this.usuario != null) {
       data['usuario'] = this.usuario.toJson();
     }
-    if (this.endereco != null) {
-      data['endereco'] = this.endereco.toJson();
-    }
+
     data['cpf'] = this.cpf;
     data['sexo'] = this.sexo;
+
+    if (this.enderecos != null) {
+      data['enderecos'] = this.enderecos.map((v) => v.toJson()).toList();
+    }
+
     return data;
   }
 }

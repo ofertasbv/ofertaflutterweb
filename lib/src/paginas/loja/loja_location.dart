@@ -95,8 +95,8 @@ class _LojaLocationState extends State<LojaLocation> {
   markers(Loja p) {
     return Marker(
       markerId: MarkerId(p.nome),
-      position: LatLng(p.endereco.latitude, p.endereco.longitude),
-      infoWindow: InfoWindow(title: p.nome, snippet: p.endereco.logradouro),
+      position: LatLng(p.enderecos[0].latitude, p.enderecos[0].longitude),
+      infoWindow: InfoWindow(title: p.nome, snippet: p.enderecos[0].logradouro),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
     );
   }
@@ -215,11 +215,11 @@ class _LojaLocationState extends State<LojaLocation> {
                       infoWindow: InfoWindow(
                         title: p.nome,
                         snippet:
-                            p.endereco.logradouro + ", " + p.endereco.numero,
+                            p.enderecos[0].logradouro + ", " + p.enderecos[0].numero,
                       ),
                       markerId: MarkerId(p.nome),
-                      position: LatLng(p.endereco.latitude ?? 0.0,
-                          p.endereco.longitude ?? 0.0),
+                      position: LatLng(p.enderecos[0].latitude ?? 0.0,
+                          p.enderecos[0].longitude ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, p);
                       });
@@ -358,8 +358,8 @@ class _LojaLocationState extends State<LojaLocation> {
           onTap: () {
             selectCard(p.nome);
             movimentarCamera(
-              p.endereco.latitude,
-              p.endereco.longitude,
+              p.enderecos[0].latitude,
+              p.enderecos[0].longitude,
             );
           },
         );
@@ -380,7 +380,7 @@ class _LojaLocationState extends State<LojaLocation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("${p.nome}"),
-                Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
+                Text("${p.enderecos[0].logradouro}, ${p.enderecos[0].numero}"),
               ],
             ),
           ),

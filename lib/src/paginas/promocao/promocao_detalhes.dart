@@ -73,24 +73,15 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Código: ${p.id}"),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Text("Promoção: ${p.nome}"),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Text("Descrição: ${p.descricao}"),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Text("Mercado: ${p.loja.nome}"),
-                SizedBox(
-                  height: 10,
-                ),
-                // Text(
-                //   "Desconto: ${p.desconto} %",
-                // ),
+                SizedBox(height: 10),
+                Text("Desconto: ${p.desconto} %"),
+                Text("Data Registro: ${p.dataInicio}"),
               ],
             ),
           ),

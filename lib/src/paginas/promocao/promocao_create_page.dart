@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:brasil_fields/brasil_fields.dart';
+import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -19,7 +20,6 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/repository/promocao_repository.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
-import 'package:nosso/src/util/converter/thousandsFormatter.dart';
 
 class PromocaoCreatePage extends StatefulWidget {
   Promocao promocao;
@@ -57,6 +57,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     lojas = lojaController.getAll();
     if (p == null) {
       p = Promocao();
+      p.desconto = 0.0;
     }
     super.initState();
   }
@@ -174,11 +175,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat numberFormat = NumberFormat("00.00");
 
-    // p.desconto = double.tryParse(descontoController.text);
-
-    descontoController.text = p.desconto as String;
-
-    p.loja = lojaSelecionada;
+    String desconto = descontoController.text;
+    p.desconto = double.tryParse(desconto);
 
     return Scaffold(
       key: scaffoldKey,
@@ -249,9 +247,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   keyboardType: TextInputType.text,
                                 ),
                                 TextFormField(
-                                  showCursor: true,
-                                  autofocus: true,
-                                  controller: descontoController,
+                                  // controller: descontoController,
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -273,6 +269,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                     WhitelistingTextInputFormatter.digitsOnly,
                                     RealInputFormatter(centavos: true)
                                   ],
+                                  maxLength: 5,
                                 ),
                                 SizedBox(height: 10),
                                 DateTimeField(
@@ -376,6 +373,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return DropdownButtonFormField<Loja>(
+                                        onSaved: (value) => p.loja = value,
                                         validator: (value) => value == null
                                             ? 'selecione uma loja'
                                             : null,
@@ -406,9 +404,11 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                               borderRadius:
                                                   BorderRadius.circular(5.0)),
                                         ),
-                                        onChanged: (Loja c) {
+                                        onChanged: (Loja l) {
                                           setState(() {
-                                            lojaSelecionada = c;
+                                            lojaSelecionada = l;
+                                            p.loja = lojaSelecionada;
+                                            controller.formKey.currentState;
                                             print(lojaSelecionada.nome);
                                           });
                                         },
@@ -417,8 +417,11 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       return Text("${snapshot.error}");
                                     }
 
-                                    return Text(
-                                        "não foi peossível carregar lojas");
+                                    return Container(
+                                      height: 50,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text("sem lojas"),
+                                    );
                                   },
                                 ),
                               ],
@@ -478,15 +481,15 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                       ? Image.file(
                                           file,
                                           fit: BoxFit.fitWidth,
+                                          width: double.infinity,
+                                          height: 300,
                                         )
                                       : p.foto != null
                                           ? CircleAvatar(
                                               radius: 50,
-                                              child: Image.network(
-                                                ConstantApi
-                                                        .urlArquivoPromocao +
+                                              backgroundImage: NetworkImage(
+                                                ConstantApi.urlArquivoPromocao +
                                                     p.foto,
-                                                fit: BoxFit.fill,
                                               ),
                                             )
                                           : CircleAvatar(
@@ -506,42 +509,17 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                 ),
                 SizedBox(height: 0),
                 Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cancelar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          color: Colors.grey,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cadastrar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (controller.validate()) {
-                              openAlertBox(context, p);
-                            }
-                          },
-                        ),
-                      ],
+                  child: RaisedButton.icon(
+                    label: Text("Enviar formulário"),
+                    icon: Icon(
+                      Icons.check,
+                      color: Colors.white,
                     ),
+                    onPressed: () {
+                      if (controller.validate()) {
+                        openAlertBox(context, p);
+                      }
+                    },
                   ),
                 ),
               ],
@@ -581,7 +559,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      "Detalhes de categoria",
+                      "Detalhes de oferta",
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -639,6 +617,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             if (p.id == null) {
                               Timer(Duration(seconds: 3), () {
                                 promocaoController.create(p);
+                                onClickUpload();
                                 showToast("Cadastro  realizado com sucesso");
                                 Navigator.of(context).pop();
                                 buildPush(context);
@@ -646,6 +625,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             } else {
                               Timer(Duration(seconds: 3), () {
                                 promocaoController.update(p.id, p);
+                                onClickUpload();
                                 showToast("Cadastro  alterado com sucesso");
                                 Navigator.of(context).pop();
                                 buildPush(context);

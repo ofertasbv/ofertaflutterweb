@@ -71,17 +71,14 @@ class _ClienteListState extends State<ClienteList>
           child: Card(
             child: ListTile(
               isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoCliente + p.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
-                  height: 80,
+              leading: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  "${ConstantApi.urlArquivoCliente + p.foto}",
                 ),
               ),
               title: Text(p.nome),
-              subtitle: Text("${p.endereco.logradouro}, ${p.endereco.numero}"),
+              subtitle: Text("${p.cpf}"),
               trailing: Container(
                 height: 80,
                 width: 50,

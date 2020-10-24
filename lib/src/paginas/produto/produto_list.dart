@@ -83,13 +83,10 @@ class _ProdutoListState extends State<ProdutoList>
           child: Card(
             child: ListTile(
               isThreeLine: true,
-              leading: Container(
-                color: Colors.grey[100],
-                child: Image.network(
-                  ConstantApi.urlArquivoProduto + p.foto,
-                  fit: BoxFit.cover,
-                  width: 80,
-                  height: 80,
+              leading: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  "${ConstantApi.urlArquivoProduto + p.foto}",
                 ),
               ),
               title: Text(p.nome),

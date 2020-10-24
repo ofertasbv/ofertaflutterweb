@@ -288,42 +288,17 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   ),
                 ),
                 Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cancelar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          color: Colors.grey,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        RaisedButton.icon(
-                          label: Text(
-                            "Cadastrar",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          icon: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (controller.validate()) {
-                              openAlertBox(context, c);
-                            }
-                          },
-                        ),
-                      ],
+                  child: RaisedButton.icon(
+                    label: Text("Enviar formulário"),
+                    icon: Icon(
+                      Icons.check,
+                      color: Colors.white,
                     ),
+                    onPressed: () {
+                      if (controller.validate()) {
+                        openAlertBox(context, c);
+                      }
+                    },
                   ),
                 ),
               ],

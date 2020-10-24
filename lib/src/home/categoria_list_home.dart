@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
@@ -100,23 +101,24 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: AnimatedContainer(
-              width: 100,
+              width: 90,
+              height: 150,
               duration: Duration(seconds: 1),
               margin: EdgeInsets.symmetric(vertical: 7.5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[100],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    maxRadius: 35,
-                    minRadius: 35,
-                    child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(100.0),
-                      child: Image.network(
-                          ConstantApi.urlArquivoCategoria + c.foto),
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      "${ConstantApi.urlArquivoCategoria + c.foto}",
                     ),
                   ),
                   SizedBox(height: 0),

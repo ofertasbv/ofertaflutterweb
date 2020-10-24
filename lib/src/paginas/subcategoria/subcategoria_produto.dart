@@ -95,7 +95,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           children: <Widget>[
             Card(
               child: Container(
-                height: 140,
+                height: 150,
                 child: builderConteudoListSubCategoria(),
               ),
             ),
@@ -182,29 +182,26 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: AnimatedContainer(
-              width: 100,
+              width: 90,
+              height: 150,
               duration: Duration(seconds: 1),
+              margin: EdgeInsets.symmetric(vertical: 7.5),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(10),
                 color: c.nome == selectedCard
                     ? Colors.greenAccent
                     : Colors.grey[100],
               ),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    maxRadius: 35,
-                    minRadius: 35,
-                    child: ClipRRect(
-                      borderRadius: new BorderRadius.circular(100.0),
-                      child: Image.network(
-                          ConstantApi.urlArquivoSubCategoria + c.foto),
+                    radius: 30,
+                    backgroundImage: NetworkImage(
+                      "${ConstantApi.urlArquivoSubCategoria + c.foto}",
                     ),
                   ),
                   SizedBox(height: 0),
@@ -284,13 +281,10 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             GestureDetector(
               child: ListTile(
                 isThreeLine: true,
-                leading: Container(
-                  color: Colors.grey[100],
-                  child: Image.network(
-                    ConstantApi.urlArquivoProduto + p.foto,
-                    fit: BoxFit.cover,
-                    width: 80,
-                    height: 80,
+                leading: CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoProduto + p.foto}",
                   ),
                 ),
                 title: Text(p.nome),

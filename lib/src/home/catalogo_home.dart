@@ -130,27 +130,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Card(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(" departamento"),
-                  GestureDetector(
-                    child: Text("veja mais"),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CategoriaPage();
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
               Container(
                 padding: EdgeInsets.all(2),
-                height: 140,
+                height: 150,
                 child: CategoriaListHome(),
               ),
             ],
@@ -159,23 +141,26 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Card(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(" ofertas"),
-                  GestureDetector(
-                    child: Text("veja mais"),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return PromocaoPage();
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(" ofertas"),
+                    GestureDetector(
+                      child: Text("veja mais"),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return PromocaoPage();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 2),
               Container(
@@ -188,23 +173,26 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Card(
           child: Column(
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(" produtos em destaque"),
-                  GestureDetector(
-                    child: Text("veja mais"),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ProdutoPage();
-                          },
-                        ),
-                      );
-                    },
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(" produtos em destaque"),
+                    GestureDetector(
+                      child: Text("veja mais"),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return ProdutoPage();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 2),
               Container(

@@ -16,7 +16,6 @@ class DrawerList extends StatelessWidget {
       elevation: 0.0,
       child: Stack(
         children: <Widget>[
-          builderBodyBack(),
           menuLateral(context),
         ],
       ),
@@ -28,7 +27,7 @@ class DrawerList extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.grey[100],
+            Colors.white,
             Colors.grey[100],
           ],
           begin: Alignment.topLeft,
@@ -43,7 +42,7 @@ class DrawerList extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.amber,
+          color: Colors.grey[100],
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -71,7 +70,7 @@ class DrawerList extends StatelessWidget {
           ),
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.home),
           title: Text("Home"),
           trailing: Icon(Icons.arrow_forward),
@@ -87,7 +86,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.search),
           title: Text("Buscar"),
           trailing: Icon(Icons.arrow_forward),
@@ -99,7 +98,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.account_circle),
           title: Text("Minha Conta"),
           trailing: Icon(Icons.arrow_forward),
@@ -115,14 +114,14 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.shopping_basket),
           title: Text("Meus pedidos"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {},
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.shop_two),
           title: Text("Ofertas"),
           trailing: Icon(Icons.arrow_forward),
@@ -138,7 +137,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.list),
           title: Text("Categorias"),
           trailing: Icon(Icons.arrow_forward),
@@ -154,7 +153,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.apps),
           title: Text("Apps"),
           trailing: Icon(Icons.arrow_forward),
@@ -168,7 +167,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.settings),
           title: Text("Configurações"),
           trailing: Icon(Icons.arrow_forward),
@@ -184,7 +183,7 @@ class DrawerList extends StatelessWidget {
           },
         ),
         ListTile(
-          selected: true,
+          selected: false,
           leading: Icon(Icons.ios_share),
           title: Text("Sobre"),
           trailing: Icon(Icons.arrow_forward),

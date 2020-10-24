@@ -6,10 +6,12 @@ class SubCategoria {
   String foto;
   Categoria categoria;
 
-  SubCategoria({this.id, this.nome, this.foto, this.categoria});
-
-  // int get hashCode => id.hashCode;
-  // bool operator==(Object other) => other is SubCategoria && other.id == id;
+  SubCategoria({
+    this.id,
+    this.nome,
+    this.foto,
+    this.categoria,
+  });
 
   @override
   int get hashCode {

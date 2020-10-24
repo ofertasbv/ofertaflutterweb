@@ -42,7 +42,6 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
         ),
         SizedBox(height: 0),
         Card(
-          elevation: 1,
           child: Container(
             padding: EdgeInsets.all(10),
             child: Row(
@@ -88,7 +87,6 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
           ),
         ),
         Card(
-          elevation: 1,
           child: Container(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -99,12 +97,6 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                     "${p.nome}",
                   ),
                   leading: Icon(Icons.local_convenience_store),
-                ),
-                ListTile(
-                  title: Text(
-                    "${p.endereco.logradouro}, ${p.endereco.numero} - ${p.endereco.bairro}",
-                  ),
-                  leading: Icon(Icons.location_on),
                 ),
               ],
             ),

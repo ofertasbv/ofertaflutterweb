@@ -80,7 +80,7 @@ class _MarcaListState extends State<MarcaList>
                   child: Icon(Icons.shopping_bag),
                 ),
                 title: Text(c.nome),
-                subtitle: Text("${c.id}"),
+                subtitle: Text("cod: ${c.id}"),
                 trailing: Container(
                   height: 80,
                   width: 50,

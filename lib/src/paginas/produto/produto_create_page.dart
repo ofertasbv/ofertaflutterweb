@@ -61,7 +61,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   _ProdutoCreatePageState({this.p});
 
   Controller controller;
-  var controllerCodigoBarra = TextEditingController();
+  TextEditingController controllerCodigoBarra = TextEditingController();
+  TextEditingController quantidadeController = TextEditingController();
+  TextEditingController valorController = TextEditingController();
+  TextEditingController descontoController = TextEditingController();
+
 
   // AudioCache audioCache = AudioCache(prefix: "audios/");
   String barcode = "";
@@ -231,7 +235,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
     double value = 0.19;
 
-    final formata = new NumberFormat("#,##0.00", "pt_BR");
+    NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+
+    quantidadeController.text = p.estoque.quantidade.toString();
+    valorController.text = p.estoque.valor.toString();
+    descontoController.text = p.desconto.toString();
 
     print(formatter.format(initialValue));
     print(formatter.format(value));
@@ -389,6 +397,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
+                                  controller: quantidadeController,
                                   onSaved: (value) {
                                     p.estoque.quantidade = int.tryParse(value);
                                   },
@@ -410,6 +419,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 6,
                                 ),
                                 TextFormField(
+                                  controller: valorController,
                                   onSaved: (value) =>
                                       p.estoque.valor = double.tryParse(value),
                                   validator: (value) =>
@@ -433,6 +443,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ],
                                 ),
                                 TextFormField(
+                                  controller: descontoController,
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -1055,23 +1066,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
+                Card(
                   child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    ),
-                    label: Text(
-                      "Enviar formuário",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    label: Text("Enviar formuário"),
                     icon: Icon(
                       Icons.check,
                       color: Colors.white,
                     ),
-                    textColor: Colors.white,
-                    splashColor: Colors.red,
-                    color: Colors.black,
                     onPressed: () {
                       if (controller.validate()) {
                         if (p.foto == null) {
