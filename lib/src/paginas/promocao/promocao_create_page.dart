@@ -59,6 +59,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
       p = Promocao();
       p.desconto = 0.0;
     }
+    lojaSelecionada = p.loja;
     super.initState();
   }
 
@@ -363,69 +364,17 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                FutureBuilder<List<Loja>>(
-                                  future: lojas,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<Loja>(
-                                        onSaved: (value) => p.loja = value,
-                                        validator: (value) => value == null
-                                            ? 'selecione uma loja'
-                                            : null,
-                                        value: lojaSelecionada,
-                                        items: snapshot.data.map((loja) {
-                                          return DropdownMenuItem<Loja>(
-                                            value: loja,
-                                            child: Text(loja.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Loja",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon: Icon(Icons
-                                              .local_convenience_store_outlined),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (Loja l) {
-                                          setState(() {
-                                            lojaSelecionada = l;
-                                            p.loja = lojaSelecionada;
-                                            controller.formKey.currentState;
-                                            print(lojaSelecionada.nome);
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Container(
-                                      height: 50,
-                                      alignment: Alignment.centerLeft,
-                                      child: Text("sem lojas"),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                          child: ListTile(
+                            title: Text("Loja *"),
+                            subtitle: lojaSelecionada == null
+                                ? Text("Selecione uma loja")
+                                : Text(lojaSelecionada.nome),
+                            leading: Icon(Icons.list_alt_outlined),
+                            trailing: Icon(Icons.arrow_drop_down_sharp),
+                            onTap: () {
+                              alertSelectLojas(
+                                  context, lojaSelecionada);
+                            },
                           ),
                         ),
                         SizedBox(height: 0),
@@ -616,6 +565,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           onPressed: () {
                             if (p.id == null) {
                               Timer(Duration(seconds: 3), () {
+                                p.loja = lojaSelecionada;
                                 promocaoController.create(p);
                                 onClickUpload();
                                 showToast("Cadastro  realizado com sucesso");
@@ -624,6 +574,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                               });
                             } else {
                               Timer(Duration(seconds: 3), () {
+                                p.loja = lojaSelecionada;
                                 promocaoController.update(p.id, p);
                                 onClickUpload();
                                 showToast("Cadastro  alterado com sucesso");
@@ -640,6 +591,84 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  alertSelectLojas(BuildContext context, Loja c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoList(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoList() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Loja> categorias = lojaController.lojas;
+          if (lojaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (categorias == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListCategorias(categorias);
+        },
+      ),
+    );
+  }
+
+  builderListCategorias(List<Loja> lojas) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: lojas.length,
+      itemBuilder: (context, index) {
+        Loja c = lojas[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoLoja + c.foto}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  lojaSelecionada = c;
+                  print("${lojaSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
         );
       },
     );

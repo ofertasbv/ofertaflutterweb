@@ -56,42 +56,35 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: categorias.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoCategoria + c.foto}",
-                  ),
+        return GestureDetector(
+          child: ListTile(
+              isThreeLine: true,
+              leading: CircleAvatar(
+                radius: 30,
+                backgroundImage: NetworkImage(
+                  "${ConstantApi.urlArquivoCategoria + c.foto}",
                 ),
-                title: Text(c.nome),
-                subtitle: Text("cod: ${c.id}"),
-                trailing: Icon(Icons.arrow_forward_outlined)
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return CategoriaSubCategoria(
-                        categoria: c,
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            Divider(),
-          ],
+              title: Text(c.nome),
+              subtitle: Text("cod: ${c.id}"),
+              trailing: Icon(Icons.arrow_forward_outlined)),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaSubCategoria(
+                    categoria: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

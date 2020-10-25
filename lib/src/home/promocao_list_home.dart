@@ -74,7 +74,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
   }
 
   ListView builderList(List<Promocao> promocoes) {
-    double containerWidth = 165;
+    double containerWidth = 172;
     double containerHeight = 40;
 
     return ListView.builder(
@@ -85,11 +85,15 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: AnimatedContainer(
               width: containerWidth,
               duration: Duration(seconds: 1),
               margin: EdgeInsets.symmetric(vertical: 7.5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.grey[100],
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,12 +113,13 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       SizedBox(height: 0),
                       Container(
                         padding: EdgeInsets.all(5),
-                        height: 40,
+                        height: 35,
                         width: containerWidth,
                         color: Colors.grey[100],
                         child: Text(
                           p.nome,
                           style: TextStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
@@ -122,7 +127,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       ),
                       Container(
                         padding: EdgeInsets.all(5),
-                        height: 40,
+                        height: 35,
                         width: containerWidth,
                         color: Colors.grey[100],
                         child: Text(

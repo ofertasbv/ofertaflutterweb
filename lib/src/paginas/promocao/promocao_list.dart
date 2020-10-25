@@ -73,28 +73,26 @@ class _PromocaoListState extends State<PromocaoList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: promocoes.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Promocao p = promocoes[index];
 
         return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  "${ConstantApi.urlArquivoPromocao + p.foto}",
-                ),
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoPromocao + p.foto}",
               ),
-              title: Text(p.nome),
-              subtitle: Text("${p.dataInicio}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, p),
-              ),
+            ),
+            title: Text(p.nome),
+            subtitle: Text("${p.loja.nome}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              child: buildPopupMenuButton(context, p),
             ),
           ),
           onTap: () {

@@ -63,34 +63,30 @@ class _MarcaListState extends State<MarcaList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: marcas.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Marca c = marcas[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  maxRadius: 35,
-                  minRadius: 35,
-                  child: Icon(Icons.shopping_bag),
-                ),
-                title: Text(c.nome),
-                subtitle: Text("cod: ${c.id}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                  child: buildPopupMenuButton(context, c),
-                ),
-              ),
-              onTap: () {},
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              backgroundColor: Colors.grey[100],
+              maxRadius: 35,
+              minRadius: 35,
+              child: Icon(Icons.shopping_bag),
             ),
-            Divider()
-          ],
+            title: Text(c.nome),
+            subtitle: Text("cod: ${c.id}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              child: buildPopupMenuButton(context, c),
+            ),
+          ),
+          onTap: () {},
         );
       },
     );

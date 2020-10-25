@@ -64,44 +64,40 @@ class _CategoriaListState extends State<CategoriaList>
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: categorias.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoCategoria + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
-                subtitle: Text("cod: ${c.id}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                  child: buildPopupMenuButton(context, c),
-                ),
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoCategoria + c.foto}",
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return CategoriaSubCategoria(
-                        categoria: c,
-                      );
-                    },
-                  ),
-                );
-              },
             ),
-            Divider()
-          ],
+            title: Text(c.nome),
+            subtitle: Text("cod: ${c.id}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              child: buildPopupMenuButton(context, c),
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaSubCategoria(
+                    categoria: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

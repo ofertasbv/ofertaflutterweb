@@ -262,44 +262,40 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       scrollDirection: Axis.vertical,
       itemCount: subCategorias.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         SubCategoria c = subCategorias[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoSubCategoria + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
-                subtitle: Text("${c.categoria.nome}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                ),
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoSubCategoria + c.foto}",
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return SubCategoriaProduto(
-                        s: c,
-                      );
-                    },
-                  ),
-                );
-              },
             ),
-            Divider()
-          ],
+            title: Text(c.nome),
+            subtitle: Text("${c.categoria.nome}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SubCategoriaProduto(
+                    s: c,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

@@ -66,45 +66,41 @@ class _LojaListState extends State<LojaList>
 
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: lojas.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Loja p = lojas[index];
         print("${p.dataRegistro}");
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoLoja + p.foto}",
-                  ),
-                ),
-                title: Text(p.nome),
-                subtitle: Text("${p.dataRegistro}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                  child: buildPopupMenuButton(context, p),
-                ),
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoLoja + p.foto}",
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return LojaDetalhes(
-                        loja: p,
-                      );
-                    },
-                  ),
-                );
-              },
             ),
-            Divider()
-          ],
+            title: Text(p.nome),
+            subtitle: Text("${p.cnpj}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              child: buildPopupMenuButton(context, p),
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaDetalhes(
+                    loja: p,
+                  );
+                },
+              ),
+            );
+          },
         );
       },
     );

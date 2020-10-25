@@ -74,28 +74,27 @@ class _ProdutoListState extends State<ProdutoList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: produtos.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Produto p = produtos[index];
 
         return GestureDetector(
-          child: Card(
-            child: ListTile(
-              isThreeLine: true,
-              leading: CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(
-                  "${ConstantApi.urlArquivoProduto + p.foto}",
-                ),
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoProduto + p.foto}",
               ),
-              title: Text(p.nome),
-              subtitle: Text("R\$ ${p.estoque.valor}"),
-              trailing: Container(
-                height: 80,
-                width: 50,
-                child: buildPopupMenuButton(context, p),
-              ),
+            ),
+            title: Text(p.nome),
+            subtitle: Text("R\$ ${p.estoque.valor}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              child: buildPopupMenuButton(context, p),
             ),
           ),
           onTap: () {

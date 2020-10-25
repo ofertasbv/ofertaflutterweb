@@ -58,6 +58,11 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
               children: <Widget>[
                 Text(
                   p.nome,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
                 ),
                 Text(
                   p.descricao,

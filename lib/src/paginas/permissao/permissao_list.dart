@@ -86,32 +86,28 @@ class _PermissaoListState extends State<PermissaoList>
   }
 
   ListView builderList(List<Permissao> permissoes) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: permissoes.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Permissao c = permissoes[index];
 
-        return Column(
-          children: [
-            Container(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  maxRadius: 35,
-                  minRadius: 35,
-                  child: Icon(Icons.vpn_key),
-                ),
-                title: Text(c.descricao),
-                subtitle: Text("Permissão e autorização"),
-                trailing: buildPopupMenuButton(context, c),
-                onLongPress: () {
-                  showDialogAlert(context, c);
-                },
-              ),
+        return Container(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              backgroundColor: Colors.grey[100],
+              maxRadius: 35,
+              minRadius: 35,
+              child: Icon(Icons.vpn_key),
             ),
-            Divider()
-          ],
+            title: Text(c.descricao),
+            subtitle: Text("Permissão e autorização"),
+            trailing: buildPopupMenuButton(context, c),
+            onLongPress: () {
+              showDialogAlert(context, c);
+            },
+          ),
         );
       },
     );

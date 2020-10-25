@@ -271,41 +271,37 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     double containerWidth = 200;
     double containerHeight = 30;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: produtos.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Produto p = produtos[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                isThreeLine: true,
-                leading: CircleAvatar(
-                  radius: 30,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoProduto + p.foto}",
-                  ),
-                ),
-                title: Text(p.nome),
-                subtitle: Text("R\$ ${p.estoque.valor}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                ),
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoProduto + p.foto}",
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return ProdutoDetalhesTab(p);
-                    },
-                  ),
-                );
-              },
             ),
-            Divider()
-          ],
+            title: Text(p.nome),
+            subtitle: Text("R\$ ${p.estoque.valor}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ProdutoDetalhesTab(p);
+                },
+              ),
+            );
+          },
         );
       },
     );
