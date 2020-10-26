@@ -190,49 +190,55 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Card(
                           child: Container(
                             padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Text("Dados Pessoais"),
-                                SizedBox(height: 15),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("PESSOA FISICA"),
-                                      value: "FISICA",
-                                      groupValue: p.tipoPessoa,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tipoPessoa = valor;
-                                          print("resultado: " + p.tipoPessoa);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("PESSOA JURIDICA"),
-                                      value: "JURIDICA",
-                                      groupValue: p.tipoPessoa,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tipoPessoa = valor;
-                                          print("resultado: " + p.tipoPessoa);
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              padding: EdgeInsets.all(5),
+                              child: Column(
+                                children: <Widget>[
+                                  Text("Dados Pessoais"),
+                                  SizedBox(height: 15),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("PESSOA FISICA"),
+                                        value: "FISICA",
+                                        groupValue: p.tipoPessoa,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tipoPessoa = valor;
+                                            print("resultado: " + p.tipoPessoa);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("PESSOA JURIDICA"),
+                                        value: "JURIDICA",
+                                        groupValue: p.tipoPessoa,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tipoPessoa = valor;
+                                            print("resultado: " + p.tipoPessoa);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -387,40 +393,47 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                         ),
                         SizedBox(height: 0),
                         Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    RaisedButton(
-                                      child: Icon(Icons.delete_forever),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledDelete
-                                          ? () => clienteController
-                                              .deleteFoto(p.foto)
-                                          : null,
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.photo),
-                                      shape: new CircleBorder(),
-                                      onPressed: () {
-                                        openBottomSheet(context);
-                                      },
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.check),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledEnviar
-                                          ? () => onClickUpload()
-                                          : null,
-                                    )
-                                  ],
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      RaisedButton(
+                                        child: Icon(Icons.delete_forever),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledDelete
+                                            ? () => clienteController
+                                                .deleteFoto(p.foto)
+                                            : null,
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.photo),
+                                        shape: new CircleBorder(),
+                                        onPressed: () {
+                                          openBottomSheet(context);
+                                        },
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.check),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledEnviar
+                                            ? () => onClickUpload()
+                                            : null,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         Card(
@@ -429,33 +442,40 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                               openBottomSheet(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  file != null
-                                      ? Image.file(
-                                          file,
-                                          fit: BoxFit.cover,
-                                          width: double.infinity,
-                                          height: 300,
-                                        )
-                                      : p.foto != null
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              backgroundImage: NetworkImage(
-                                                ConstantApi.urlArquivoCliente +
-                                                    p.foto,
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                            height: 300,
+                                          )
+                                        : p.foto != null
+                                            ? CircleAvatar(
+                                                radius: 50,
+                                                backgroundImage: NetworkImage(
+                                                  ConstantApi
+                                                          .urlArquivoCliente +
+                                                      p.foto,
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50,
+                                                child: Icon(
+                                                  Icons.camera_alt_outlined,
+                                                ),
                                               ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50,
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                            ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

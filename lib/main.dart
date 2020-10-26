@@ -41,11 +41,11 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.amber,
+      statusBarColor: Colors.transparent,
       // cor da barra superior
       statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.amber,
+      systemNavigationBarColor: Colors.transparent,
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.dark,
       //
@@ -78,8 +78,8 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
-      accentColor: Colors.black,
-      primarySwatch: Colors.amber,
+      accentColor: Colors.orangeAccent,
+      primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
         elevation: 0,
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
 
       textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,
-            displayColor: Colors.amber,
+            displayColor: Colors.orangeAccent,
           ),
 
       dialogTheme: DialogTheme(
@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
       ),
 
       primaryTextTheme: TextTheme(
-        headline6: TextStyle(color: Colors.black),
+        headline6: TextStyle(color: Colors.orangeAccent),
         headline5: TextStyle(color: Colors.blueAccent),
         headline4: TextStyle(color: Colors.black),
         headline3: TextStyle(color: Colors.pink),
@@ -109,13 +109,13 @@ class MyApp extends StatelessWidget {
         headline1: TextStyle(color: Colors.cyan),
       ),
 
-      primaryIconTheme: IconThemeData(color: Colors.black),
+      primaryIconTheme: IconThemeData(color: Colors.orangeAccent),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 1,
+        elevation: 0,
         color: Colors.white,
         clipBehavior: Clip.none,
         shape: RoundedRectangleBorder(
@@ -125,14 +125,14 @@ class MyApp extends StatelessWidget {
       ),
 
       buttonTheme: ButtonThemeData(
-        splashColor: Colors.amber,
+        splashColor: Colors.black,
         textTheme: ButtonTextTheme.primary,
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.black,
+        buttonColor: Colors.orange,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(0),
+          borderRadius: new BorderRadius.circular(30),
           side: BorderSide(color: Colors.transparent),
         ),
       ),
@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
       inputDecorationTheme: InputDecorationTheme(
         prefixStyle: TextStyle(color: Colors.black),
         hintStyle: TextStyle(color: Colors.black),
-        fillColor: Colors.amber,
+        fillColor: Colors.orangeAccent,
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
         border: OutlineInputBorder(
@@ -151,10 +151,10 @@ class MyApp extends StatelessWidget {
         errorStyle: TextStyle(color: Colors.red),
       ),
 
-      hintColor: Colors.amber,
+      hintColor: Colors.grey,
 
       iconTheme: IconThemeData(
-        color: Colors.amber,
+        color: Colors.orangeAccent,
       ),
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.indigo[900],
@@ -165,14 +165,14 @@ class MyApp extends StatelessWidget {
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 0,
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.orangeAccent,
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
-        selectedItemColor: Colors.amber,
+        selectedItemColor: Colors.orangeAccent,
         unselectedItemColor: Colors.black,
-        unselectedLabelStyle: TextStyle(color: Colors.amber),
+        unselectedLabelStyle: TextStyle(color: Colors.orangeAccent),
         backgroundColor: Colors.white,
       ),
     );

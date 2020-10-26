@@ -196,7 +196,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -206,7 +205,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
-                                  autofocus: true,
                                   initialValue: p.nome,
                                   onSaved: (value) => p.nome = value,
                                   validator: (value) =>
@@ -227,7 +225,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   maxLines: null,
                                 ),
                                 TextFormField(
-                                  autofocus: true,
                                   initialValue: p.descricao,
                                   onSaved: (value) => p.descricao = value,
                                   validator: (value) =>
@@ -364,55 +361,72 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           ),
                         ),
                         Card(
-                          child: ListTile(
-                            title: Text("Loja *"),
-                            subtitle: lojaSelecionada == null
-                                ? Text("Selecione uma loja")
-                                : Text(lojaSelecionada.nome),
-                            leading: Icon(Icons.list_alt_outlined),
-                            trailing: Icon(Icons.arrow_drop_down_sharp),
-                            onTap: () {
-                              alertSelectLojas(
-                                  context, lojaSelecionada);
-                            },
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: ListTile(
+                                title: Text("Loja *"),
+                                subtitle: lojaSelecionada == null
+                                    ? Text("Selecione uma loja")
+                                    : Text(lojaSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectLojas(context, lojaSelecionada);
+                                },
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(height: 0),
                         Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    RaisedButton(
-                                      child: Icon(Icons.delete_forever),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledDelete
-                                          ? () => promocaoController
-                                              .deleteFoto(p.foto)
-                                          : null,
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.photo),
-                                      shape: new CircleBorder(),
-                                      onPressed: () {
-                                        openBottomSheet(context);
-                                      },
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.check),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledEnviar
-                                          ? () => onClickUpload()
-                                          : null,
-                                    )
-                                  ],
-                                ),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ],
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        RaisedButton(
+                                          child: Icon(Icons.delete_forever),
+                                          shape: new CircleBorder(),
+                                          onPressed: isEnabledDelete
+                                              ? () => promocaoController
+                                                  .deleteFoto(p.foto)
+                                              : null,
+                                        ),
+                                        RaisedButton(
+                                          child: Icon(Icons.photo),
+                                          shape: new CircleBorder(),
+                                          onPressed: () {
+                                            openBottomSheet(context);
+                                          },
+                                        ),
+                                        RaisedButton(
+                                          child: Icon(Icons.check),
+                                          shape: new CircleBorder(),
+                                          onPressed: isEnabledEnviar
+                                              ? () => onClickUpload()
+                                              : null,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                         Card(
@@ -421,33 +435,39 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                               openBottomSheet(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  file != null
-                                      ? Image.file(
-                                          file,
-                                          fit: BoxFit.fitWidth,
-                                          width: double.infinity,
-                                          height: 300,
-                                        )
-                                      : p.foto != null
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              backgroundImage: NetworkImage(
-                                                ConstantApi.urlArquivoPromocao +
-                                                    p.foto,
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : p.foto != null
+                                            ? CircleAvatar(
+                                                radius: 50,
+                                                child: Image.network(
+                                                  ConstantApi
+                                                          .urlArquivoPromocao +
+                                                      p.foto,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50,
+                                                child: Icon(
+                                                  Icons.camera_alt_outlined,
+                                                ),
                                               ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50,
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                            ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -642,33 +662,29 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.builder(
+    return ListView.separated(
       itemCount: lojas.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Loja c = lojas[index];
 
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoLoja + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
+        return GestureDetector(
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 25,
+              backgroundImage: NetworkImage(
+                "${ConstantApi.urlArquivoLoja + c.foto}",
               ),
-              onTap: () {
-                setState(() {
-                  lojaSelecionada = c;
-                  print("${lojaSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
             ),
-            Divider()
-          ],
+            title: Text(c.nome),
+          ),
+          onTap: () {
+            setState(() {
+              lojaSelecionada = c;
+              print("${lojaSelecionada.nome}");
+            });
+            Navigator.of(context).pop();
+          },
         );
       },
     );

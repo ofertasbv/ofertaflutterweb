@@ -83,7 +83,6 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
         Container(
           child: Form(
             key: controller.formKey,
-            autovalidateMode: AutovalidateMode.always,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[

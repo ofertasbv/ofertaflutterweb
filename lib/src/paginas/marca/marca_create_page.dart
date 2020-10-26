@@ -64,7 +64,6 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                   padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[

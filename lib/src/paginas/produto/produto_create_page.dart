@@ -66,8 +66,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   TextEditingController valorController = TextEditingController();
   TextEditingController descontoController = TextEditingController();
 
-
-  // AudioCache audioCache = AudioCache(prefix: "audios/");
   String barcode = "";
 
   bool favorito = false;
@@ -92,7 +90,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     promocoes = promocaoController.getAll();
 
     produtoController.getAll();
-    // audioCache.loadAll(["beep-07.mp3"]);
+
+    p.estoque = e;
+    p.loja = lojaSelecionada;
+    p.subCategoria = subCategoriaSelecionada;
+    p.marca = marcaSelecionada;
+    p.promocao = promocaoSelecionada;
     super.initState();
   }
 
@@ -102,9 +105,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     super.didChangeDependencies();
   }
 
-  executar(String nomeAudio) {
-    // audioCache.play(nomeAudio + ".mp3");
-  }
+  executar(String nomeAudio) {}
 
   barcodeScanning() async {
     try {
@@ -224,12 +225,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-    p.estoque = e;
-    p.loja = lojaSelecionada;
-    p.subCategoria = subCategoriaSelecionada;
-    p.marca = marcaSelecionada;
-    p.promocao = promocaoSelecionada;
-
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat formatter = NumberFormat("00.00");
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
@@ -259,10 +254,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                 Container(
                   child: Form(
                     key: controller.formKey,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         /* ================ Pequisa codigo de barra ================ */
                         Card(
@@ -397,7 +391,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  controller: quantidadeController,
+                                  // controller: quantidadeController,
                                   onSaved: (value) {
                                     p.estoque.quantidade = int.tryParse(value);
                                   },
@@ -419,7 +413,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 6,
                                 ),
                                 TextFormField(
-                                  controller: valorController,
+                                  // controller: valorController,
                                   onSaved: (value) =>
                                       p.estoque.valor = double.tryParse(value),
                                   validator: (value) =>
@@ -443,7 +437,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ],
                                 ),
                                 TextFormField(
-                                  controller: descontoController,
+                                  // controller: descontoController,
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -496,534 +490,418 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         Card(
                           child: Container(
                             padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                SwitchListTile(
-                                  autofocus: true,
-                                  title: Text("Produto Favorito? "),
-                                  subtitle: Text("sim/não"),
-                                  value: p.favorito = favorito,
-                                  onChanged: (bool valor) {
-                                    setState(() {
-                                      favorito = valor;
-                                      print(
-                                          "resultado: " + favorito.toString());
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: 30),
-                                SwitchListTile(
-                                  autofocus: true,
-                                  title: Text("Produto novo? "),
-                                  subtitle: Text("sim/não"),
-                                  value: p.novo = novo,
-                                  onChanged: (bool valor) {
-                                    setState(() {
-                                      novo = valor;
-                                      print("resultado: " + novo.toString());
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: 30),
-                                SwitchListTile(
-                                  subtitle: Text("sim/não"),
-                                  title: Text("Produto Disponível?"),
-                                  value: p.status = status,
-                                  onChanged: (bool valor) {
-                                    setState(() {
-                                      status = valor;
-                                      print("resultado: " + status.toString());
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: 30),
-                                SwitchListTile(
-                                  autofocus: true,
-                                  subtitle: Text("sim/não"),
-                                  title: Text("Produto destaque?"),
-                                  value: p.destaque = destaque,
-                                  onChanged: (bool valor) {
-                                    setState(() {
-                                      destaque = valor;
-                                      print(
-                                          "resultado: " + destaque.toString());
-                                    });
-                                  },
-                                ),
-                                SizedBox(height: 30),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "Unidade de medida",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("UNIDADE"),
-                                      value: "UNIDADE",
-                                      groupValue: p.medida,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.medida = valor;
-                                          print("resultado: " + p.medida);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("PEÇA"),
-                                      value: "PECA",
-                                      groupValue: p.medida,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.medida = valor;
-                                          print("resultado: " + p.medida);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("QUILOGRAMA"),
-                                      value: "QUILOGRAMA",
-                                      groupValue: p.medida,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.medida = valor;
-                                          print("resultado: " + p.medida);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("OUTRO"),
-                                      value: "OUTRO",
-                                      groupValue: p.medida,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.medida = valor;
-                                          print("resultado: " + p.medida);
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "Tamanho do produto",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("PEQUENO"),
-                                      value: "PEQUENO",
-                                      groupValue: p.tamanho,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tamanho = valor;
-                                          print("resultado: " + p.tamanho);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("MEDIO"),
-                                      value: "MEDIO",
-                                      groupValue: p.tamanho,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tamanho = valor;
-                                          print("resultado: " + p.tamanho);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("GRANDE"),
-                                      value: "GRANDE",
-                                      groupValue: p.tamanho,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tamanho = valor;
-                                          print("resultado: " + p.tamanho);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("OUTRO"),
-                                      value: "OUTRO",
-                                      groupValue: p.tamanho,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.tamanho = valor;
-                                          print("resultado: " + p.tamanho);
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "Origem do produto",
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("NACIONAL"),
-                                      value: "NACIONAL",
-                                      groupValue: p.origem,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.origem = valor;
-                                          print("resultado: " + p.origem);
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("INTERNACIONAL"),
-                                      value: "INTERNACIONAL",
-                                      groupValue: p.origem,
-                                      selected: true,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          p.origem = valor;
-                                          print("resultado: " + p.origem);
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                FutureBuilder<List<SubCategoria>>(
-                                  future: subCategorias,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<
-                                          SubCategoria>(
-                                        validator: (value) => value == null
-                                            ? 'campo obrigatório'
-                                            : null,
-                                        value: subCategoriaSelecionada,
-                                        items: snapshot.data.map((categoria) {
-                                          return DropdownMenuItem<SubCategoria>(
-                                            value: categoria,
-                                            child: Text(categoria.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Categoria",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon:
-                                              Icon(Icons.list_alt_outlined),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (SubCategoria c) {
-                                          setState(() {
-                                            subCategoriaSelecionada = c;
-                                            print(subCategoriaSelecionada.nome);
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Text(
-                                        "não foi peossível carregar subCategorias");
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                FutureBuilder<List<Marca>>(
-                                  future: marcas,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<Marca>(
-                                        validator: (value) => value == null
-                                            ? 'campo obrigatório'
-                                            : null,
-                                        value: marcaSelecionada,
-                                        items: snapshot.data.map((marca) {
-                                          return DropdownMenuItem<Marca>(
-                                            value: marca,
-                                            child: Text(marca.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Marca",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon: Icon(Icons.shopping_bag),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (Marca c) {
-                                          setState(() {
-                                            marcaSelecionada = c;
-                                            print(marcaSelecionada.nome);
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Text(
-                                        "não foi peossível carregar marcas");
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                FutureBuilder<List<Loja>>(
-                                  future: lojas,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<Loja>(
-                                        validator: (value) => value == null
-                                            ? 'campo obrigatório'
-                                            : null,
-                                        value: lojaSelecionada,
-                                        items: snapshot.data.map((loja) {
-                                          return DropdownMenuItem<Loja>(
-                                            value: loja,
-                                            child: Text(loja.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Loja",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon: Icon(Icons
-                                              .local_convenience_store_outlined),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (Loja c) {
-                                          setState(() {
-                                            lojaSelecionada = c;
-                                            print(lojaSelecionada.nome);
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Text(
-                                        "não foi peossível carregar lojs");
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                FutureBuilder<List<Promocao>>(
-                                  future: promocoes,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      return DropdownButtonFormField<Promocao>(
-                                        validator: (value) => value == null
-                                            ? 'campo obrigatório'
-                                            : null,
-                                        value: promocaoSelecionada,
-                                        items: snapshot.data.map((promocao) {
-                                          return DropdownMenuItem<Promocao>(
-                                            value: promocao,
-                                            child: Text(promocao.nome),
-                                          );
-                                        }).toList(),
-                                        decoration: InputDecoration(
-                                          labelText: "Oferta",
-                                          filled: true,
-                                          fillColor: Colors.white,
-                                          prefixIcon: Icon(Icons.add_alert),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide:
-                                                BorderSide(color: Colors.white),
-                                          ),
-                                          contentPadding: EdgeInsets.fromLTRB(
-                                              20.0, 20.0, 20.0, 20.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0)),
-                                        ),
-                                        onChanged: (Promocao c) {
-                                          setState(() {
-                                            promocaoSelecionada = c;
-                                            print(promocaoSelecionada.nome);
-                                          });
-                                        },
-                                      );
-                                    } else if (snapshot.hasError) {
-                                      return Text("${snapshot.error}");
-                                    }
-
-                                    return Text(
-                                        "não foi peossível carregar ofertas");
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    RaisedButton(
-                                      child: Icon(Icons.delete_forever),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledDelete
-                                          ? () =>
-                                              lojaController.deleteFoto(p.foto)
-                                          : null,
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.photo),
-                                      shape: new CircleBorder(),
-                                      onPressed: () {
-                                        openBottomSheet(context);
-                                      },
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.check),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledEnviar
-                                          ? () => onClickUpload()
-                                          : null,
-                                    )
-                                  ],
-                                ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
                               ),
-                            ],
+                              child: ListTile(
+                                title: Text("Categoria *"),
+                                subtitle: subCategoriaSelecionada == null
+                                    ? Text("Selecione uma categoria")
+                                    : Text(subCategoriaSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectSubCategorias(
+                                      context, subCategoriaSelecionada);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: ListTile(
+                                title: Text("Marca *"),
+                                subtitle: marcaSelecionada == null
+                                    ? Text("Selecione uma marca")
+                                    : Text(marcaSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectMarcas(context, marcaSelecionada);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: ListTile(
+                                title: Text("Loja *"),
+                                subtitle: lojaSelecionada == null
+                                    ? Text("Selecione uma loja")
+                                    : Text(lojaSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectLojas(context, lojaSelecionada);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: ListTile(
+                                title: Text("Promomoção *"),
+                                subtitle: promocaoSelecionada == null
+                                    ? Text("Selecione uma promoção")
+                                    : Text(promocaoSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectPromocao(
+                                      context, promocaoSelecionada);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  SwitchListTile(
+                                    autofocus: true,
+                                    title: Text("Produto Favorito? "),
+                                    subtitle: Text("sim/não"),
+                                    value: p.favorito = favorito,
+                                    onChanged: (bool valor) {
+                                      setState(() {
+                                        favorito = valor;
+                                        print(
+                                            "resultado: " + favorito.toString());
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(height: 30),
+                                  SwitchListTile(
+                                    autofocus: true,
+                                    title: Text("Produto novo? "),
+                                    subtitle: Text("sim/não"),
+                                    value: p.novo = novo,
+                                    onChanged: (bool valor) {
+                                      setState(() {
+                                        novo = valor;
+                                        print("resultado: " + novo.toString());
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(height: 30),
+                                  SwitchListTile(
+                                    subtitle: Text("sim/não"),
+                                    title: Text("Produto Disponível?"),
+                                    value: p.status = status,
+                                    onChanged: (bool valor) {
+                                      setState(() {
+                                        status = valor;
+                                        print("resultado: " + status.toString());
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(height: 30),
+                                  SwitchListTile(
+                                    autofocus: true,
+                                    subtitle: Text("sim/não"),
+                                    title: Text("Produto destaque?"),
+                                    value: p.destaque = destaque,
+                                    onChanged: (bool valor) {
+                                      setState(() {
+                                        destaque = valor;
+                                        print(
+                                            "resultado: " + destaque.toString());
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(height: 30),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Unidade de medida",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("UNIDADE"),
+                                        value: "UNIDADE",
+                                        groupValue: p.medida,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.medida = valor;
+                                            print("resultado: " + p.medida);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("PEÇA"),
+                                        value: "PECA",
+                                        groupValue: p.medida,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.medida = valor;
+                                            print("resultado: " + p.medida);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("QUILOGRAMA"),
+                                        value: "QUILOGRAMA",
+                                        groupValue: p.medida,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.medida = valor;
+                                            print("resultado: " + p.medida);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("OUTRO"),
+                                        value: "OUTRO",
+                                        groupValue: p.medida,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.medida = valor;
+                                            print("resultado: " + p.medida);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Tamanho do produto",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("PEQUENO"),
+                                        value: "PEQUENO",
+                                        groupValue: p.tamanho,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tamanho = valor;
+                                            print("resultado: " + p.tamanho);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("MEDIO"),
+                                        value: "MEDIO",
+                                        groupValue: p.tamanho,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tamanho = valor;
+                                            print("resultado: " + p.tamanho);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("GRANDE"),
+                                        value: "GRANDE",
+                                        groupValue: p.tamanho,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tamanho = valor;
+                                            print("resultado: " + p.tamanho);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("OUTRO"),
+                                        value: "OUTRO",
+                                        groupValue: p.tamanho,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.tamanho = valor;
+                                            print("resultado: " + p.tamanho);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "Origem do produto",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("NACIONAL"),
+                                        value: "NACIONAL",
+                                        groupValue: p.origem,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.origem = valor;
+                                            print("resultado: " + p.origem);
+                                          });
+                                        },
+                                      ),
+                                      RadioListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.trailing,
+                                        title: Text("INTERNACIONAL"),
+                                        value: "INTERNACIONAL",
+                                        groupValue: p.origem,
+                                        selected: true,
+                                        onChanged: (String valor) {
+                                          setState(() {
+                                            p.origem = valor;
+                                            print("resultado: " + p.origem);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      RaisedButton(
+                                        child: Icon(Icons.delete_forever),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledDelete
+                                            ? () =>
+                                                lojaController.deleteFoto(p.foto)
+                                            : null,
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.photo),
+                                        shape: new CircleBorder(),
+                                        onPressed: () {
+                                          openBottomSheet(context);
+                                        },
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.check),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledEnviar
+                                            ? () => onClickUpload()
+                                            : null,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         Card(
@@ -1032,32 +910,39 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               openBottomSheet(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  file != null
-                                      ? Image.file(
-                                          file,
-                                          fit: BoxFit.fitWidth,
-                                        )
-                                      : p.foto != null
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              child: Image.network(
-                                                ConstantApi.urlArquivoProduto +
-                                                    p.foto,
-                                                fit: BoxFit.fill,
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : p.foto != null
+                                            ? CircleAvatar(
+                                                radius: 50,
+                                                child: Image.network(
+                                                  ConstantApi.urlArquivoProduto +
+                                                      p.foto,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50,
+                                                child: Icon(
+                                                  Icons.camera_alt_outlined,
+                                                ),
                                               ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50,
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                            ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -1101,18 +986,321 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     );
   }
 
-  changeCategorias(SubCategoria s) {
-    setState(() {
-      subCategoriaSelecionada = s;
-      print("SubCategoria.:  ${subCategoriaSelecionada.nome}");
-    });
+  /* ===================  MARCA LISTA ===================  */
+  alertSelectMarcas(BuildContext context, Marca c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListMarca(),
+          ),
+        );
+      },
+    );
   }
 
-  changePessoas(Loja p) {
-    setState(() {
-      lojaSelecionada = p;
-      print("Loja.:  ${lojaSelecionada.id}");
-    });
+  builderConteudoListMarca() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Marca> marcas = marcaController.marcas;
+          if (marcaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (marcas == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListMarcas(marcas);
+        },
+      ),
+    );
+  }
+
+  builderListMarcas(List<Marca> marcas) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: marcas.length,
+      itemBuilder: (context, index) {
+        Marca c = marcas[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlLogo}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  marcaSelecionada = c;
+                  print("${marcaSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
+  }
+
+  /* ===================  SUBCATEGORIA LISTA ===================  */
+  alertSelectSubCategorias(BuildContext context, SubCategoria c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListSubCategorias(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoListSubCategorias() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<SubCategoria> subcategorias =
+              subCategoriaController.subCategorias;
+          if (subCategoriaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (subCategorias == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListSubCategorias(subcategorias);
+        },
+      ),
+    );
+  }
+
+  builderListSubCategorias(List<SubCategoria> subcategorias) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: subcategorias.length,
+      itemBuilder: (context, index) {
+        SubCategoria c = subcategorias[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoSubCategoria + c.foto}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  subCategoriaSelecionada = c;
+                  print("${subCategoriaSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
+  }
+
+  /* ===================  SUBCATEGORIA LOJA ===================  */
+  alertSelectLojas(BuildContext context, Loja c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListLojas(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoListLojas() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Loja> lojas = lojaController.lojas;
+          if (lojaController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (lojas == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListLojas(lojas);
+        },
+      ),
+    );
+  }
+
+  builderListLojas(List<Loja> lojas) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: lojas.length,
+      itemBuilder: (context, index) {
+        Loja c = lojas[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoLoja + c.foto}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  lojaSelecionada = c;
+                  print("${lojaSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
+  }
+
+  /* ===================  PROMOÇÃO LISTA ===================  */
+  alertSelectPromocao(BuildContext context, Promocao c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListPromocao(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoListPromocao() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Promocao> promocoes = promocaoController.promocoes;
+          if (promocaoController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (promocoes == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListPromocoes(promocoes);
+        },
+      ),
+    );
+  }
+
+  builderListPromocoes(List<Promocao> promocoes) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: promocoes.length,
+      itemBuilder: (context, index) {
+        Promocao c = promocoes[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlArquivoPromocao + c.foto}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  promocaoSelecionada = c;
+                  print("${promocaoSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
   }
 }
 

@@ -173,7 +173,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                 Container(
                   padding: EdgeInsets.all(0),
                   child: Form(
-                    autovalidateMode: AutovalidateMode.always,
                     key: controller.formKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -210,40 +209,47 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           ),
                         ),
                         Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    RaisedButton(
-                                      child: Icon(Icons.delete_forever),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledDelete
-                                          ? () => categoriaController
-                                              .deleteFoto(c.foto)
-                                          : null,
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.photo),
-                                      shape: new CircleBorder(),
-                                      onPressed: () {
-                                        openBottomSheet(context);
-                                      },
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.check),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledEnviar
-                                          ? () => onClickUpload()
-                                          : null,
-                                    )
-                                  ],
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      RaisedButton(
+                                        child: Icon(Icons.delete_forever),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledDelete
+                                            ? () => categoriaController
+                                                .deleteFoto(c.foto)
+                                            : null,
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.photo),
+                                        shape: new CircleBorder(),
+                                        onPressed: () {
+                                          openBottomSheet(context);
+                                        },
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.check),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledEnviar
+                                            ? () => onClickUpload()
+                                            : null,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         Card(
@@ -252,33 +258,38 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                               openBottomSheet(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  file != null
-                                      ? Image.file(
-                                          file,
-                                          fit: BoxFit.fitWidth,
-                                        )
-                                      : c.foto != null
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              child: Image.network(
-                                                ConstantApi
-                                                        .urlArquivoCategoria +
-                                                    c.foto,
-                                                fit: BoxFit.fill,
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : c.foto != null
+                                            ? CircleAvatar(
+                                                radius: 50,
+                                                backgroundImage: NetworkImage(
+                                                  ConstantApi
+                                                          .urlArquivoCategoria +
+                                                      c.foto,
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50,
+                                                child: Icon(
+                                                  Icons.camera_alt_outlined,
+                                                ),
                                               ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50,
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                            ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

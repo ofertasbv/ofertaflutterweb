@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/model/cidade.dart';
@@ -51,6 +52,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     if (endereco == null) {
       endereco = Endereco();
     }
+
+    endereco.cidade = cidadeSelecionada;
     super.initState();
   }
 
@@ -147,8 +150,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   }
 
   buildObserver() {
-    endereco.cidade = cidadeSelecionada;
-
     return Observer(
       builder: (context) {
         if (enderecoController.error != null) {
@@ -160,7 +161,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                 padding: EdgeInsets.all(2),
                 child: Form(
                   key: controller.formKey,
-                  autovalidateMode: AutovalidateMode.always,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
@@ -339,48 +339,22 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
               ),
               Card(
                 child: Container(
-                  width: double.infinity,
                   padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: <Widget>[
-                      FutureBuilder<List<Cidade>>(
-                        future: cidades,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return DropdownButtonFormField<Cidade>(
-                              validator: (value) =>
-                                  value == null ? 'selecione uma cidade' : null,
-                              value: cidadeSelecionada,
-                              items: snapshot.data.map((cidade) {
-                                return DropdownMenuItem<Cidade>(
-                                  value: cidade,
-                                  child: Text(cidade.nome),
-                                );
-                              }).toList(),
-                              decoration: InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                              ),
-                              hint: Text("Selecione cidade..."),
-                              onChanged: (Cidade c) {
-                                setState(() {
-                                  cidadeSelecionada = c;
-                                  print(cidadeSelecionada.nome);
-                                });
-                              },
-                            );
-                          } else if (snapshot.hasError) {
-                            return Text("${snapshot.error}");
-                          }
-
-                          return Text("não foi peossível carregar cidades");
-                        },
-                      ),
-                    ],
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: ListTile(
+                      title: Text("Cidade *"),
+                      subtitle: cidadeSelecionada == null
+                          ? Text("Selecione uma cidade")
+                          : Text(cidadeSelecionada.nome),
+                      leading: Icon(Icons.list_alt_outlined),
+                      trailing: Icon(Icons.arrow_drop_down_sharp),
+                      onTap: () {
+                        alertSelectCidades(context, cidadeSelecionada);
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -408,6 +382,84 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             ],
           );
         }
+      },
+    );
+  }
+
+  alertSelectCidades(BuildContext context, Cidade c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListCidades(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoListCidades() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Cidade> cidades = cidadeController.cidades;
+          if (cidadeController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (cidades == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListCidades(cidades);
+        },
+      ),
+    );
+  }
+
+  builderListCidades(List<Cidade> cidades) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: cidades.length,
+      itemBuilder: (context, index) {
+        Cidade c = cidades[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                    "${ConstantApi.urlLogo}",
+                  ),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  cidadeSelecionada = c;
+                  print("${cidadeSelecionada.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
       },
     );
   }

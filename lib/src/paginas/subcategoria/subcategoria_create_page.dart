@@ -14,6 +14,7 @@ import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/subcategoria_repository.dart';
+import 'package:nosso/src/paginas/categoria/categoria_dialog.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 
 class SubCategoriaCreatePage extends StatefulWidget {
@@ -172,8 +173,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -192,7 +191,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   padding: EdgeInsets.all(0),
                   child: Form(
                     key: controller.formKey,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -227,54 +225,69 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                         ),
                         SizedBox(height: 0),
                         Card(
-                          child: ListTile(
-                            title: Text("Categoria *"),
-                            subtitle: categoriaSelecionada == null
-                                ? Text("Selecione uma categoria")
-                                : Text(categoriaSelecionada.nome),
-                            leading: Icon(Icons.list_alt_outlined),
-                            trailing: Icon(Icons.arrow_drop_down_sharp),
-                            onTap: () {
-                              alertSelectCategorias(
-                                  context, categoriaSelecionada);
-                            },
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: ListTile(
+                                title: Text("Categoria *"),
+                                subtitle: categoriaSelecionada == null
+                                    ? Text("Selecione uma categoria")
+                                    : Text(categoriaSelecionada.nome),
+                                leading: Icon(Icons.list_alt_outlined),
+                                trailing: Icon(Icons.arrow_drop_down_sharp),
+                                onTap: () {
+                                  alertSelectCategorias(
+                                      context, categoriaSelecionada);
+                                },
+                              ),
+                            ),
                           ),
                         ),
                         Card(
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    RaisedButton(
-                                      child: Icon(Icons.delete_forever),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledDelete
-                                          ? () => subCategoriaController
-                                              .deleteFoto(s.foto)
-                                          : null,
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.photo),
-                                      shape: new CircleBorder(),
-                                      onPressed: () {
-                                        openBottomSheet(context);
-                                      },
-                                    ),
-                                    RaisedButton(
-                                      child: Icon(Icons.check),
-                                      shape: new CircleBorder(),
-                                      onPressed: isEnabledEnviar
-                                          ? () => onClickUpload()
-                                          : null,
-                                    )
-                                  ],
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      RaisedButton(
+                                        child: Icon(Icons.delete_forever),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledDelete
+                                            ? () => subCategoriaController
+                                                .deleteFoto(s.foto)
+                                            : null,
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.photo),
+                                        shape: new CircleBorder(),
+                                        onPressed: () {
+                                          openBottomSheet(context);
+                                        },
+                                      ),
+                                      RaisedButton(
+                                        child: Icon(Icons.check),
+                                        shape: new CircleBorder(),
+                                        onPressed: isEnabledEnviar
+                                            ? () => onClickUpload()
+                                            : null,
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         Card(
@@ -283,32 +296,38 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                               openBottomSheet(context);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(10),
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  file != null
-                                      ? Image.file(
-                                          file,
-                                          fit: BoxFit.fitWidth,
-                                        )
-                                      : s.foto != null
-                                          ? CircleAvatar(
-                                              radius: 50,
-                                              backgroundImage: NetworkImage(
-                                                ConstantApi
-                                                        .urlArquivoSubCategoria +
-                                                    s.foto,
+                              padding: EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    file != null
+                                        ? Image.file(
+                                            file,
+                                            fit: BoxFit.fitWidth,
+                                          )
+                                        : s.foto != null
+                                            ? CircleAvatar(
+                                                radius: 50,
+                                                backgroundImage: NetworkImage(
+                                                  ConstantApi
+                                                          .urlArquivoSubCategoria +
+                                                      s.foto,
+                                                ),
+                                              )
+                                            : CircleAvatar(
+                                                radius: 50,
+                                                child: Icon(
+                                                  Icons.camera_alt_outlined,
+                                                ),
                                               ),
-                                            )
-                                          : CircleAvatar(
-                                              radius: 50,
-                                              child: Icon(
-                                                Icons.camera_alt_outlined,
-                                              ),
-                                            ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -467,7 +486,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
-            child: builderConteudoList(),
+            child: CategoriaDialog(c: categoriaSelecionada),
           ),
         );
       },
