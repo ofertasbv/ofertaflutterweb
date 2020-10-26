@@ -74,7 +74,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
   }
 
   ListView builderList(List<Promocao> promocoes) {
-    double containerWidth = 172;
+    double containerWidth = 250;
     double containerHeight = 40;
 
     return ListView.builder(
@@ -113,13 +113,13 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       SizedBox(height: 0),
                       Container(
                         padding: EdgeInsets.all(5),
-                        height: 35,
+                        height: 40,
                         width: containerWidth,
                         color: Colors.grey[100],
                         child: Text(
                           p.nome,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
@@ -127,7 +127,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       ),
                       Container(
                         padding: EdgeInsets.all(5),
-                        height: 35,
+                        height: 40,
                         width: containerWidth,
                         color: Colors.grey[100],
                         child: Text(

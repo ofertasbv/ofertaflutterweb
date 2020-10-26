@@ -21,7 +21,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/services.dart';
 import 'package:nosso/src/home/home.dart';
-import 'package:nosso/src/util/Examples/buttons.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;

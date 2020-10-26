@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
-import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/categoria/categoria_pesquisa.dart';
-import 'package:nosso/src/paginas/endereco/endereco_list.dart';
-import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/loja/loja_create_page.dart';
-import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class EnderecoSearchDelegate extends SearchDelegate<Produto> {

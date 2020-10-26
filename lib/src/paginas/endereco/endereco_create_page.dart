@@ -515,7 +515,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   child: Icon(Icons.location_on_outlined),
                 ),
                 title: Text(c.nome),
@@ -594,7 +594,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   child: Icon(Icons.location_on_outlined),
                 ),
                 title: Text(c.nome),
