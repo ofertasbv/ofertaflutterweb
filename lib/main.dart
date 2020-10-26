@@ -8,6 +8,7 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
+import 'package:nosso/src/core/controller/estado_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
@@ -37,6 +38,7 @@ void main() async {
   getIt.registerSingleton<ClienteController>(ClienteController());
   getIt.registerSingleton<LojaController>(LojaController());
   getIt.registerSingleton<MarcaController>(MarcaController());
+  getIt.registerSingleton<EstadoController>(EstadoController());
   getIt.registerSingleton<CidadeController>(CidadeController());
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -45,11 +47,11 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.grey[100],
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.dark,
       //
-      systemNavigationBarDividerColor: Colors.white, // ícones da barra inferior
+      systemNavigationBarDividerColor: Colors.black, // ícones da barra inferior
 
       statusBarBrightness: Brightness.dark,
     ),

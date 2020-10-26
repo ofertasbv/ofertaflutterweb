@@ -49,6 +49,7 @@ class ClientePage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
+              Navigator.of(context).pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(

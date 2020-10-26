@@ -43,6 +43,16 @@ abstract class CidadeControllerBase with Store {
   }
 
   @action
+  Future<List<Cidade>> getAllByEstadoId(int id) async {
+    try {
+      cidades = await _cidadeRepository.getAllByEstadoId(id);
+      return cidades;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<int> create(Cidade p) async {
     try {
       cidade = await _cidadeRepository.create(p.toJson());

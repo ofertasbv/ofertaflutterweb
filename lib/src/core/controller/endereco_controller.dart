@@ -34,21 +34,21 @@ abstract class EnderecoControllerBase with Store{
 
   @action
   Future<int> create(Endereco p) async {
-    try {
+    // try {
       endereco = await _enderecoRepository.create(p.toJson());
       return endereco;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action
   Future<int> update(int id, Endereco p) async {
-    try {
+    // try {
       endereco = await _enderecoRepository.update(id, p.toJson());
       return endereco;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 }

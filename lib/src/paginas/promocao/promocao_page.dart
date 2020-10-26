@@ -63,6 +63,7 @@ class _PromocaoPageState extends State<PromocaoPage> {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
+              Navigator.of(context).pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {

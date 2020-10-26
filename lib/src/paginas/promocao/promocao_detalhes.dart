@@ -101,20 +101,22 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
       height: 50.0,
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Flexible(
             fit: FlexFit.tight,
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoPage(
-                        p: p,
-                      );
+                      return PromocaoPage();
                     },
                   ),
                 );
@@ -125,8 +127,10 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.list),
-                    SizedBox(width: 0),
-                    Text("ESCOLHER MAIS"),
+                    SizedBox(
+                      width: 4.0,
+                    ),
+                    Text("VER MAIS"),
                   ],
                 ),
               ),
@@ -136,6 +140,10 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -145,13 +153,16 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                   ),
                 );
               },
+              color: Colors.orangeAccent,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.shopping_basket),
-                    SizedBox(width: 0),
-                    Text("MAIS OFERTAS"),
+                    SizedBox(
+                      width: 4.0,
+                    ),
+                    Text("VER MAIS"),
                   ],
                 ),
               ),

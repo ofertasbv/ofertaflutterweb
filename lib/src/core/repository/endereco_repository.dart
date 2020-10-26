@@ -12,9 +12,7 @@ class EnderecoRepository {
     try {
       print("carregando enderecos by id");
       var response = await dio.client.get("/enderecos/${id}");
-      return (response.data as List)
-          .map((c) => Endereco.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Endereco.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -25,9 +23,7 @@ class EnderecoRepository {
     try {
       print("carregando enderecos");
       var response = await dio.client.get("/enderecos");
-      return (response.data as List)
-          .map((c) => Endereco.fromJson(c))
-          .toList();
+      return (response.data as List).map((c) => Endereco.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -46,8 +42,7 @@ class EnderecoRepository {
 
   Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response =
-      await dio.client.put("/enderecos/update/$id", data: data);
+      var response = await dio.client.put("/enderecos/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

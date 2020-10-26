@@ -37,7 +37,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
           aspectRatio: 1.2,
           child: Image.network(
             ConstantApi.urlArquivoLoja + p.foto,
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         SizedBox(height: 0),
@@ -119,6 +119,10 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -147,6 +151,10 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -156,7 +164,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   ),
                 );
               },
-              color: Colors.amber,
+              color: Colors.orangeAccent,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

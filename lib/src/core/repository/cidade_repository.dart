@@ -8,26 +8,33 @@ import 'package:nosso/src/core/model/cidade.dart';
 class CidadeRepository {
   CustonDio dio = CustonDio();
 
-  Future<List<Cidade>> getAllById(int id) async {
+  Future<List<Cidade>> getAll() async {
     try {
-      print("carregando cidades by id");
-      var response = await dio.client.get("/cidades/${id}");
-      return (response.data as List)
-          .map((c) => Cidade.fromJson(c))
-          .toList();
+      print("carregando cidades");
+      var response = await dio.client.get("/cidades");
+      return (response.data as List).map((c) => Cidade.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<List<Cidade>> getAll() async {
+  Future<List<Cidade>> getAllById(int id) async {
     try {
-      print("carregando cidades");
-      var response = await dio.client.get("/cidades");
-      return (response.data as List)
-          .map((c) => Cidade.fromJson(c))
-          .toList();
+      print("carregando cidades by id");
+      var response = await dio.client.get("/cidades/${id}");
+      return (response.data as List).map((c) => Cidade.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
+  Future<List<Cidade>> getAllByEstadoId(int id) async {
+    try {
+      print("carregando cidades por estado");
+      var response = await dio.client.get("/cidades/estado/$id");
+      return (response.data as List).map((c) => Cidade.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -46,8 +53,7 @@ class CidadeRepository {
 
   Future<int> update(int id, Map<String, dynamic> data) async {
     try {
-      var response =
-      await dio.client.put("/cidades/update/$id", data: data);
+      var response = await dio.client.put("/cidades/update/$id", data: data);
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

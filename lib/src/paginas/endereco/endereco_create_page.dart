@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
@@ -7,11 +8,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
+import 'package:nosso/src/core/controller/estado_controller.dart';
 import 'package:nosso/src/core/model/cidade.dart';
 import 'package:nosso/src/core/model/endereco.dart';
+import 'package:nosso/src/core/model/estado.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 
 class EnderecoCreatePage extends StatefulWidget {
@@ -26,11 +28,14 @@ class EnderecoCreatePage extends StatefulWidget {
 
 class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
+  EstadoController estadoController = GetIt.I.get<EstadoController>();
   CidadeController cidadeController = GetIt.I.get<CidadeController>();
 
   Endereco endereco;
+  Estado estadoSelecionado;
   Cidade cidadeSelecionada;
 
+  Future<List<Estado>> estados;
   Future<List<Cidade>> cidades;
 
   File file;
@@ -47,13 +52,13 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   @override
   void initState() {
     enderecoController.getAll();
-    cidades = cidadeController.getAll();
+    estados = estadoController.getAll();
 
     if (endereco == null) {
       endereco = Endereco();
     }
 
-    endereco.cidade = cidadeSelecionada;
+    cidadeSelecionada = endereco.cidade;
     super.initState();
   }
 
@@ -68,7 +73,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.pink[900],
         content: Text(content),
         action: SnackBarAction(
           label: "OK",
@@ -78,13 +82,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     );
   }
 
-  void showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -142,6 +144,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Cadastro endereços"),
       ),
@@ -150,6 +153,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   }
 
   buildObserver() {
+    String latitude = latitudeController.text;
+    // endereco.latitude = double.tryParse(latitude);
+
+    String longitude = longitudeController.text;
+    // endereco.longitude = double.tryParse(longitude);
+
     return Observer(
       builder: (context) {
         if (enderecoController.error != null) {
@@ -158,64 +167,71 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           return ListView(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(2),
+                padding: EdgeInsets.all(0),
                 child: Form(
                   key: controller.formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      criaMapa(),
+                      // criaMapa(),
                       Card(
                         child: Container(
                           padding: EdgeInsets.all(5),
-                          child: Column(
-                            children: <Widget>[
-                              SizedBox(height: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  RadioListTile(
-                                    controlAffinity:
-                                        ListTileControlAffinity.trailing,
-                                    title: Text("COMERCIAL"),
-                                    value: "COMERCIAL",
-                                    groupValue: endereco.tipoEndereco,
-                                    onChanged: (String valor) {
-                                      setState(() {
-                                        endereco.tipoEndereco = valor;
-                                        print("resultado: " +
-                                            endereco.tipoEndereco);
-                                        showDefaultSnackbar(context,
-                                            "Endereço: ${endereco.tipoEndereco}");
-                                      });
-                                    },
-                                  ),
-                                  RadioListTile(
-                                    controlAffinity:
-                                        ListTileControlAffinity.trailing,
-                                    title: Text("RESIDENCIAL"),
-                                    value: "RESIDENCIAL",
-                                    groupValue: endereco.tipoEndereco,
-                                    onChanged: (String valor) {
-                                      setState(() {
-                                        endereco.tipoEndereco = valor;
-                                        print("resultado: " +
-                                            endereco.tipoEndereco);
-                                        showDefaultSnackbar(context,
-                                            "Endereço: ${endereco.tipoEndereco}");
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 15),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                      title: Text("COMERCIAL"),
+                                      value: "COMERCIAL",
+                                      groupValue: endereco.tipoEndereco,
+                                      onChanged: (String valor) {
+                                        setState(() {
+                                          endereco.tipoEndereco = valor;
+                                          print("resultado: " +
+                                              endereco.tipoEndereco);
+                                          showDefaultSnackbar(context,
+                                              "Endereço: ${endereco.tipoEndereco}");
+                                        });
+                                      },
+                                    ),
+                                    RadioListTile(
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                      title: Text("RESIDENCIAL"),
+                                      value: "RESIDENCIAL",
+                                      groupValue: endereco.tipoEndereco,
+                                      onChanged: (String valor) {
+                                        setState(() {
+                                          endereco.tipoEndereco = valor;
+                                          print("resultado: " +
+                                              endereco.tipoEndereco);
+                                          showDefaultSnackbar(context,
+                                              "Endereço: ${endereco.tipoEndereco}");
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                       Card(
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
@@ -227,6 +243,24 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                 decoration: InputDecoration(
                                   labelText: "Logradouro",
                                   hintText: "Logradouro",
+                                  prefixIcon: Icon(Icons.location_on),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 20.0, 20.0, 20.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                ),
+                                keyboardType: TextInputType.text,
+                                maxLength: 50,
+                              ),
+                              TextFormField(
+                                initialValue: endereco.complemento,
+                                onSaved: (value) =>
+                                    endereco.complemento = value,
+                                validator: (value) =>
+                                    value.isEmpty ? "campo obrigário" : null,
+                                decoration: InputDecoration(
+                                  labelText: "Complemento",
+                                  hintText: "Complemento",
                                   prefixIcon: Icon(Icons.location_on),
                                   contentPadding: EdgeInsets.fromLTRB(
                                       20.0, 20.0, 20.0, 20.0),
@@ -292,8 +326,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                 maxLength: 50,
                               ),
                               TextFormField(
-                                controller: latitudeController,
-                                // initialValue: endereco.latitude,
+                                initialValue: endereco.latitude.toString(),
                                 onSaved: (value) =>
                                     endereco.latitude = double.tryParse(value),
                                 validator: (value) =>
@@ -311,8 +344,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                 maxLength: 50,
                               ),
                               TextFormField(
-                                controller: longitudeController,
-                                // initialValue: endereco.longitude,
+                                initialValue: endereco.longitude.toString(),
                                 onSaved: (value) =>
                                     endereco.longitude = double.tryParse(value),
                                 validator: (value) =>
@@ -334,6 +366,27 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+              ),
+              Card(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: ListTile(
+                      title: Text("Estado *"),
+                      subtitle: estadoSelecionado == null
+                          ? Text("Selecione uma estado")
+                          : Text(estadoSelecionado.nome),
+                      leading: Icon(Icons.list_alt_outlined),
+                      trailing: Icon(Icons.arrow_drop_down_sharp),
+                      onTap: () {
+                        alertSelectEstados(context, estadoSelecionado);
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -367,14 +420,23 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                   ),
                   onPressed: () {
                     if (controller.validate()) {
-                      enderecoController.create(endereco);
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EnderecoPage(),
-                        ),
-                      );
+                      if (endereco.id == null) {
+                        Timer(Duration(seconds: 2), () {
+                          endereco.cidade = cidadeSelecionada;
+                          enderecoController.create(endereco);
+                          showToast("Cadastro  realizado com sucesso");
+                          Navigator.of(context).pop();
+                          buildPush(context);
+                        });
+                      } else {
+                        Timer(Duration(seconds: 2), () {
+                          endereco.cidade = cidadeSelecionada;
+                          enderecoController.update(endereco.id, endereco);
+                          showToast("Cadastro  alterado com sucesso");
+                          Navigator.of(context).pop();
+                          buildPush(context);
+                        });
+                      }
                     }
                   },
                 ),
@@ -385,6 +447,96 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
       },
     );
   }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EnderecoPage(),
+      ),
+    );
+  }
+
+  /* ============== ESTADO LISTA ============== */
+
+  alertSelectEstados(BuildContext context, Estado c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: builderConteudoListEstados(),
+          ),
+        );
+      },
+    );
+  }
+
+  builderConteudoListEstados() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<Estado> estados = estadoController.estados;
+          if (cidadeController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (estados == null) {
+            return Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.indigo[900],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+              ),
+            );
+          }
+
+          return builderListEstados(estados);
+        },
+      ),
+    );
+  }
+
+  builderListEstados(List<Estado> estados) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.builder(
+      itemCount: estados.length,
+      itemBuilder: (context, index) {
+        Estado c = estados[index];
+
+        return Column(
+          children: [
+            GestureDetector(
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  child: Icon(Icons.location_on_outlined),
+                ),
+                title: Text(c.nome),
+              ),
+              onTap: () {
+                setState(() {
+                  estadoSelecionado = c;
+                  cidadeController.getAllByEstadoId(estadoSelecionado.id);
+                  print("${estadoSelecionado.nome}");
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            Divider()
+          ],
+        );
+      },
+    );
+  }
+
+  /* ============== CIDADE LISTA ============== */
 
   alertSelectCidades(BuildContext context, Cidade c) {
     return showDialog(
@@ -443,9 +595,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 25,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlLogo}",
-                  ),
+                  child: Icon(Icons.location_on_outlined),
                 ),
                 title: Text(c.nome),
               ),

@@ -453,11 +453,10 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                         : p.foto != null
                                             ? CircleAvatar(
                                                 radius: 50,
-                                                child: Image.network(
+                                                backgroundImage: NetworkImage(
                                                   ConstantApi
                                                           .urlArquivoPromocao +
                                                       p.foto,
-                                                  fit: BoxFit.fill,
                                                 ),
                                               )
                                             : CircleAvatar(
