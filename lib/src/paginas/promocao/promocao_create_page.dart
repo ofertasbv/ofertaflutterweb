@@ -526,9 +526,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      "Informação"
-                    ),
+                    Text("Informação"),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -577,18 +575,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           onPressed: () {
                             if (p.id == null) {
                               Timer(Duration(seconds: 3), () {
+                                onClickUpload();
                                 p.loja = lojaSelecionada;
                                 promocaoController.create(p);
-                                onClickUpload();
+
                                 showToast("Cadastro  realizado com sucesso");
                                 Navigator.of(context).pop();
                                 buildPush(context);
                               });
                             } else {
                               Timer(Duration(seconds: 3), () {
+                                onClickUpload();
                                 p.loja = lojaSelecionada;
                                 promocaoController.update(p.id, p);
-                                onClickUpload();
+
                                 showToast("Cadastro  alterado com sucesso");
                                 Navigator.of(context).pop();
                                 buildPush(context);

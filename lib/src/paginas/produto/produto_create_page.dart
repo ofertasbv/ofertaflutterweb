@@ -24,6 +24,7 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
+import 'package:nosso/src/paginas/produto/produto_page.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -92,10 +93,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     produtoController.getAll();
 
     p.estoque = e;
-    p.loja = lojaSelecionada;
-    p.subCategoria = subCategoriaSelecionada;
-    p.marca = marcaSelecionada;
-    p.promocao = promocaoSelecionada;
+
+    lojaSelecionada = p.loja;
+    subCategoriaSelecionada = p.subCategoria;
+    marcaSelecionada = p.marca;
+    promocaoSelecionada = p.promocao;
     super.initState();
   }
 
@@ -391,7 +393,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  // controller: quantidadeController,
+                                  initialValue: p.estoque.quantidade.toString(),
                                   onSaved: (value) {
                                     p.estoque.quantidade = int.tryParse(value);
                                   },
@@ -413,7 +415,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 6,
                                 ),
                                 TextFormField(
-                                  // controller: valorController,
+                                  initialValue: p.estoque.valor.toString(),
                                   onSaved: (value) =>
                                       p.estoque.valor = double.tryParse(value),
                                   validator: (value) =>
@@ -437,7 +439,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ],
                                 ),
                                 TextFormField(
-                                  // controller: descontoController,
+                                  initialValue: p.desconto.toString(),
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -563,7 +565,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 borderRadius: BorderRadius.circular(5),
                               ),
                               child: ListTile(
-                                title: Text("Promomoção *"),
+                                title: Text("Promoção *"),
                                 subtitle: promocaoSelecionada == null
                                     ? Text("Selecione uma promoção")
                                     : Text(promocaoSelecionada.nome),
@@ -595,8 +597,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     onChanged: (bool valor) {
                                       setState(() {
                                         favorito = valor;
-                                        print(
-                                            "resultado: " + favorito.toString());
+                                        print("resultado: " +
+                                            favorito.toString());
                                       });
                                     },
                                   ),
@@ -621,7 +623,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     onChanged: (bool valor) {
                                       setState(() {
                                         status = valor;
-                                        print("resultado: " + status.toString());
+                                        print(
+                                            "resultado: " + status.toString());
                                       });
                                     },
                                   ),
@@ -634,8 +637,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     onChanged: (bool valor) {
                                       setState(() {
                                         destaque = valor;
-                                        print(
-                                            "resultado: " + destaque.toString());
+                                        print("resultado: " +
+                                            destaque.toString());
                                       });
                                     },
                                   ),
@@ -657,7 +660,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Column(
                                 children: <Widget>[
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         "Unidade de medida",
@@ -738,7 +742,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Column(
                                 children: <Widget>[
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         "Tamanho do produto",
@@ -819,7 +824,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Column(
                                 children: <Widget>[
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         "Origem do produto",
@@ -879,8 +885,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         child: Icon(Icons.delete_forever),
                                         shape: new CircleBorder(),
                                         onPressed: isEnabledDelete
-                                            ? () =>
-                                                lojaController.deleteFoto(p.foto)
+                                            ? () => lojaController
+                                                .deleteFoto(p.foto)
                                             : null,
                                       ),
                                       RaisedButton(
@@ -912,7 +918,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             child: Container(
                               padding: EdgeInsets.all(5),
                               child: Container(
-
                                 decoration: BoxDecoration(
                                   border: Border.all(color: Colors.grey),
                                   borderRadius: BorderRadius.circular(5),
@@ -930,7 +935,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ? CircleAvatar(
                                                 radius: 50,
                                                 child: Image.network(
-                                                  ConstantApi.urlArquivoProduto +
+                                                  ConstantApi
+                                                          .urlArquivoProduto +
                                                       p.foto,
                                                   fit: BoxFit.fill,
                                                 ),
@@ -960,19 +966,32 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                     onPressed: () {
                       if (controller.validate()) {
-                        if (p.foto == null) {
-                          showToast("deve anexar uma foto!");
+                        if (p.id == null) {
+                          if (p.foto == null) {
+                            showToast("deve anexar uma foto!");
+                          } else {
+                            onClickUpload();
+                            p.loja = lojaSelecionada;
+                            p.subCategoria = subCategoriaSelecionada;
+                            p.marca = marcaSelecionada;
+                            p.promocao = promocaoSelecionada;
+                            produtoController.create(p);
+
+                            showToast("Cadastro  alterado com sucesso");
+                            Navigator.of(context).pop();
+                            buildPush(context);
+                          }
                         } else {
                           onClickUpload();
+                          p.loja = lojaSelecionada;
+                          p.subCategoria = subCategoriaSelecionada;
+                          p.marca = marcaSelecionada;
+                          p.promocao = promocaoSelecionada;
                           produtoController.create(p);
-                          //
-                          // Navigator.of(context).pop();
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => ProdutoPage(),
-                          //   ),
-                          // );
+
+                          showToast("Cadastro  alterado com sucesso");
+                          Navigator.of(context).pop();
+                          buildPush(context);
                         }
                       }
                     },
@@ -982,6 +1001,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             );
           }
         },
+      ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProdutoPage(),
       ),
     );
   }

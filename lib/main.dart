@@ -116,7 +116,6 @@ class MyApp extends StatelessWidget {
 
       primaryIconTheme: IconThemeData(color: Colors.orange),
 
-
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
 
@@ -139,13 +138,12 @@ class MyApp extends StatelessWidget {
         buttonColor: Colors.orange,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
-          side: BorderSide(color: Colors.transparent),
+          side: BorderSide(color: Colors.white),
         ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
-        filled: true,
-        prefixStyle: TextStyle(color: Colors.black),
+        prefixStyle: TextStyle(color: Colors.orange),
         hintStyle: TextStyle(color: Colors.black),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
@@ -156,9 +154,10 @@ class MyApp extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         focusColor: Colors.orange,
-        isCollapsed: true,
-        isDense: true,
-
+        hoverColor: Colors.purple,
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0),
+        ),
         suffixStyle: TextStyle(color: Colors.green),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.orange),
@@ -168,7 +167,7 @@ class MyApp extends StatelessWidget {
         errorStyle: TextStyle(color: Colors.red),
       ),
 
-      hintColor: Colors.grey,
+      hintColor: Colors.orange,
 
       iconTheme: IconThemeData(
         color: Colors.orange,

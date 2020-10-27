@@ -25,21 +25,6 @@ class ProdutoSearchDelegate extends SearchDelegate<Produto> {
           query = "";
         },
       ),
-      IconButton(
-        icon: Icon(
-          Icons.search,
-        ),
-        onPressed: () {
-          print("Query -> $query");
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return ProdutoPage(nome: query);
-              },
-            ),
-          );
-        },
-      ),
     ];
   }
 

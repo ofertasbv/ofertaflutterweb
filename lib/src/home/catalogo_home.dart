@@ -6,8 +6,10 @@ import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
@@ -23,110 +25,101 @@ class _CatalogoHomeState extends State<CatalogoHome> {
     return ListView(
       padding: EdgeInsets.all(0),
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(10),
-          color: Colors.white,
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.green[500],
+        Card(
+          margin: EdgeInsets.all(0),
+          elevation: 0,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 50.0,
+            padding: EdgeInsets.all(2),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 4,
+                  child: RaisedButton.icon(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.transparent),
+                    ),
+                    icon: Icon(
+                      Icons.location_on_outlined,
                       size: 20,
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      "locais",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                    label: Text("local"),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return LojaLocation();
+                          },
+                        ),
+                      );
+                    },
+                    color: Colors.white,
+                  ),
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return LojaLocation();
-                      },
+                VerticalDivider(color: Colors.grey[200]),
+                Flexible(
+                  flex: 4,
+                  child: RaisedButton.icon(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.transparent),
                     ),
-                  );
-                },
-              ),
-              VerticalDivider(color: Colors.grey),
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
+                    icon: Icon(
                       Icons.shopping_basket,
-                      color: Colors.red[500],
                       size: 20,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "publicar",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                    label: Text("publicar"),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ProdutoPage();
+                          },
+                        ),
+                      );
+                    },
+                    color: Colors.white,
+                  ),
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return ProdutoCreatePage();
-                      },
+                VerticalDivider(color: Colors.grey[200]),
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 4,
+                  child: RaisedButton.icon(
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.transparent),
                     ),
-                  );
-                },
-              ),
-              VerticalDivider(color: Colors.grey),
-              GestureDetector(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit,
-                      color: Colors.purple[500],
+                    icon: Icon(
+                      Icons.account_circle_outlined,
                       size: 20,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "cadastre-se",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                    label: Text("Conta"),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ClientePage();
+                          },
+                        ),
+                      );
+                    },
+                    color: Colors.white,
+                  ),
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return LojaCreatePage();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
+
         Card(
           child: Column(
             children: <Widget>[
