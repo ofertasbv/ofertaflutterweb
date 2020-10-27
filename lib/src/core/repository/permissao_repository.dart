@@ -48,21 +48,4 @@ class PermissaoRepository {
       throw (e.message);
     }
   }
-
-  static Future<FormData> upload(File file, String fileName) async {
-    var arquivo = file.path;
-    var fileDir = file.path;
-
-    var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
-    };
-
-    FormData formData = FormData.fromMap(paramentros);
-
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/permissoes/upload", data: formData);
-    print("RESPONSE: $response");
-    print("fileDir: $fileDir");
-    return formData;
-  }
 }

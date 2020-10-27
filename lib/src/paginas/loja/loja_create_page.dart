@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -157,8 +158,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -515,26 +514,25 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       ),
                       onPressed: () {
                         if (controller.validate()) {
-                          // print("Logradouro: ${p.endereco.logradouro}");
-                          // print("CNPJ: ${p.cnpj}");
-                          // print("Data: ${p.dataRegistro}");
-                          // print("Email: ${p.usuario.email}");
-                          // print("Foto: ${p.foto}");
-
-                          if (p.foto == null) {
-                            showToast("deve anexar uma foto!");
+                          if (p.id == null) {
+                            if (p.foto == null) {
+                              showToast("deve anexar uma foto!");
+                            }
+                            Timer(Duration(seconds: 3), () {
+                              lojaController.create(p);
+                              onClickUpload();
+                              showToast("Cadastro  realizado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
                           } else {
-                            lojaController.create(p);
-
-                            onClickUpload();
-
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LojaPage(),
-                              ),
-                            );
+                            Timer(Duration(seconds: 3), () {
+                              lojaController.update(p.id, p);
+                              onClickUpload();
+                              showToast("Cadastro  alterado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
                           }
                         }
                       },
@@ -545,6 +543,15 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
             );
           }
         },
+      ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LojaPage(),
       ),
     );
   }

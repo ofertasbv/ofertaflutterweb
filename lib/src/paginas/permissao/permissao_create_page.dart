@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -46,10 +47,9 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     super.didChangeDependencies();
   }
 
-  void showDefaultSnackbar(BuildContext context, String content) {
+  showDefaultSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        backgroundColor: Colors.green,
         content: Text(content),
         action: SnackBarAction(
           label: "OK",
@@ -62,12 +62,13 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Permissão cadastros"),
       ),
       body: Observer(
         builder: (context) {
-          if (permissaoController.errorMessage != null) {
+          if (permissaoController.error != null) {
             return Text("Não foi possível cadastrar permissao");
           } else {
             return buildListViewForm(context);
@@ -119,36 +120,47 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
             ),
           ),
         ),
-        buildContainerButton(context),
+        Card(
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.id == null) {
+                  Timer(Duration(seconds: 3), () {
+                    permissaoController.create(p);
+                    showDefaultSnackbar(
+                        context, "Cadastro realizado com sucesso");
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  Timer(Duration(seconds: 3), () {
+                    permissaoController.update(p.id, p);
+                    showDefaultSnackbar(
+                        context, "Cadastro alterado com sucesso");
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
+              }
+            },
+          ),
+        ),
       ],
     );
   }
 
-  buildContainerButton(BuildContext context) {
-    return Card(
-      child: RaisedButton.icon(
-        label: Text("Enviar formulário"),
-        icon: Icon(
-          Icons.check,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          enviarFormulario(context);
-        },
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PermissaoPage(),
       ),
     );
-  }
-
-  enviarFormulario(BuildContext context) {
-    if (controller.validate()) {
-      permissaoController.create(p);
-      Navigator.of(context).pop();
-      Navigator.push(context, MaterialPageRoute(
-        builder: (context) {
-          return PermissaoPage();
-        },
-      ));
-    }
   }
 }
 

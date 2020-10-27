@@ -42,12 +42,8 @@ abstract class PermissaoControllerBase with Store {
     try {
       permissao = await _permissaoRepository.create(p.toJson());
       return permissao;
-    } on HttpException {
-      errorMessage = "Erro 404: Dados não encontrado";
-    } on SocketException {
-      errorMessage = "Internet não está conectada";
-    } on FormatException {
-      errorMessage = "Url inválida";
+    } catch (e) {
+      error = e;
     }
   }
 

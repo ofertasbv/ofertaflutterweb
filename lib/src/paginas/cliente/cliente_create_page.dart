@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -207,7 +208,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   Text("Dados Pessoais"),
                                   SizedBox(height: 15),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       RadioListTile(
                                         controlAffinity:
@@ -485,38 +487,53 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   ),
                 ),
                 Card(
-                  child: RaisedButton.icon(
-                    label: Text("Enviar formulário"),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (controller.validate()) {
-                        if (p.foto == null) {
-                          showToast("deve anexar uma foto!");
-                        } else {
-                          onClickUpload();
-                          clienteController.create(p);
-
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ClientePage();
-                              },
-                            ),
-                          );
+                  child: Container(
+                    child: RaisedButton.icon(
+                      label: Text("Enviar formulário"),
+                      icon: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        if (controller.validate()) {
+                          if (p.id == null) {
+                            if (p.foto == null) {
+                              showToast("deve anexar uma foto!");
+                            }
+                            Timer(Duration(seconds: 3), () {
+                              clienteController.create(p);
+                              onClickUpload();
+                              showToast("Cadastro  realizado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
+                          } else {
+                            Timer(Duration(seconds: 3), () {
+                              clienteController.update(p.id, p);
+                              onClickUpload();
+                              showToast("Cadastro  alterado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
+                          }
                         }
-                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
               ],
             );
           }
         },
+      ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ClientePage(),
       ),
     );
   }

@@ -307,7 +307,21 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ),
                     onPressed: () {
                       if (controller.validate()) {
-                        openAlertBox(context, c);
+                        if (c.id == null) {
+                          Timer(Duration(seconds: 3), () {
+                            categoriaController.create(c);
+                            showToast("Cadastro  realizado com sucesso");
+                            Navigator.of(context).pop();
+                            buildPush(context);
+                          });
+                        } else {
+                          Timer(Duration(seconds: 3), () {
+                            categoriaController.update(c.id, c);
+                            showToast("Cadastro  alterado com sucesso");
+                            Navigator.of(context).pop();
+                            buildPush(context);
+                          });
+                        }
                       }
                     },
                   ),
@@ -326,110 +340,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
       MaterialPageRoute(
         builder: (context) => CategoriaPage(),
       ),
-    );
-  }
-
-  openAlertBox(BuildContext context, Categoria c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "Detalhes de categoria",
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Icon(
-                          Icons.star_border,
-                          size: 30.0,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Divider(
-                  color: Colors.grey,
-                  height: 4.0,
-                ),
-                Container(
-                  child: ListTile(
-                    title: Text("Nome"),
-                    subtitle: Text("${c.nome}"),
-                  ),
-                ),
-                Container(
-                  child: ListTile(
-                    title: Text("Foto"),
-                    subtitle: Text("${c.foto}"),
-                  ),
-                ),
-                SizedBox(height: 5),
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(32.0),
-                        bottomRight: Radius.circular(32.0),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FlatButton(
-                          color: Colors.blueGrey[900],
-                          child: const Text('CANCELAR'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        FlatButton(
-                          color: Colors.indigo[900],
-                          child: const Text('CONFIRMAR'),
-                          onPressed: () {
-                            if (c.id == null) {
-                              Timer(Duration(seconds: 3), () {
-                                categoriaController.create(c);
-                                showToast("Cadastro  realizado com sucesso");
-                                Navigator.of(context).pop();
-                                buildPush(context);
-                              });
-                            } else {
-                              Timer(Duration(seconds: 3), () {
-                                categoriaController.update(c.id, c);
-                                showToast("Cadastro  alterado com sucesso");
-                                Navigator.of(context).pop();
-                                buildPush(context);
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

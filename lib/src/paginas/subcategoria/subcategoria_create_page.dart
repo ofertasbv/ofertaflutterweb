@@ -532,7 +532,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage(
                     "${ConstantApi.urlArquivoCategoria + c.foto}",
                   ),

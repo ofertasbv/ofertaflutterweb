@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
@@ -44,15 +45,16 @@ void main() async {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       // cor da barra superior
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.grey[100],
+      systemNavigationBarColor: Colors.grey[100].withOpacity(0.8),
       // cor da barra inferior
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.light,
       //
-      systemNavigationBarDividerColor: Colors.black, // ícones da barra inferior
+      systemNavigationBarDividerColor: Colors.white,
+      // ícones da barra inferior
 
-      statusBarBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
     ),
   );
 
@@ -78,39 +80,42 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.grey[100],
+      primaryColor: Colors.white,
       accentColor: Colors.orangeAccent,
       primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
-        elevation: 0,
-      ),
+          elevation: 1,
+          textTheme: TextTheme(
+            headline6: TextStyle(
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+            headline5: TextStyle(color: Colors.blueAccent),
+            headline4: TextStyle(color: Colors.black),
+            headline3: TextStyle(color: Colors.pink),
+            headline2: TextStyle(color: Colors.green),
+            headline1: TextStyle(color: Colors.cyan),
+          )),
 
       textTheme: Theme.of(context).textTheme.apply(
             bodyColor: Colors.black,
-            displayColor: Colors.orangeAccent,
+            displayColor: Colors.orange,
           ),
 
       dialogTheme: DialogTheme(
         backgroundColor: Colors.grey[100],
         elevation: 2,
-        titleTextStyle: TextStyle(color: Colors.indigo[900]),
+        titleTextStyle: TextStyle(color: Colors.black),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(10),
           side: BorderSide(color: Colors.white),
         ),
       ),
 
-      primaryTextTheme: TextTheme(
-        headline6: TextStyle(color: Colors.orangeAccent),
-        headline5: TextStyle(color: Colors.blueAccent),
-        headline4: TextStyle(color: Colors.black),
-        headline3: TextStyle(color: Colors.pink),
-        headline2: TextStyle(color: Colors.green),
-        headline1: TextStyle(color: Colors.cyan),
-      ),
+      primaryIconTheme: IconThemeData(color: Colors.orange),
 
-      primaryIconTheme: IconThemeData(color: Colors.orangeAccent),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
@@ -139,13 +144,24 @@ class MyApp extends StatelessWidget {
       ),
 
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
         prefixStyle: TextStyle(color: Colors.black),
         hintStyle: TextStyle(color: Colors.black),
-        fillColor: Colors.orangeAccent,
+        fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.indigo),
+          borderSide: BorderSide(color: Colors.black),
+          gapPadding: 1,
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        focusColor: Colors.orange,
+        isCollapsed: true,
+        isDense: true,
+
+        suffixStyle: TextStyle(color: Colors.green),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.orange),
           gapPadding: 1,
           borderRadius: BorderRadius.circular(5.0),
         ),
@@ -155,8 +171,9 @@ class MyApp extends StatelessWidget {
       hintColor: Colors.grey,
 
       iconTheme: IconThemeData(
-        color: Colors.orangeAccent,
+        color: Colors.orange,
       ),
+
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.indigo[900],
         backgroundColor: Colors.amber,
@@ -165,12 +182,12 @@ class MyApp extends StatelessWidget {
       scaffoldBackgroundColor: Colors.white,
 
       bottomSheetTheme: BottomSheetThemeData(
-        modalElevation: 0,
+        modalElevation: 1,
         backgroundColor: Colors.orangeAccent,
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        elevation: 0,
+        elevation: 1,
         selectedItemColor: Colors.orangeAccent,
         unselectedItemColor: Colors.black,
         unselectedLabelStyle: TextStyle(color: Colors.orangeAccent),
@@ -179,3 +196,140 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+//
+// void main() {
+//   runApp(new MyApp());
+// }
+//
+// class MyApp extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return new MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: new ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: new MyHomePage(title: 'Flutter Demo Home Page'),
+//     );
+//   }
+// }
+//
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key key, this.title}) : super(key: key);
+//
+//   final String title;
+//
+//   @override
+//   _MyHomePageState createState() => new _MyHomePageState();
+// }
+//
+// class _MyHomePageState extends State<MyHomePage> {
+//   bool _loading = false;
+//
+//   void _onLoading() {
+//     setState(() {
+//       _loading = true;
+//       new Future.delayed(new Duration(seconds: 3), _login);
+//     });
+//   }
+//
+//   Future _login() async {
+//     setState(() {
+//       _loading = false;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var body = new Column(
+//       children: <Widget>[
+//         new Container(
+//           height: 40.0,
+//           padding: const EdgeInsets.all(10.0),
+//           margin: const EdgeInsets.fromLTRB(15.0, 150.0, 15.0, 0.0),
+//           decoration: new BoxDecoration(
+//             color: Colors.white,
+//           ),
+//           child: new TextField(
+//             decoration: new InputDecoration.collapsed(hintText: "username"),
+//           ),
+//         ),
+//         new Container(
+//           height: 40.0,
+//           padding: const EdgeInsets.all(10.0),
+//           margin: const EdgeInsets.all(15.0),
+//           decoration: new BoxDecoration(
+//             color: Colors.white,
+//           ),
+//           child: new TextField(
+//             decoration: new InputDecoration.collapsed(hintText: "password"),
+//           ),
+//         ),
+//       ],
+//     );
+//
+//     var bodyProgress = new Container(
+//       child: new Stack(
+//         children: <Widget>[
+//           body,
+//           new Container(
+//             alignment: AlignmentDirectional.center,
+//             decoration: new BoxDecoration(
+//               color: Colors.white70,
+//             ),
+//             child: new Container(
+//               decoration: new BoxDecoration(
+//                   color: Colors.blue[100],
+//                   borderRadius: new BorderRadius.circular(10.0)),
+//               width: 300.0,
+//               height: 200.0,
+//               alignment: AlignmentDirectional.center,
+//               child: new Column(
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: <Widget>[
+//                   new Center(
+//                     child: new SizedBox(
+//                       height: 50.0,
+//                       width: 50.0,
+//                       child: new CircularProgressIndicator(
+//                         value: null,
+//                         strokeWidth: 7.0,
+//                       ),
+//                     ),
+//                   ),
+//                   new Container(
+//                     margin: const EdgeInsets.only(top: 25.0),
+//                     child: new Center(
+//                       child: new Text(
+//                         "loading.. wait...",
+//                         style: new TextStyle(color: Colors.white),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//
+//     return new Scaffold(
+//       appBar: new AppBar(
+//         title: new Text(widget.title),
+//       ),
+//       body: new Container(
+//           decoration: new BoxDecoration(color: Colors.blue[200]),
+//           child: _loading ? bodyProgress : body),
+//       floatingActionButton: new FloatingActionButton(
+//         onPressed: _onLoading,
+//         tooltip: 'Loading',
+//         child: new Icon(Icons.check),
+//       ),
+//     );
+//   }
+// }

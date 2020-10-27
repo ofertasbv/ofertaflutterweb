@@ -527,7 +527,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      "Detalhes de oferta",
+                      "Informação"
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
@@ -547,14 +547,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                 ),
                 Container(
                   child: ListTile(
-                    title: Text("Nome"),
-                    subtitle: Text("${p.nome}"),
-                  ),
-                ),
-                Container(
-                  child: ListTile(
-                    title: Text("Foto"),
-                    subtitle: Text("${p.foto}"),
+                    title: Text("Deseja realizar essa operação? "),
                   ),
                 ),
                 SizedBox(height: 5),
@@ -562,7 +555,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   child: Container(
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: Colors.orange[100],
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(32.0),
                         bottomRight: Radius.circular(32.0),
@@ -572,14 +565,14 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         FlatButton(
-                          color: Colors.blueGrey[900],
+                          color: Colors.red,
                           child: const Text('CANCELAR'),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                         ),
                         FlatButton(
-                          color: Colors.indigo[900],
+                          color: Colors.green,
                           child: const Text('CONFIRMAR'),
                           onPressed: () {
                             if (p.id == null) {
@@ -645,8 +638,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
           if (categorias == null) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                backgroundColor: Colors.black,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
               ),
             );
           }
@@ -670,7 +663,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
         return GestureDetector(
           child: ListTile(
             leading: CircleAvatar(
-              radius: 25,
+              radius: 20,
               backgroundImage: NetworkImage(
                 "${ConstantApi.urlArquivoLoja + c.foto}",
               ),

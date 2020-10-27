@@ -74,8 +74,8 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
           if (categorias == null) {
             return Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+                backgroundColor: Colors.black,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
               ),
             );
           }

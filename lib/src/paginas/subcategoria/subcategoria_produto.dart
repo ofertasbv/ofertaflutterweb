@@ -109,7 +109,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Chip(
-                      backgroundColor: Colors.amber,
                       label: Text(
                         subCategoria == null
                             ? "sem busca"

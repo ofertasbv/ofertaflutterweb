@@ -12,7 +12,7 @@ class PromocaoRepository {
     try {
       print("carregando promoções");
       var response = await dio.client.get("/promocoes");
-      print("${response.data}");
+      // print("${response.data}");
       return (response.data as List).map((c) => Promocao.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);

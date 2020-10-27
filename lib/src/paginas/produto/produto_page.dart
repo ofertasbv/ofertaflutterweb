@@ -95,7 +95,7 @@ class _ProdutoPageState extends State<ProdutoPage>
               );
             },
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 20),
         ],
       ),
       body: ProdutoList(),

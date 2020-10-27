@@ -39,33 +39,40 @@ class _HomePageState extends State<HomePage>
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          bottomOpacity: 0.0,
-          title: Text(
-            "U-NOSSO",
-          ),
+          elevation: 0.5,
+          bottomOpacity: 1,
+          title: Text("U-NOSSO"),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search_outlined),
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: ProdutoSearchDelegate(),
-                );
-              },
+            CircleAvatar(
+              backgroundColor: Colors.grey[200],
+              foregroundColor: Colors.orange,
+              child: IconButton(
+                icon: Icon(Icons.search_outlined),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: ProdutoSearchDelegate(),
+                  );
+                },
+              ),
             ),
-            buildGestureDetector(context),
-            IconButton(
-              icon: Icon(Icons.apps),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CatalogoMenu(),
-                  ),
-                );
-              },
+            SizedBox(width: 10),
+            CircleAvatar(
+              backgroundColor: Colors.grey[200],
+              foregroundColor: Colors.orange,
+              child: IconButton(
+                icon: Icon(Icons.apps),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CatalogoMenu(),
+                    ),
+                  );
+                },
+              ),
             ),
+            SizedBox(width: 10),
           ],
         ),
         body: Center(child: lista[elementIndex]),

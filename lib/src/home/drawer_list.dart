@@ -28,7 +28,7 @@ class DrawerList extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Colors.white,
-            Colors.grey[100],
+            Colors.white,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -53,7 +53,7 @@ class DrawerList extends StatelessWidget {
                   color: Colors.black,
                 ),
                 maxRadius: 15,
-                backgroundColor: Colors.yellow[600],
+                backgroundColor: Colors.orangeAccent,
               ),
               Container(
                 padding: EdgeInsets.all(10),

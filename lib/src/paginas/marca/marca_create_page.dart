@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
@@ -45,6 +47,15 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
   didChangeDependencies() {
     controller = Controller();
     super.didChangeDependencies();
+  }
+
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      fontSize: 16.0,
+    );
   }
 
   @override
@@ -102,32 +113,48 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                   ),
                 ),
                 Card(
-                  child: RaisedButton.icon(
-                    label: Text("Enviar formulário"),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
+                  child: Container(
+                    child: RaisedButton.icon(
+                      label: Text("Enviar formulário"),
+                      icon: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        if (controller.validate()) {
+                          if (c.id == null) {
+                            Timer(Duration(seconds: 3), () {
+                              marcaController.create(c);
+                              showToast("Cadastro  realizado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
+                          } else {
+                            Timer(Duration(seconds: 3), () {
+                              marcaController.update(c.id, c);
+                              showToast("Cadastro  alterado com sucesso");
+                              Navigator.of(context).pop();
+                              buildPush(context);
+                            });
+                          }
+                        }
+                      },
                     ),
-                    onPressed: () {
-                      if (controller.validate()) {
-                        marcaController.create(c);
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return MarcaPage();
-                            },
-                          ),
-                        );
-                      }
-                    },
                   ),
                 ),
               ],
             );
           }
         },
+      ),
+    );
+  }
+
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MarcaPage(),
       ),
     );
   }

@@ -42,6 +42,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
         ),
         SizedBox(height: 0),
         Card(
+          elevation: 0.5,
           child: Container(
             padding: EdgeInsets.all(10),
             child: Row(
@@ -87,6 +88,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
           ),
         ),
         Card(
+          elevation: 0.5,
           child: Container(
             padding: EdgeInsets.all(20),
             child: Column(

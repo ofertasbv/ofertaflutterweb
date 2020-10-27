@@ -49,7 +49,7 @@ class DrawerFilter extends StatelessWidget {
                   color: Colors.black,
                 ),
                 maxRadius: 15,
-                backgroundColor: Colors.yellow[600],
+                backgroundColor: Colors.orangeAccent,
               ),
               Container(
                 padding: EdgeInsets.all(10),

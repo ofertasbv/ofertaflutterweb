@@ -1043,10 +1043,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlLogo}",
-                  ),
+                  radius: 20,
+                  child: Icon(Icons.shopping_bag_outlined),
                 ),
                 title: Text(c.nome),
               ),
@@ -1123,7 +1121,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage(
                     "${ConstantApi.urlArquivoSubCategoria + c.foto}",
                   ),
@@ -1202,7 +1200,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage(
                     "${ConstantApi.urlArquivoLoja + c.foto}",
                   ),
@@ -1281,7 +1279,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
+                  radius: 20,
                   backgroundImage: NetworkImage(
                     "${ConstantApi.urlArquivoPromocao + c.foto}",
                   ),
