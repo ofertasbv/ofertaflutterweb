@@ -91,15 +91,22 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   }).toList())
               : Image.network(
                   ConstantApi.urlArquivoProduto + p.foto,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
         ),
         Card(
+          elevation: 0.5,
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(child: Icon(Icons.shopping_cart_outlined)),
-            title: Text(p.nome),
-            subtitle: Text("R\$ ${p.estoque.valor}"),
+            title: Text(
+              p.nome,
+              style: TextStyle(fontSize: 20),
+            ),
+            subtitle: Text(
+              "R\$ ${p.estoque.valor}",
+              style: TextStyle(fontSize: 20),
+            ),
             trailing: CircleAvatar(
               foregroundColor: Colors.redAccent,
               child: IconButton(

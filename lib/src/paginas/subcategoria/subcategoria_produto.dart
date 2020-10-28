@@ -95,7 +95,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           children: <Widget>[
             Card(
               child: Container(
-                height: 150,
+                height: 60,
                 child: builderConteudoListSubCategoria(),
               ),
             ),
@@ -108,12 +108,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Chip(
-                      label: Text(
-                        subCategoria == null
-                            ? "sem busca"
-                            : (subCategoria.nome),
-                      ),
+                    Text(
+                      subCategoria == null ? "sem busca" : (subCategoria.nome),
                     ),
                     Observer(
                       builder: (context) {
@@ -140,7 +136,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             ),
             Card(
               child: Container(
-                height: 380,
+                height: 470,
                 child: builderConteudoListProduto(),
               ),
             )
@@ -182,37 +178,11 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2),
-            child: AnimatedContainer(
-              width: 90,
-              height: 150,
-              duration: Duration(seconds: 1),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: c.nome == selectedCard
-                    ? Colors.greenAccent
-                    : Colors.grey[100],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                      "${ConstantApi.urlArquivoSubCategoria + c.foto}",
-                    ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(5),
-                    height: 40,
-                    width: containerWidth,
-                    child: Text(c.nome),
-                  )
-                ],
-              ),
+            child: Chip(
+              label: Text(c.nome),
+              backgroundColor: c.nome == selectedCard
+                  ? Colors.greenAccent
+                  : Colors.grey[100],
             ),
           ),
           onTap: () {
@@ -286,10 +256,10 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               ),
             ),
             title: Text(p.nome),
-            subtitle: Text("R\$ ${p.estoque.valor}"),
-            trailing: Container(
-              height: 80,
-              width: 50,
+            subtitle: Text("${p.subCategoria.nome}"),
+            trailing: Text(
+              "R\$ ${p.estoque.valor}",
+              style: TextStyle(color: Colors.green),
             ),
           ),
           onTap: () {

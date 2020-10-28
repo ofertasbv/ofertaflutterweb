@@ -64,7 +64,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
   }
 
   ListView builderList(List<Produto> produtos) {
-    double containerWidth = 200;
+    double containerWidth = 250;
     double containerHeight = 20;
 
     return ListView.builder(
@@ -75,66 +75,54 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6),
-            child: AnimatedContainer(
-              duration: Duration(seconds: 2),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white,
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[200],
-                    child: Image.network(
-                      ConstantApi.urlArquivoProduto + p.foto,
-                      fit: BoxFit.cover,
-                      width: 110,
-                      height: 110,
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Card(
+              child: AnimatedContainer(
+                width: 350,
+                height: 200,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.white,
+                      child: Image.network(
+                        ConstantApi.urlArquivoProduto + p.foto,
+                        fit: BoxFit.fitHeight,
+                        width: 100,
+                        height: 110,
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    color: Colors.grey[100],
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          child: Text(p.nome),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          child: Text(p.descricao),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth,
-                          //color: Colors.grey[300],
-                          child: Text(
-                            p.loja != null ? (p.loja.nome) : "sem loja",
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          height: containerHeight,
-                          width: containerWidth * 0.75,
-                          //color: Colors.grey[300],
-                          child: Text(
-                            "R\$ ${p.estoque.valor}",
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                    Container(
+                        width: 230,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              p.nome,
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            Text(
+                              p.descricao,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                            Text(
+                              "R\$ ${p.estoque.valor}",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
               ),
             ),
           ),

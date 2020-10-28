@@ -7,6 +7,7 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_info.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_view.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/produto/produto_search.dart';
 
 class ProdutoDetalhesTab extends StatefulWidget {
   Produto p;
@@ -84,44 +85,60 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
         appBar: AppBar(
           title: Text("Detalhes"),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search_outlined),
-              onPressed: () {},
+            CircleAvatar(
+              backgroundColor: Colors.grey[200],
+              foregroundColor: Colors.orange,
+              child: IconButton(
+                icon: Icon(Icons.search_outlined),
+                onPressed: () {
+                  showSearch(
+                    context: context,
+                    delegate: ProdutoSearchDelegate(),
+                  );
+                },
+              ),
             ),
+            SizedBox(width: 10),
             GestureDetector(
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.only(top: 16, right: 16),
-                    child: Icon(Icons.shopping_basket),
-                  ),
-                  AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _scaleTween.evaluate(animation),
-                        child: child,
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 12, right: 10),
-                      width: 18,
-                      height: 18,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: Colors.black, width: 1),
-                        color: Colors.white.withOpacity(.7),
-                      ),
-                      child: Center(
-                        child: Text("0"),
-                      ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                foregroundColor: Colors.orange,
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 0, right: 0),
+                      child: Icon(Icons.shopping_basket),
                     ),
-                  )
-                ],
+                    AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: _scaleTween.evaluate(animation),
+                          child: child,
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 0, right: 0),
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(color: Colors.black, width: 1),
+                          color: Colors.white.withOpacity(.7),
+                        ),
+                        child: Center(
+                          child: Text("0"),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               onTap: () {},
             ),
+
+            SizedBox(width: 10),
           ],
           bottom: TabBar(
             indicatorPadding: EdgeInsets.only(right: 6, left: 6),
@@ -154,13 +171,17 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
       height: 50.0,
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Flexible(
             fit: FlexFit.tight,
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -176,8 +197,10 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.list),
-                    SizedBox(width: 0),
-                    Text("ESCOLHER MAIS"),
+                    SizedBox(
+                      width: 4.0,
+                    ),
+                    Text("VER MAIS"),
                   ],
                 ),
               ),
@@ -187,6 +210,10 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             flex: 2,
             child: RaisedButton(
               elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -196,14 +223,16 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.amber,
+              color: Colors.orangeAccent,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.shopping_basket),
-                    SizedBox(width:0),
-                    Text("ADICIONAR"),
+                    SizedBox(
+                      width: 4.0,
+                    ),
+                    Text("VER MAIS"),
                   ],
                 ),
               ),

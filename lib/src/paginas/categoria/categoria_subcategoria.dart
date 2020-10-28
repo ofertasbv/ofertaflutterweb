@@ -73,11 +73,9 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Card(
-              child: Container(
-                height: 150,
-                child: builderConteudoListCategoria(),
-              ),
+            Container(
+              height: 150,
+              child: builderConteudoListCategoria(),
             ),
             Card(
               child: Container(
@@ -88,10 +86,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Chip(
-                      label: Text(
-                        categoria == null ? "sem busca" : (categoria.nome),
-                      ),
+                    Text(
+                      categoria == null ? "sem busca" : (categoria.nome),
                     ),
                     Observer(
                       builder: (context) {
@@ -167,37 +163,42 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            child: AnimatedContainer(
-              width: 90,
-              height: 150,
-              duration: Duration(seconds: 1),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: c.nome == selectedCard
-                    ? Colors.greenAccent
-                    : Colors.grey[100],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                      "${ConstantApi.urlArquivoCategoria + c.foto}",
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Card(
+              child: AnimatedContainer(
+                width: 90,
+                height: 150,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: c.nome == selectedCard
+                      ? Colors.greenAccent
+                      : Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        "${ConstantApi.urlArquivoCategoria + c.foto}",
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(5),
-                    height: 40,
-                    width: containerWidth,
-                    child: Text(c.nome),
-                  )
-                ],
+                    SizedBox(height: 0),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(5),
+                      height: 40,
+                      width: containerWidth,
+                      child: Text(
+                        c.nome.toLowerCase(),
+                        style: TextStyle(color: Colors.orange),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -270,20 +271,15 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: ListTile(
-            isThreeLine: true,
-            leading: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoSubCategoria + c.foto}",
+              isThreeLine: true,
+              leading: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 30,
+                child: Icon(Icons.check_outlined),
               ),
-            ),
-            title: Text(c.nome),
-            subtitle: Text("${c.categoria.nome}"),
-            trailing: Container(
-              height: 80,
-              width: 50,
-            ),
-          ),
+              title: Text(c.nome),
+              subtitle: Text("${c.categoria.nome}"),
+              trailing: Text("${c.id}")),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(

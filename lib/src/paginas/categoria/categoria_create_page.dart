@@ -309,6 +309,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                       if (controller.validate()) {
                         if (c.id == null) {
                           Timer(Duration(seconds: 3), () {
+                            onClickUpload();
                             categoriaController.create(c);
                             showToast("Cadastro  realizado com sucesso");
                             Navigator.of(context).pop();
@@ -316,6 +317,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           });
                         } else {
                           Timer(Duration(seconds: 3), () {
+                            onClickUpload();
                             categoriaController.update(c.id, c);
                             showToast("Cadastro  alterado com sucesso");
                             Navigator.of(context).pop();

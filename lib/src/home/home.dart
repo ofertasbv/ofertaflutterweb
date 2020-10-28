@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage>
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0.5,
-          bottomOpacity: 1,
+          elevation: 0.3,
+          bottomOpacity: 0,
           title: Text("U-NOSSO"),
           actions: <Widget>[
             CircleAvatar(

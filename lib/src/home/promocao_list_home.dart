@@ -75,7 +75,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
 
   ListView builderList(List<Promocao> promocoes) {
     double containerWidth = 250;
-    double containerHeight = 40;
+    double containerHeight = 50;
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -85,62 +85,39 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            child: AnimatedContainer(
-              width: containerWidth,
-              duration: Duration(seconds: 1),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey[100],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        color: Colors.grey[200],
-                        child: Image.network(
-                          ConstantApi.urlArquivoPromocao + p.foto,
-                          fit: BoxFit.cover,
-                          width: containerWidth,
-                          height: 130,
-                        ),
-                      ),
-                      SizedBox(height: 0),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        height: 40,
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Card(
+              child: AnimatedContainer(
+                width: containerWidth,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.grey[200],
+                      child: Image.network(
+                        ConstantApi.urlArquivoPromocao + p.foto,
+                        fit: BoxFit.cover,
                         width: containerWidth,
-                        color: Colors.grey[100],
-                        child: Text(
-                          p.nome,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
+                        height: 150,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        height: 40,
-                        width: containerWidth,
-                        color: Colors.grey[100],
-                        child: Text(
-                          p.descricao,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    ),
+                    SizedBox(height: 0),
+                    Container(
+                      padding: EdgeInsets.all(2),
+                      width: containerWidth,
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: Text(p.nome),
+                        subtitle: Text(p.descricao),
+                      )
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

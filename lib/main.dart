@@ -120,11 +120,10 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0,
+        elevation: 0.1,
         color: Colors.white,
-        clipBehavior: Clip.none,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(5),
+          borderRadius: new BorderRadius.circular(6),
           side: BorderSide(color: Colors.transparent),
         ),
       ),
@@ -178,7 +177,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
 
-      scaffoldBackgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.grey[100],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,

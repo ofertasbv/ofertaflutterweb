@@ -56,16 +56,26 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  p.nome,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+                ListTile(
+                  title: Text(
+                    p.nome,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                Text(
-                  p.descricao,
+                  subtitle: Text(
+                    p.descricao,
+                  ),
+                  trailing: Text(
+                    "OFF ${p.desconto} R\$",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -73,20 +83,15 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
         ),
         Card(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Código: ${p.id}"),
                 SizedBox(height: 10),
-                Text("Promoção: ${p.nome}"),
+                Text("Loja: ${p.loja.nome}"),
                 SizedBox(height: 10),
-                Text("Descrição: ${p.descricao}"),
-                SizedBox(height: 10),
-                Text("Mercado: ${p.loja.nome}"),
-                SizedBox(height: 10),
-                Text("Desconto: ${p.desconto} %"),
-                Text("Data Registro: ${p.dataInicio}"),
+                Text("Registro: ${p.dataInicio}"),
               ],
             ),
           ),
@@ -130,7 +135,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("VER MAIS"),
+                    Text("MAIS"),
                   ],
                 ),
               ),
@@ -162,7 +167,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("VER MAIS"),
+                    Text("MAIS OFERTAS"),
                   ],
                 ),
               ),

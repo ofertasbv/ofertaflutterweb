@@ -37,7 +37,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
 
   SubCategoria s;
   Categoria categoriaSelecionada;
-  Categoria categoriaSelect = Categoria();
 
   Controller controller;
 
@@ -46,12 +45,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
   _SubCategoriaCreatePageState({this.s});
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void didUpdateWidget(covariant SubCategoriaCreatePage oldWidget) {
-    categoriaSelecionada = oldWidget.subCategoria.categoria;
-    super.didUpdateWidget(oldWidget);
-  }
 
   @override
   void initState() {
@@ -127,7 +120,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
     if (file != null) {
       var url = await SubCategoriaRepository.upload(file, s.foto);
       print(" URL : $url");
-      disableButton();
     }
   }
 
@@ -165,8 +157,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -486,7 +476,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
-            child: CategoriaDialog(c: categoriaSelecionada),
+            child: builderConteudoList(),
           ),
         );
       },

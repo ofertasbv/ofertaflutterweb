@@ -86,7 +86,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       novo = false;
       status = false;
       destaque = false;
-
     } else {
       e = p.estoque;
 
@@ -193,7 +192,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     if (file != null) {
       var url = await ProdutoRepository.upload(file, p.foto);
       print(" URL : $url");
-      disableButton();
     }
   }
 
@@ -231,8 +229,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -601,6 +597,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               ),
                               child: Column(
                                 children: <Widget>[
+                                  Text("Configurações do sistema"),
                                   SwitchListTile(
                                     autofocus: true,
                                     title: Text("Produto Favorito? "),
@@ -625,7 +622,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     onChanged: (bool valor) {
                                       setState(() {
                                         novo = valor;
-                                        print("resultado: " + p.novo.toString());
+                                        print(
+                                            "resultado: " + p.novo.toString());
                                       });
                                     },
                                   ),
@@ -638,8 +636,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     onChanged: (bool valor) {
                                       setState(() {
                                         status = valor;
-                                        print(
-                                            "resultado: " + p.status.toString());
+                                        print("resultado: " +
+                                            p.status.toString());
                                       });
                                     },
                                   ),
@@ -679,10 +677,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        "Unidade de medida",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
+                                      Text("Unidade de medida"),
                                       RadioListTile(
                                         controlAffinity:
                                             ListTileControlAffinity.trailing,
@@ -765,10 +760,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        "Tamanho do produto",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
+                                      Text("Tamanho do produto"),
                                       RadioListTile(
                                         controlAffinity:
                                             ListTileControlAffinity.trailing,
@@ -851,10 +843,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Text(
-                                        "Origem do produto",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
+                                      Text("Origem do produto"),
                                       RadioListTile(
                                         controlAffinity:
                                             ListTileControlAffinity.trailing,
@@ -960,11 +949,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         : p.foto != null
                                             ? CircleAvatar(
                                                 radius: 50,
-                                                child: Image.network(
+                                                backgroundImage: NetworkImage(
                                                   ConstantApi
                                                           .urlArquivoProduto +
                                                       p.foto,
-                                                  fit: BoxFit.fill,
                                                 ),
                                               )
                                             : CircleAvatar(
@@ -1003,7 +991,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             p.promocao = promocaoSelecionada;
                             produtoController.create(p);
 
-                            showToast("Cadastro  alterado com sucesso");
+                            showToast("Cadastro  realizado com sucesso");
                             Navigator.of(context).pop();
                             buildPush(context);
                           }
@@ -1013,7 +1001,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           p.subCategoria = subCategoriaSelecionada;
                           p.marca = marcaSelecionada;
                           p.promocao = promocaoSelecionada;
-                          produtoController.create(p);
+                          produtoController.update(p.id, p);
 
                           showToast("Cadastro  alterado com sucesso");
                           Navigator.of(context).pop();

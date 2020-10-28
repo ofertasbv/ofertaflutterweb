@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/core/model/produto.dart';
 
 class ProdutoDetalhesInfo extends StatefulWidget {
@@ -21,97 +22,138 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
     return buildContainer(p);
   }
 
-  Container buildContainer(Produto p) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(0),
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("Produto: ${p.nome}"),
-                        subtitle: Text("Descrição: ${p.descricao}"),
-                        trailing: Text("R\$: ${p.estoque.valor}"),
-                      ),
-                    ),
-                  ),
+  buildContainer(Produto p) {
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
 
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("Loja: ${p.loja.nome}"),
-                        subtitle: Text("Oferta: ${p.promocao.nome}"),
-                        trailing: Text("Quant: ${p.estoque.quantidade}"),
+    return ListView(
+      children: [
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  padding: EdgeInsets.all(0),
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ListTile(
+                        title: Text("Produto"),
+                        subtitle: Text("${p.nome}"),
+                        trailing: Icon(Icons.check_outlined),
                       ),
-                    ),
-                  ),
-
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("SubCategoria: ${p.subCategoria.nome}"),
-                        subtitle: Text("Marca: ${p.marca.nome}"),
-                        trailing: Text("Descont: ${p.desconto}"),
+                      Divider(),
+                      ListTile(
+                        title: Text("Descrição"),
+                        subtitle: Text("${p.descricao}"),
+                        trailing: Icon(Icons.check_outlined),
                       ),
-                    ),
-                  ),
-
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("Origem: ${p.origem}"),
-                        subtitle: Text("Tamanho: ${p.tamanho}"),
-                        trailing: Text("Media: ${p.medida}"),
+                      Divider(),
+                      ListTile(
+                        title: Text("Data Registro"),
+                        subtitle: Text("${dateFormat.format(p.dataRegistro)}"),
+                        trailing: Icon(Icons.check_outlined),
                       ),
-                    ),
-                  ),
-
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("CodBar: ${p.codigoBarra}"),
-                        subtitle: Text("SKU: ${p.sku}"),
-                        trailing: Text("Cor: ${p.cor}"),
+                      Divider(),
+                      ListTile(
+                        title: Text("Valor"),
+                        subtitle: Text("R\$ ${p.estoque.valor}"),
+                        trailing: Icon(Icons.check_outlined),
                       ),
-                    ),
-                  ),
-
-                  Card(
-                    child: Container(
-                      padding: EdgeInsets.all(0),
-                      width: double.infinity,
-                      child: ListTile(
-                        title: Text("Favorito: ${p.favorito}"),
-                        subtitle: Text("Destaque: ${p.destaque}"),
-                        trailing: Text("Novo: ${p.novo}"),
+                      Divider(),
+                      ListTile(
+                        title: Text("Desconto"),
+                        subtitle: Text("R\$ ${p.desconto}"),
+                        trailing: Icon(Icons.check_outlined),
                       ),
-                    ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Quantidade"),
+                        subtitle: Text("${p.estoque.quantidade}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Código de barra"),
+                        subtitle: Text("${p.codigoBarra}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("SKU"),
+                        subtitle: Text("${p.sku}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Novo"),
+                        subtitle: Text("${p.novo}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Status"),
+                        subtitle: Text("${p.status}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Favorito"),
+                        subtitle: Text("${p.favorito}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Medida"),
+                        subtitle: Text("${p.medida}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Tamanho"),
+                        subtitle: Text("${p.tamanho}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Origem"),
+                        subtitle: Text("${p.origem}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Marca"),
+                        subtitle: Text("${p.marca.nome}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Categoria"),
+                        subtitle: Text("${p.subCategoria.nome}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Promoção"),
+                        subtitle: Text("${p.promocao.nome}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Loja"),
+                        subtitle: Text("${p.loja.nome}"),
+                        trailing: Icon(Icons.check_outlined),
+                      ),
+                    ],
                   ),
-
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

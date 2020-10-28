@@ -101,35 +101,40 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            child: AnimatedContainer(
-              width: 90,
-              height: 150,
-              duration: Duration(seconds: 1),
-              margin: EdgeInsets.symmetric(vertical: 7.5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey[100],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                      "${ConstantApi.urlArquivoCategoria + c.foto}",
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Card(
+              child: AnimatedContainer(
+                width: 90,
+                height: 150,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        "${ConstantApi.urlArquivoCategoria + c.foto}",
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(5),
-                    height: 40,
-                    width: containerWidth,
-                    child: Text(c.nome),
-                  )
-                ],
+                    SizedBox(height: 0),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(5),
+                      height: 40,
+                      width: containerWidth,
+                      child: Text(
+                        c.nome.toLowerCase(),
+                        style: TextStyle(color: Colors.orange),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
