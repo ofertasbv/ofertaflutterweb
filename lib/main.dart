@@ -84,6 +84,8 @@ class MyApp extends StatelessWidget {
       accentColor: Colors.orangeAccent,
       primarySwatch: Colors.orange,
 
+      fontFamily: 'Georgia',
+
       appBarTheme: AppBarTheme(
           elevation: 1,
           textTheme: TextTheme(
@@ -122,9 +124,10 @@ class MyApp extends StatelessWidget {
       cardTheme: CardTheme(
         elevation: 0.1,
         color: Colors.white,
+        margin: EdgeInsets.all(3),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(6),
-          side: BorderSide(color: Colors.transparent),
+          side: BorderSide(color: Colors.grey[200]),
         ),
       ),
 

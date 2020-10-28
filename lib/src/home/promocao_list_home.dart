@@ -74,7 +74,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
   }
 
   ListView builderList(List<Promocao> promocoes) {
-    double containerWidth = 250;
+    double containerWidth = 350;
     double containerHeight = 50;
 
     return ListView.builder(
@@ -103,7 +103,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                         ConstantApi.urlArquivoPromocao + p.foto,
                         fit: BoxFit.cover,
                         width: containerWidth,
-                        height: 150,
+                        height: 200,
                       ),
                     ),
                     SizedBox(height: 0),

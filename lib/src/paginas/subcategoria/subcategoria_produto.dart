@@ -179,7 +179,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2),
             child: Chip(
-              label: Text(c.nome),
+              label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
                   ? Colors.greenAccent
                   : Colors.grey[100],

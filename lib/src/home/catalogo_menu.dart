@@ -52,11 +52,9 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    height: 150,
-                    child: CategoriaListHome(),
-                  ),
+                Container(
+                  height: 150,
+                  child: CategoriaListHome(),
                 ),
                 Card(
                   child: Container(
@@ -64,11 +62,9 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                     child: buildGridView(context),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    height: 130,
-                    child: ProdutoListHome(),
-                  ),
+                Container(
+                  height: 130,
+                  child: ProdutoListHome(),
                 ),
               ],
             ),

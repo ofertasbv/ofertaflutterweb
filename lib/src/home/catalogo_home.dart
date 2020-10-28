@@ -149,7 +149,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ),
             SizedBox(height: 2),
             Container(
-              height: 260,
+              height: 300,
               child: PromocaoListHome(),
             ),
           ],
