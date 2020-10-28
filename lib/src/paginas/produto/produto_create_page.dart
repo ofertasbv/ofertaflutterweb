@@ -69,11 +69,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   String barcode = "";
 
-  bool favorito = false;
-  bool novo = false;
-  bool status = true;
-  bool destaque = false;
-  String unidade;
+  bool favorito;
+  bool novo;
+  bool status;
+  bool destaque;
+
   File file;
 
   @override
@@ -81,8 +81,19 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     if (p == null) {
       p = Produto();
       e = Estoque();
+
+      favorito = false;
+      novo = false;
+      status = false;
+      destaque = false;
+
     } else {
       e = p.estoque;
+
+      favorito = p.favorito;
+      novo = p.novo;
+      status = p.status;
+      destaque = p.destaque;
     }
 
     lojas = lojaController.getAll();
@@ -98,6 +109,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     subCategoriaSelecionada = p.subCategoria;
     marcaSelecionada = p.marca;
     promocaoSelecionada = p.promocao;
+
     super.initState();
   }
 
@@ -594,11 +606,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     title: Text("Produto Favorito? "),
                                     subtitle: Text("sim/não"),
                                     value: p.favorito = favorito,
+                                    secondary: const Icon(Icons.check_outlined),
                                     onChanged: (bool valor) {
                                       setState(() {
                                         favorito = valor;
                                         print("resultado: " +
-                                            favorito.toString());
+                                            p.favorito.toString());
                                       });
                                     },
                                   ),
@@ -608,10 +621,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     title: Text("Produto novo? "),
                                     subtitle: Text("sim/não"),
                                     value: p.novo = novo,
+                                    secondary: const Icon(Icons.check_outlined),
                                     onChanged: (bool valor) {
                                       setState(() {
                                         novo = valor;
-                                        print("resultado: " + novo.toString());
+                                        print("resultado: " + p.novo.toString());
                                       });
                                     },
                                   ),
@@ -620,11 +634,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     subtitle: Text("sim/não"),
                                     title: Text("Produto Disponível?"),
                                     value: p.status = status,
+                                    secondary: const Icon(Icons.check_outlined),
                                     onChanged: (bool valor) {
                                       setState(() {
                                         status = valor;
                                         print(
-                                            "resultado: " + status.toString());
+                                            "resultado: " + p.status.toString());
                                       });
                                     },
                                   ),
@@ -634,11 +649,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     subtitle: Text("sim/não"),
                                     title: Text("Produto destaque?"),
                                     value: p.destaque = destaque,
+                                    secondary: const Icon(Icons.check_outlined),
                                     onChanged: (bool valor) {
                                       setState(() {
                                         destaque = valor;
                                         print("resultado: " +
-                                            destaque.toString());
+                                            p.destaque.toString());
                                       });
                                     },
                                   ),
@@ -673,7 +689,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("UNIDADE"),
                                         value: "UNIDADE",
                                         groupValue: p.medida,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.medida = valor;
@@ -687,7 +704,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("PEÇA"),
                                         value: "PECA",
                                         groupValue: p.medida,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.medida = valor;
@@ -701,7 +719,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("QUILOGRAMA"),
                                         value: "QUILOGRAMA",
                                         groupValue: p.medida,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.medida = valor;
@@ -715,7 +734,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("OUTRO"),
                                         value: "OUTRO",
                                         groupValue: p.medida,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.medida = valor;
@@ -755,7 +775,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("PEQUENO"),
                                         value: "PEQUENO",
                                         groupValue: p.tamanho,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tamanho = valor;
@@ -769,7 +790,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("MEDIO"),
                                         value: "MEDIO",
                                         groupValue: p.tamanho,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tamanho = valor;
@@ -783,7 +805,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("GRANDE"),
                                         value: "GRANDE",
                                         groupValue: p.tamanho,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tamanho = valor;
@@ -797,7 +820,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("OUTRO"),
                                         value: "OUTRO",
                                         groupValue: p.tamanho,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tamanho = valor;
@@ -837,7 +861,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("NACIONAL"),
                                         value: "NACIONAL",
                                         groupValue: p.origem,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.origem = valor;
@@ -851,7 +876,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                         title: Text("INTERNACIONAL"),
                                         value: "INTERNACIONAL",
                                         groupValue: p.origem,
-                                        selected: true,
+                                        secondary:
+                                            const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.origem = valor;
