@@ -74,6 +74,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   bool status;
   bool destaque;
 
+  double desconto;
+  double valor;
+  int quantidade;
+
+  String medida;
+  String tamanho;
+  String origem;
+
   File file;
 
   @override
@@ -86,6 +94,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       novo = false;
       status = false;
       destaque = false;
+
+      medida = "UNIDADE";
+      tamanho = "PEQUENO";
+      origem = "NACIONAL";
     } else {
       e = p.estoque;
 
@@ -246,6 +258,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     valorController.text = p.estoque.valor.toString();
     descontoController.text = p.desconto.toString();
 
+    valor = 0.0;
+    desconto = 0.0;
+    quantidade = 1;
+
     print(formatter.format(initialValue));
     print(formatter.format(value));
 
@@ -401,7 +417,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  initialValue: p.estoque.quantidade.toString(),
+                                  initialValue: p.estoque.quantidade == null
+                                      ? quantidade.toString()
+                                      : p.estoque.quantidade.toStringAsFixed(1),
                                   onSaved: (value) {
                                     p.estoque.quantidade = int.tryParse(value);
                                   },
@@ -423,7 +441,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   maxLength: 6,
                                 ),
                                 TextFormField(
-                                  initialValue: p.estoque.valor.toString(),
+                                  initialValue: p.estoque.valor == null
+                                      ? valor.toString()
+                                      : p.estoque.valor.toStringAsFixed(2),
                                   onSaved: (value) =>
                                       p.estoque.valor = double.tryParse(value),
                                   validator: (value) =>
@@ -447,7 +467,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                   ],
                                 ),
                                 TextFormField(
-                                  initialValue: p.desconto.toString(),
+                                  initialValue: p.desconto == null
+                                      ? desconto.toString()
+                                      : p.desconto.toStringAsFixed(1),
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -683,7 +705,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("UNIDADE"),
                                         value: "UNIDADE",
-                                        groupValue: p.medida,
+                                        groupValue: p.medida == null
+                                            ? medida
+                                            : p.medida,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -698,7 +722,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("PEÇA"),
                                         value: "PECA",
-                                        groupValue: p.medida,
+                                        groupValue: p.medida == null
+                                            ? medida
+                                            : p.medida,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -713,7 +739,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("QUILOGRAMA"),
                                         value: "QUILOGRAMA",
-                                        groupValue: p.medida,
+                                        groupValue: p.medida == null
+                                            ? medida
+                                            : p.medida,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -728,7 +756,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("OUTRO"),
                                         value: "OUTRO",
-                                        groupValue: p.medida,
+                                        groupValue: p.medida == null
+                                            ? medida
+                                            : p.medida,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -766,7 +796,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("PEQUENO"),
                                         value: "PEQUENO",
-                                        groupValue: p.tamanho,
+                                        groupValue: p.tamanho == null
+                                            ? tamanho
+                                            : p.tamanho,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -781,7 +813,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("MEDIO"),
                                         value: "MEDIO",
-                                        groupValue: p.tamanho,
+                                        groupValue: p.tamanho == null
+                                            ? tamanho
+                                            : p.tamanho,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -796,7 +830,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("GRANDE"),
                                         value: "GRANDE",
-                                        groupValue: p.tamanho,
+                                        groupValue: p.tamanho == null
+                                            ? tamanho
+                                            : p.tamanho,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -811,7 +847,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("OUTRO"),
                                         value: "OUTRO",
-                                        groupValue: p.tamanho,
+                                        groupValue: p.tamanho == null
+                                            ? tamanho
+                                            : p.tamanho,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -849,7 +887,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("NACIONAL"),
                                         value: "NACIONAL",
-                                        groupValue: p.origem,
+                                        groupValue: p.origem == null
+                                            ? origem
+                                            : p.origem,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -864,7 +904,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("INTERNACIONAL"),
                                         value: "INTERNACIONAL",
-                                        groupValue: p.origem,
+                                        groupValue: p.origem == null
+                                            ? origem
+                                            : p.origem,
                                         secondary:
                                             const Icon(Icons.check_outlined),
                                         onChanged: (String valor) {
@@ -985,6 +1027,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             showToast("deve anexar uma foto!");
                           } else {
                             onClickUpload();
+                            p.estoque.quantidade = quantidade;
+                            p.estoque.valor = valor;
+                            p.desconto = desconto;
+
                             p.loja = lojaSelecionada;
                             p.subCategoria = subCategoriaSelecionada;
                             p.marca = marcaSelecionada;

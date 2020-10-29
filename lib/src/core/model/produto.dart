@@ -69,7 +69,7 @@ class Produto {
     origem = json['origem'];
     tamanho = json['tamanho'];
     cor = json['cor'];
-    desconto = double.tryParse(json['desconto'].toString());
+    desconto = json['desconto'];
     subCategoria = json['subCategoria'] != null
         ? new SubCategoria.fromJson(json['subCategoria'])
         : null;
@@ -105,7 +105,7 @@ class Produto {
     data['origem'] = this.origem;
     data['tamanho'] = this.tamanho;
     data['cor'] = this.cor;
-    data['desconto'] = this.desconto.toStringAsFixed(2);
+    data['desconto'] = this.desconto;
     if (this.subCategoria != null) {
       data['subCategoria'] = this.subCategoria.toJson();
     }

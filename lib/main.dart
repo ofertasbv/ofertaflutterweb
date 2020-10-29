@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.white,
-      accentColor: Colors.blue,
+      accentColor: Colors.black,
       primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
       cardTheme: CardTheme(
         elevation: 0.1,
         color: Colors.white,
-        margin: EdgeInsets.all(3),
+        margin: EdgeInsets.all(1),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(6),
           side: BorderSide(color: Colors.grey[200]),

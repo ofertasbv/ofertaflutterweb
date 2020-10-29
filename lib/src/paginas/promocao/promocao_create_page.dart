@@ -43,9 +43,10 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
   _PromocaoCreatePageState({this.p});
 
   DateTime dataAtual = DateTime.now();
-  String valor;
   String valorSlecionado;
   File file;
+
+  double desconto;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,7 +58,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     lojas = lojaController.getAll();
     if (p == null) {
       p = Promocao();
-      p.desconto = 0.0;
     }
     lojaSelecionada = p.loja;
     super.initState();
@@ -166,7 +166,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -176,8 +175,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat numberFormat = NumberFormat("00.00");
 
-    String desconto = descontoController.text;
-    p.desconto = double.tryParse(desconto);
+    desconto = 0.0;
 
     return Scaffold(
       key: scaffoldKey,
@@ -245,7 +243,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                   keyboardType: TextInputType.text,
                                 ),
                                 TextFormField(
-                                  // controller: descontoController,
+                                  initialValue: p.desconto == null
+                                      ? desconto.toString()
+                                      : p.desconto.toStringAsFixed(2),
                                   onSaved: (value) =>
                                       p.desconto = double.tryParse(value),
                                   validator: (value) =>
@@ -576,6 +576,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             if (p.id == null) {
                               Timer(Duration(seconds: 3), () {
                                 onClickUpload();
+                                p.desconto = desconto;
                                 p.loja = lojaSelecionada;
                                 promocaoController.create(p);
 

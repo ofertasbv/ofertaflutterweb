@@ -204,7 +204,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       width: containerWidth,
                       child: Text(
                         c.nome.toLowerCase(),
-                        style: TextStyle(color: Colors.orange),
+                        style: TextStyle(color: Colors.orange[900]),
                       ),
                     )
                   ],
