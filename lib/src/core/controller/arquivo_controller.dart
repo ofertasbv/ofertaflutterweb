@@ -43,6 +43,15 @@ abstract class ArquivoControllerBase with Store {
   }
 
   @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _arquivoRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<int> update(int id, Arquivo p) async {
     try {
       arquivo = await _arquivoRepository.update(id, p.toJson());

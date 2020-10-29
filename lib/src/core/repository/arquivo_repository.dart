@@ -49,6 +49,15 @@ class ArquivoRepository {
     }
   }
 
+  Future<void> deleteFoto(String foto) async {
+    try {
+      var response = await dio.client.delete("/arquivos/delete/foto/$foto");
+      return response.statusCode;
+    } on DioError catch (e) {
+      throw (e.message);
+    }
+  }
+
   static Future<FormData> upload(File file, String fileName) async {
     var arquivo = file.path;
     var fileDir = file.path;
