@@ -59,7 +59,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
             return Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
               ),
             );
           }
@@ -108,14 +108,16 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     ),
                     SizedBox(height: 0),
                     Container(
-                      padding: EdgeInsets.all(2),
-                      width: containerWidth,
-                      color: Colors.transparent,
-                      child: ListTile(
-                        title: Text(p.nome),
-                        subtitle: Text(p.descricao),
-                      )
-                    ),
+                        padding: EdgeInsets.all(2),
+                        width: containerWidth,
+                        color: Colors.transparent,
+                        child: ListTile(
+                          title: Text(
+                            p.nome,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          subtitle: Text(p.descricao),
+                        )),
                   ],
                 ),
               ),

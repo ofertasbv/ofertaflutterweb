@@ -49,7 +49,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
             return Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
               ),
             );
           }

@@ -75,7 +75,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
             return Center(
               child: CircularProgressIndicator(
                 backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
               ),
             );
           }
@@ -115,11 +115,21 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        "${ConstantApi.urlArquivoCategoria + c.foto}",
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: new BoxDecoration(
+                        gradient: LinearGradient(colors: [Colors.black, Colors.orange]),
+                        border: Border.all(
+                          color: Colors.deepOrangeAccent,
+                        ),
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[100],
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          "${ConstantApi.urlArquivoCategoria + c.foto}",
+                        ),
                       ),
                     ),
                     SizedBox(height: 0),
@@ -130,7 +140,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                       width: containerWidth,
                       child: Text(
                         c.nome.toLowerCase(),
-                        style: TextStyle(color: Colors.orange),
+                        style: TextStyle(color: Colors.orange[900]),
                       ),
                     )
                   ],

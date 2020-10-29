@@ -158,7 +158,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                   ),
                 );
               },
-              color: Colors.orangeAccent,
+              color: Colors.orange[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

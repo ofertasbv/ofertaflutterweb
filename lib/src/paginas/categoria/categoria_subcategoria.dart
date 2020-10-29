@@ -176,14 +176,24 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       : Colors.white,
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        "${ConstantApi.urlArquivoCategoria + c.foto}",
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: new BoxDecoration(
+                        gradient: LinearGradient(colors: [Colors.black, Colors.orange]),
+                        border: Border.all(
+                          color: Colors.deepOrangeAccent,
+                        ),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[100],
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          "${ConstantApi.urlArquivoCategoria + c.foto}",
+                        ),
                       ),
                     ),
                     SizedBox(height: 0),
