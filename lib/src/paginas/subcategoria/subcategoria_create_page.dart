@@ -63,95 +63,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
     super.didChangeDependencies();
   }
 
-  bool isEnabledEnviar = false;
-  bool isEnabledDelete = false;
-
-  enableButton() {
-    setState(() {
-      isEnabledEnviar = true;
-    });
-  }
-
-  disableButton() {
-    setState(() {
-      isEnabledDelete = true;
-    });
-  }
-
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      var atual = DateTime.now();
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "subcategoria-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        s.foto = filePath;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      var atual = DateTime.now();
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "subcategoria-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        s.foto = filePath;
-      });
-    }
-  }
-
-  onClickUpload() async {
-    if (file != null) {
-      var url = await SubCategoriaRepository.upload(file, s.foto);
-      print(" URL : $url");
-    }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
@@ -236,92 +147,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             ),
                           ),
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      RaisedButton(
-                                        child: Icon(Icons.delete_forever),
-                                        shape: new CircleBorder(),
-                                        onPressed: isEnabledDelete
-                                            ? () => subCategoriaController
-                                                .deleteFoto(s.foto)
-                                            : null,
-                                      ),
-                                      RaisedButton(
-                                        child: Icon(Icons.photo),
-                                        shape: new CircleBorder(),
-                                        onPressed: () {
-                                          openBottomSheet(context);
-                                        },
-                                      ),
-                                      RaisedButton(
-                                        child: Icon(Icons.check),
-                                        shape: new CircleBorder(),
-                                        onPressed: isEnabledEnviar
-                                            ? () => onClickUpload()
-                                            : null,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: GestureDetector(
-                            onTap: () {
-                              openBottomSheet(context);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(5),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                            file,
-                                            fit: BoxFit.fitWidth,
-                                          )
-                                        : s.foto != null
-                                            ? CircleAvatar(
-                                                radius: 50,
-                                                backgroundImage: NetworkImage(
-                                                  ConstantApi
-                                                          .urlArquivoSubCategoria +
-                                                      s.foto,
-                                                ),
-                                              )
-                                            : CircleAvatar(
-                                                radius: 50,
-                                                child: Icon(
-                                                  Icons.camera_alt_outlined,
-                                                ),
-                                              ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -402,12 +227,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                     subtitle: Text("${c.nome}"),
                   ),
                 ),
-                Container(
-                  child: ListTile(
-                    title: Text("Foto"),
-                    subtitle: Text("${c.foto}"),
-                  ),
-                ),
                 SizedBox(height: 5),
                 InkWell(
                   child: Container(
@@ -435,7 +254,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                           onPressed: () {
                             if (c.id == null) {
                               Timer(Duration(seconds: 3), () {
-                                onClickUpload();
                                 s.categoria = categoriaSelecionada;
                                 subCategoriaController.create(s);
                                 showToast("Cadastro  realizado com sucesso");
@@ -444,7 +262,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                               });
                             } else {
                               Timer(Duration(seconds: 3), () {
-                                onClickUpload();
                                 s.categoria = categoriaSelecionada;
                                 subCategoriaController.update(c.id, c);
                                 showToast("Cadastro  alterado com sucesso");

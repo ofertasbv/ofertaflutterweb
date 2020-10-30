@@ -169,7 +169,16 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 width: 90,
                 height: 150,
                 duration: Duration(seconds: 1),
+
                 decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.grey[100],
+                      Colors.grey[300],
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                   color: c.nome == selectedCard
                       ? Colors.greenAccent
@@ -283,7 +292,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           child: ListTile(
               isThreeLine: true,
               leading: CircleAvatar(
-                backgroundColor: Colors.grey[100],
+                backgroundColor: Colors.grey[200],
                 radius: 30,
                 child: Icon(Icons.check_outlined),
               ),

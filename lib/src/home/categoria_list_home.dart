@@ -101,50 +101,56 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child: Card(
-              child: AnimatedContainer(
-                width: 90,
-                height: 150,
-                duration: Duration(seconds: 1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: AnimatedContainer(
+              width: 90,
+              height: 150,
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey[100],
+                    Colors.grey[300],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(colors: [Colors.black, Colors.orange]),
-                        border: Border.all(
-                          color: Colors.deepOrangeAccent,
-                        ),
-                        borderRadius: BorderRadius.circular(35),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(1),
+                    decoration: new BoxDecoration(
+                      gradient:
+                          LinearGradient(colors: [Colors.black, Colors.orange]),
+                      border: Border.all(
+                        color: Colors.deepOrangeAccent,
                       ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          "${ConstantApi.urlArquivoCategoria + c.foto}",
-                        ),
+                      borderRadius: BorderRadius.circular(35),
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        "${ConstantApi.urlArquivoCategoria + c.foto}",
                       ),
                     ),
-                    SizedBox(height: 0),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(5),
-                      height: 40,
-                      width: containerWidth,
-                      child: Text(
-                        c.nome.toLowerCase(),
-                        style: TextStyle(color: Colors.orange[900]),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(5),
+                    height: 40,
+                    width: containerWidth,
+                    child: Text(
+                      c.nome.toLowerCase(),
+                      style: TextStyle(color: Colors.orange[900]),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

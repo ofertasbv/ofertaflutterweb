@@ -75,54 +75,65 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child: Card(
-              child: AnimatedContainer(
-                width: 350,
-                height: 200,
-                duration: Duration(seconds: 1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: AnimatedContainer(
+              width: 350,
+              height: 200,
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white,
+                    Colors.grey[100],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    decoration: BoxDecoration(
                       color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         ConstantApi.urlArquivoProduto + p.foto,
-                        fit: BoxFit.fitHeight,
+                        fit: BoxFit.cover,
                         width: 100,
                         height: 110,
                       ),
                     ),
-                    Container(
-                        width: 230,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              p.nome,
-                              style: TextStyle(fontSize: 18),
+                  ),
+                  Container(
+                      width: 230,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            p.nome,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Text(
+                            p.descricao,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          Text(
+                            "R\$ ${p.estoque.valor}",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.green,
                             ),
-                            Text(
-                              p.descricao,
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            Text(
-                              "R\$ ${p.estoque.valor}",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.green,
-                              ),
-                            ),
-                          ],
-                        )),
-                  ],
-                ),
+                          ),
+                        ],
+                      )),
+                ],
               ),
             ),
           ),

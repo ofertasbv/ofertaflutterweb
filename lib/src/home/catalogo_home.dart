@@ -20,10 +20,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
     return ListView(
       padding: EdgeInsets.all(0),
       children: <Widget>[
-        Card(
-          margin: EdgeInsets.all(0),
-          elevation: 0,
-          child: Container(
+        Container(
             color: Colors.white,
             width: MediaQuery.of(context).size.width,
             height: 50.0,
@@ -114,12 +111,12 @@ class _CatalogoHomeState extends State<CatalogoHome> {
               ],
             ),
           ),
-        ),
+
         Column(
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(2),
-              height: 150,
+              height: 160,
               child: CategoriaListHome(),
             ),
           ],

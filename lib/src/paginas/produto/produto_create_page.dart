@@ -396,27 +396,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ),
                                 SizedBox(height: 20),
                                 TextFormField(
-                                  initialValue: p.cor,
-                                  onSaved: (value) => p.cor = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Cor",
-                                    hintText: "cor produto",
-                                    prefixIcon: Icon(Icons.shopping_cart),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 100,
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 20),
-                                TextFormField(
                                   initialValue: p.estoque.quantidade == null
                                       ? quantidade.toString()
                                       : p.estoque.quantidade.toStringAsFixed(1),
@@ -775,97 +754,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             ),
                           ),
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text("Tamanho do produto"),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("PEQUENO"),
-                                        value: "PEQUENO",
-                                        groupValue: p.tamanho == null
-                                            ? tamanho
-                                            : p.tamanho,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.tamanho = valor;
-                                            print("resultado: " + p.tamanho);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("MEDIO"),
-                                        value: "MEDIO",
-                                        groupValue: p.tamanho == null
-                                            ? tamanho
-                                            : p.tamanho,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.tamanho = valor;
-                                            print("resultado: " + p.tamanho);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("GRANDE"),
-                                        value: "GRANDE",
-                                        groupValue: p.tamanho == null
-                                            ? tamanho
-                                            : p.tamanho,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.tamanho = valor;
-                                            print("resultado: " + p.tamanho);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("OUTRO"),
-                                        value: "OUTRO",
-                                        groupValue: p.tamanho == null
-                                            ? tamanho
-                                            : p.tamanho,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.tamanho = valor;
-                                            print("resultado: " + p.tamanho);
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+
                         Card(
                           child: Container(
                             padding: EdgeInsets.all(5),
@@ -1209,10 +1098,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoSubCategoria + c.foto}",
-                  ),
+                  backgroundColor: Colors.grey[200],
+                  radius: 30,
+                  child: Icon(Icons.check_outlined),
                 ),
                 title: Text(c.nome),
               ),

@@ -38,7 +38,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   DateTime dataAtual = DateTime.now();
-  String _valor;
+  String tipoPessoa;
   String valorSlecionado;
   File file;
 
@@ -52,6 +52,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
       u = p.usuario;
     }
 
+    tipoPessoa = "FISICA";
     super.initState();
   }
 
@@ -216,7 +217,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("PESSOA FISICA"),
                                         value: "FISICA",
-                                        groupValue: p.tipoPessoa,
+                                        groupValue: p.tipoPessoa == null
+                                            ? tipoPessoa
+                                            : p.tipoPessoa,
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tipoPessoa = valor;
@@ -229,7 +232,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                             ListTileControlAffinity.trailing,
                                         title: Text("PESSOA JURIDICA"),
                                         value: "JURIDICA",
-                                        groupValue: p.tipoPessoa,
+                                        groupValue: p.tipoPessoa == null
+                                            ? tipoPessoa
+                                            : p.tipoPessoa,
                                         onChanged: (String valor) {
                                           setState(() {
                                             p.tipoPessoa = valor;

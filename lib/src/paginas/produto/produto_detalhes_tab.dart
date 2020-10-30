@@ -200,7 +200,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("VER MAIS"),
+                    Text("MAIS"),
                   ],
                 ),
               ),
@@ -232,7 +232,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("VER MAIS"),
+                    Text("LISTA DE DESEJO"),
                   ],
                 ),
               ),

@@ -95,7 +95,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                 ),
         ),
         Card(
-          elevation: 0.5,
+          elevation: 0.2,
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(child: Icon(Icons.shopping_cart_outlined)),
@@ -105,7 +105,10 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
             ),
             subtitle: Text(
               "R\$ ${p.estoque.valor}",
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.green,
+              ),
             ),
             trailing: CircleAvatar(
               foregroundColor: Colors.redAccent,

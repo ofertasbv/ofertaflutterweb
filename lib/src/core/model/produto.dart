@@ -1,9 +1,11 @@
 import 'package:nosso/src/core/model/arquivo.dart';
+import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/core/model/tamnho.dart';
 
 class Produto {
   int id;
@@ -19,13 +21,13 @@ class Produto {
   bool destaque;
   String medida;
   String origem;
-  String tamanho;
-  String cor;
   double desconto;
   SubCategoria subCategoria;
   Promocao promocao;
   Loja loja;
   List<Arquivo> arquivos;
+  List<Tamanho> tamanhos;
+  List<Cor> cores;
   Estoque estoque;
   Marca marca;
 
@@ -43,13 +45,13 @@ class Produto {
       this.destaque,
       this.medida,
       this.origem,
-      this.tamanho,
-      this.cor,
       this.desconto,
       this.subCategoria,
       this.promocao,
       this.loja,
       this.arquivos,
+      this.tamanhos,
+      this.cores,
       this.estoque,
       this.marca});
 
@@ -67,8 +69,6 @@ class Produto {
     destaque = json['destaque'];
     medida = json['medida'];
     origem = json['origem'];
-    tamanho = json['tamanho'];
-    cor = json['cor'];
     desconto = json['desconto'];
     subCategoria = json['subCategoria'] != null
         ? new SubCategoria.fromJson(json['subCategoria'])
@@ -83,6 +83,21 @@ class Produto {
         arquivos.add(new Arquivo.fromJson(v));
       });
     }
+
+    if (json['tamanhos'] != null) {
+      tamanhos = new List<Tamanho>();
+      json['tamanhos'].forEach((v) {
+        tamanhos.add(new Tamanho.fromJson(v));
+      });
+    }
+
+    if (json['cores'] != null) {
+      cores = new List<Cor>();
+      json['cores'].forEach((v) {
+        cores.add(new Cor.fromJson(v));
+      });
+    }
+
     estoque =
         json['estoque'] != null ? new Estoque.fromJson(json['estoque']) : null;
     marca = json['marca'] != null ? new Marca.fromJson(json['marca']) : null;
@@ -103,8 +118,6 @@ class Produto {
     data['destaque'] = this.destaque;
     data['medida'] = this.medida;
     data['origem'] = this.origem;
-    data['tamanho'] = this.tamanho;
-    data['cor'] = this.cor;
     data['desconto'] = this.desconto;
     if (this.subCategoria != null) {
       data['subCategoria'] = this.subCategoria.toJson();
@@ -117,6 +130,14 @@ class Produto {
     }
     if (this.arquivos != null) {
       data['arquivos'] = this.arquivos.map((v) => v.toJson()).toList();
+    }
+
+    if (this.tamanhos != null) {
+      data['tamanhos'] = this.tamanhos.map((v) => v.toJson()).toList();
+    }
+
+    if (this.cores != null) {
+      data['cores'] = this.cores.map((v) => v.toJson()).toList();
     }
 
     if (this.estoque != null) {

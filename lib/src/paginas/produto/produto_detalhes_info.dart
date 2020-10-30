@@ -112,12 +112,6 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
                       ),
                       Divider(),
                       ListTile(
-                        title: Text("Tamanho"),
-                        subtitle: Text("${p.tamanho}"),
-                        trailing: Icon(Icons.check_outlined),
-                      ),
-                      Divider(),
-                      ListTile(
                         title: Text("Origem"),
                         subtitle: Text("${p.origem}"),
                         trailing: Icon(Icons.check_outlined),

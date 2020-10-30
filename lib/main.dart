@@ -45,7 +45,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.grey[100].withOpacity(0.8),
+      systemNavigationBarColor: Colors.grey[200].withOpacity(0.8),
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.light,
       //
@@ -120,11 +120,11 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0.1,
-        color: Colors.white,
-        margin: EdgeInsets.all(1),
+        elevation: 0,
+        color: Colors.grey[100],
+        margin: EdgeInsets.all(6),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(6),
+          borderRadius: new BorderRadius.circular(2),
           side: BorderSide(color: Colors.grey[200]),
         ),
       ),
@@ -178,7 +178,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.orange[900],
       ),
 
-      scaffoldBackgroundColor: Colors.grey[100],
+      scaffoldBackgroundColor: Colors.grey[200],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,

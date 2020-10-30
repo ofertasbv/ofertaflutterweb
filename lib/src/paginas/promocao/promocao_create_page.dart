@@ -161,10 +161,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     );
   }
 
-  void showToast(String cardTitle) {
+  showToast(String cardTitle) {
     Fluttertoast.showToast(
       msg: "$cardTitle",
-      gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
       fontSize: 16.0,
     );

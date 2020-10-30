@@ -85,20 +85,33 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child: Card(
-              child: AnimatedContainer(
-                width: containerWidth,
-                duration: Duration(seconds: 1),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: AnimatedContainer(
+              width: containerWidth,
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey[100],
+                    Colors.white,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    color: Colors.grey[200],
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomRight: Radius.circular(0),
+                        bottomLeft: Radius.circular(0),
+                      ),
                       child: Image.network(
                         ConstantApi.urlArquivoPromocao + p.foto,
                         fit: BoxFit.cover,
@@ -106,20 +119,20 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                         height: 200,
                       ),
                     ),
-                    SizedBox(height: 0),
-                    Container(
-                        padding: EdgeInsets.all(2),
-                        width: containerWidth,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          title: Text(
-                            p.nome,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          subtitle: Text(p.descricao),
-                        )),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                      padding: EdgeInsets.all(2),
+                      width: containerWidth,
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: Text(
+                          p.nome,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        subtitle: Text(p.descricao),
+                      )),
+                ],
               ),
             ),
           ),

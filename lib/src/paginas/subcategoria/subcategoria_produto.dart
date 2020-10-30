@@ -182,7 +182,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
                   ? Colors.greenAccent
-                  : Colors.grey[100],
+                  : Colors.grey[200],
             ),
           ),
           onTap: () {

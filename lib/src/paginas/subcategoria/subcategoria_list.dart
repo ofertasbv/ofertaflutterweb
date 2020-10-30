@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_create_page.dart';
@@ -69,10 +68,9 @@ class _SubCategoriaListState extends State<SubCategoriaList>
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(
+              backgroundColor: Colors.grey[200],
               radius: 30,
-              backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoSubCategoria + c.foto}",
-              ),
+              child: Icon(Icons.check_outlined),
             ),
             title: Text(c.nome),
             subtitle: Text("${c.categoria.nome}"),

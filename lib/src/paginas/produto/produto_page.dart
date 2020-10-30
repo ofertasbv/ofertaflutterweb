@@ -99,7 +99,6 @@ class _ProdutoPageState extends State<ProdutoPage>
         ],
       ),
       body: ProdutoList(),
-      drawer: DrawerFilter(),
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         child: Icon(Icons.add),

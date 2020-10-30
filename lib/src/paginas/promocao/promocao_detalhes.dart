@@ -69,7 +69,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                     p.descricao,
                   ),
                   trailing: Text(
-                    "OFF ${p.desconto} R\$",
+                    "OFF ${p.desconto} %",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,

@@ -70,22 +70,22 @@ abstract class ProdutoControllerBase with Store {
 
   @action
   Future<int> create(Produto p) async {
-    try {
+    // try {
       produto = await _produtoRepository.create(p.toJson());
       return produto;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action
   Future<int> update(int id, Produto p) async {
-    try {
+    // try {
       produto = await _produtoRepository.update(id, p.toJson());
       return produto;
-    } catch (e) {
-      error = e;
-    }
+    // } catch (e) {
+    //   error = e;
+    // }
   }
 
   @action
