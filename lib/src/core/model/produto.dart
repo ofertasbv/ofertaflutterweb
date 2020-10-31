@@ -5,7 +5,7 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/core/model/tamnho.dart';
+import 'package:nosso/src/core/model/tamanho.dart';
 
 class Produto {
   int id;
