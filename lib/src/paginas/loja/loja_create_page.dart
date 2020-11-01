@@ -9,7 +9,6 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';

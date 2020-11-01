@@ -82,7 +82,7 @@ class _ArquivoListState extends State<ArquivoList>
                 "${ConstantApi.urlArquivoCategoria + c.foto}",
               ),
             ),
-            title: Text(c.nome),
+            title: Text(c.foto),
             subtitle: Text("cod: ${c.id}"),
             trailing: Container(
               height: 80,

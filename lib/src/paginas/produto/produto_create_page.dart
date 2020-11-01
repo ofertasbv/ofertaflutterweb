@@ -17,6 +17,7 @@ import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
@@ -25,6 +26,7 @@ import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -754,7 +756,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             ),
                           ),
                         ),
-
                         Card(
                           child: Container(
                             padding: EdgeInsets.all(5),
@@ -992,12 +993,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           }
 
           if (marcas == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListMarcas(marcas);
@@ -1063,35 +1059,30 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<SubCategoria> subcategorias =
+          List<SubCategoria> subCategorias =
               subCategoriaController.subCategorias;
           if (subCategoriaController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
           if (subCategorias == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
-          return builderListSubCategorias(subcategorias);
+          return builderListSubCategorias(subCategorias);
         },
       ),
     );
   }
 
-  builderListSubCategorias(List<SubCategoria> subcategorias) {
+  builderListSubCategorias(List<SubCategoria> subCategorias) {
     double containerWidth = 160;
     double containerHeight = 20;
 
     return ListView.builder(
-      itemCount: subcategorias.length,
+      itemCount: subCategorias.length,
       itemBuilder: (context, index) {
-        SubCategoria c = subcategorias[index];
+        SubCategoria c = subCategorias[index];
 
         return Column(
           children: [
@@ -1148,12 +1139,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           }
 
           if (lojas == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListLojas(lojas);
@@ -1227,12 +1213,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           }
 
           if (promocoes == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListPromocoes(promocoes);

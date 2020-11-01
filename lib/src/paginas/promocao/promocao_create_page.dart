@@ -20,6 +20,7 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/repository/promocao_repository.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class PromocaoCreatePage extends StatefulWidget {
   Promocao promocao;
@@ -636,12 +637,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
           }
 
           if (categorias == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListCategorias(categorias);

@@ -182,37 +182,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                             padding: EdgeInsets.all(5),
                             child: Column(
                               children: <Widget>[
-                                TextFormField(
-                                  initialValue: c.nome,
-                                  onSaved: (value) => c.nome = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Nome",
-                                    hintText: "nome categoria",
-                                    prefixIcon: Icon(Icons.edit),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                  maxLines: 1,
-                                  //initialValue: c.nome,
-                                ),
-                                SizedBox(height: 10),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(

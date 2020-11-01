@@ -9,6 +9,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class CategoriaListHome extends StatefulWidget {
   @override
@@ -72,12 +73,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
           }
 
           if (categorias == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return RefreshIndicator(

@@ -16,6 +16,7 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/subcategoria_repository.dart';
 import 'package:nosso/src/paginas/categoria/categoria_dialog.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class SubCategoriaCreatePage extends StatefulWidget {
   SubCategoria subCategoria;
@@ -311,12 +312,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
           }
 
           if (categorias == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListCategorias(categorias);

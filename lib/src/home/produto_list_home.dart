@@ -8,6 +8,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class ProdutoListHome extends StatefulWidget {
   @override
@@ -46,12 +47,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
           }
 
           if (produtos == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.black,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return RefreshIndicator(

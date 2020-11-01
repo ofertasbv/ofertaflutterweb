@@ -79,14 +79,14 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.white,
-      accentColor: Colors.black,
-      primarySwatch: Colors.orange,
+      accentColor: Colors.indigo[900],
+      primarySwatch: Colors.lime,
 
       appBarTheme: AppBarTheme(
         elevation: 1,
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.orange[900],
+            color: Colors.lime[900],
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -100,28 +100,28 @@ class MyApp extends StatelessWidget {
 
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: "Cabin",
-            bodyColor: Colors.black,
+            bodyColor: Colors.indigo[900],
             displayColor: Colors.grey[600],
           ),
 
       dialogTheme: DialogTheme(
         backgroundColor: Colors.grey[100],
         elevation: 2,
-        titleTextStyle: TextStyle(color: Colors.black),
+        titleTextStyle: TextStyle(color: Colors.indigo[900]),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(10),
           side: BorderSide(color: Colors.white),
         ),
       ),
 
-      primaryIconTheme: IconThemeData(color: Colors.orange[900]),
+      primaryIconTheme: IconThemeData(color: Colors.lime[900]),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0,
-        color: Colors.grey[100],
+        elevation: 0.2,
+        color: Colors.white,
         margin: EdgeInsets.all(6),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(2),
@@ -130,12 +130,12 @@ class MyApp extends StatelessWidget {
       ),
 
       buttonTheme: ButtonThemeData(
-        splashColor: Colors.black,
+        splashColor: Colors.indigo[900],
         textTheme: ButtonTextTheme.primary,
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.orange[900],
+        buttonColor: Colors.lime[900],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
           side: BorderSide(color: Colors.white),
@@ -143,53 +143,53 @@ class MyApp extends StatelessWidget {
       ),
 
       inputDecorationTheme: InputDecorationTheme(
-        prefixStyle: TextStyle(color: Colors.orange[900]),
-        hintStyle: TextStyle(color: Colors.black),
+        prefixStyle: TextStyle(color: Colors.lime[900]),
+        hintStyle: TextStyle(color: Colors.indigo[900]),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: Colors.indigo[900]),
           gapPadding: 1,
           borderRadius: BorderRadius.circular(5.0),
         ),
-        focusColor: Colors.orange[900],
+        focusColor: Colors.lime[900],
         hoverColor: Colors.purple,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 1.0),
         ),
         suffixStyle: TextStyle(color: Colors.green),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange[900]),
+          borderSide: BorderSide(color: Colors.lime[900]),
           gapPadding: 1,
           borderRadius: BorderRadius.circular(5.0),
         ),
         errorStyle: TextStyle(color: Colors.red),
       ),
 
-      hintColor: Colors.orange[900],
+      hintColor: Colors.lime[900],
 
       iconTheme: IconThemeData(
-        color: Colors.orange[900],
+        color: Colors.lime[900],
       ),
 
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.grey,
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.lime[900],
       ),
 
       scaffoldBackgroundColor: Colors.grey[200],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.lime[900],
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 1,
-        selectedItemColor: Colors.orange[900],
-        unselectedItemColor: Colors.black,
-        unselectedLabelStyle: TextStyle(color: Colors.orange[900]),
+        selectedItemColor: Colors.lime[900],
+        unselectedItemColor: Colors.indigo[900],
+        unselectedLabelStyle: TextStyle(color: Colors.lime[900]),
         backgroundColor: Colors.white,
       ),
     );

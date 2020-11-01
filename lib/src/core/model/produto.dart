@@ -25,9 +25,9 @@ class Produto {
   SubCategoria subCategoria;
   Promocao promocao;
   Loja loja;
-  List<Arquivo> arquivos;
-  List<Tamanho> tamanhos;
-  List<Cor> cores;
+  List<Arquivo> arquivos = List<Arquivo>();
+  List<Tamanho> tamanhos = List<Tamanho>();
+  List<Cor> cores = List<Cor>();
   Estoque estoque;
   Marca marca;
 

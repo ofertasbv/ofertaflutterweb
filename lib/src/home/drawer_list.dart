@@ -50,10 +50,10 @@ class DrawerList extends StatelessWidget {
                 child: Icon(
                   Icons.account_circle,
                   size: 25,
-                  color: Colors.black,
+                  color: Colors.indigo[900],
                 ),
                 maxRadius: 15,
-                backgroundColor: Colors.orange[900],
+                backgroundColor: Colors.lime[900],
               ),
               Container(
                 padding: EdgeInsets.all(10),
