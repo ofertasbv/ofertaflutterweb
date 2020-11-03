@@ -66,9 +66,9 @@ class ClienteRepository {
     };
 
     FormData formData = FormData.fromMap(paramentros);
-    dio.client.post(ConstantApi.urlList + "/clientes/upload", data: formData);
+    var response = await dio.client.post(ConstantApi.urlList + "/clientes/upload", data: formData);
 
-    print("RESPONSE: $dio");
+    print("RESPONSE: ${response.data}");
     print("fileDir: ${file.path}");
     return formData;
   }
