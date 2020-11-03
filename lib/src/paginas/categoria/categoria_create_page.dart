@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -76,15 +77,11 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "produto-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        c.foto = filePath;
+        print("filePath: $arquivo");
+        c.foto = arquivo;
       });
     }
   }
@@ -95,24 +92,19 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "promocao-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        c.foto = filePath;
+        print("filePath: $arquivo");
+        c.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await CategoriaRepository.upload(file, c.foto);
-      print(" URL : $url");
-      disableButton();
+      FormData url = await categoriaController.upload(file, c.foto);
+      print("URL: ${url}");
     }
   }
 

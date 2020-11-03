@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/repository/promocao_repository.dart';
@@ -22,6 +25,9 @@ abstract class PromoCaoControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  FormData formData;
+
   @action
   Future<List<Promocao>> getAll() async {
     try {
@@ -34,22 +40,32 @@ abstract class PromoCaoControllerBase with Store {
 
   @action
   Future<int> create(Promocao p) async {
-    // try {
+    try {
       promocao = await _promocaoRepository.create(p.toJson());
       return promocao;
-    // } catch (e) {
-    //   error = e;
-    // }
+    } catch (e) {
+      error = e;
+    }
   }
 
   @action
   Future<int> update(int id, Promocao p) async {
-    // try {
+    try {
       promocao = await _promocaoRepository.update(id, p.toJson());
       return promocao;
-    // } catch (e) {
-    //   error = e;
-    // }
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<FormData> upload(File foto, String fileName) async {
+    try {
+      formData = await _promocaoRepository.upload(foto, fileName);
+      return formData;
+    } catch (e) {
+      error = e;
+    }
   }
 
   @action

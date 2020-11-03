@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/repository/categoria_repository.dart';
@@ -21,6 +24,9 @@ abstract class CategoriaControllerBase with Store {
 
   @observable
   Exception error;
+
+  @observable
+  FormData formData;
 
   @action
   Future<List<Categoria>> getAll() async {
@@ -47,6 +53,16 @@ abstract class CategoriaControllerBase with Store {
     try {
       categoria = await _categoriaRepository.update(id, p.toJson());
       return categoria;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<FormData> upload(File foto, String fileName) async {
+    try {
+      formData = await _categoriaRepository.upload(foto, fileName);
+      return formData;
     } catch (e) {
       error = e;
     }

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/repository/cliente_repository.dart';
@@ -21,6 +24,9 @@ abstract class ClienteControllerBase with Store {
 
   @observable
   Exception error;
+
+  @observable
+  FormData formData;
 
   @observable
   bool senhaVisivel = false;
@@ -55,6 +61,16 @@ abstract class ClienteControllerBase with Store {
     try {
       cliente = await _clienteRepository.update(id, p.toJson());
       return cliente;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<FormData> upload(File foto, String fileName) async {
+    try {
+      formData = await _clienteRepository.upload(foto, fileName);
+      return formData;
     } catch (e) {
       error = e;
     }

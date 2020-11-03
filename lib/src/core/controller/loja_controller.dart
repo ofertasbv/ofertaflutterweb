@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/loja.dart';
@@ -27,6 +29,9 @@ abstract class LojaControllerBase with Store {
 
   @observable
   Exception error;
+
+  @observable
+  FormData formData;
 
   @observable
   bool senhaVisivel = false;
@@ -61,6 +66,16 @@ abstract class LojaControllerBase with Store {
     try {
       loja = await _lojaRepository.update(id, p.toJson());
       return loja;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<FormData> upload(File foto, String fileName) async {
+    try {
+      formData = await _lojaRepository.upload(foto, fileName);
+      return formData;
     } catch (e) {
       error = e;
     }

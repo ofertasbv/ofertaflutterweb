@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -84,15 +85,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath =
-            arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
@@ -103,23 +100,19 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath =
-            arquivo.replaceAll("$arquivo", "loja-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await LojaRepository.upload(file, p.foto);
-      print(" URL : $url");
+      FormData url = await lojaController.upload(file, p.foto);
+      print("URL: ${url}");
     }
   }
 

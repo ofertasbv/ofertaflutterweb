@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,14 +18,12 @@ import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
-import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -170,15 +169,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "produto-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
@@ -189,23 +184,19 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "produto-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await ProdutoRepository.upload(file, p.foto);
-      print(" URL : $url");
+      FormData url = await produtoController.upload(file, p.foto);
+      print("URL: ${url}");
     }
   }
 

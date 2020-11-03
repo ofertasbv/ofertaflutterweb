@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
@@ -26,6 +29,9 @@ abstract class ProdutoControllerBase with Store {
 
   @observable
   Exception error;
+
+  @observable
+  FormData formData;
 
   @action
   Future<List<Produto>> getAll() async {
@@ -70,22 +76,32 @@ abstract class ProdutoControllerBase with Store {
 
   @action
   Future<int> create(Produto p) async {
-    // try {
+    try {
       produto = await _produtoRepository.create(p.toJson());
       return produto;
-    // } catch (e) {
-    //   error = e;
-    // }
+    } catch (e) {
+      error = e;
+    }
   }
 
   @action
   Future<int> update(int id, Produto p) async {
-    // try {
+    try {
       produto = await _produtoRepository.update(id, p.toJson());
       return produto;
-    // } catch (e) {
-    //   error = e;
-    // }
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<FormData> upload(File foto, String fileName) async {
+    try {
+      formData = await _produtoRepository.upload(foto, fileName);
+      return formData;
+    } catch (e) {
+      error = e;
+    }
   }
 
   @action

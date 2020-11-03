@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,7 +19,6 @@ import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
-import 'package:nosso/src/core/repository/promocao_repository.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -93,15 +93,11 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "promocao-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
@@ -112,24 +108,19 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "promocao-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await PromocaoRepository.upload(file, p.foto);
-      print(" URL : $url");
-      disableButton();
+      FormData url = await promocaoController.upload(file, p.foto);
+      print("URL: ${url}");
     }
   }
 

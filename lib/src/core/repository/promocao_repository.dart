@@ -60,16 +60,18 @@ class PromocaoRepository {
     }
   }
 
-  static Future<FormData> upload(File file, String fileName) async {
-    var fileDir = file.path;
+  Future<FormData> upload(File file, String fileName) async {
+    var arquivo = file.path;
+
     var paramentros = {
-      "foto": await MultipartFile.fromFile(fileDir, filename: fileName)
+      "foto": await MultipartFile.fromFile(arquivo, filename: fileName)
     };
+
     FormData formData = FormData.fromMap(paramentros);
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/promocoes/upload", data: formData);
-    print("RESPONSE: $response");
-    print("fileDir: $fileDir");
+    dio.client.post(ConstantApi.urlList + "/promocoes/upload", data: formData);
+
+    print("RESPONSE: $dio");
+    print("fileDir: ${file.path}");
     return formData;
   }
 }

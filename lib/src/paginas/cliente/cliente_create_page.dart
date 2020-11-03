@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,7 +15,6 @@ import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/usuario.dart';
-import 'package:nosso/src/core/repository/cliente_repository.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 
 class ClienteCreatePage extends StatefulWidget {
@@ -85,15 +85,11 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "cliente-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
@@ -104,23 +100,19 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "cliente-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        p.foto = filePath;
+        print("filePath: $arquivo");
+        p.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await ClienteRepository.upload(file, p.foto);
-      print(" URL : $url");
+      FormData url = await clienteController.upload(file, p.foto);
+      print("URL: ${url}");
     }
   }
 

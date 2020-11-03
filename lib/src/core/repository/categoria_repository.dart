@@ -58,20 +58,18 @@ class CategoriaRepository {
     }
   }
 
-  static Future<FormData> upload(File file, String fileName) async {
+  Future<FormData> upload(File file, String fileName) async {
     var arquivo = file.path;
-    var fileDir = file.path;
 
     var paramentros = {
-      "foto": await MultipartFile.fromFile(fileDir, filename: fileName)
+      "foto": await MultipartFile.fromFile(arquivo, filename: fileName)
     };
 
     FormData formData = FormData.fromMap(paramentros);
+    dio.client.post(ConstantApi.urlList + "/categorias/upload", data: formData);
 
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/categorias/upload", data: formData);
-    print("RESPONSE: $response");
-    print("fileDir: $fileDir");
+    print("RESPONSE: $dio");
+    print("fileDir: ${file.path}");
     return formData;
   }
 }
