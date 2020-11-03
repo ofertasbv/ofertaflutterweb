@@ -79,7 +79,7 @@ class _ArquivoListState extends State<ArquivoList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoCategoria + c.foto}",
+                "${ConstantApi.urlArquivoArquivo + c.foto}",
               ),
             ),
             title: Text(c.foto),

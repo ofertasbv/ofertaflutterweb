@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/repository/arquivo_repository.dart';
@@ -22,6 +25,9 @@ abstract class ArquivoControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  FormData formData;
+
   @action
   Future<List<Arquivo>> getAll() async {
     try {
@@ -43,19 +49,29 @@ abstract class ArquivoControllerBase with Store {
   }
 
   @action
-  Future<void> deleteFoto(String foto) async {
+  Future<int> update(int id, Arquivo p) async {
     try {
-      await _arquivoRepository.deleteFoto(foto);
+      arquivo = await _arquivoRepository.update(id, p.toJson());
+      return arquivo;
     } catch (e) {
       error = e;
     }
   }
 
   @action
-  Future<int> update(int id, Arquivo p) async {
+  Future<FormData> upload(File foto, String fileName) async {
     try {
-      arquivo = await _arquivoRepository.update(id, p.toJson());
-      return arquivo;
+      formData = await _arquivoRepository.upload(foto, fileName);
+      return formData;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<void> deleteFoto(String foto) async {
+    try {
+      await _arquivoRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

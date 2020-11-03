@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,8 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
-import 'package:nosso/src/core/repository/categoria_repository.dart';
-import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ArquivoCreatePage extends StatefulWidget {
@@ -21,8 +21,7 @@ class ArquivoCreatePage extends StatefulWidget {
   ArquivoCreatePage({Key key, this.arquivo}) : super(key: key);
 
   @override
-  _ArquivoCreatePageState createState() =>
-      _ArquivoCreatePageState(c: arquivo);
+  _ArquivoCreatePageState createState() => _ArquivoCreatePageState(c: arquivo);
 }
 
 class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
@@ -76,15 +75,11 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "arquivo-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        c.foto = filePath;
+        print("filePath: $arquivo");
+        c.foto = arquivo;
       });
     }
   }
@@ -95,24 +90,19 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
     if (f == null) {
       return;
     } else {
-      var atual = DateTime.now();
       setState(() {
         this.file = f;
         String arquivo = file.path.split('/').last;
-        String filePath = arquivo.replaceAll(
-            "$arquivo", "arquivo-" + atual.toString() + ".png");
-        print("arquivo: $arquivo");
-        print("filePath: $filePath");
-        c.foto = filePath;
+        print("filePath: $arquivo");
+        c.foto = arquivo;
       });
     }
   }
 
   onClickUpload() async {
     if (file != null) {
-      var url = await CategoriaRepository.upload(file, c.foto);
-      print(" URL : $url");
-      disableButton();
+      FormData url = await arquivoController.upload(file, c.foto);
+      print("URL: ${url}");
     }
   }
 
@@ -150,8 +140,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -309,7 +297,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CategoriaPage(),
+        builder: (context) => ArquivoPage(),
       ),
     );
   }
