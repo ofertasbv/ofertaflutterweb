@@ -28,7 +28,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("u-nosso app"),
+        title: Text("aplicativos"),
         actions: <Widget>[
           IconButton(
             icon: new Icon(Icons.home),
@@ -48,7 +48,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
         scrollDirection: Axis.vertical,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(2),
+            padding: EdgeInsets.all(0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -74,18 +74,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
     );
   }
 
-  builderBodyBack() => Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.grey[200],
-              Colors.grey[200],
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+  builderBodyBack() {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.grey[200],
+            Colors.grey[200],
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
-      );
+      ),
+    );
+  }
 
   buildGridView(BuildContext context) {
     return GridView.count(

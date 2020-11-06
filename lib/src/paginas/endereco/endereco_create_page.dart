@@ -15,6 +15,7 @@ import 'package:nosso/src/core/model/cidade.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/estado.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class EnderecoCreatePage extends StatefulWidget {
   Endereco endereco;
@@ -487,12 +488,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           }
 
           if (estados == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListEstados(estados);
@@ -566,12 +562,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           }
 
           if (cidades == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListCidades(cidades);

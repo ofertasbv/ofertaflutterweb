@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nosso/main.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
@@ -37,92 +38,95 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0.3,
-          bottomOpacity: 0,
-          title: Text("U-NOSSO"),
-          actions: <Widget>[
-            CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.lime[900],
-              child: IconButton(
-                icon: Icon(Icons.search_outlined),
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: ProdutoSearchDelegate(),
-                  );
-                },
+      child: WillPopScope(
+        onWillPop: onBackPressed,
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0.3,
+            bottomOpacity: 0,
+            title: Text("U-NOSSO"),
+            actions: <Widget>[
+              CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                foregroundColor: Colors.lime[900],
+                child: IconButton(
+                  icon: Icon(Icons.search_outlined),
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: ProdutoSearchDelegate(),
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-            CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.lime[900],
-              child: IconButton(
-                icon: Icon(Icons.apps),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CatalogoMenu(),
-                    ),
-                  );
-                },
+              SizedBox(width: 10),
+              CircleAvatar(
+                backgroundColor: Colors.grey[200],
+                foregroundColor: Colors.lime[900],
+                child: IconButton(
+                  icon: Icon(Icons.apps),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CatalogoMenu(),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(width: 10),
-          ],
-        ),
-        body: Center(child: lista[elementIndex]),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text(
-                'home',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              SizedBox(width: 10),
+            ],
+          ),
+          body: Center(child: lista[elementIndex]),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                title: Text(
+                  'home',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list),
-              title: Text(
-                'departamento',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list),
+                title: Text(
+                  'departamento',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.local_convenience_store),
-              title: Text(
-                'loja',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.local_convenience_store),
+                title: Text(
+                  'loja',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_alert),
-              title: Text(
-                'oferta',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_alert),
+                title: Text(
+                  'oferta',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket),
-              title: Text(
-                'pedido',
-                style: TextStyle(fontWeight: FontWeight.bold),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_basket),
+                title: Text(
+                  'pedido',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          ],
-          currentIndex: elementIndex,
-          onTap: changeIndex,
-          elevation: 4,
-        ),
+            ],
+            currentIndex: elementIndex,
+            onTap: changeIndex,
+            elevation: 4,
+          ),
 
 /* ======================= Menu lateral ======================= */
-        drawer: DrawerList(),
+          drawer: DrawerList(),
 /* ======================= Botão Flutuante ======================= */
+        ),
       ),
     );
   }
@@ -153,6 +157,32 @@ class _HomePageState extends State<HomePage>
       ),
       onTap: () {},
     );
+  }
+
+  Future<bool> onBackPressed() {
+    return showDialog(
+          context: context,
+          builder: (context) => new AlertDialog(
+            title: new Text('Deseja sair do aplicativo?'),
+            content: new Text(''),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: new Text('Não'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyApp()),
+                  );
+                },
+                child: new Text('Sim'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
 
   List lista = [

@@ -45,7 +45,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.grey[200].withOpacity(0.8),
+      systemNavigationBarColor: Colors.white,
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.light,
       //
