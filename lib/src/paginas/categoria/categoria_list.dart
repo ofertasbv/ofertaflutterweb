@@ -47,6 +47,12 @@ class _CategoriaListState extends State<CategoriaList>
             return Text("Não foi possível carregados dados");
           }
 
+          if (categoriaController.categorias.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
+          }
+
           if (categorias == null) {
             return CircularProgressor();
           }

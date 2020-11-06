@@ -45,6 +45,12 @@ class _CorListState extends State<CorList>
             return Text("Não foi possível carregados dados");
           }
 
+          if (corController.cores.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
+          }
+
           if (cores == null) {
             return CircularProgressor();
           }

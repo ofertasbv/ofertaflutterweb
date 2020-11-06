@@ -8,17 +8,6 @@ import 'package:nosso/src/core/model/arquivo.dart';
 class ArquivoRepository {
   CustonDio dio = CustonDio();
 
-  Future<List<Arquivo>> getAllById(int id) async {
-    try {
-      print("carregando arquivos by id");
-      var response = await dio.client.get("/arquivos/${id}");
-      return (response.data as List).map((c) => Arquivo.fromJson(c)).toList();
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
-  }
-
   Future<List<Arquivo>> getAll() async {
     try {
       print("carregando arquivos");
@@ -30,13 +19,24 @@ class ArquivoRepository {
     return null;
   }
 
-  Future<int> create(Map<String, dynamic> data) async {
+  Future<List<Arquivo>> getAllById(int id) async {
     try {
-      var response = await dio.client.post("/arquivos/create", data: data);
-      return response.statusCode;
+      print("carregando arquivos by id");
+      var response = await dio.client.get("/arquivos/${id}");
+      return (response.data as List).map((c) => Arquivo.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
+    return null;
+  }
+
+  Future<int> create(Map<String, dynamic> data) async {
+    // try {
+      var response = await dio.client.post("/arquivos/create", data: data);
+      return response.statusCode;
+    // } on DioError catch (e) {
+    //   print(e.message);
+    // }
     return null;
   }
 
@@ -66,7 +66,8 @@ class ArquivoRepository {
     };
 
     FormData formData = FormData.fromMap(paramentros);
-    var response = await dio.client.post(ConstantApi.urlList + "/arquivos/upload", data: formData);
+    var response = await dio.client
+        .post(ConstantApi.urlList + "/arquivos/upload", data: formData);
 
     print("RESPONSE: ${response.data}");
     print("fileDir: ${file.path}");

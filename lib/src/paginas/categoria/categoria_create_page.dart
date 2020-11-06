@@ -141,9 +141,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
+      timeInSecForIos: 3,
       fontSize: 16.0,
     );
   }

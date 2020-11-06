@@ -50,6 +50,12 @@ class _ArquivoListState extends State<ArquivoList>
             return Text("Não foi possível carregados dados");
           }
 
+          if (arquivoController.arquivos.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
+          }
+
           if (arquivos == null) {
             return CircularProgressor();
           }

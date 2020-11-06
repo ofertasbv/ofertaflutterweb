@@ -45,6 +45,12 @@ class _ClienteListState extends State<ClienteList>
             return Text("Não foi possível carregados dados");
           }
 
+          if (clienteController.clientes.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
+          }
+
           if (clientes == null) {
             return CircularProgressor();
           }

@@ -25,39 +25,7 @@ class _PermissaoListState extends State<PermissaoList>
     return permissaoController.getAll();
   }
 
-  showDialogAlert(BuildContext context, Permissao p) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button for close dialog!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('INFORMAÇÃOES'),
-          content: Text(p.descricao),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text('CANCELAR'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            FlatButton(
-              child: const Text('EDITAR'),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return PermissaoCreatePage(permissao: p);
-                    },
-                  ),
-                );
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +36,12 @@ class _PermissaoListState extends State<PermissaoList>
           List<Permissao> permissoes = permissaoController.permissoes;
           if (permissaoController.error != null) {
             return Text("Não foi possível buscar permissões");
+          }
+
+          if (permissaoController.permissoes.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
           }
 
           if (permissoes == null) {
@@ -108,6 +82,40 @@ class _PermissaoListState extends State<PermissaoList>
               showDialogAlert(context, c);
             },
           ),
+        );
+      },
+    );
+  }
+
+  showDialogAlert(BuildContext context, Permissao p) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button for close dialog!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('INFORMAÇÃOES'),
+          content: Text(p.descricao),
+          actions: <Widget>[
+            FlatButton(
+              child: const Text('CANCELAR'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: const Text('EDITAR'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PermissaoCreatePage(permissao: p);
+                    },
+                  ),
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         );
       },
     );

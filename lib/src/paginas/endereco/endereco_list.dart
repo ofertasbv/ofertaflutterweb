@@ -47,6 +47,12 @@ class _EnderecoListState extends State<EnderecoList>
             return Text("Não foi possível carregados dados");
           }
 
+          if (enderecoController.enderecos.length == 0) {
+            return Center(
+              child: Text("sem registros"),
+            );
+          }
+
           if (enderecos == null) {
             return CircularProgressor();
           }

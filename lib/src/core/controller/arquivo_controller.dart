@@ -51,12 +51,6 @@ abstract class ArquivoControllerBase with Store {
       arquivo = await arquivoRepository.create(p.toJson());
       if (arquivo == null) {
         mensagem = "sem dados - null";
-      } else if (arquivo == 400) {
-        mensagem = "olá mobx em flutter - 400";
-      } else if (arquivo == 404) {
-        mensagem = "olá mobx em flutter - 400";
-      } else if (arquivo == 500) {
-        mensagem = "olá mobx em flutter - 500";
       } else {
         return arquivo;
       }

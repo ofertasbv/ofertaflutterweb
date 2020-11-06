@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
@@ -101,6 +102,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
   onClickUpload() async {
     if (file != null) {
       FormData url = await arquivoController.upload(file, a.foto);
+      showToast("Arquivo anexada cm sucesso!");
       print("URL: ${url}");
     }
   }
@@ -134,6 +136,15 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
     );
   }
 
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 10,
+      fontSize: 16.0,
+    );
+  }
+
   showSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
@@ -157,13 +168,18 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
         builder: (context) {
           if (arquivoController.dioError != null) {
             print("Erro1: ${arquivoController.mensagem}");
+            showToast("${arquivoController.mensagem}");
             return buildListViewForm(context);
           }
           if (arquivoController.dioError == null) {
-            print("Erro2: ${arquivoController.mensagem}");
+            print(
+                "acerto: ${(arquivoController.mensagem == null ? null : arquivoController.mensagem)}");
+            showToast(
+                "${(arquivoController.mensagem == null ? "aguarde..." : arquivoController.mensagem)}");
             return buildListViewForm(context);
           } else {
             print("Erro3: ${arquivoController.mensagem}");
+            showToast("${arquivoController.mensagem}");
             return buildListViewForm(context);
           }
         },
@@ -243,6 +259,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    height: 200,
                                   )
                                 : a.foto != null
                                     ? CircleAvatar(
@@ -277,22 +294,28 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                if (a.id == null) {
-                  Timer(Duration(seconds: 3), () {
-                    onClickUpload();
-                    arquivoController.create(a);
-                    showSnackbar(context, "Cadastro realizado com sucesso");
-                    Navigator.of(context).pop();
-                    // buildPush(context);
-                  });
+                if (a.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  Timer(Duration(seconds: 3), () {
-                    onClickUpload();
-                    arquivoController.update(a.id, a);
-                    showSnackbar(context, "Cadastro alterado com sucesso");
-                    Navigator.of(context).pop();
-                    // buildPush(context);
-                  });
+                  if (a.id == null) {
+                    Timer(Duration(seconds: 1), () {
+                      arquivoController.create(a).then((arquivo) {
+                        var resultado = arquivo;
+                        print("resultado : ${resultado}");
+                        showSnackbar(context, "Sucesso - ${resultado}");
+                      });
+                      // showSnackbar(context, "Cadastro realizado com sucesso");
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
+                    });
+                  } else {
+                    Timer(Duration(seconds: 1), () {
+                      arquivoController.update(a.id, a);
+                      // showSnackbar(context, "Cadastro alterado com sucesso");
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
+                    });
+                  }
                 }
               }
             },
