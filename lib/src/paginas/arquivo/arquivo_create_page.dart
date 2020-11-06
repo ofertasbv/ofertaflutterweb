@@ -14,6 +14,7 @@ import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class ArquivoCreatePage extends StatefulWidget {
   Arquivo arquivo;
@@ -26,6 +27,7 @@ class ArquivoCreatePage extends StatefulWidget {
 
 class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
   ArquivoController arquivoController = GetIt.I.get<ArquivoController>();
+  Dialogs dialogs = Dialogs();
 
   Arquivo a;
   File file;
@@ -102,8 +104,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
   onClickUpload() async {
     if (file != null) {
       FormData url = await arquivoController.upload(file, a.foto);
-      showToast("Arquivo anexada cm sucesso!");
-      print("URL: ${url}");
+      showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
 
@@ -166,19 +167,10 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (arquivoController.dioError != null) {
-            print("Erro1: ${arquivoController.mensagem}");
-            showToast("${arquivoController.mensagem}");
-            return buildListViewForm(context);
-          }
           if (arquivoController.dioError == null) {
-            print(
-                "acerto: ${(arquivoController.mensagem == null ? null : arquivoController.mensagem)}");
-            showToast(
-                "${(arquivoController.mensagem == null ? "aguarde..." : arquivoController.mensagem)}");
             return buildListViewForm(context);
           } else {
-            print("Erro3: ${arquivoController.mensagem}");
+            print("Erro: ${arquivoController.mensagem}");
             showToast("${arquivoController.mensagem}");
             return buildListViewForm(context);
           }
@@ -298,22 +290,22 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                   openBottomSheet(context);
                 } else {
                   if (a.id == null) {
-                    Timer(Duration(seconds: 1), () {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
                       arquivoController.create(a).then((arquivo) {
                         var resultado = arquivo;
                         print("resultado : ${resultado}");
-                        showSnackbar(context, "Sucesso - ${resultado}");
                       });
-                      // showSnackbar(context, "Cadastro realizado com sucesso");
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
+                      Navigator.of(context).pop();
+                      buildPush(context);
                     });
                   } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
                     Timer(Duration(seconds: 1), () {
                       arquivoController.update(a.id, a);
-                      // showSnackbar(context, "Cadastro alterado com sucesso");
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
+                      Navigator.of(context).pop();
+                      buildPush(context);
                     });
                   }
                 }

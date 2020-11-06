@@ -51,7 +51,7 @@ class ArquivoPage extends StatelessWidget {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(
