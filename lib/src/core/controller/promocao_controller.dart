@@ -10,10 +10,10 @@ part 'promocao_controller.g.dart';
 class PromoCaoController = PromoCaoControllerBase with _$PromoCaoController;
 
 abstract class PromoCaoControllerBase with Store {
-  PromocaoRepository _promocaoRepository;
+  PromocaoRepository promocaoRepository;
 
   PromoCaoControllerBase() {
-    _promocaoRepository = PromocaoRepository();
+    promocaoRepository = PromocaoRepository();
   }
 
   @observable
@@ -23,15 +23,21 @@ abstract class PromoCaoControllerBase with Store {
   int promocao;
 
   @observable
+  FormData formData;
+
+  @observable
   Exception error;
 
   @observable
-  FormData formData;
+  DioError dioError;
+
+  @observable
+  String mensagem;
 
   @action
   Future<List<Promocao>> getAll() async {
     try {
-      promocoes = await _promocaoRepository.getAll();
+      promocoes = await promocaoRepository.getAll();
       return promocoes;
     } catch (e) {
       error = e;
@@ -41,27 +47,33 @@ abstract class PromoCaoControllerBase with Store {
   @action
   Future<int> create(Promocao p) async {
     try {
-      promocao = await _promocaoRepository.create(p.toJson());
-      return promocao;
-    } catch (e) {
-      error = e;
+      promocao = await promocaoRepository.create(p.toJson());
+      if (promocao == null) {
+        mensagem = "sem dados";
+      } else {
+        return promocao;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Promocao p) async {
     try {
-      promocao = await _promocaoRepository.update(id, p.toJson());
+      promocao = await promocaoRepository.update(id, p.toJson());
       return promocao;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<FormData> upload(File foto, String fileName) async {
     try {
-      formData = await _promocaoRepository.upload(foto, fileName);
+      formData = await promocaoRepository.upload(foto, fileName);
       return formData;
     } catch (e) {
       error = e;
@@ -71,7 +83,7 @@ abstract class PromoCaoControllerBase with Store {
   @action
   Future<void> deleteFoto(String foto) async {
     try {
-      await _promocaoRepository.deleteFoto(foto);
+      await promocaoRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

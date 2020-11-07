@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/repository/categoria_repository.dart';
 
@@ -10,10 +11,10 @@ part 'categoria_controller.g.dart';
 class CategoriaController = CategoriaControllerBase with _$CategoriaController;
 
 abstract class CategoriaControllerBase with Store {
-  CategoriaRepository _categoriaRepository;
+  CategoriaRepository categoriaRepository;
 
   CategoriaControllerBase() {
-    _categoriaRepository = CategoriaRepository();
+    categoriaRepository = CategoriaRepository();
   }
 
   @observable
@@ -23,15 +24,21 @@ abstract class CategoriaControllerBase with Store {
   int categoria;
 
   @observable
+  FormData formData;
+
+  @observable
   Exception error;
 
   @observable
-  FormData formData;
+  DioError dioError;
+
+  @observable
+  String mensagem;
 
   @action
   Future<List<Categoria>> getAll() async {
     try {
-      categorias = await _categoriaRepository.getAll();
+      categorias = await categoriaRepository.getAll();
       return categorias;
     } catch (e) {
       error = e;
@@ -41,27 +48,33 @@ abstract class CategoriaControllerBase with Store {
   @action
   Future<int> create(Categoria p) async {
     try {
-      categoria = await _categoriaRepository.create(p.toJson());
-      return categoria;
-    } catch (e) {
-      error = e;
+      categoria = await categoriaRepository.create(p.toJson());
+      if (categoria == null) {
+        mensagem = "sem dados";
+      } else {
+        return categoria;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Categoria p) async {
     try {
-      categoria = await _categoriaRepository.update(id, p.toJson());
+      categoria = await categoriaRepository.update(id, p.toJson());
       return categoria;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<FormData> upload(File foto, String fileName) async {
     try {
-      formData = await _categoriaRepository.upload(foto, fileName);
+      formData = await categoriaRepository.upload(foto, fileName);
       return formData;
     } catch (e) {
       error = e;
@@ -71,7 +84,7 @@ abstract class CategoriaControllerBase with Store {
   @action
   Future<void> deleteFoto(String foto) async {
     try {
-      await _categoriaRepository.deleteFoto(foto);
+      await categoriaRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

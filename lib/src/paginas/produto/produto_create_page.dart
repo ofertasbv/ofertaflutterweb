@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
@@ -25,6 +26,7 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
@@ -44,6 +46,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   LojaController lojaController = GetIt.I.get<LojaController>();
   MarcaController marcaController = GetIt.I.get<MarcaController>();
   PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
+
+  Dialogs dialogs = Dialogs();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -196,7 +200,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   onClickUpload() async {
     if (file != null) {
       FormData url = await produtoController.upload(file, p.foto);
-      print("URL: ${url}");
+      showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
 
@@ -233,30 +237,25 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
+      timeInSecForIos: 10,
       fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    NumberFormat formatter = NumberFormat("00.00");
-    double initialValue = num.parse(0.18941.toStringAsPrecision(2));
-    double value = 0.19;
-
-    NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
-
-    quantidadeController.text = p.estoque.quantidade.toString();
-    valorController.text = p.estoque.valor.toString();
-    descontoController.text = p.desconto.toString();
-
-    valor = 0.0;
-    desconto = 0.0;
-    quantidade = 1;
-
-    print(formatter.format(initialValue));
-    print(formatter.format(value));
 
     return Scaffold(
       key: scaffoldKey,
@@ -265,629 +264,611 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (produtoController.error != null) {
-            return Text("Não foi possível cadastrar produto");
+          if (produtoController.dioError == null) {
+            return buildListViewForm(context);
           } else {
-            return ListView(
+            print("Erro: ${produtoController.mensagem}");
+            showToast("${produtoController.mensagem}");
+            return buildListViewForm(context);
+          }
+        },
+      ),
+    );
+  }
+
+   buildListViewForm(BuildContext context) {
+     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+     NumberFormat formatter = NumberFormat("00.00");
+     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
+     double value = 0.19;
+
+     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+
+     quantidadeController.text = p.estoque.quantidade.toString();
+     valorController.text = p.estoque.valor.toString();
+     descontoController.text = p.desconto.toString();
+
+     valor = 0.0;
+     desconto = 0.0;
+     quantidade = 1;
+
+     print(formatter.format(initialValue));
+     print(formatter.format(value));
+
+    return ListView(
+      children: <Widget>[
+        Container(
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Container(
-                  child: Form(
-                    key: controller.formKey,
+                /* ================ Pequisa codigo de barra ================ */
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    width: double.maxFinite,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        /* ================ Pequisa codigo de barra ================ */
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            width: double.maxFinite,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: p.codigoBarra,
-                                  controller: p.codigoBarra == null
-                                      ? controllerCodigoBarra
-                                      : null,
-                                  onSaved: (value) => p.codigoBarra = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.camera_alt_outlined),
-                                    suffixIcon: Icon(Icons.close),
-                                    labelText:
-                                        "Entre com código de barra ou clique (scanner)",
-                                    hintText: "Código de barra",
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 20,
-                                ),
-                                RaisedButton.icon(
-                                  elevation: 0.0,
-                                  icon: Icon(Icons.photo_camera_outlined),
-                                  label: Text("Scanner"),
-                                  onPressed: () {
-                                    barcodeScanning();
-                                  },
-                                ),
-                              ],
-                            ),
+                        TextFormField(
+                          initialValue: p.codigoBarra,
+                          controller: p.codigoBarra == null
+                              ? controllerCodigoBarra
+                              : null,
+                          onSaved: (value) => p.codigoBarra = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.camera_alt_outlined),
+                            suffixIcon: Icon(Icons.close),
+                            labelText:
+                                "Entre com código de barra ou clique (scanner)",
+                            hintText: "Código de barra",
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 20,
                         ),
-                        /* ================ Cadastro produto ================ */
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: p.nome,
-                                  onSaved: (value) => p.nome = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Nome",
-                                    hintText: "nome produto",
-                                    prefixIcon: Icon(Icons.shopping_cart),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 100,
-                                  maxLines: null,
-                                ),
-                                TextFormField(
-                                  initialValue: p.descricao,
-                                  onSaved: (value) => p.descricao = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Descrição",
-                                    hintText: "descrição produto",
-                                    prefixIcon: Icon(Icons.description),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 100,
-                                  maxLines: null,
-                                ),
-                                SizedBox(height: 20),
-                                TextFormField(
-                                  initialValue: p.sku,
-                                  onSaved: (value) => p.sku = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "SKU",
-                                    hintText: "sku produto",
-                                    prefixIcon: Icon(Icons.shopping_cart),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 100,
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 20),
-                                TextFormField(
-                                  initialValue: p.estoque.quantidade == null
-                                      ? quantidade.toString()
-                                      : p.estoque.quantidade.toStringAsFixed(1),
-                                  onSaved: (value) {
-                                    p.estoque.quantidade = int.tryParse(value);
-                                  },
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Quantidade",
-                                    hintText: "quantidade",
-                                    prefixIcon: Icon(Icons.mode_edit),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.numberWithOptions(
-                                      decimal: false, signed: false),
-                                  maxLength: 6,
-                                ),
-                                TextFormField(
-                                  initialValue: p.estoque.valor == null
-                                      ? valor.toString()
-                                      : p.estoque.valor.toStringAsFixed(2),
-                                  onSaved: (value) =>
-                                      p.estoque.valor = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Valor",
-                                    hintText: "R\$ ",
-                                    prefixIcon: Icon(Icons.monetization_on),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                  inputFormatters: [
-                                    WhitelistingTextInputFormatter.digitsOnly,
-                                    RealInputFormatter(centavos: true)
-                                  ],
-                                ),
-                                TextFormField(
-                                  initialValue: p.desconto == null
-                                      ? desconto.toString()
-                                      : p.desconto.toStringAsFixed(1),
-                                  onSaved: (value) =>
-                                      p.desconto = double.tryParse(value),
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Desconto",
-                                    hintText: "R\$ ",
-                                    prefixIcon: Icon(Icons.money),
-                                    suffixIcon: Icon(Icons.close),
-                                  ),
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                  inputFormatters: [
-                                    WhitelistingTextInputFormatter.digitsOnly,
-                                    RealInputFormatter(centavos: true)
-                                  ],
-                                ),
-                                DateTimeField(
-                                  initialValue: p.dataRegistro,
-                                  format: dateFormat,
-                                  validator: (value) =>
-                                      value == null ? "campo obrigário" : null,
-                                  onSaved: (value) => p.dataRegistro = value,
-                                  decoration: InputDecoration(
-                                    labelText: "data registro",
-                                    hintText: "99-09-9999",
-                                    prefixIcon: Icon(Icons.calendar_today),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  onShowPicker: (context, currentValue) {
-                                    return showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(2000),
-                                      initialDate:
-                                          currentValue ?? DateTime.now(),
-                                      locale: Locale('pt', 'BR'),
-                                      lastDate: DateTime(2030),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
+                        RaisedButton.icon(
+                          elevation: 0.0,
+                          icon: Icon(Icons.photo_camera_outlined),
+                          label: Text("Scanner"),
+                          onPressed: () {
+                            barcodeScanning();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                /* ================ Cadastro produto ================ */
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          initialValue: p.nome,
+                          onSaved: (value) => p.nome = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Nome",
+                            hintText: "nome produto",
+                            prefixIcon: Icon(Icons.shopping_cart),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 100,
+                          maxLines: null,
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: ListTile(
-                                title: Text("Categoria *"),
-                                subtitle: subCategoriaSelecionada == null
-                                    ? Text("Selecione uma categoria")
-                                    : Text(subCategoriaSelecionada.nome),
-                                leading: Icon(Icons.list_alt_outlined),
-                                trailing: Icon(Icons.arrow_drop_down_sharp),
-                                onTap: () {
-                                  alertSelectSubCategorias(
-                                      context, subCategoriaSelecionada);
-                                },
-                              ),
-                            ),
+                        TextFormField(
+                          initialValue: p.descricao,
+                          onSaved: (value) => p.descricao = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Descrição",
+                            hintText: "descrição produto",
+                            prefixIcon: Icon(Icons.description),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 100,
+                          maxLines: null,
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: ListTile(
-                                title: Text("Marca *"),
-                                subtitle: marcaSelecionada == null
-                                    ? Text("Selecione uma marca")
-                                    : Text(marcaSelecionada.nome),
-                                leading: Icon(Icons.list_alt_outlined),
-                                trailing: Icon(Icons.arrow_drop_down_sharp),
-                                onTap: () {
-                                  alertSelectMarcas(context, marcaSelecionada);
-                                },
-                              ),
-                            ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          initialValue: p.sku,
+                          onSaved: (value) => p.sku = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "SKU",
+                            hintText: "sku produto",
+                            prefixIcon: Icon(Icons.shopping_cart),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 100,
+                          maxLines: 1,
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: ListTile(
-                                title: Text("Loja *"),
-                                subtitle: lojaSelecionada == null
-                                    ? Text("Selecione uma loja")
-                                    : Text(lojaSelecionada.nome),
-                                leading: Icon(Icons.list_alt_outlined),
-                                trailing: Icon(Icons.arrow_drop_down_sharp),
-                                onTap: () {
-                                  alertSelectLojas(context, lojaSelecionada);
-                                },
-                              ),
-                            ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          initialValue: p.estoque.quantidade == null
+                              ? quantidade.toString()
+                              : p.estoque.quantidade.toStringAsFixed(1),
+                          onSaved: (value) {
+                            p.estoque.quantidade = int.tryParse(value);
+                          },
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Quantidade",
+                            hintText: "quantidade",
+                            prefixIcon: Icon(Icons.mode_edit),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.numberWithOptions(
+                              decimal: false, signed: false),
+                          maxLength: 6,
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: ListTile(
-                                title: Text("Promoção *"),
-                                subtitle: promocaoSelecionada == null
-                                    ? Text("Selecione uma promoção")
-                                    : Text(promocaoSelecionada.nome),
-                                leading: Icon(Icons.list_alt_outlined),
-                                trailing: Icon(Icons.arrow_drop_down_sharp),
-                                onTap: () {
-                                  alertSelectPromocao(
-                                      context, promocaoSelecionada);
-                                },
-                              ),
-                            ),
+                        TextFormField(
+                          initialValue: p.estoque.valor == null
+                              ? valor.toString()
+                              : p.estoque.valor.toStringAsFixed(2),
+                          onSaved: (value) =>
+                              p.estoque.valor = double.tryParse(value),
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Valor",
+                            hintText: "R\$ ",
+                            prefixIcon: Icon(Icons.monetization_on),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.number,
+                          maxLength: 10,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly,
+                            RealInputFormatter(centavos: true)
+                          ],
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Text("Configurações do sistema"),
-                                  SwitchListTile(
-                                    autofocus: true,
-                                    title: Text("Produto Favorito? "),
-                                    subtitle: Text("sim/não"),
-                                    value: p.favorito = favorito,
-                                    secondary: const Icon(Icons.check_outlined),
-                                    onChanged: (bool valor) {
-                                      setState(() {
-                                        favorito = valor;
-                                        print("resultado: " +
-                                            p.favorito.toString());
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(height: 30),
-                                  SwitchListTile(
-                                    autofocus: true,
-                                    title: Text("Produto novo? "),
-                                    subtitle: Text("sim/não"),
-                                    value: p.novo = novo,
-                                    secondary: const Icon(Icons.check_outlined),
-                                    onChanged: (bool valor) {
-                                      setState(() {
-                                        novo = valor;
-                                        print(
-                                            "resultado: " + p.novo.toString());
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(height: 30),
-                                  SwitchListTile(
-                                    subtitle: Text("sim/não"),
-                                    title: Text("Produto Disponível?"),
-                                    value: p.status = status,
-                                    secondary: const Icon(Icons.check_outlined),
-                                    onChanged: (bool valor) {
-                                      setState(() {
-                                        status = valor;
-                                        print("resultado: " +
-                                            p.status.toString());
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(height: 30),
-                                  SwitchListTile(
-                                    autofocus: true,
-                                    subtitle: Text("sim/não"),
-                                    title: Text("Produto destaque?"),
-                                    value: p.destaque = destaque,
-                                    secondary: const Icon(Icons.check_outlined),
-                                    onChanged: (bool valor) {
-                                      setState(() {
-                                        destaque = valor;
-                                        print("resultado: " +
-                                            p.destaque.toString());
-                                      });
-                                    },
-                                  ),
-                                  SizedBox(height: 30),
-                                ],
-                              ),
-                            ),
+                        TextFormField(
+                          initialValue: p.desconto == null
+                              ? desconto.toString()
+                              : p.desconto.toStringAsFixed(1),
+                          onSaved: (value) =>
+                              p.desconto = double.tryParse(value),
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Desconto",
+                            hintText: "R\$ ",
+                            prefixIcon: Icon(Icons.money),
+                            suffixIcon: Icon(Icons.close),
                           ),
+                          keyboardType: TextInputType.number,
+                          maxLength: 10,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter.digitsOnly,
+                            RealInputFormatter(centavos: true)
+                          ],
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text("Unidade de medida"),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("UNIDADE"),
-                                        value: "UNIDADE",
-                                        groupValue: p.medida == null
-                                            ? medida
-                                            : p.medida,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.medida = valor;
-                                            print("resultado: " + p.medida);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("PEÇA"),
-                                        value: "PECA",
-                                        groupValue: p.medida == null
-                                            ? medida
-                                            : p.medida,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.medida = valor;
-                                            print("resultado: " + p.medida);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("QUILOGRAMA"),
-                                        value: "QUILOGRAMA",
-                                        groupValue: p.medida == null
-                                            ? medida
-                                            : p.medida,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.medida = valor;
-                                            print("resultado: " + p.medida);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("OUTRO"),
-                                        value: "OUTRO",
-                                        groupValue: p.medida == null
-                                            ? medida
-                                            : p.medida,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.medida = valor;
-                                            print("resultado: " + p.medida);
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                        DateTimeField(
+                          initialValue: p.dataRegistro,
+                          format: dateFormat,
+                          validator: (value) =>
+                              value == null ? "campo obrigário" : null,
+                          onSaved: (value) => p.dataRegistro = value,
+                          decoration: InputDecoration(
+                            labelText: "data registro",
+                            hintText: "99-09-9999",
+                            prefixIcon: Icon(Icons.calendar_today),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding: EdgeInsets.fromLTRB(
+                                20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(5.0)),
                           ),
+                          onShowPicker: (context, currentValue) {
+                            return showDatePicker(
+                              context: context,
+                              firstDate: DateTime(2000),
+                              initialDate:
+                                  currentValue ?? DateTime.now(),
+                              locale: Locale('pt', 'BR'),
+                              lastDate: DateTime(2030),
+                            );
+                          },
                         ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              padding: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text("Origem do produto"),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("NACIONAL"),
-                                        value: "NACIONAL",
-                                        groupValue: p.origem == null
-                                            ? origem
-                                            : p.origem,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.origem = valor;
-                                            print("resultado: " + p.origem);
-                                          });
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        controlAffinity:
-                                            ListTileControlAffinity.trailing,
-                                        title: Text("INTERNACIONAL"),
-                                        value: "INTERNACIONAL",
-                                        groupValue: p.origem == null
-                                            ? origem
-                                            : p.origem,
-                                        secondary:
-                                            const Icon(Icons.check_outlined),
-                                        onChanged: (String valor) {
-                                          setState(() {
-                                            p.origem = valor;
-                                            print("resultado: " + p.origem);
-                                          });
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      RaisedButton(
-                                        child: Icon(Icons.delete_forever),
-                                        shape: new CircleBorder(),
-                                        onPressed: isEnabledDelete
-                                            ? () => lojaController
-                                                .deleteFoto(p.foto)
-                                            : null,
-                                      ),
-                                      RaisedButton(
-                                        child: Icon(Icons.photo),
-                                        shape: new CircleBorder(),
-                                        onPressed: () {
-                                          openBottomSheet(context);
-                                        },
-                                      ),
-                                      RaisedButton(
-                                        child: Icon(Icons.check),
-                                        shape: new CircleBorder(),
-                                        onPressed: isEnabledEnviar
-                                            ? () => onClickUpload()
-                                            : null,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          child: GestureDetector(
-                            onTap: () {
-                              openBottomSheet(context);
+                      ],
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ListTile(
+                        title: Text("Categoria *"),
+                        subtitle: subCategoriaSelecionada == null
+                            ? Text("Selecione uma categoria")
+                            : Text(subCategoriaSelecionada.nome),
+                        leading: Icon(Icons.list_alt_outlined),
+                        trailing: Icon(Icons.arrow_drop_down_sharp),
+                        onTap: () {
+                          alertSelectSubCategorias(
+                              context, subCategoriaSelecionada);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ListTile(
+                        title: Text("Marca *"),
+                        subtitle: marcaSelecionada == null
+                            ? Text("Selecione uma marca")
+                            : Text(marcaSelecionada.nome),
+                        leading: Icon(Icons.list_alt_outlined),
+                        trailing: Icon(Icons.arrow_drop_down_sharp),
+                        onTap: () {
+                          alertSelectMarcas(context, marcaSelecionada);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ListTile(
+                        title: Text("Loja *"),
+                        subtitle: lojaSelecionada == null
+                            ? Text("Selecione uma loja")
+                            : Text(lojaSelecionada.nome),
+                        leading: Icon(Icons.list_alt_outlined),
+                        trailing: Icon(Icons.arrow_drop_down_sharp),
+                        onTap: () {
+                          alertSelectLojas(context, lojaSelecionada);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ListTile(
+                        title: Text("Promoção *"),
+                        subtitle: promocaoSelecionada == null
+                            ? Text("Selecione uma promoção")
+                            : Text(promocaoSelecionada.nome),
+                        leading: Icon(Icons.list_alt_outlined),
+                        trailing: Icon(Icons.arrow_drop_down_sharp),
+                        onTap: () {
+                          alertSelectPromocao(
+                              context, promocaoSelecionada);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Text("Configurações do sistema"),
+                          SwitchListTile(
+                            autofocus: true,
+                            title: Text("Produto Favorito? "),
+                            subtitle: Text("sim/não"),
+                            value: p.favorito = favorito,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                favorito = valor;
+                                print("resultado: " +
+                                    p.favorito.toString());
+                              });
                             },
-                            child: Container(
-                              padding: EdgeInsets.all(5),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    file != null
-                                        ? Image.file(
-                                            file,
-                                            fit: BoxFit.fitWidth,
-                                          )
-                                        : p.foto != null
-                                            ? CircleAvatar(
-                                                radius: 50,
-                                                backgroundImage: NetworkImage(
-                                                  ConstantApi
-                                                          .urlArquivoProduto +
-                                                      p.foto,
-                                                ),
-                                              )
-                                            : CircleAvatar(
-                                                radius: 50,
-                                                child: Icon(
-                                                  Icons.camera_alt_outlined,
-                                                ),
-                                              ),
-                                  ],
-                                ),
+                          ),
+                          SizedBox(height: 30),
+                          SwitchListTile(
+                            autofocus: true,
+                            title: Text("Produto novo? "),
+                            subtitle: Text("sim/não"),
+                            value: p.novo = novo,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                novo = valor;
+                                print(
+                                    "resultado: " + p.novo.toString());
+                              });
+                            },
+                          ),
+                          SizedBox(height: 30),
+                          SwitchListTile(
+                            subtitle: Text("sim/não"),
+                            title: Text("Produto Disponível?"),
+                            value: p.status = status,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                status = valor;
+                                print("resultado: " +
+                                    p.status.toString());
+                              });
+                            },
+                          ),
+                          SizedBox(height: 30),
+                          SwitchListTile(
+                            autofocus: true,
+                            subtitle: Text("sim/não"),
+                            title: Text("Produto destaque?"),
+                            value: p.destaque = destaque,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                destaque = valor;
+                                print("resultado: " +
+                                    p.destaque.toString());
+                              });
+                            },
+                          ),
+                          SizedBox(height: 30),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text("Unidade de medida"),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("UNIDADE"),
+                                value: "UNIDADE",
+                                groupValue: p.medida == null
+                                    ? medida
+                                    : p.medida,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.medida = valor;
+                                    print("resultado: " + p.medida);
+                                  });
+                                },
                               ),
-                            ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("PEÇA"),
+                                value: "PECA",
+                                groupValue: p.medida == null
+                                    ? medida
+                                    : p.medida,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.medida = valor;
+                                    print("resultado: " + p.medida);
+                                  });
+                                },
+                              ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("QUILOGRAMA"),
+                                value: "QUILOGRAMA",
+                                groupValue: p.medida == null
+                                    ? medida
+                                    : p.medida,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.medida = valor;
+                                    print("resultado: " + p.medida);
+                                  });
+                                },
+                              ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("OUTRO"),
+                                value: "OUTRO",
+                                groupValue: p.medida == null
+                                    ? medida
+                                    : p.medida,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.medida = valor;
+                                    print("resultado: " + p.medida);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment:
+                                CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text("Origem do produto"),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("NACIONAL"),
+                                value: "NACIONAL",
+                                groupValue: p.origem == null
+                                    ? origem
+                                    : p.origem,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.origem = valor;
+                                    print("resultado: " + p.origem);
+                                  });
+                                },
+                              ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("INTERNACIONAL"),
+                                value: "INTERNACIONAL",
+                                groupValue: p.origem == null
+                                    ? origem
+                                    : p.origem,
+                                secondary:
+                                    const Icon(Icons.check_outlined),
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.origem = valor;
+                                    print("resultado: " + p.origem);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RaisedButton(
+                                child: Icon(Icons.delete_forever),
+                                shape: new CircleBorder(),
+                                onPressed: isEnabledDelete
+                                    ? () => lojaController
+                                        .deleteFoto(p.foto)
+                                    : null,
+                              ),
+                              RaisedButton(
+                                child: Icon(Icons.photo),
+                                shape: new CircleBorder(),
+                                onPressed: () {
+                                  openBottomSheet(context);
+                                },
+                              ),
+                              RaisedButton(
+                                child: Icon(Icons.check),
+                                shape: new CircleBorder(),
+                                onPressed: isEnabledEnviar
+                                    ? () => onClickUpload()
+                                    : null,
+                              )
+                            ],
                           ),
                         ),
                       ],
@@ -895,54 +876,98 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 Card(
-                  child: RaisedButton.icon(
-                    label: Text("Enviar formuário"),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (controller.validate()) {
-                        if (p.id == null) {
-                          if (p.foto == null) {
-                            showToast("deve anexar uma foto!");
-                          } else {
-                            onClickUpload();
-                            p.estoque.quantidade = quantidade;
-                            p.estoque.valor = valor;
-                            p.desconto = desconto;
-
-                            p.loja = lojaSelecionada;
-                            p.subCategoria = subCategoriaSelecionada;
-                            p.marca = marcaSelecionada;
-                            p.promocao = promocaoSelecionada;
-                            produtoController.create(p);
-
-                            showToast("Cadastro  realizado com sucesso");
-                            Navigator.of(context).pop();
-                            buildPush(context);
-                          }
-                        } else {
-                          onClickUpload();
-                          p.loja = lojaSelecionada;
-                          p.subCategoria = subCategoriaSelecionada;
-                          p.marca = marcaSelecionada;
-                          p.promocao = promocaoSelecionada;
-                          produtoController.update(p.id, p);
-
-                          showToast("Cadastro  alterado com sucesso");
-                          Navigator.of(context).pop();
-                          buildPush(context);
-                        }
-                      }
+                  child: GestureDetector(
+                    onTap: () {
+                      openBottomSheet(context);
                     },
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            file != null
+                                ? Image.file(
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
+                                : p.foto != null
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi
+                                                  .urlArquivoProduto +
+                                              p.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
-            );
-          }
-        },
-      ),
+            ),
+          ),
+        ),
+
+        Card(
+          child: Container(
+            child: RaisedButton.icon(
+              label: Text("Enviar formulário"),
+              icon: Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (controller.validate()) {
+                  if (p.id == null) {
+                    if (p.foto == null) {
+                      showToast("deve anexar uma foto!");
+                    }
+                    Timer(Duration(seconds: 3), () {
+                      p.estoque.quantidade = quantidade;
+                      p.estoque.valor = valor;
+                      p.desconto = desconto;
+
+                      p.loja = lojaSelecionada;
+                      p.subCategoria = subCategoriaSelecionada;
+                      p.marca = marcaSelecionada;
+                      p.promocao = promocaoSelecionada;
+                      produtoController.create(p);
+
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    Timer(Duration(seconds: 3), () {
+                      p.loja = lojaSelecionada;
+                      p.subCategoria = subCategoriaSelecionada;
+                      p.marca = marcaSelecionada;
+                      p.promocao = promocaoSelecionada;
+                      produtoController.update(p.id, p);
+
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
+                }
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 

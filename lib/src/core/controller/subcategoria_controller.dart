@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/subcategoria_repository.dart';
@@ -8,10 +9,10 @@ class SubCategoriaController = SubCategoriaControllerBase
     with _$SubCategoriaController;
 
 abstract class SubCategoriaControllerBase with Store {
-  SubCategoriaRepository _subCategoriaRepository;
+  SubCategoriaRepository subCategoriaRepository;
 
   SubCategoriaControllerBase() {
-    _subCategoriaRepository = SubCategoriaRepository();
+    subCategoriaRepository = SubCategoriaRepository();
   }
 
   @observable
@@ -23,10 +24,16 @@ abstract class SubCategoriaControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<SubCategoria>> getAll() async {
     try {
-      subCategorias = await _subCategoriaRepository.getAll();
+      subCategorias = await subCategoriaRepository.getAll();
       return subCategorias;
     } catch (e) {
       error = e;
@@ -36,7 +43,7 @@ abstract class SubCategoriaControllerBase with Store {
   @action
   Future<List<SubCategoria>> getAllByCategoriaById(int id) async {
     try {
-      subCategorias = await _subCategoriaRepository.getAllByCategoriaById(id);
+      subCategorias = await subCategoriaRepository.getAllByCategoriaById(id);
       return subCategorias;
     } catch (e) {
       error = e;
@@ -46,29 +53,27 @@ abstract class SubCategoriaControllerBase with Store {
   @action
   Future<int> create(SubCategoria p) async {
     try {
-      subCategoria = await _subCategoriaRepository.create(p.toJson());
-      return subCategoria;
-    } catch (e) {
-      error = e;
+      subCategoria = await subCategoriaRepository.create(p.toJson());
+      if (subCategoria == null) {
+        mensagem = "sem dados";
+      } else {
+        return subCategoria;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, SubCategoria p) async {
     try {
-      subCategoria = await _subCategoriaRepository.update(id, p.toJson());
+      subCategoria = await subCategoriaRepository.update(id, p.toJson());
       return subCategoria;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
-  @action
-  Future<void> deleteFoto(String foto) async {
-    try {
-      await _subCategoriaRepository.deleteFoto(foto);
-    } catch (e) {
-      error = e;
-    }
-  }
 }

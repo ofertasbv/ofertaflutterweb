@@ -7,15 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/core/repository/subcategoria_repository.dart';
-import 'package:nosso/src/paginas/categoria/categoria_dialog.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class SubCategoriaCreatePage extends StatefulWidget {
@@ -32,6 +30,8 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
   SubCategoriaController subCategoriaController =
       GetIt.I.get<SubCategoriaController>();
   CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+
+  Dialogs dialogs = Dialogs();
 
   Future<List<Categoria>> categorias;
   List<DropdownMenuItem<Categoria>> dropDownItems = [];
@@ -68,8 +68,20 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
+      timeInSecForIos: 10,
       fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
     );
   }
 
@@ -84,69 +96,50 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (categoriaController.error != null) {
-            return Text("Não foi possível cadastrar subcategoria");
+          if (subCategoriaController.dioError == null) {
+            return buildListViewForm(context);
           } else {
-            return ListView(
+            print("Erro: ${subCategoriaController.mensagem}");
+            showToast("${subCategoriaController.mensagem}");
+            return buildListViewForm(context);
+          }
+        },
+      ),
+    );
+  }
+
+  ListView buildListViewForm(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(0),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(0),
-                  child: Form(
-                    key: controller.formKey,
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: s.nome,
-                                  onSaved: (value) => s.nome = value,
-                                  validator: (value) => value.isEmpty
-                                      ? "campo obrigatório"
-                                      : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Nome",
-                                    hintText: "nome subcategoria",
-                                    prefixIcon: Icon(Icons.edit),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                  maxLines: 1,
-                                ),
-                              ],
-                            ),
+                        TextFormField(
+                          initialValue: s.nome,
+                          onSaved: (value) => s.nome = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigatório" : null,
+                          decoration: InputDecoration(
+                            labelText: "Nome",
+                            hintText: "nome subcategoria",
+                            prefixIcon: Icon(Icons.edit),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                           ),
-                        ),
-                        SizedBox(height: 0),
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: ListTile(
-                                title: Text("Categoria *"),
-                                subtitle: categoriaSelecionada == null
-                                    ? Text("Selecione uma categoria")
-                                    : Text(categoriaSelecionada.nome),
-                                leading: Icon(Icons.list_alt_outlined),
-                                trailing: Icon(Icons.arrow_drop_down_sharp),
-                                onTap: () {
-                                  alertSelectCategorias(
-                                      context, categoriaSelecionada);
-                                },
-                              ),
-                            ),
-                          ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                          maxLines: 1,
                         ),
                       ],
                     ),
@@ -154,24 +147,64 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 ),
                 SizedBox(height: 0),
                 Card(
-                  child: RaisedButton.icon(
-                    label: Text("Enviar formulário"),
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.white,
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: ListTile(
+                        title: Text("Categoria *"),
+                        subtitle: categoriaSelecionada == null
+                            ? Text("Selecione uma categoria")
+                            : Text(categoriaSelecionada.nome),
+                        leading: Icon(Icons.list_alt_outlined),
+                        trailing: Icon(Icons.arrow_drop_down_sharp),
+                        onTap: () {
+                          alertSelectCategorias(context, categoriaSelecionada);
+                        },
+                      ),
                     ),
-                    onPressed: () {
-                      if (controller.validate()) {
-                        openAlertBox(context, s);
-                      }
-                    },
                   ),
                 ),
               ],
-            );
-          }
-        },
-      ),
+            ),
+          ),
+        ),
+        SizedBox(height: 0),
+        Card(
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (s.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    s.categoria = categoriaSelecionada;
+                    subCategoriaController.create(s);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    s.categoria = categoriaSelecionada;
+                    subCategoriaController.update(s.id, s);
+
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -181,106 +214,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       MaterialPageRoute(
         builder: (context) => SubcategoriaPage(),
       ),
-    );
-  }
-
-  openAlertBox(BuildContext context, SubCategoria c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "Detalhes de categoria",
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Icon(
-                          Icons.star_border,
-                          size: 30.0,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5),
-                Divider(
-                  color: Colors.grey,
-                  height: 4.0,
-                ),
-                Container(
-                  child: ListTile(
-                    title: Text("Nome"),
-                    subtitle: Text("${c.nome}"),
-                  ),
-                ),
-                SizedBox(height: 5),
-                InkWell(
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(32.0),
-                        bottomRight: Radius.circular(32.0),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FlatButton(
-                          color: Colors.blueGrey[900],
-                          child: const Text('CANCELAR'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        FlatButton(
-                          color: Colors.indigo[900],
-                          child: const Text('CONFIRMAR'),
-                          onPressed: () {
-                            if (c.id == null) {
-                              Timer(Duration(seconds: 3), () {
-                                s.categoria = categoriaSelecionada;
-                                subCategoriaController.create(s);
-                                showToast("Cadastro  realizado com sucesso");
-                                Navigator.of(context).pop();
-                                buildPush(context);
-                              });
-                            } else {
-                              Timer(Duration(seconds: 3), () {
-                                s.categoria = categoriaSelecionada;
-                                subCategoriaController.update(c.id, c);
-                                showToast("Cadastro  alterado com sucesso");
-                                Navigator.of(context).pop();
-                                buildPush(context);
-                              });
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

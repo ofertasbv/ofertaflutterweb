@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/pedido.dart';
 import 'package:nosso/src/core/repository/pedido_repository.dart';
 
@@ -7,10 +9,10 @@ part 'pedido_controller.g.dart';
 class PedidoController = PedidoControllerBase with _$PedidoController;
 
 abstract class PedidoControllerBase with Store {
-  PedidoRepository _pedidoRepository;
+  PedidoRepository pedidoRepository;
 
   PedidoControllerBase() {
-    _pedidoRepository = PedidoRepository();
+    pedidoRepository = PedidoRepository();
   }
 
   @observable
@@ -22,10 +24,16 @@ abstract class PedidoControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Pedido>> getAll() async {
     try {
-      pedidos = await _pedidoRepository.getAll();
+      pedidos = await pedidoRepository.getAll();
       return pedidos;
     } catch (e) {
       error = e;
@@ -35,20 +43,26 @@ abstract class PedidoControllerBase with Store {
   @action
   Future<int> create(Pedido p) async {
     try {
-      pedido = await _pedidoRepository.create(p.toJson());
-      return pedido;
-    } catch (e) {
-      error = e;
+      pedido = await pedidoRepository.create(p.toJson());
+      if (pedido == null) {
+        mensagem = "sem dados";
+      } else {
+        return pedido;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Pedido p) async {
     try {
-      pedido = await _pedidoRepository.update(id, p.toJson());
+      pedido = await pedidoRepository.update(id, p.toJson());
       return pedido;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 }

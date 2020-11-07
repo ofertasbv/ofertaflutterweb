@@ -38,12 +38,6 @@ class _PermissaoListState extends State<PermissaoList>
             return Text("Não foi possível buscar permissões");
           }
 
-          if (permissaoController.permissoes.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (permissoes == null) {
             return Center(
               child: CircularProgressor(),

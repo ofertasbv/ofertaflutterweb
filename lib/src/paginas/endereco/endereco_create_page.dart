@@ -15,6 +15,7 @@ import 'package:nosso/src/core/model/cidade.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/estado.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class EnderecoCreatePage extends StatefulWidget {
@@ -31,6 +32,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
   EstadoController estadoController = GetIt.I.get<EstadoController>();
   CidadeController cidadeController = GetIt.I.get<CidadeController>();
+
+  Dialogs dialogs = Dialogs();
 
   Endereco endereco;
   Estado estadoSelecionado;
@@ -71,7 +74,16 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     super.didChangeDependencies();
   }
 
-  showDefaultSnackbar(BuildContext context, String content) {
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 10,
+      fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(content),
@@ -80,38 +92,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           onPressed: () {},
         ),
       ),
-    );
-  }
-
-  showToast(String cardTitle) {
-    Fluttertoast.showToast(
-      msg: "$cardTitle",
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      fontSize: 16.0,
-    );
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Photos"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: Icon(Icons.camera),
-              title: Text("Camera"),
-              onTap: () {},
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -149,303 +129,304 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
       appBar: AppBar(
         title: Text("Cadastro endereços"),
       ),
-      body: buildObserver(),
+      body: Observer(
+        builder: (context) {
+          if (enderecoController.dioError == null) {
+            return buildListViewForm(context);
+          } else {
+            print("Erro: ${enderecoController.mensagem}");
+            showToast("${enderecoController.mensagem}");
+            return buildListViewForm(context);
+          }
+        },
+      ),
     );
   }
 
-  buildObserver() {
+  ListView buildListViewForm(BuildContext context) {
     String latitude = latitudeController.text;
     // endereco.latitude = double.tryParse(latitude);
 
     String longitude = longitudeController.text;
     // endereco.longitude = double.tryParse(longitude);
 
-    return Observer(
-      builder: (context) {
-        if (enderecoController.error != null) {
-          return Text("Não foi possível cadastrar endereço");
-        } else {
-          return ListView(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(0),
-                child: Form(
-                  key: controller.formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      // criaMapa(),
-                      Card(
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                SizedBox(height: 15),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("COMERCIAL"),
-                                      value: "COMERCIAL",
-                                      groupValue: endereco.tipoEndereco,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          endereco.tipoEndereco = valor;
-                                          print("resultado: " +
-                                              endereco.tipoEndereco);
-                                          showDefaultSnackbar(context,
-                                              "Endereço: ${endereco.tipoEndereco}");
-                                        });
-                                      },
-                                    ),
-                                    RadioListTile(
-                                      controlAffinity:
-                                          ListTileControlAffinity.trailing,
-                                      title: Text("RESIDENCIAL"),
-                                      value: "RESIDENCIAL",
-                                      groupValue: endereco.tipoEndereco,
-                                      onChanged: (String valor) {
-                                        setState(() {
-                                          endereco.tipoEndereco = valor;
-                                          print("resultado: " +
-                                              endereco.tipoEndereco);
-                                          showDefaultSnackbar(context,
-                                              "Endereço: ${endereco.tipoEndereco}");
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+    return ListView(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(0),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                // criaMapa(),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                      Card(
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 15),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              TextFormField(
-                                initialValue: endereco.logradouro,
-                                onSaved: (value) => endereco.logradouro = value,
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Logradouro",
-                                  hintText: "Logradouro",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.text,
-                                maxLength: 50,
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("COMERCIAL"),
+                                value: "COMERCIAL",
+                                groupValue: endereco.tipoEndereco,
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    endereco.tipoEndereco = valor;
+                                    print(
+                                        "resultado: " + endereco.tipoEndereco);
+                                    showSnackbar(context,
+                                        "Endereço: ${endereco.tipoEndereco}");
+                                  });
+                                },
                               ),
-                              TextFormField(
-                                initialValue: endereco.complemento,
-                                onSaved: (value) =>
-                                    endereco.complemento = value,
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Complemento",
-                                  hintText: "Complemento",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.text,
-                                maxLength: 50,
-                              ),
-                              TextFormField(
-                                initialValue: endereco.numero,
-                                onSaved: (value) => endereco.numero = value,
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Número",
-                                  hintText: "Número",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.number,
-                                maxLength: 10,
-                              ),
-                              TextFormField(
-                                initialValue: endereco.cep,
-                                onSaved: (value) => endereco.cep = value,
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Cep",
-                                  hintText: "Cep",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  MaskedTextInputFormatter(
-                                      mask: '99999-999', separator: '-')
-                                ],
-                                maxLength: 9,
-                              ),
-                              TextFormField(
-                                initialValue: endereco.bairro,
-                                onSaved: (value) => endereco.bairro = value,
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Bairro",
-                                  hintText: "Bairro",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.text,
-                                maxLength: 50,
-                              ),
-                              TextFormField(
-                                initialValue: endereco.latitude.toString(),
-                                onSaved: (value) =>
-                                    endereco.latitude = double.tryParse(value),
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Latitude",
-                                  hintText: "Latidute",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.numberWithOptions(),
-                                maxLength: 50,
-                              ),
-                              TextFormField(
-                                initialValue: endereco.longitude.toString(),
-                                onSaved: (value) =>
-                                    endereco.longitude = double.tryParse(value),
-                                validator: (value) =>
-                                    value.isEmpty ? "campo obrigário" : null,
-                                decoration: InputDecoration(
-                                  labelText: "Longitude",
-                                  hintText: "Longitude",
-                                  prefixIcon: Icon(Icons.location_on),
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 20.0, 20.0, 20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                keyboardType: TextInputType.numberWithOptions(),
-                                maxLength: 50,
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("RESIDENCIAL"),
+                                value: "RESIDENCIAL",
+                                groupValue: endereco.tipoEndereco,
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    endereco.tipoEndereco = valor;
+                                    print(
+                                        "resultado: " + endereco.tipoEndereco);
+                                    showSnackbar(context,
+                                        "Endereço: ${endereco.tipoEndereco}");
+                                  });
+                                },
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Card(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: ListTile(
-                      title: Text("Estado *"),
-                      subtitle: estadoSelecionado == null
-                          ? Text("Selecione uma estado")
-                          : Text(estadoSelecionado.nome),
-                      leading: Icon(Icons.list_alt_outlined),
-                      trailing: Icon(Icons.arrow_drop_down_sharp),
-                      onTap: () {
-                        alertSelectEstados(context, estadoSelecionado);
-                      },
                     ),
                   ),
                 ),
-              ),
-              Card(
-                child: Container(
-                  padding: EdgeInsets.all(5),
+                Card(
                   child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: ListTile(
-                      title: Text("Cidade *"),
-                      subtitle: cidadeSelecionada == null
-                          ? Text("Selecione uma cidade")
-                          : Text(cidadeSelecionada.nome),
-                      leading: Icon(Icons.list_alt_outlined),
-                      trailing: Icon(Icons.arrow_drop_down_sharp),
-                      onTap: () {
-                        alertSelectCidades(context, cidadeSelecionada);
-                      },
+                    width: double.infinity,
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        TextFormField(
+                          initialValue: endereco.logradouro,
+                          onSaved: (value) => endereco.logradouro = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Logradouro",
+                            hintText: "Logradouro",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.complemento,
+                          onSaved: (value) => endereco.complemento = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Complemento",
+                            hintText: "Complemento",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.numero,
+                          onSaved: (value) => endereco.numero = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Número",
+                            hintText: "Número",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.number,
+                          maxLength: 10,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.cep,
+                          onSaved: (value) => endereco.cep = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Cep",
+                            hintText: "Cep",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            MaskedTextInputFormatter(
+                                mask: '99999-999', separator: '-')
+                          ],
+                          maxLength: 9,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.bairro,
+                          onSaved: (value) => endereco.bairro = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Bairro",
+                            hintText: "Bairro",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.latitude.toString(),
+                          onSaved: (value) =>
+                              endereco.latitude = double.tryParse(value),
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Latitude",
+                            hintText: "Latidute",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.numberWithOptions(),
+                          maxLength: 50,
+                        ),
+                        TextFormField(
+                          initialValue: endereco.longitude.toString(),
+                          onSaved: (value) =>
+                              endereco.longitude = double.tryParse(value),
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Longitude",
+                            hintText: "Longitude",
+                            prefixIcon: Icon(Icons.location_on),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                          ),
+                          keyboardType: TextInputType.numberWithOptions(),
+                          maxLength: 50,
+                        ),
+                      ],
                     ),
                   ),
                 ),
+              ],
+            ),
+          ),
+        ),
+        Card(
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: ListTile(
+                title: Text("Estado *"),
+                subtitle: estadoSelecionado == null
+                    ? Text("Selecione uma estado")
+                    : Text(estadoSelecionado.nome),
+                leading: Icon(Icons.list_alt_outlined),
+                trailing: Icon(Icons.arrow_drop_down_sharp),
+                onTap: () {
+                  alertSelectEstados(context, estadoSelecionado);
+                },
               ),
-              Card(
-                child: RaisedButton.icon(
-                  label: Text("Enviar formulário"),
-                  icon: Icon(
-                    Icons.check,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    if (controller.validate()) {
-                      if (endereco.id == null) {
-                        Timer(Duration(seconds: 2), () {
-                          endereco.cidade = cidadeSelecionada;
-                          enderecoController.create(endereco);
-                          showToast("Cadastro  realizado com sucesso");
-                          Navigator.of(context).pop();
-                          buildPush(context);
-                        });
-                      } else {
-                        Timer(Duration(seconds: 2), () {
-                          endereco.cidade = cidadeSelecionada;
-                          enderecoController.update(endereco.id, endereco);
-                          showToast("Cadastro  alterado com sucesso");
-                          Navigator.of(context).pop();
-                          buildPush(context);
-                        });
-                      }
-                    }
-                  },
-                ),
+            ),
+          ),
+        ),
+        Card(
+          child: Container(
+            padding: EdgeInsets.all(5),
+            child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(5)),
+              child: ListTile(
+                title: Text("Cidade *"),
+                subtitle: cidadeSelecionada == null
+                    ? Text("Selecione uma cidade")
+                    : Text(cidadeSelecionada.nome),
+                leading: Icon(Icons.list_alt_outlined),
+                trailing: Icon(Icons.arrow_drop_down_sharp),
+                onTap: () {
+                  alertSelectCidades(context, cidadeSelecionada);
+                },
               ),
-            ],
-          );
-        }
-      },
+            ),
+          ),
+        ),
+        Card(
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (endereco.id == null) {
+                  Timer(Duration(seconds: 2), () {
+                    endereco.cidade = cidadeSelecionada;
+                    enderecoController.create(endereco);
+                    showToast("Cadastro  realizado com sucesso");
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  Timer(Duration(seconds: 2), () {
+                    endereco.cidade = cidadeSelecionada;
+                    enderecoController.update(endereco.id, endereco);
+                    showToast("Cadastro  alterado com sucesso");
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 

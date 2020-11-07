@@ -57,12 +57,6 @@ class _ProdutoListState extends State<ProdutoList>
             return Text("Não foi possível buscar produtos");
           }
 
-          if (produtoController.produtos.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (produtos == null) {
             return CircularProgressor();
           }

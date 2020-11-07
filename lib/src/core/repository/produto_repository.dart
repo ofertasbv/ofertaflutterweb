@@ -66,22 +66,13 @@ class ProdutoRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.post("/produtos/create", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
+    var response = await dio.client.post("/produtos/create", data: data);
+    return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.put("/produtos/update/$id", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      throw (e.message);
-    }
+    var response = await dio.client.put("/produtos/update/$id", data: data);
+    return response.statusCode;
   }
 
   Future<void> deleteFoto(String foto) async {
@@ -101,7 +92,8 @@ class ProdutoRepository {
     };
 
     FormData formData = FormData.fromMap(paramentros);
-    var response = await dio.client.post(ConstantApi.urlList + "/produtos/upload", data: formData);
+    var response = await dio.client
+        .post(ConstantApi.urlList + "/produtos/upload", data: formData);
 
     print("RESPONSE: ${response.data}");
     print("fileDir: ${file.path}");

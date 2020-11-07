@@ -41,12 +41,6 @@ class _SubCategoriaListState extends State<SubCategoriaList>
           return Text("Não foi possível carregados dados");
         }
 
-        if (subCategoriaController.subCategorias.length == 0) {
-          return Center(
-            child: Text("sem registros"),
-          );
-        }
-
         if (categorias == null) {
           return CircularProgressor();
         }

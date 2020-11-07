@@ -47,12 +47,6 @@ class _TamanhoListState extends State<TamanhoList>
             return Text("Não foi possível carregados dados");
           }
 
-          if (tamanhoController.tamanhos.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (tamanhos == null) {
             return CircularProgressor();
           }

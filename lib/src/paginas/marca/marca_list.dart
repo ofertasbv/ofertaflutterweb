@@ -46,12 +46,6 @@ class _MarcaListState extends State<MarcaList>
             return Text("Não foi possível carregados dados");
           }
 
-          if (marcaController.marcas.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (marcas == null) {
             return CircularProgressor();
           }

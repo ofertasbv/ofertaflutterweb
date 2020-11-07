@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/repository/marca_repository.dart';
@@ -7,10 +8,10 @@ part 'marca_controller.g.dart';
 class MarcaController = MarcaControllerBase with _$MarcaController;
 
 abstract class MarcaControllerBase with Store {
-  MarcaRepository _marcaRepository;
+  MarcaRepository marcaRepository;
 
   MarcaControllerBase() {
-    _marcaRepository = MarcaRepository();
+    marcaRepository = MarcaRepository();
   }
 
   @observable
@@ -22,10 +23,16 @@ abstract class MarcaControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Marca>> getAll() async {
     try {
-      marcas = await _marcaRepository.getAll();
+      marcas = await marcaRepository.getAll();
       return marcas;
     } catch (e) {
       error = e;
@@ -35,20 +42,26 @@ abstract class MarcaControllerBase with Store {
   @action
   Future<int> create(Marca p) async {
     try {
-      marca = await _marcaRepository.create(p.toJson());
-      return marca;
-    } catch (e) {
-      error = e;
+      marca = await marcaRepository.create(p.toJson());
+      if (marca == null) {
+        mensagem = "sem dados";
+      } else {
+        return marca;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Marca p) async {
     try {
-      marca = await _marcaRepository.update(id, p.toJson());
+      marca = await marcaRepository.update(id, p.toJson());
       return marca;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 }

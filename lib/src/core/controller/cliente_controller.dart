@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/repository/cliente_repository.dart';
 
@@ -10,10 +11,10 @@ part 'cliente_controller.g.dart';
 class ClienteController = ClienteControllerBase with _$ClienteController;
 
 abstract class ClienteControllerBase with Store {
-  ClienteRepository _clienteRepository;
+  ClienteRepository clienteRepository;
 
   ClienteControllerBase() {
-    _clienteRepository = ClienteRepository();
+    clienteRepository = ClienteRepository();
   }
 
   @observable
@@ -21,9 +22,6 @@ abstract class ClienteControllerBase with Store {
 
   @observable
   int cliente;
-
-  @observable
-  Exception error;
 
   @observable
   FormData formData;
@@ -36,10 +34,19 @@ abstract class ClienteControllerBase with Store {
     senhaVisivel = !senhaVisivel;
   }
 
+  @observable
+  Exception error;
+
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Cliente>> getAll() async {
     try {
-      clientes = await _clienteRepository.getAll();
+      clientes = await clienteRepository.getAll();
       return clientes;
     } catch (e) {
       error = e;
@@ -49,27 +56,33 @@ abstract class ClienteControllerBase with Store {
   @action
   Future<int> create(Cliente p) async {
     try {
-      cliente = await _clienteRepository.create(p.toJson());
-      return cliente;
-    } catch (e) {
-      error = e;
+      cliente = await clienteRepository.create(p.toJson());
+      if (cliente == null) {
+        mensagem = "sem dados";
+      } else {
+        return cliente;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Cliente p) async {
     try {
-      cliente = await _clienteRepository.update(id, p.toJson());
+      cliente = await clienteRepository.update(id, p.toJson());
       return cliente;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<FormData> upload(File foto, String fileName) async {
     try {
-      formData = await _clienteRepository.upload(foto, fileName);
+      formData = await clienteRepository.upload(foto, fileName);
       return formData;
     } catch (e) {
       error = e;
@@ -79,7 +92,7 @@ abstract class ClienteControllerBase with Store {
   @action
   Future<void> deleteFoto(String foto) async {
     try {
-      await _clienteRepository.deleteFoto(foto);
+      await clienteRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

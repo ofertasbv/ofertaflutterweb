@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/core/repository/pedidoItem_repository.dart';
@@ -23,6 +24,12 @@ abstract class PedidoItemControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<PedidoItem>> getAll() async {
     try {
@@ -37,9 +44,14 @@ abstract class PedidoItemControllerBase with Store {
   Future<int> create(PedidoItem p) async {
     try {
       pedidoitem = await _pedidoItemRepository.create(p.toJson());
-      return pedidoitem;
-    } catch (e) {
-      error = e;
+      if (pedidoitem == null) {
+        mensagem = "sem dados";
+      } else {
+        return pedidoitem;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
@@ -48,8 +60,9 @@ abstract class PedidoItemControllerBase with Store {
     try {
       pedidoitem = await _pedidoItemRepository.update(id, p.toJson());
       return pedidoitem;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 }

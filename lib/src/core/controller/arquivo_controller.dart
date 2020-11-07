@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/repository/arquivo_repository.dart';
 
@@ -13,10 +12,7 @@ class ArquivoController = ArquivoControllerBase with _$ArquivoController;
 abstract class ArquivoControllerBase with Store {
   ArquivoRepository arquivoRepository;
 
-  CustonDio custonDio;
-
   ArquivoControllerBase() {
-    custonDio = CustonDio();
     arquivoRepository = ArquivoRepository();
   }
 
@@ -35,6 +31,9 @@ abstract class ArquivoControllerBase with Store {
   @observable
   DioError dioError;
 
+  @observable
+  String mensagem;
+
   @action
   Future<List<Arquivo>> getAll() async {
     try {
@@ -50,7 +49,7 @@ abstract class ArquivoControllerBase with Store {
     try {
       arquivo = await arquivoRepository.create(p.toJson());
       if (arquivo == null) {
-        mensagem = "sem dados - null";
+        mensagem = "sem dados";
       } else {
         return arquivo;
       }
@@ -65,8 +64,9 @@ abstract class ArquivoControllerBase with Store {
     try {
       arquivo = await arquivoRepository.update(id, p.toJson());
       return arquivo;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
@@ -86,18 +86,6 @@ abstract class ArquivoControllerBase with Store {
       await arquivoRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
-    }
-  }
-
-  @observable
-  String mensagem;
-
-  @action
-  teste() {
-    try {
-      mensagem = "olá mobx em flutter - acerto";
-    } catch (e) {
-      mensagem = "olá mobx em flutter - error";
     }
   }
 }

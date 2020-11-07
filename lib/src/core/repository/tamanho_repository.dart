@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
@@ -29,21 +28,12 @@ class TamanhoRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.post("/tamanhos/create", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
+    var response = await dio.client.post("/tamanhos/create", data: data);
+    return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.put("/tamanhos/update/$id", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      throw (e.message);
-    }
+    var response = await dio.client.put("/tamanhos/update/$id", data: data);
+    return response.statusCode;
   }
 }

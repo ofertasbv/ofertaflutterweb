@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/model/permissao.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class PermissaoCreatePage extends StatefulWidget {
   Permissao permissao;
@@ -20,6 +22,8 @@ class PermissaoCreatePage extends StatefulWidget {
 
 class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
   PermissaoController permissaoController = GetIt.I.get<PermissaoController>();
+
+  Dialogs dialogs = Dialogs();
 
   Permissao p;
   File file;
@@ -47,7 +51,16 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     super.didChangeDependencies();
   }
 
-  showDefaultSnackbar(BuildContext context, String content) {
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 10,
+      fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(content),
@@ -68,9 +81,11 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (permissaoController.error != null) {
-            return Text("Não foi possível cadastrar permissao");
+          if (permissaoController.dioError == null) {
+            return buildListViewForm(context);
           } else {
+            print("Erro: ${permissaoController.mensagem}");
+            showToast("${permissaoController.mensagem}");
             return buildListViewForm(context);
           }
         },
@@ -130,18 +145,20 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    permissaoController.create(p);
-                    showDefaultSnackbar(
-                        context, "Cadastro realizado com sucesso");
+                    permissaoController.create(p).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
                     Navigator.of(context).pop();
                     buildPush(context);
                   });
                 } else {
-                  Timer(Duration(seconds: 3), () {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
                     permissaoController.update(p.id, p);
-                    showDefaultSnackbar(
-                        context, "Cadastro alterado com sucesso");
                     Navigator.of(context).pop();
                     buildPush(context);
                   });

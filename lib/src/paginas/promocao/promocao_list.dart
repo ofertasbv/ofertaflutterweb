@@ -56,12 +56,6 @@ class _PromocaoListState extends State<PromocaoList>
             return Text("Não foi possível carregados dados");
           }
 
-          if (promocaoController.promocoes.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (promocoes == null) {
             return CircularProgressor();
           }

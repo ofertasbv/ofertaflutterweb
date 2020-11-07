@@ -47,12 +47,6 @@ class _LojaListState extends State<LojaList>
             return Text("Não foi possível carregados dados");
           }
 
-          if (lojaController.lojas.length == 0) {
-            return Center(
-              child: Text("sem registros"),
-            );
-          }
-
           if (lojas == null) {
             return CircularProgressor();
           }

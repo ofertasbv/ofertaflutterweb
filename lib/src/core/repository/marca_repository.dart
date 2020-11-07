@@ -31,21 +31,12 @@ class MarcaRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.post("/marcas/create", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
+    var response = await dio.client.post("/marcas/create", data: data);
+    return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.put("/marcas/update/$id", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      throw (e.message);
-    }
+    var response = await dio.client.put("/marcas/update/$id", data: data);
+    return response.statusCode;
   }
 }

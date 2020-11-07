@@ -31,22 +31,16 @@ class ClienteRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    try {
+
       var response = await dio.client.post("/clientes/create", data: data);
       return response.statusCode;
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    try {
+
       var response = await dio.client.put("/clientes/update/$id", data: data);
       return response.statusCode;
-    } on DioError catch (e) {
-      throw (e.message);
-    }
+
   }
 
   Future<void> deleteFoto(String foto) async {

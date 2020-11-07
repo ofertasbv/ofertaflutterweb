@@ -12,6 +12,7 @@ import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class TamanhoCreatePage extends StatefulWidget {
   Tamanho tamanho;
@@ -24,6 +25,8 @@ class TamanhoCreatePage extends StatefulWidget {
 
 class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
   TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
+
+  Dialogs dialogs = Dialogs();
 
   Tamanho c;
   File file;
@@ -56,8 +59,20 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
+      timeInSecForIos: 10,
       fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
     );
   }
 
@@ -69,87 +84,94 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
       ),
       body: Observer(
         builder: (context) {
-          if (tamanhoController.error != null) {
-            return Text("Não foi possível cadastrar tamanho");
+          if (tamanhoController.dioError == null) {
+            return buildListViewForm(context);
           } else {
-            return ListView(
+            print("Erro: ${tamanhoController.mensagem}");
+            showToast("${tamanhoController.mensagem}");
+            return buildListViewForm(context);
+          }
+        },
+      ),
+    );
+  }
+
+  ListView buildListViewForm(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(0),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(0),
-                  child: Form(
-                    key: controller.formKey,
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Card(
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              children: <Widget>[
-                                TextFormField(
-                                  initialValue: c.descricao,
-                                  onSaved: (value) => c.descricao = value,
-                                  validator: (value) =>
-                                      value.isEmpty ? "campo obrigário" : null,
-                                  decoration: InputDecoration(
-                                    labelText: "Descrição",
-                                    hintText: "descrição do tamanho",
-                                    prefixIcon: Icon(Icons.edit),
-                                    suffixIcon: Icon(Icons.close),
-                                    contentPadding: EdgeInsets.fromLTRB(
-                                        20.0, 20.0, 20.0, 20.0),
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  maxLength: 50,
-                                  maxLines: 1,
-                                ),
-                                SizedBox(height: 10),
-                              ],
-                            ),
+                        TextFormField(
+                          initialValue: c.descricao,
+                          onSaved: (value) => c.descricao = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                            labelText: "Descrição",
+                            hintText: "descrição do tamanho",
+                            prefixIcon: Icon(Icons.edit),
+                            suffixIcon: Icon(Icons.close),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                           ),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                          maxLines: 1,
                         ),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    child: RaisedButton.icon(
-                      label: Text("Enviar formulário"),
-                      icon: Icon(
-                        Icons.check,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        if (controller.validate()) {
-                          if (c.id == null) {
-                            Timer(Duration(seconds: 3), () {
-                              tamanhoController.create(c);
-                              showToast("Cadastro  realizado com sucesso");
-                              Navigator.of(context).pop();
-                              buildPush(context);
-                            });
-                          } else {
-                            Timer(Duration(seconds: 3), () {
-                              tamanhoController.update(c.id, c);
-                              showToast("Cadastro  alterado com sucesso");
-                              Navigator.of(context).pop();
-                              buildPush(context);
-                            });
-                          }
-                        }
-                      },
-                    ),
-                  ),
-                ),
               ],
-            );
-          }
-        },
-      ),
+            ),
+          ),
+        ),
+        Card(
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (c.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    tamanhoController.create(c).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    tamanhoController.update(c.id, c);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 

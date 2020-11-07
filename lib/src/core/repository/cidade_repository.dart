@@ -42,22 +42,13 @@ class CidadeRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.post("/cidades/create", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      print(e.message);
-    }
-    return null;
+    var response = await dio.client.post("/cidades/create", data: data);
+    return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    try {
-      var response = await dio.client.put("/cidades/update/$id", data: data);
-      return response.statusCode;
-    } on DioError catch (e) {
-      throw (e.message);
-    }
+    var response = await dio.client.put("/cidades/update/$id", data: data);
+    return response.statusCode;
   }
 
   static Future<FormData> upload(File file, String fileName) async {

@@ -12,10 +12,10 @@ part 'loja_controller.g.dart';
 class LojaController = LojaControllerBase with _$LojaController;
 
 abstract class LojaControllerBase with Store {
-  LojaRepository _lojaRepository;
+  LojaRepository lojaRepository;
 
   LojaControllerBase() {
-    _lojaRepository = LojaRepository();
+    lojaRepository = LojaRepository();
   }
 
   @observable
@@ -28,9 +28,6 @@ abstract class LojaControllerBase with Store {
   int loja;
 
   @observable
-  Exception error;
-
-  @observable
   FormData formData;
 
   @observable
@@ -41,10 +38,19 @@ abstract class LojaControllerBase with Store {
     senhaVisivel = !senhaVisivel;
   }
 
+  @observable
+  Exception error;
+
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Loja>> getAll() async {
     try {
-      lojas = await _lojaRepository.getAll();
+      lojas = await lojaRepository.getAll();
       return lojas;
     } catch (e) {
       error = e;
@@ -54,27 +60,33 @@ abstract class LojaControllerBase with Store {
   @action
   Future<int> create(Loja p) async {
     try {
-      loja = await _lojaRepository.create(p.toJson());
-      return loja;
-    } catch (e) {
-      error = e;
+      loja = await lojaRepository.create(p.toJson());
+      if (loja == null) {
+        mensagem = "sem dados";
+      } else {
+        return loja;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Loja p) async {
     try {
-      loja = await _lojaRepository.update(id, p.toJson());
+      loja = await lojaRepository.update(id, p.toJson());
       return loja;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<FormData> upload(File foto, String fileName) async {
     try {
-      formData = await _lojaRepository.upload(foto, fileName);
+      formData = await lojaRepository.upload(foto, fileName);
       return formData;
     } catch (e) {
       error = e;
@@ -84,7 +96,7 @@ abstract class LojaControllerBase with Store {
   @action
   Future<void> deleteFoto(String foto) async {
     try {
-      await _lojaRepository.deleteFoto(foto);
+      await lojaRepository.deleteFoto(foto);
     } catch (e) {
       error = e;
     }

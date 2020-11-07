@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/repository/cor_repository.dart';
 
@@ -7,10 +9,10 @@ part 'cor_controller.g.dart';
 class CorController = CorControllerBase with _$CorController;
 
 abstract class CorControllerBase with Store {
-  CorRepository _corRepository;
+  CorRepository corRepository;
 
   CorControllerBase() {
-    _corRepository = CorRepository();
+    corRepository = CorRepository();
   }
 
   @observable
@@ -22,10 +24,16 @@ abstract class CorControllerBase with Store {
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Cor>> getAll() async {
     try {
-      cores = await _corRepository.getAll();
+      cores = await corRepository.getAll();
       return cores;
     } catch (e) {
       error = e;
@@ -35,20 +43,26 @@ abstract class CorControllerBase with Store {
   @action
   Future<int> create(Cor p) async {
     try {
-      cor = await _corRepository.create(p.toJson());
-      return cor;
-    } catch (e) {
-      error = e;
+      cor = await corRepository.create(p.toJson());
+      if (cor == null) {
+        mensagem = "sem dados";
+      } else {
+        return cor;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Cor p) async {
     try {
-      cor = await _corRepository.update(id, p.toJson());
+      cor = await corRepository.update(id, p.toJson());
       return cor;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 }

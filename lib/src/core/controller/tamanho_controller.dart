@@ -1,4 +1,5 @@
 
+import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/repository/tamanho_repository.dart';
@@ -8,10 +9,10 @@ part 'tamanho_controller.g.dart';
 class TamanhoController = TamanhoControllerBase with _$TamanhoController;
 abstract class TamanhoControllerBase with Store{
 
-  TamanhoRepository _tamanhoRepository;
+  TamanhoRepository tamanhoRepository;
 
   TamanhoControllerBase() {
-    _tamanhoRepository = TamanhoRepository();
+    tamanhoRepository = TamanhoRepository();
   }
 
   @observable
@@ -23,10 +24,16 @@ abstract class TamanhoControllerBase with Store{
   @observable
   Exception error;
 
+  @observable
+  DioError dioError;
+
+  @observable
+  String mensagem;
+
   @action
   Future<List<Tamanho>> getAll() async {
     try {
-      tamanhos = await _tamanhoRepository.getAll();
+      tamanhos = await tamanhoRepository.getAll();
       return tamanhos;
     } catch (e) {
       error = e;
@@ -36,21 +43,26 @@ abstract class TamanhoControllerBase with Store{
   @action
   Future<int> create(Tamanho p) async {
     try {
-      tamanho = await _tamanhoRepository.create(p.toJson());
-      return tamanho;
-    } catch (e) {
-      error = e;
+      tamanho = await tamanhoRepository.create(p.toJson());
+      if (tamanho == null) {
+        mensagem = "sem dados";
+      } else {
+        return tamanho;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
 
   @action
   Future<int> update(int id, Tamanho p) async {
     try {
-      tamanho = await _tamanhoRepository.update(id, p.toJson());
+      tamanho = await tamanhoRepository.update(id, p.toJson());
       return tamanho;
-    } catch (e) {
-      error = e;
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
     }
   }
-
 }
