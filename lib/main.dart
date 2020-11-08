@@ -143,6 +143,7 @@ class MyApp extends StatelessWidget {
       ),
 
       inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.black),
         prefixStyle: TextStyle(color: Colors.lime[900]),
         hintStyle: TextStyle(color: Colors.indigo[900]),
         fillColor: Colors.grey[100],
@@ -165,6 +166,7 @@ class MyApp extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.0),
         ),
         errorStyle: TextStyle(color: Colors.red),
+
       ),
 
       hintColor: Colors.lime[900],
@@ -195,4 +197,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

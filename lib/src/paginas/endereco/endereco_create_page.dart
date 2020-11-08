@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
@@ -45,6 +46,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   File file;
   bool isButtonDesable = false;
 
+  String tipoEndereco;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   _EnderecoCreatePageState({this.endereco});
@@ -52,6 +55,15 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   var controllerNome = TextEditingController();
   var latitudeController = TextEditingController();
   var longitudeController = TextEditingController();
+
+  var controllerDestino = TextEditingController();
+  var controllerLogradouro = TextEditingController();
+  var controllerNumero = TextEditingController();
+  var controllerBairro = TextEditingController();
+  var controllerCidade = TextEditingController();
+  var controllerCep = TextEditingController();
+  var controllerLatitude = TextEditingController();
+  var controllerLongitude = TextEditingController();
 
   @override
   void initState() {
@@ -62,6 +74,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
       endereco = Endereco();
     }
 
+    tipoEndereco = "COMERCIAL";
     cidadeSelecionada = endereco.cidade;
     super.initState();
   }
@@ -122,6 +135,76 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     );
   }
 
+  chamarEndereco() async {
+    String enderecoDestino = controllerDestino.text;
+
+    if (enderecoDestino.isNotEmpty) {
+      List<Placemark> listaEnderecos =
+          await Geolocator().placemarkFromAddress(enderecoDestino);
+
+      if (listaEnderecos != null && listaEnderecos.length > 0) {
+        Placemark e = listaEnderecos[0];
+        endereco = Endereco();
+        // cidadeSelecionada.nome = e.subAdministrativeArea;
+        endereco.cep = e.postalCode;
+        endereco.bairro = e.subLocality;
+        endereco.logradouro = e.thoroughfare;
+        endereco.numero = e.subThoroughfare;
+
+        endereco.latitude = e.position.latitude;
+        endereco.longitude = e.position.longitude;
+
+        String enderecoConfirmacao;
+        // enderecoConfirmacao = "\n Cidade: " + cidadeSelecionada.nome;
+        enderecoConfirmacao =
+            "\n Rua: " + endereco.logradouro + ", " + endereco.numero;
+        enderecoConfirmacao += "\n Bairro: " + endereco.bairro;
+        enderecoConfirmacao += "\n Cep: " + endereco.cep;
+        enderecoConfirmacao += "\n Latitude: " + endereco.latitude.toString();
+        enderecoConfirmacao += "\n Longitude: " + endereco.longitude.toString();
+
+        showDialog(
+          context: context,
+          builder: (contex) {
+            return AlertDialog(
+              title: Text("Confirmação do endereço"),
+              content: Text(enderecoConfirmacao),
+              contentPadding: EdgeInsets.all(16),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(
+                    "Cancelar",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  onPressed: () {
+                    Navigator.of(contex).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text(
+                    "Confirmar",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  onPressed: () {
+                    controllerLogradouro.text = endereco.logradouro;
+                    controllerNumero.text = endereco.numero;
+                    controllerBairro.text = endereco.bairro;
+                    // controllerCidade.text = cidadeSelecionada.nome;
+                    controllerCep.text = endereco.cep;
+                    controllerLatitude.text = endereco.latitude.toString();
+                    controllerLongitude.text = endereco.longitude.toString();
+                    //p.enderecos.add(e);
+                    Navigator.of(contex).pop();
+                  },
+                )
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,13 +226,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     );
   }
 
-  ListView buildListViewForm(BuildContext context) {
-    String latitude = latitudeController.text;
-    // endereco.latitude = double.tryParse(latitude);
-
-    String longitude = longitudeController.text;
-    // endereco.longitude = double.tryParse(longitude);
-
+  buildListViewForm(BuildContext context) {
     return ListView(
       children: <Widget>[
         Container(
@@ -180,7 +257,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("COMERCIAL"),
                                 value: "COMERCIAL",
-                                groupValue: endereco.tipoEndereco,
+                                groupValue: endereco.tipoEndereco == null
+                                    ? tipoEndereco
+                                    : endereco.tipoEndereco,
                                 onChanged: (String valor) {
                                   setState(() {
                                     endereco.tipoEndereco = valor;
@@ -196,7 +275,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("RESIDENCIAL"),
                                 value: "RESIDENCIAL",
-                                groupValue: endereco.tipoEndereco,
+                                groupValue: endereco.tipoEndereco == null
+                                    ? tipoEndereco
+                                    : endereco.tipoEndereco,
                                 onChanged: (String valor) {
                                   setState(() {
                                     endereco.tipoEndereco = valor;
@@ -214,6 +295,46 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                     ),
                   ),
                 ),
+
+                Card(
+                  child: Container(
+                    color: Colors.grey[200],
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Pesquisa endereço",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        TextFormField(
+                          controller: controllerDestino,
+                          onSaved: (value) => endereco.logradouro = value,
+                          validator: (value) =>
+                              value.isEmpty ? "campo obrigário" : null,
+                          decoration: InputDecoration(
+                              labelText: "Pesquisa endereço",
+                              hintText: "Rua/Avenida, número",
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              labelStyle: TextStyle(color: Colors.black)),
+                          keyboardType: TextInputType.text,
+                          maxLength: 50,
+                        ),
+                        RaisedButton.icon(
+                          icon: Icon(Icons.search),
+                          label: Text("Pesquisar"),
+                          onPressed: () {
+                            chamarEndereco();
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 Card(
                   child: Container(
                     width: double.infinity,
@@ -222,6 +343,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
+                          controller: controllerDestino,
                           initialValue: endereco.logradouro,
                           onSaved: (value) => endereco.logradouro = value,
                           validator: (value) =>
@@ -229,16 +351,21 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Logradouro",
                             hintText: "Logradouro",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,
                         ),
                         TextFormField(
+                          controller: controllerLogradouro,
                           initialValue: endereco.complemento,
                           onSaved: (value) => endereco.complemento = value,
                           validator: (value) =>
@@ -246,7 +373,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Complemento",
                             hintText: "Complemento",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
@@ -256,6 +386,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           maxLength: 50,
                         ),
                         TextFormField(
+                          controller: controllerNumero,
                           initialValue: endereco.numero,
                           onSaved: (value) => endereco.numero = value,
                           validator: (value) =>
@@ -263,7 +394,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Número",
                             hintText: "Número",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
@@ -273,6 +407,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           maxLength: 10,
                         ),
                         TextFormField(
+                          controller: controllerCep,
                           initialValue: endereco.cep,
                           onSaved: (value) => endereco.cep = value,
                           validator: (value) =>
@@ -280,7 +415,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Cep",
                             hintText: "Cep",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
@@ -294,6 +432,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           maxLength: 9,
                         ),
                         TextFormField(
+                          controller: controllerBairro,
                           initialValue: endereco.bairro,
                           onSaved: (value) => endereco.bairro = value,
                           validator: (value) =>
@@ -301,7 +440,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Bairro",
                             hintText: "Bairro",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
@@ -311,7 +453,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           maxLength: 50,
                         ),
                         TextFormField(
-                          initialValue: endereco.latitude.toString(),
+                          controller: controllerLatitude,
                           onSaved: (value) =>
                               endereco.latitude = double.tryParse(value),
                           validator: (value) =>
@@ -319,7 +461,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Latitude",
                             hintText: "Latidute",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
@@ -329,7 +474,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           maxLength: 50,
                         ),
                         TextFormField(
-                          initialValue: endereco.longitude.toString(),
+                          controller: controllerLongitude,
                           onSaved: (value) =>
                               endereco.longitude = double.tryParse(value),
                           validator: (value) =>
@@ -337,7 +482,10 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Longitude",
                             hintText: "Longitude",
-                            prefixIcon: Icon(Icons.location_on),
+                            prefixIcon: Icon(
+                              Icons.location_on,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
