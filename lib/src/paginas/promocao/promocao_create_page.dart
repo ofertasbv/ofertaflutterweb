@@ -529,38 +529,38 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
         ),
         SizedBox(height: 0),
         Card(
-          child: Container(
-            child: RaisedButton.icon(
-              label: Text("Enviar formulário"),
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                if (controller.validate()) {
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.foto == null) {
+                  openBottomSheet(context);
+                } else {
                   if (p.id == null) {
-                    if (p.foto == null) {
-                      showToast("deve anexar uma foto!");
-                    }
+                    dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
                       p.loja = lojaSelecionada;
                       promocaoController.create(p);
-
                       Navigator.of(context).pop();
                       buildPush(context);
                     });
                   } else {
-                    Timer(Duration(seconds: 3), () {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 1), () {
                       p.loja = lojaSelecionada;
                       promocaoController.update(p.id, p);
-
                       Navigator.of(context).pop();
                       buildPush(context);
                     });
                   }
                 }
-              },
-            ),
+              }
+            },
           ),
         ),
       ],

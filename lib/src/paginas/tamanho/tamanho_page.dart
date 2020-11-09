@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/paginas/marca/marca_create_page.dart';
+import 'package:nosso/src/paginas/tamanho/tamanho_create_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_list.dart';
 
 class TamanhoPage extends StatelessWidget {
@@ -54,7 +55,7 @@ class TamanhoPage extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return MarcaCreatePage();
+                    return TamanhoCreatePage();
                   },
                 ),
               );

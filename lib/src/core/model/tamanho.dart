@@ -2,21 +2,21 @@
 class Tamanho {
   int id;
   String descricao;
-  String numeracao;
+  bool status;
 
-  Tamanho({this.id, this.descricao, this.numeracao});
+  Tamanho({this.id, this.descricao});
 
   Tamanho.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     descricao = json['descricao'];
-    numeracao = json['numeracao'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['descricao'] = this.descricao;
-    data['numeracao'] = this.numeracao;
+    data['status'] = this.status;
     return data;
   }
 }

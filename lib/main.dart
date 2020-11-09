@@ -6,6 +6,7 @@ import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
+import 'package:nosso/src/core/controller/cor_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/estado_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
@@ -19,6 +20,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/services.dart';
+import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/home/home.dart';
 
 void main() async {
@@ -38,6 +40,8 @@ void main() async {
   getIt.registerSingleton<MarcaController>(MarcaController());
   getIt.registerSingleton<EstadoController>(EstadoController());
   getIt.registerSingleton<CidadeController>(CidadeController());
+  getIt.registerSingleton<TamanhoController>(TamanhoController());
+  getIt.registerSingleton<CorController>(CorController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -120,8 +124,8 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0,
-        color: Colors.grey[200],
+        elevation: 0.2,
+        color: Colors.white,
         margin: EdgeInsets.all(6),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(2),
@@ -153,7 +157,6 @@ class MyApp extends StatelessWidget {
         hoverColor: Colors.purple,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
-
       ),
 
       hintColor: Colors.lime[900],
@@ -167,7 +170,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.lime[900],
       ),
 
-      scaffoldBackgroundColor: Colors.grey[200],
+      scaffoldBackgroundColor: Colors.grey[100],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,

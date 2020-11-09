@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
+import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
@@ -12,6 +14,7 @@ import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
+import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -66,335 +69,417 @@ class _ConfigPageState extends State<ConfigPage> {
   GridView buildGridView(BuildContext context) {
     return GridView.count(
       padding: EdgeInsets.only(top: 2),
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
+      crossAxisSpacing: 2,
+      mainAxisSpacing: 2,
       crossAxisCount: 3,
 
       //childAspectRatio: MediaQuery.of(context).size.aspectRatio * 1.9,
       scrollDirection: Axis.vertical,
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ProdutoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return ProdutoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.shopping_basket_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.shopping_basket_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Center(
-                child: Text("Produto"),
-              ),
-            ],
+                Center(
+                  child: Text("Produto"),
+                ),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return CategoriaPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return CategoriaPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.list_alt_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.list_alt_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "Categoria",
-              ),
-            ],
+                Text(
+                  "Categoria",
+                ),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return SubcategoriaPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SubcategoriaPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.list_alt_sharp,
-                  size: 40,
+              );
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.list_alt_sharp,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "SubCategoria",
-              ),
-            ],
+                Text(
+                  "SubCategoria",
+                ),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return PromocaoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return PromocaoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.add_alert_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.add_alert_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "Oferta",
-              ),
-            ],
+                Text(
+                  "Oferta",
+                ),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LojaPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return LojaPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "Loja",
-              ),
-            ],
+                Text(
+                  "Loja",
+                ),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ClientePage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return ClientePage();
+                  },
                 ),
-                child: Icon(
-                  Icons.people_alt_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.people_alt_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Cliente"),
-            ],
+                Text("Cliente"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return PermissaoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return PermissaoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.account_circle_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Usuário"),
-            ],
+                Text("Usuário"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return PermissaoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return PermissaoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.account_tree_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.account_tree_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Permissão"),
-            ],
+                Text("Permissão"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ArquivoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return ArquivoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.photo_album_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.photo_album_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Arquivo"),
-            ],
+                Text("Arquivo"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return MarcaPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return MarcaPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Marca"),
-            ],
+                Text("Marca"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LojaLocation();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return LojaLocation();
+                  },
                 ),
-                child: Icon(
-                  Icons.map_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.map_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Mapas"),
-            ],
+                Text("Mapas"),
+              ],
+            ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return EnderecoPage();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return EnderecoPage();
+                  },
                 ),
-                child: Icon(
-                  Icons.location_on_outlined,
-                  size: 40,
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.location_on_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
                 ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text("Endereço"),
-            ],
+                Text("Endereço"),
+              ],
+            ),
+          ),
+        ),
+
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return CorPage();
+                  },
+                ),
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.color_lens_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
+                ),
+                Text("Cor"),
+              ],
+            ),
+          ),
+        ),
+
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return TamanhoPage();
+                  },
+                ),
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.format_size_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
+                ),
+                Text("Tamanho"),
+              ],
+            ),
           ),
         ),
       ],

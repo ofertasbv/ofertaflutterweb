@@ -257,6 +257,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               color: Colors.grey,
                             ),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -353,6 +355,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -377,6 +381,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -399,6 +405,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               color: Colors.grey,
                             ),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -425,6 +433,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               color: Colors.grey,
                             ),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -448,6 +458,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               color: Colors.grey,
                             ),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -471,6 +483,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                               color: Colors.grey,
                             ),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,

@@ -14,17 +14,21 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/core/controller/cor_controller.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/controller/tamanho_controller.dart';
+import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
@@ -40,12 +44,19 @@ class ProdutoCreatePage extends StatefulWidget {
 }
 
 class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
+  _ProdutoCreatePageState({this.p});
+
   ProdutoController produtoController = GetIt.I.get<ProdutoController>();
   SubCategoriaController subCategoriaController =
       GetIt.I.get<SubCategoriaController>();
   LojaController lojaController = GetIt.I.get<LojaController>();
   MarcaController marcaController = GetIt.I.get<MarcaController>();
   PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
+  TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
+  CorController corController = GetIt.I.get<CorController>();
+
+  List<Tamanho> tamanhoSelecionada = List();
+  List<Cor> corSelecionada = List();
 
   Dialogs dialogs = Dialogs();
 
@@ -55,6 +66,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Future<List<Marca>> marcas;
   Future<List<Promocao>> promocoes;
   Future<List<Loja>> lojas;
+  Future<List<Tamanho>> tamanhos;
+  Future<List<Cor>> cores;
 
   Produto p;
   Estoque e;
@@ -64,8 +77,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Promocao promocaoSelecionada;
   Marca marcaSelecionada;
 
-  _ProdutoCreatePageState({this.p});
-
   Controller controller;
   TextEditingController controllerCodigoBarra = TextEditingController();
   TextEditingController quantidadeController = TextEditingController();
@@ -73,6 +84,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   TextEditingController descontoController = TextEditingController();
 
   String barcode = "";
+  bool clicadoTamanho = false;
+  bool clicadoCor = false;
 
   bool favorito;
   bool novo;
@@ -116,6 +129,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     subCategorias = subCategoriaController.getAll();
     marcas = marcaController.getAll();
     promocoes = promocaoController.getAll();
+    tamanhos = tamanhoController.getAll();
+    cores = corController.getAll();
 
     produtoController.getAll();
 
@@ -523,6 +538,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               color: Colors.grey,
                             ),
                             suffixIcon: Icon(Icons.close),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
@@ -863,6 +880,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ],
                       ),
                     ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    height: 400,
+                    padding: EdgeInsets.all(10),
+                    child: buildObserverTamanhos(),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    height: 400,
+                    padding: EdgeInsets.all(10),
+                    child: buildObserverCores(),
                   ),
                 ),
                 Card(
@@ -1299,6 +1330,154 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
             Divider()
           ],
+        );
+      },
+    );
+  }
+
+  /* ===================  TAMANHO LISTA ===================  */
+
+  onSelected(bool selected, Tamanho tamanho) {
+    if (selected == true) {
+      setState(() {
+        tamanhoSelecionada.add(tamanho);
+      });
+    } else {
+      setState(() {
+        tamanhoSelecionada.remove(tamanho);
+      });
+    }
+  }
+
+  alertSelectTamanhos(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: buildObserverTamanhos(),
+          ),
+        );
+      },
+    );
+  }
+
+  buildObserverTamanhos() {
+    return Observer(
+      builder: (context) {
+        List<Tamanho> tamanhos = tamanhoController.tamanhos;
+        if (tamanhoController.error != null) {
+          return Text("Não foi possível carregados dados");
+        }
+
+        if (tamanhos == null) {
+          return CircularProgressorMini();
+        }
+
+        return builderList(tamanhos);
+      },
+    );
+  }
+
+  builderList(List<Tamanho> tamanhos) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.separated(
+      itemCount: tamanhos.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
+      itemBuilder: (context, index) {
+        Tamanho c = tamanhos[index];
+
+        return CheckboxListTile(
+          value: tamanhoSelecionada.contains(tamanhos[index]),
+          onChanged: (bool select) {
+            clicadoTamanho = select;
+            onSelected(clicadoTamanho, c);
+            print("Clicado: ${clicadoTamanho} - ${c.descricao}");
+            for (Tamanho t in tamanhoSelecionada) {
+              print("Lista: ${t.descricao}");
+            }
+          },
+          title: Text("${c.descricao}"),
+        );
+      },
+    );
+  }
+
+  /* ===================  TAMANHO LISTA ===================  */
+
+  onSelectedCor(bool selected, Cor cor) {
+    if (selected == true) {
+      setState(() {
+        corSelecionada.add(cor);
+      });
+    } else {
+      setState(() {
+        corSelecionada.remove(cor);
+      });
+    }
+  }
+
+  alertSelectCor(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: buildObserverCores(),
+          ),
+        );
+      },
+    );
+  }
+
+  buildObserverCores() {
+    return Observer(
+      builder: (context) {
+        List<Cor> cores = corController.cores;
+        if (corController.error != null) {
+          return Text("Não foi possível carregados dados");
+        }
+
+        if (cores == null) {
+          return CircularProgressorMini();
+        }
+
+        return builderListCor(cores);
+      },
+    );
+  }
+
+  builderListCor(List<Cor> cores) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
+    return ListView.separated(
+      itemCount: cores.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
+      itemBuilder: (context, index) {
+        Cor c = cores[index];
+
+        return CheckboxListTile(
+          value: corSelecionada.contains(cores[index]),
+          onChanged: (bool select) {
+            clicadoCor = select;
+            onSelectedCor(clicadoCor, c);
+            print("Clicado: ${clicadoCor} - ${c.descricao}");
+            for (Cor c in corSelecionada) {
+              print("Lista: ${c.descricao}");
+            }
+          },
+          title: Text("${c.descricao}"),
         );
       },
     );

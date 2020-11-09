@@ -125,6 +125,8 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                             ),
                             suffixIcon: Icon(Icons.close),
                             labelStyle: TextStyle(color: Colors.black),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.lime[900]),
                               gapPadding: 1,
