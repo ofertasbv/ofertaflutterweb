@@ -256,7 +256,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -276,24 +275,24 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     );
   }
 
-   buildListViewForm(BuildContext context) {
-     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-     NumberFormat formatter = NumberFormat("00.00");
-     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
-     double value = 0.19;
+  buildListViewForm(BuildContext context) {
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+    NumberFormat formatter = NumberFormat("00.00");
+    double initialValue = num.parse(0.18941.toStringAsPrecision(2));
+    double value = 0.19;
 
-     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+    NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
 
-     quantidadeController.text = p.estoque.quantidade.toString();
-     valorController.text = p.estoque.valor.toString();
-     descontoController.text = p.desconto.toString();
+    quantidadeController.text = p.estoque.quantidade.toString();
+    valorController.text = p.estoque.valor.toString();
+    descontoController.text = p.desconto.toString();
 
-     valor = 0.0;
-     desconto = 0.0;
-     quantidade = 1;
+    valor = 0.0;
+    desconto = 0.0;
+    quantidade = 1;
 
-     print(formatter.format(initialValue));
-     print(formatter.format(value));
+    print(formatter.format(initialValue));
+    print(formatter.format(value));
 
     return ListView(
       children: <Widget>[
@@ -321,16 +320,23 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           validator: (value) =>
                               value.isEmpty ? "campo obrigário" : null,
                           decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.camera_alt_outlined),
-                            suffixIcon: Icon(Icons.close),
+                            prefixIcon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.grey,
+                            ),
                             labelText:
                                 "Entre com código de barra ou clique (scanner)",
                             hintText: "Código de barra",
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 20,
@@ -361,13 +367,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Nome",
                             hintText: "nome produto",
-                            prefixIcon: Icon(Icons.shopping_cart),
+                            prefixIcon: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 100,
@@ -381,13 +395,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Descrição",
                             hintText: "descrição produto",
-                            prefixIcon: Icon(Icons.description),
+                            prefixIcon: Icon(
+                              Icons.description,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 100,
@@ -402,13 +423,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "SKU",
                             hintText: "sku produto",
-                            prefixIcon: Icon(Icons.shopping_cart),
+                            prefixIcon: Icon(
+                              Icons.shopping_cart,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 100,
@@ -427,13 +455,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Quantidade",
                             hintText: "quantidade",
-                            prefixIcon: Icon(Icons.mode_edit),
+                            prefixIcon: Icon(
+                              Icons.mode_edit,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.numberWithOptions(
                               decimal: false, signed: false),
@@ -450,13 +485,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Valor",
                             hintText: "R\$ ",
-                            prefixIcon: Icon(Icons.monetization_on),
+                            prefixIcon: Icon(
+                              Icons.monetization_on,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.number,
                           maxLength: 10,
@@ -476,8 +518,16 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Desconto",
                             hintText: "R\$ ",
-                            prefixIcon: Icon(Icons.money),
+                            prefixIcon: Icon(
+                              Icons.money,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.number,
                           maxLength: 10,
@@ -497,18 +547,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             hintText: "99-09-9999",
                             prefixIcon: Icon(Icons.calendar_today),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding: EdgeInsets.fromLTRB(
-                                20.0, 20.0, 20.0, 20.0),
+                            contentPadding:
+                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(5.0)),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(
                               context: context,
                               firstDate: DateTime(2000),
-                              initialDate:
-                                  currentValue ?? DateTime.now(),
+                              initialDate: currentValue ?? DateTime.now(),
                               locale: Locale('pt', 'BR'),
                               lastDate: DateTime(2030),
                             );
@@ -601,8 +654,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         leading: Icon(Icons.list_alt_outlined),
                         trailing: Icon(Icons.arrow_drop_down_sharp),
                         onTap: () {
-                          alertSelectPromocao(
-                              context, promocaoSelecionada);
+                          alertSelectPromocao(context, promocaoSelecionada);
                         },
                       ),
                     ),
@@ -628,8 +680,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             onChanged: (bool valor) {
                               setState(() {
                                 favorito = valor;
-                                print("resultado: " +
-                                    p.favorito.toString());
+                                print("resultado: " + p.favorito.toString());
                               });
                             },
                           ),
@@ -643,8 +694,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             onChanged: (bool valor) {
                               setState(() {
                                 novo = valor;
-                                print(
-                                    "resultado: " + p.novo.toString());
+                                print("resultado: " + p.novo.toString());
                               });
                             },
                           ),
@@ -657,8 +707,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             onChanged: (bool valor) {
                               setState(() {
                                 status = valor;
-                                print("resultado: " +
-                                    p.status.toString());
+                                print("resultado: " + p.status.toString());
                               });
                             },
                           ),
@@ -672,8 +721,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             onChanged: (bool valor) {
                               setState(() {
                                 destaque = valor;
-                                print("resultado: " +
-                                    p.destaque.toString());
+                                print("resultado: " + p.destaque.toString());
                               });
                             },
                           ),
@@ -695,8 +743,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       child: Column(
                         children: <Widget>[
                           Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text("Unidade de medida"),
                               RadioListTile(
@@ -704,11 +751,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("UNIDADE"),
                                 value: "UNIDADE",
-                                groupValue: p.medida == null
-                                    ? medida
-                                    : p.medida,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.medida == null ? medida : p.medida,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
@@ -721,11 +766,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("PEÇA"),
                                 value: "PECA",
-                                groupValue: p.medida == null
-                                    ? medida
-                                    : p.medida,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.medida == null ? medida : p.medida,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
@@ -738,11 +781,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("QUILOGRAMA"),
                                 value: "QUILOGRAMA",
-                                groupValue: p.medida == null
-                                    ? medida
-                                    : p.medida,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.medida == null ? medida : p.medida,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
@@ -755,11 +796,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("OUTRO"),
                                 value: "OUTRO",
-                                groupValue: p.medida == null
-                                    ? medida
-                                    : p.medida,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.medida == null ? medida : p.medida,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
@@ -786,8 +825,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       child: Column(
                         children: <Widget>[
                           Column(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text("Origem do produto"),
                               RadioListTile(
@@ -795,11 +833,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("NACIONAL"),
                                 value: "NACIONAL",
-                                groupValue: p.origem == null
-                                    ? origem
-                                    : p.origem,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.origem == null ? origem : p.origem,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.origem = valor;
@@ -812,11 +848,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("INTERNACIONAL"),
                                 value: "INTERNACIONAL",
-                                groupValue: p.origem == null
-                                    ? origem
-                                    : p.origem,
-                                secondary:
-                                    const Icon(Icons.check_outlined),
+                                groupValue:
+                                    p.origem == null ? origem : p.origem,
+                                secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.origem = valor;
@@ -843,15 +877,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               RaisedButton(
                                 child: Icon(Icons.delete_forever),
                                 shape: new CircleBorder(),
                                 onPressed: isEnabledDelete
-                                    ? () => lojaController
-                                        .deleteFoto(p.foto)
+                                    ? () => lojaController.deleteFoto(p.foto)
                                     : null,
                               ),
                               RaisedButton(
@@ -900,8 +932,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: NetworkImage(
-                                          ConstantApi
-                                                  .urlArquivoProduto +
+                                          ConstantApi.urlArquivoProduto +
                                               p.foto,
                                         ),
                                       )
@@ -921,7 +952,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
           ),
         ),
-
         Card(
           child: Container(
             child: RaisedButton.icon(

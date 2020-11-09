@@ -271,12 +271,17 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Nome",
                             hintText: "nome",
-                            prefixIcon: Icon(Icons.people),
+                            prefixIcon: Icon(Icons.people, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,
@@ -289,12 +294,17 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Razão social ",
                             hintText: "razão social",
-                            prefixIcon: Icon(Icons.people),
+                            prefixIcon: Icon(Icons.people, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,
@@ -307,12 +317,18 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Cnpj",
                             hintText: "Cnpj",
-                            prefixIcon: Icon(Icons.contact_mail),
+                            prefixIcon:
+                                Icon(Icons.contact_mail, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.number,
                           inputFormatters: [maskFormatterCNPJ],
@@ -326,12 +342,17 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Telefone",
                             hintText: "Telefone celular",
-                            prefixIcon: Icon(Icons.phone),
+                            prefixIcon: Icon(Icons.phone, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.phone,
                           inputFormatters: [maskFormatterCelular],
@@ -346,12 +367,18 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "data registro",
                             hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
+                            prefixIcon:
+                                Icon(Icons.calendar_today, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(
@@ -380,12 +407,17 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Email",
                             hintText: "Email",
-                            prefixIcon: Icon(Icons.email),
+                            prefixIcon: Icon(Icons.email, color: Colors.grey),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
@@ -400,9 +432,10 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Senha",
                             hintText: "Senha",
-                            prefixIcon: Icon(Icons.security),
+                            prefixIcon:
+                                Icon(Icons.security, color: Colors.grey),
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.visibility),
+                              icon: Icon(Icons.visibility, color: Colors.grey),
                               onPressed: () {
                                 lojaController.visualizarSenha();
                               },
@@ -411,6 +444,11 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: !lojaController.senhaVisivel,

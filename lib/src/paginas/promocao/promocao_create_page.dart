@@ -226,12 +226,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Título",
                             hintText: "título promoção",
-                            prefixIcon: Icon(Icons.edit),
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 100,
@@ -245,12 +253,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Descrição",
                             hintText: "descrição promoção",
-                            prefixIcon: Icon(Icons.description),
+                            prefixIcon: Icon(
+                              Icons.description,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           maxLength: 100,
                           maxLines: null,
@@ -267,12 +283,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Desconto",
                             hintText: "R\$ ",
-                            prefixIcon: Icon(Icons.monetization_on),
+                            prefixIcon: Icon(
+                              Icons.monetization_on,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.numberWithOptions(),
                           inputFormatters: [
@@ -291,12 +315,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "data registro",
                             hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
+                            prefixIcon: Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(
@@ -318,12 +350,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "data inicio",
                             hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
+                            prefixIcon: Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(
@@ -345,12 +385,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           decoration: InputDecoration(
                             labelText: "data encerramento",
                             hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
+                            prefixIcon: Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           onShowPicker: (context, currentValue) {
                             return showDatePicker(

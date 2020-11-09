@@ -131,11 +131,19 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Nome",
                             hintText: "nome subcategoria",
-                            prefixIcon: Icon(Icons.edit),
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Colors.grey,
+                            ),
                             contentPadding:
                                 EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,

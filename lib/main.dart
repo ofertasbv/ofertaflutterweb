@@ -120,8 +120,8 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0.2,
-        color: Colors.white,
+        elevation: 0,
+        color: Colors.grey[200],
         margin: EdgeInsets.all(6),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(2),
@@ -149,22 +149,9 @@ class MyApp extends StatelessWidget {
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.indigo[900]),
-          gapPadding: 1,
-          borderRadius: BorderRadius.circular(5.0),
-        ),
         focusColor: Colors.lime[900],
         hoverColor: Colors.purple,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 1.0),
-        ),
         suffixStyle: TextStyle(color: Colors.green),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.lime[900]),
-          gapPadding: 1,
-          borderRadius: BorderRadius.circular(5.0),
-        ),
         errorStyle: TextStyle(color: Colors.red),
 
       ),

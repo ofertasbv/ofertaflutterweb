@@ -115,12 +115,17 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                           decoration: InputDecoration(
                             labelText: "Nome",
                             hintText: "nome categoria",
-                            prefixIcon: Icon(Icons.edit),
+                            prefixIcon: Icon(
+                              Icons.edit,
+                              color: Colors.grey,
+                            ),
                             suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
+                            labelStyle: TextStyle(color: Colors.black),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.lime[900]),
+                              gapPadding: 1,
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
                           ),
                           keyboardType: TextInputType.text,
                           maxLength: 50,
