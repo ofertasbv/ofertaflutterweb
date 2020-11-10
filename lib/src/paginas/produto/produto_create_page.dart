@@ -55,9 +55,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
   CorController corController = GetIt.I.get<CorController>();
 
-  List<Tamanho> tamanhoSelecionada = List();
-  List<Cor> corSelecionada = List();
-
   Dialogs dialogs = Dialogs();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -69,6 +66,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Future<List<Tamanho>> tamanhos;
   Future<List<Cor>> cores;
 
+  List<Tamanho> tamanhoSelecionada = List();
+  List<Cor> corSelecionada = List();
+
   Produto p;
   Estoque e;
 
@@ -78,10 +78,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Marca marcaSelecionada;
 
   Controller controller;
-  TextEditingController controllerCodigoBarra = TextEditingController();
-  TextEditingController quantidadeController = TextEditingController();
-  TextEditingController valorController = TextEditingController();
-  TextEditingController descontoController = TextEditingController();
+  var controllerCodigoBarra = TextEditingController();
 
   String barcode = "";
   bool clicadoTamanho = false;
@@ -294,20 +291,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat formatter = NumberFormat("00.00");
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
-    double value = 0.19;
-
     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
-
-    quantidadeController.text = p.estoque.quantidade.toString();
-    valorController.text = p.estoque.valor.toString();
-    descontoController.text = p.desconto.toString();
-
-    valor = 0.0;
-    desconto = 0.0;
-    quantidade = 1;
-
-    print(formatter.format(initialValue));
-    print(formatter.format(value));
 
     return ListView(
       children: <Widget>[
@@ -318,7 +302,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-
                 Card(
                   child: GestureDetector(
                     onTap: () {
@@ -380,7 +363,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 child: Icon(Icons.delete_forever),
                                 shape: new CircleBorder(),
                                 onPressed: isEnabledDelete
-                                    ? () => promocaoController.deleteFoto(p.foto)
+                                    ? () =>
+                                        promocaoController.deleteFoto(p.foto)
                                     : null,
                               ),
                               RaisedButton(
@@ -576,9 +560,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           maxLength: 6,
                         ),
                         TextFormField(
-                          initialValue: p.estoque.valor == null
-                              ? valor.toString()
-                              : p.estoque.valor.toStringAsFixed(2),
+                          // initialValue: p.estoque.valor.toStringAsFixed(2),
                           onSaved: (value) =>
                               p.estoque.valor = double.tryParse(value),
                           validator: (value) =>
@@ -604,14 +586,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           keyboardType: TextInputType.number,
                           maxLength: 10,
                           inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
                             RealInputFormatter(centavos: true)
                           ],
                         ),
                         TextFormField(
-                          initialValue: p.desconto == null
-                              ? desconto.toString()
-                              : p.desconto.toStringAsFixed(1),
+                          // initialValue: p.desconto.toStringAsFixed(2),
                           onSaved: (value) =>
                               p.desconto = double.tryParse(value),
                           validator: (value) =>
@@ -635,7 +614,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           keyboardType: TextInputType.number,
                           maxLength: 10,
                           inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
                             RealInputFormatter(centavos: true)
                           ],
                         ),
@@ -1000,48 +978,49 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
         ),
         SizedBox(height: 20),
         Card(
-          child: Container(
-            child: RaisedButton.icon(
-              label: Text("Enviar formulário"),
-              icon: Icon(
-                Icons.check,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                if (controller.validate()) {
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.foto == null) {
+                  openBottomSheet(context);
+                } else {
                   if (p.id == null) {
-                    if (p.foto == null) {
-                      showToast("deve anexar uma foto!");
-                    }
+                    dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
-                      p.estoque.quantidade = quantidade;
-                      p.estoque.valor = valor;
-                      p.desconto = desconto;
-
                       p.loja = lojaSelecionada;
                       p.subCategoria = subCategoriaSelecionada;
                       p.marca = marcaSelecionada;
                       p.promocao = promocaoSelecionada;
-                      produtoController.create(p);
+                      // produtoController.create(p);
 
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
+                      print("Desconto: ${p.desconto}");
                     });
                   } else {
-                    Timer(Duration(seconds: 3), () {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 1), () {
                       p.loja = lojaSelecionada;
                       p.subCategoria = subCategoriaSelecionada;
                       p.marca = marcaSelecionada;
                       p.promocao = promocaoSelecionada;
-                      produtoController.update(p.id, p);
+                      // produtoController.update(p.id, p);
 
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
                     });
                   }
                 }
-              },
-            ),
+              }
+            },
           ),
         ),
       ],

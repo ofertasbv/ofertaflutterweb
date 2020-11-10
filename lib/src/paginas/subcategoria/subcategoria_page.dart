@@ -65,7 +65,7 @@ class _SubcategoriaPageState extends State<SubcategoriaPage> {
             elevation: 10,
             child: Icon(Icons.add),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.of(context).pop();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) {

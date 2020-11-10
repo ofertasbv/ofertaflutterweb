@@ -28,7 +28,7 @@ class Produto {
   List<Arquivo> arquivos = List<Arquivo>();
   List<Tamanho> tamanhos = List<Tamanho>();
   List<Cor> cores = List<Cor>();
-  Estoque estoque;
+  Estoque estoque = Estoque();
   Marca marca;
 
   Produto(
