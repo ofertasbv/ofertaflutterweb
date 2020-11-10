@@ -882,20 +882,35 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
+
                 Card(
-                  child: Container(
-                    height: 400,
-                    padding: EdgeInsets.all(10),
-                    child: buildObserverTamanhos(),
+                  child: ExpansionTile(
+                    leading: Icon(Icons.format_size_outlined),
+                    title: Text("Tamanho"),
+                    children: [
+                      Container(
+                        height: 400,
+                        padding: EdgeInsets.all(10),
+                        child: buildObserverTamanhos(),
+                      ),
+                    ],
                   ),
                 ),
+
                 Card(
-                  child: Container(
-                    height: 400,
-                    padding: EdgeInsets.all(10),
-                    child: buildObserverCores(),
+                  child: ExpansionTile(
+                    leading: Icon(Icons.color_lens_outlined),
+                    title: Text("Cores"),
+                    children: [
+                      Container(
+                        height: 400,
+                        padding: EdgeInsets.all(10),
+                        child: buildObserverCores(),
+                      ),
+                    ],
                   ),
                 ),
+
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),

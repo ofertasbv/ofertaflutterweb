@@ -83,14 +83,14 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.white,
-      accentColor: Colors.indigo[900],
-      primarySwatch: Colors.lime,
+      accentColor: Colors.grey[900],
+      primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
         elevation: 1,
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.lime[900],
+            color: Colors.orange[900],
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -104,21 +104,21 @@ class MyApp extends StatelessWidget {
 
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: "Cabin",
-            bodyColor: Colors.indigo[900],
+            bodyColor: Colors.grey[900],
             displayColor: Colors.grey[600],
           ),
 
       dialogTheme: DialogTheme(
         backgroundColor: Colors.grey[100],
         elevation: 2,
-        titleTextStyle: TextStyle(color: Colors.indigo[900]),
+        titleTextStyle: TextStyle(color: Colors.grey[900]),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(10),
           side: BorderSide(color: Colors.white),
         ),
       ),
 
-      primaryIconTheme: IconThemeData(color: Colors.lime[900]),
+      primaryIconTheme: IconThemeData(color: Colors.orange[900]),
 
       // fontFamily: 'Georgia',
       dialogBackgroundColor: Colors.grey[100],
@@ -134,12 +134,12 @@ class MyApp extends StatelessWidget {
       ),
 
       buttonTheme: ButtonThemeData(
-        splashColor: Colors.indigo[900],
+        splashColor: Colors.grey[900],
         textTheme: ButtonTextTheme.primary,
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.lime[900],
+        buttonColor: Colors.orange[900],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
           side: BorderSide(color: Colors.white),
@@ -148,40 +148,40 @@ class MyApp extends StatelessWidget {
 
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
-        prefixStyle: TextStyle(color: Colors.lime[900]),
-        hintStyle: TextStyle(color: Colors.indigo[900]),
+        prefixStyle: TextStyle(color: Colors.orange[900]),
+        hintStyle: TextStyle(color: Colors.grey[900]),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        focusColor: Colors.lime[900],
+        focusColor: Colors.orange[900],
         hoverColor: Colors.purple,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
       ),
 
-      hintColor: Colors.lime[900],
+      hintColor: Colors.orange[900],
 
       iconTheme: IconThemeData(
-        color: Colors.lime[900],
+        color: Colors.orange[900],
       ),
 
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.grey,
-        backgroundColor: Colors.lime[900],
+        backgroundColor: Colors.orange[900],
       ),
 
       scaffoldBackgroundColor: Colors.grey[100],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
-        backgroundColor: Colors.lime[900],
+        backgroundColor: Colors.orange[900],
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 1,
-        selectedItemColor: Colors.lime[900],
-        unselectedItemColor: Colors.indigo[900],
-        unselectedLabelStyle: TextStyle(color: Colors.lime[900]),
+        selectedItemColor: Colors.orange[900],
+        unselectedItemColor: Colors.grey[900],
+        unselectedLabelStyle: TextStyle(color: Colors.orange[900]),
         backgroundColor: Colors.white,
       ),
     );

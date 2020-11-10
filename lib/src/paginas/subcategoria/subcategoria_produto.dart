@@ -136,7 +136,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             ),
             Card(
               child: Container(
-                height: 470,
+                height: 460,
                 child: builderConteudoListProduto(),
               ),
             )

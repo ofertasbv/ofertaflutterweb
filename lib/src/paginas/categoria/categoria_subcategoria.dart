@@ -163,8 +163,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child: Card(
+            padding: EdgeInsets.symmetric(horizontal: 4),
               child: AnimatedContainer(
                 width: 90,
                 height: 150,
@@ -220,7 +219,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 ),
               ),
             ),
-          ),
+
           onTap: () {
             selectCard(c.nome);
             print("id catgeoria ${c.id}");
