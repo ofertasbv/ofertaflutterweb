@@ -106,7 +106,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                 gradient: LinearGradient(
                   colors: [
                     Colors.grey[100],
-                    Colors.grey[300],
+                    Colors.grey[200],
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

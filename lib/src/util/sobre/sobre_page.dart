@@ -14,7 +14,7 @@ class SobrePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.amber,
+              color: Colors.orange[900],
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Image.asset(

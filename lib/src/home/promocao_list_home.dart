@@ -89,7 +89,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                 gradient: LinearGradient(
                   colors: [
                     Colors.grey[100],
-                    Colors.white,
+                    Colors.grey[200],
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
