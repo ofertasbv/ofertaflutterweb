@@ -890,7 +890,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     children: [
                       Container(
                         height: 400,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(0),
                         child: buildObserverTamanhos(),
                       ),
                     ],
@@ -904,7 +904,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     children: [
                       Container(
                         height: 400,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(0),
                         child: buildObserverCores(),
                       ),
                     ],

@@ -64,7 +64,7 @@ class _PermissaoListState extends State<PermissaoList>
           child: ListTile(
             isThreeLine: true,
             leading: CircleAvatar(
-              backgroundColor: Colors.grey[100],
+              backgroundColor: Colors.grey[200],
               maxRadius: 35,
               minRadius: 35,
               child: Icon(Icons.vpn_key),
