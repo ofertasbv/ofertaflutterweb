@@ -482,6 +482,35 @@ class _ConfigPageState extends State<ConfigPage> {
             ),
           ),
         ),
+
+        Card(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return TamanhoPage();
+                  },
+                ),
+              );
+            },
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 40,
+                  ),
+                  padding: EdgeInsets.all(20),
+                ),
+                Text("Pedido"),
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }

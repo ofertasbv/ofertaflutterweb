@@ -18,7 +18,8 @@ class EnderecoLocation extends StatefulWidget {
   EnderecoLocation({Key key, this.endereco}) : super(key: key);
 
   @override
-  _EnderecoLocationState createState() => _EnderecoLocationState(endereco: this.endereco);
+  _EnderecoLocationState createState() =>
+      _EnderecoLocationState(endereco: this.endereco);
 }
 
 class _EnderecoLocationState extends State<EnderecoLocation> {
@@ -44,7 +45,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
     getCurrentLocation();
     enderecoController.getAll();
   }
-
 
   MapType mapType = MapType.normal;
   static const LatLng center = const LatLng(-4.253467, -49.944051);
@@ -176,6 +176,8 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
                   return GoogleMap(
                     onTap: (valor) {
                       print("Lat: ${valor.latitude}, Long: ${valor.longitude}");
+                      endereco.latitude = valor.latitude;
+                      endereco.longitude = valor.longitude;
                     },
                     indoorViewEnabled: true,
                     mapToolbarEnabled: true,
@@ -206,12 +208,10 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
                           BitmapDescriptor.hueYellow),
                       infoWindow: InfoWindow(
                         title: e.logradouro,
-                        snippet:
-                            e.logradouro + ", " + e.numero,
+                        snippet: e.logradouro + ", " + e.numero,
                       ),
                       markerId: MarkerId(e.logradouro),
-                      position: LatLng(e.latitude ?? 0.0,
-                          e.longitude ?? 0.0),
+                      position: LatLng(e.latitude ?? 0.0, e.longitude ?? 0.0),
                       onTap: () {
                         showDialogAlert(context, e);
                       });
@@ -220,6 +220,8 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
                 return GoogleMap(
                   onTap: (valor) {
                     print("Lat: ${valor.latitude}, Long: ${valor.longitude}");
+                    endereco.latitude = valor.latitude;
+                    endereco.longitude = valor.longitude;
                   },
                   indoorViewEnabled: true,
                   mapToolbarEnabled: true,
@@ -272,8 +274,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
       ),
     );
   }
-
-
 
   showDialogAlert(BuildContext context, Endereco e) async {
     return showDialog(

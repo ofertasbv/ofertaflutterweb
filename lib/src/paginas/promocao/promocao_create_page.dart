@@ -214,6 +214,93 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Card(
+                  child: GestureDetector(
+                    onTap: () {
+                      openBottomSheet(context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      color: Colors.grey[400],
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            file != null
+                                ? Image.file(
+                              file,
+                              fit: BoxFit.fitWidth,
+                            )
+                                : p.foto != null
+                                ? CircleAvatar(
+                              radius: 50,
+                              backgroundImage: NetworkImage(
+                                ConstantApi.urlArquivoPromocao +
+                                    p.foto,
+                              ),
+                            )
+                                : CircleAvatar(
+                              radius: 50,
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    color: Colors.grey[400],
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RaisedButton(
+                                child: Icon(Icons.delete_forever),
+                                shape: new CircleBorder(),
+                                onPressed: isEnabledDelete
+                                    ? () => promocaoController.deleteFoto(p.foto)
+                                    : null,
+                              ),
+                              RaisedButton(
+                                child: Icon(Icons.photo),
+                                shape: new CircleBorder(),
+                                onPressed: () {
+                                  openBottomSheet(context);
+                                },
+                              ),
+                              RaisedButton(
+                                child: Icon(Icons.check),
+                                shape: new CircleBorder(),
+                                onPressed: isEnabledEnviar
+                                    ? () => onClickUpload()
+                                    : null,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
                     child: Column(
@@ -437,92 +524,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   ),
                 ),
                 SizedBox(height: 0),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                RaisedButton(
-                                  child: Icon(Icons.delete_forever),
-                                  shape: new CircleBorder(),
-                                  onPressed: isEnabledDelete
-                                      ? () =>
-                                          promocaoController.deleteFoto(p.foto)
-                                      : null,
-                                ),
-                                RaisedButton(
-                                  child: Icon(Icons.photo),
-                                  shape: new CircleBorder(),
-                                  onPressed: () {
-                                    openBottomSheet(context);
-                                  },
-                                ),
-                                RaisedButton(
-                                  child: Icon(Icons.check),
-                                  shape: new CircleBorder(),
-                                  onPressed: isEnabledEnviar
-                                      ? () => onClickUpload()
-                                      : null,
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: GestureDetector(
-                    onTap: () {
-                      openBottomSheet(context);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            file != null
-                                ? Image.file(
-                                    file,
-                                    fit: BoxFit.fitWidth,
-                                  )
-                                : p.foto != null
-                                    ? CircleAvatar(
-                                        radius: 50,
-                                        backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoPromocao +
-                                              p.foto,
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 50,
-                                        child: Icon(
-                                          Icons.camera_alt_outlined,
-                                        ),
-                                      ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

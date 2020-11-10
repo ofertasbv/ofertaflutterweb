@@ -72,6 +72,13 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
 
     if (endereco == null) {
       endereco = Endereco();
+    } else {
+      controllerDestino.text = endereco.logradouro;
+      controllerNumero.text = endereco.numero;
+      controllerCep.text = endereco.cep;
+      controllerBairro.text = endereco.bairro;
+      controllerLatitude.text = endereco.latitude.toString();
+      controllerLongitude.text = endereco.longitude.toString();
     }
 
     tipoEndereco = "COMERCIAL";
@@ -123,9 +130,16 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                 : longitudeController.text = endereco.longitude.toString();
           });
         },
+        indoorViewEnabled: true,
+        mapToolbarEnabled: true,
+        buildingsEnabled: true,
+        tiltGesturesEnabled: true,
+        zoomControlsEnabled: false,
+        zoomGesturesEnabled: true,
         myLocationEnabled: true,
         myLocationButtonEnabled: true,
         rotateGesturesEnabled: true,
+        trafficEnabled: false,
         mapType: MapType.satellite,
         initialCameraPosition: CameraPosition(
           target: LatLng(-4.253467, -49.944051),
@@ -236,6 +250,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                criaMapa(),
+                SizedBox(height: 20),
                 Card(
                   child: Container(
                     color: Colors.grey[200],
