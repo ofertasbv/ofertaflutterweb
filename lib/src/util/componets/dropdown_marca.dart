@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/marca_controller.dart';
+import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/util/dialogs/dialog_marca.dart';
 
 class DropDownMarca extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    MarcaController marcaController = GetIt.I.get<MarcaController>();
-
+    ProdutoController produtoController = GetIt.I.get<ProdutoController>();
     AlertMarca alertMarca = AlertMarca();
 
     return Observer(
       builder: (context) {
-        Marca marca = marcaController.marcaSelecionada;
+        Marca marca = produtoController.marcaSelecionada;
 
         return Card(
           child: Container(

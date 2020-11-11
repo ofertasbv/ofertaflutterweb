@@ -77,10 +77,8 @@ class _DialogSubCategoriaState extends State<DialogSubCategoria> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                setState(() {
-                  subCategoria = c;
-                  print("SubCategoria: ${subCategoria.nome}");
-                });
+                produtoController.subCategoriaSelecionada = c;
+                print("SubCategoria: ${produtoController.subCategoriaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

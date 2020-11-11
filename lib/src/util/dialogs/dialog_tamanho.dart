@@ -11,14 +11,20 @@ class DialogTamanho extends StatefulWidget {
 }
 
 class _DialogTamanhoState extends State<DialogTamanho> {
-  TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
+  var tamanhoController = GetIt.I.get<TamanhoController>();
   List<Tamanho> tamanhoSelecionada = List();
 
   bool clicadoTamanho = false;
 
   @override
+  void initState() {
+    tamanhoController.getAll();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return buildObserverTamanhos();
   }
 
   onSelectedTamanho(bool selected, Tamanho tamanho) {
@@ -31,23 +37,6 @@ class _DialogTamanhoState extends State<DialogTamanho> {
         tamanhoSelecionada.remove(tamanho);
       });
     }
-  }
-
-  alertSelectTamanhos(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: buildObserverTamanhos(),
-          ),
-        );
-      },
-    );
   }
 
   buildObserverTamanhos() {

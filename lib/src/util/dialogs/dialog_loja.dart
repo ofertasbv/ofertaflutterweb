@@ -75,10 +75,8 @@ class _DialogLojaState extends State<DialogLoja> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                setState(() {
-                  produtoController.lojaSelecionada = c;
-                  print("Loja: ${produtoController.lojaSelecionada.nome}");
-                });
+                produtoController.lojaSelecionada = c;
+                print("Loja: ${produtoController.lojaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

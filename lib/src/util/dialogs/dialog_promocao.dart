@@ -77,10 +77,8 @@ class _DialogPromocaoState extends State<DialogPromocao> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                setState(() {
-                  produtoController.promocaoSelecionada = c;
-                  print("Loja: ${produtoController.promocaoSelecionada.nome}");
-                });
+                produtoController.promocaoSelecionada = c;
+                print("Loja: ${produtoController.promocaoSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

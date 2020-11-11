@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
@@ -53,6 +55,12 @@ abstract class ProdutoControllerBase with Store {
 
   @observable
   Promocao promocaoSelecionada;
+
+  @observable
+  ObservableList<Cor> coresSelecionada;
+
+  @observable
+  ObservableList<Tamanho> tamanhosSelecionada;
 
   @action
   Future<List<Produto>> getAll() async {

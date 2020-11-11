@@ -75,10 +75,8 @@ class _DialogMarcaState extends State<DialogMarca> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                setState(() {
-                  produtoController.marcaSelecionada = c;
-                  print("Marca: ${produtoController.marcaSelecionada.nome}");
-                });
+                produtoController.marcaSelecionada = c;
+                print("Marca: ${produtoController.marcaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

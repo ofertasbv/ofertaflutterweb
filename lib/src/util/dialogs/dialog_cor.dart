@@ -17,8 +17,14 @@ class _DialogCorState extends State<DialogCor> {
   bool clicadoCor = false;
 
   @override
+  void initState() {
+    corController.getAll();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return buildObserverCores();
   }
 
   onSelectedCor(bool selected, Cor cor) {
@@ -31,23 +37,6 @@ class _DialogCorState extends State<DialogCor> {
         corSelecionada.remove(cor);
       });
     }
-  }
-
-  alertSelectCor(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: buildObserverCores(),
-          ),
-        );
-      },
-    );
   }
 
   buildObserverCores() {

@@ -31,7 +31,9 @@ import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/componets/dropdown_marca.dart';
 import 'package:nosso/src/util/componets/dropdown_promocao.dart';
 import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
+import 'package:nosso/src/util/dialogs/dialog_cor.dart';
 import 'package:nosso/src/util/dialogs/dialog_marca.dart';
+import 'package:nosso/src/util/dialogs/dialog_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
@@ -47,14 +49,13 @@ class ProdutoCreatePage extends StatefulWidget {
 class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   _ProdutoCreatePageState({this.p});
 
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-  SubCategoriaController subCategoriaController =
-      GetIt.I.get<SubCategoriaController>();
-  LojaController lojaController = GetIt.I.get<LojaController>();
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
-  PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
-  TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
-  CorController corController = GetIt.I.get<CorController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  var lojaController = GetIt.I.get<LojaController>();
+  var marcaController = GetIt.I.get<MarcaController>();
+  var promocaoController = GetIt.I.get<PromoCaoController>();
+  var tamanhoController = GetIt.I.get<TamanhoController>();
+  var corController = GetIt.I.get<CorController>();
 
   Dialogs dialogs = Dialogs();
 
@@ -649,6 +650,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -854,34 +856,57 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
-
                 DropDownMarca(),
+                SizedBox(height: 20),
                 DropDownSubCategoria(subCategoriaSelecionada),
+                SizedBox(height: 20),
                 DropDownLoja(lojaSelecionada),
+                SizedBox(height: 20),
                 DropDownPromocao(promocaoSelecionada),
-
+                SizedBox(height: 20),
                 Card(
-                  child: ExpansionTile(
-                    leading: Icon(Icons.format_size_outlined),
-                    title: Text("Tamanho"),
-                    children: [
-                      Container(
-                        height: 400,
-                        padding: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                    ],
+                      child: ExpansionTile(
+                        leading: Icon(Icons.format_size_outlined),
+                        title: Text("Tamanho"),
+                        children: [
+                          Container(
+                            height: 400,
+                            padding: EdgeInsets.all(5),
+                            child: DialogTamanho(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Card(
-                  child: ExpansionTile(
-                    leading: Icon(Icons.color_lens_outlined),
-                    title: Text("Cores"),
-                    children: [
-                      Container(
-                        height: 400,
-                        padding: EdgeInsets.all(0),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
                       ),
-                    ],
+                      child: ExpansionTile(
+                        leading: Icon(Icons.color_lens_outlined),
+                        title: Text("Cores"),
+                        children: [
+                          Container(
+                            height: 400,
+                            padding: EdgeInsets.all(5),
+                            child: DialogCor(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
