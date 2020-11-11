@@ -16,7 +16,7 @@ class SubCategoriaList extends StatefulWidget {
 
 class _SubCategoriaListState extends State<SubCategoriaList>
     with AutomaticKeepAliveClientMixin<SubCategoriaList> {
-  final subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  SubCategoriaController subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   @override
   void initState() {

@@ -34,6 +34,9 @@ abstract class PromoCaoControllerBase with Store {
   @observable
   String mensagem;
 
+  @observable
+  Promocao promocaoSelecionada;
+
   @action
   Future<List<Promocao>> getAll() async {
     try {

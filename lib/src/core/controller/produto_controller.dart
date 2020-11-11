@@ -2,7 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/core/model/loja.dart';
+import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
@@ -37,6 +41,18 @@ abstract class ProdutoControllerBase with Store {
 
   @observable
   String mensagem;
+
+  @observable
+  Marca marcaSelecionada;
+
+  @observable
+  SubCategoria subCategoriaSelecionada;
+
+  @observable
+  Loja lojaSelecionada;
+
+  @observable
+  Promocao promocaoSelecionada;
 
   @action
   Future<List<Produto>> getAll() async {
@@ -82,6 +98,11 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<int> create(Produto p) async {
     try {
+      p.marca = marcaSelecionada;
+      p.subCategoria = subCategoriaSelecionada;
+      p.loja = lojaSelecionada;
+      p.promocao = promocaoSelecionada;
+
       produto = await produtoRepository.create(p.toJson());
       if (produto == null) {
         mensagem = "sem dados";
@@ -97,6 +118,11 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<int> update(int id, Produto p) async {
     try {
+      p.marca = marcaSelecionada;
+      p.subCategoria = subCategoriaSelecionada;
+      p.loja = lojaSelecionada;
+      p.promocao = promocaoSelecionada;
+
       produto = await produtoRepository.update(id, p.toJson());
       return produto;
     } on DioError catch (e) {

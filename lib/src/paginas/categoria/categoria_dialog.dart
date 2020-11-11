@@ -30,7 +30,24 @@ class _CategoriaDialogState extends State<CategoriaDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return builderConteudoList();
+    return alertSelectCategorias(context, categoria);
+  }
+
+  alertSelectCategorias(BuildContext context, Categoria c) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: CategoriaDialog(),
+          ),
+        );
+      },
+    );
   }
 
   builderConteudoList() {

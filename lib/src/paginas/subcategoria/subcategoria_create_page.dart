@@ -12,7 +12,9 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/paginas/categoria/categoria_dialog.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
+import 'package:nosso/src/util/dialogs/dialog_subcategoria.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -169,7 +171,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                         leading: Icon(Icons.list_alt_outlined),
                         trailing: Icon(Icons.arrow_drop_down_sharp),
                         onTap: () {
-                          alertSelectCategorias(context, categoriaSelecionada);
+                          CategoriaDialog();
                         },
                       ),
                     ),
@@ -222,79 +224,6 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
       MaterialPageRoute(
         builder: (context) => SubcategoriaPage(),
       ),
-    );
-  }
-
-  alertSelectCategorias(BuildContext context, Categoria c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: builderConteudoList(),
-          ),
-        );
-      },
-    );
-  }
-
-  builderConteudoList() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<Categoria> categorias = categoriaController.categorias;
-          if (categoriaController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
-
-          if (categorias == null) {
-            return CircularProgressorMini();
-          }
-
-          return builderListCategorias(categorias);
-        },
-      ),
-    );
-  }
-
-  builderListCategorias(List<Categoria> categorias) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: categorias.length,
-      itemBuilder: (context, index) {
-        Categoria c = categorias[index];
-
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoCategoria + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
-              ),
-              onTap: () {
-                setState(() {
-                  categoriaSelecionada = c;
-                  print("${categoriaSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            Divider()
-          ],
-        );
-      },
     );
   }
 }

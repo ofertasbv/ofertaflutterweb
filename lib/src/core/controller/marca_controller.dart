@@ -29,6 +29,9 @@ abstract class MarcaControllerBase with Store {
   @observable
   String mensagem;
 
+  @observable
+  Marca marcaSelecionada;
+
   @action
   Future<List<Marca>> getAll() async {
     try {

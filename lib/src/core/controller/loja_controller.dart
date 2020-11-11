@@ -47,6 +47,9 @@ abstract class LojaControllerBase with Store {
   @observable
   String mensagem;
 
+  @observable
+  Loja lojaSelecionada;
+
   @action
   Future<List<Loja>> getAll() async {
     try {

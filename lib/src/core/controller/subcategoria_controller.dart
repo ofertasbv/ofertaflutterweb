@@ -30,6 +30,9 @@ abstract class SubCategoriaControllerBase with Store {
   @observable
   String mensagem;
 
+  @observable
+  SubCategoria subCategoriaSelecionada;
+
   @action
   Future<List<SubCategoria>> getAll() async {
     try {

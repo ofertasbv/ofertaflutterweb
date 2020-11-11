@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,17 +20,19 @@ import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
-import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/util/componets/dropdown_loja.dart';
+import 'package:nosso/src/util/componets/dropdown_marca.dart';
+import 'package:nosso/src/util/componets/dropdown_promocao.dart';
+import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
+import 'package:nosso/src/util/dialogs/dialog_marca.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
-import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -63,11 +64,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Future<List<Marca>> marcas;
   Future<List<Promocao>> promocoes;
   Future<List<Loja>> lojas;
-  Future<List<Tamanho>> tamanhos;
-  Future<List<Cor>> cores;
-
-  List<Tamanho> tamanhoSelecionada = List();
-  List<Cor> corSelecionada = List();
 
   Produto p;
   Estoque e;
@@ -79,10 +75,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   Controller controller;
   var controllerCodigoBarra = TextEditingController();
+  var controllerQuantidade = TextEditingController();
+  var controllerValor = TextEditingController();
+  var controllerDesconto = TextEditingController();
 
   String barcode = "";
-  bool clicadoTamanho = false;
-  bool clicadoCor = false;
 
   bool favorito;
   bool novo;
@@ -114,30 +111,25 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       tamanho = "PEQUENO";
       origem = "NACIONAL";
     } else {
-      e = p.estoque;
-
       favorito = p.favorito;
       novo = p.novo;
       status = p.status;
       destaque = p.destaque;
+
+      e = p.estoque;
     }
 
     lojas = lojaController.getAll();
     subCategorias = subCategoriaController.getAll();
     marcas = marcaController.getAll();
     promocoes = promocaoController.getAll();
-    tamanhos = tamanhoController.getAll();
-    cores = corController.getAll();
 
     produtoController.getAll();
-
-    p.estoque = e;
 
     lojaSelecionada = p.loja;
     subCategoriaSelecionada = p.subCategoria;
     marcaSelecionada = p.marca;
     promocaoSelecionada = p.promocao;
-
     super.initState();
   }
 
@@ -292,6 +284,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     NumberFormat formatter = NumberFormat("00.00");
     double initialValue = num.parse(0.18941.toStringAsPrecision(2));
     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+    p.estoque = e;
+
+    p.estoque.quantidade = int.tryParse(controllerQuantidade.text);
+    p.estoque.valor = double.tryParse(controllerValor.text);
+    p.desconto = double.tryParse(controllerDesconto.text);
 
     return ListView(
       children: <Widget>[
@@ -529,9 +526,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
-                          initialValue: p.estoque.quantidade == null
-                              ? quantidade.toString()
-                              : p.estoque.quantidade.toStringAsFixed(1),
+                          controller: controllerQuantidade,
                           onSaved: (value) {
                             p.estoque.quantidade = int.tryParse(value);
                           },
@@ -555,21 +550,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
-                          keyboardType: TextInputType.numberWithOptions(
-                              decimal: false, signed: false),
+                          keyboardType: TextInputType.number,
                           maxLength: 6,
                         ),
                         TextFormField(
-                          // initialValue: p.estoque.valor.toStringAsFixed(2),
-                          onSaved: (value) =>
-                              p.estoque.valor = double.tryParse(value),
+                          controller: controllerValor,
+                          onSaved: (value) {
+                            p.estoque.valor = double.tryParse(value);
+                          },
                           validator: (value) =>
                               value.isEmpty ? "campo obrigário" : null,
                           decoration: InputDecoration(
                             labelText: "Valor",
-                            hintText: "R\$ ",
+                            hintText: "valor",
                             prefixIcon: Icon(
-                              Icons.monetization_on,
+                              Icons.monetization_on_outlined,
                               color: Colors.grey,
                             ),
                             suffixIcon: Icon(Icons.close),
@@ -584,13 +579,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             ),
                           ),
                           keyboardType: TextInputType.number,
-                          maxLength: 10,
-                          inputFormatters: [
-                            RealInputFormatter(centavos: true)
-                          ],
+                          maxLength: 6,
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.digitsOnly,
+                          //   RealInputFormatter(centavos: true)
+                          // ],
                         ),
                         TextFormField(
-                          // initialValue: p.desconto.toStringAsFixed(2),
+                          controller: controllerDesconto,
                           onSaved: (value) =>
                               p.desconto = double.tryParse(value),
                           validator: (value) =>
@@ -613,9 +609,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           ),
                           keyboardType: TextInputType.number,
                           maxLength: 10,
-                          inputFormatters: [
-                            RealInputFormatter(centavos: true)
-                          ],
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.digitsOnly,
+                          //   RealInputFormatter(centavos: true)
+                          // ],
                         ),
                         DateTimeField(
                           initialValue: p.dataRegistro,
@@ -649,95 +646,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           },
                         ),
                       ],
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text("Categoria *"),
-                        subtitle: subCategoriaSelecionada == null
-                            ? Text("Selecione uma categoria")
-                            : Text(subCategoriaSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          alertSelectSubCategorias(
-                              context, subCategoriaSelecionada);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text("Marca *"),
-                        subtitle: marcaSelecionada == null
-                            ? Text("Selecione uma marca")
-                            : Text(marcaSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          alertSelectMarcas(context, marcaSelecionada);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text("Loja *"),
-                        subtitle: lojaSelecionada == null
-                            ? Text("Selecione uma loja")
-                            : Text(lojaSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          alertSelectLojas(context, lojaSelecionada);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text("Promoção *"),
-                        subtitle: promocaoSelecionada == null
-                            ? Text("Selecione uma promoção")
-                            : Text(promocaoSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          alertSelectPromocao(context, promocaoSelecionada);
-                        },
-                      ),
                     ),
                   ),
                 ),
@@ -946,6 +854,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
+
+                DropDownMarca(),
+                DropDownSubCategoria(subCategoriaSelecionada),
+                DropDownLoja(lojaSelecionada),
+                DropDownPromocao(promocaoSelecionada),
+
                 Card(
                   child: ExpansionTile(
                     leading: Icon(Icons.format_size_outlined),
@@ -954,7 +868,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       Container(
                         height: 400,
                         padding: EdgeInsets.all(0),
-                        child: buildObserverTamanhos(),
                       ),
                     ],
                   ),
@@ -967,7 +880,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       Container(
                         height: 400,
                         padding: EdgeInsets.all(0),
-                        child: buildObserverCores(),
                       ),
                     ],
                   ),
@@ -996,6 +908,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       p.subCategoria = subCategoriaSelecionada;
                       p.marca = marcaSelecionada;
                       p.promocao = promocaoSelecionada;
+
                       // produtoController.create(p);
 
                       // Navigator.of(context).pop();
@@ -1012,6 +925,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       p.subCategoria = subCategoriaSelecionada;
                       p.marca = marcaSelecionada;
                       p.promocao = promocaoSelecionada;
+
+                      p.estoque.quantidade = int.tryParse(controllerValor.text);
+                      p.estoque.valor = double.tryParse(controllerValor.text);
+                      p.desconto = double.tryParse(controllerValor.text);
                       // produtoController.update(p.id, p);
 
                       // Navigator.of(context).pop();
@@ -1033,448 +950,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       MaterialPageRoute(
         builder: (context) => ProdutoPage(),
       ),
-    );
-  }
-
-  /* ===================  MARCA LISTA ===================  */
-  alertSelectMarcas(BuildContext context, Marca c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: builderConteudoListMarca(),
-          ),
-        );
-      },
-    );
-  }
-
-  builderConteudoListMarca() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<Marca> marcas = marcaController.marcas;
-          if (marcaController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
-
-          if (marcas == null) {
-            return CircularProgressorMini();
-          }
-
-          return builderListMarcas(marcas);
-        },
-      ),
-    );
-  }
-
-  builderListMarcas(List<Marca> marcas) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: marcas.length,
-      itemBuilder: (context, index) {
-        Marca c = marcas[index];
-
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  child: Icon(Icons.shopping_bag_outlined),
-                ),
-                title: Text(c.nome),
-              ),
-              onTap: () {
-                setState(() {
-                  marcaSelecionada = c;
-                  print("${marcaSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            Divider()
-          ],
-        );
-      },
-    );
-  }
-
-  /* ===================  SUBCATEGORIA LISTA ===================  */
-  alertSelectSubCategorias(BuildContext context, SubCategoria c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: builderConteudoListSubCategorias(),
-          ),
-        );
-      },
-    );
-  }
-
-  builderConteudoListSubCategorias() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<SubCategoria> subCategorias =
-              subCategoriaController.subCategorias;
-          if (subCategoriaController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
-
-          if (subCategorias == null) {
-            return CircularProgressorMini();
-          }
-
-          return builderListSubCategorias(subCategorias);
-        },
-      ),
-    );
-  }
-
-  builderListSubCategorias(List<SubCategoria> subCategorias) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: subCategorias.length,
-      itemBuilder: (context, index) {
-        SubCategoria c = subCategorias[index];
-
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.grey[200],
-                  radius: 30,
-                  child: Icon(Icons.check_outlined),
-                ),
-                title: Text(c.nome),
-              ),
-              onTap: () {
-                setState(() {
-                  subCategoriaSelecionada = c;
-                  print("${subCategoriaSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            Divider()
-          ],
-        );
-      },
-    );
-  }
-
-  /* ===================  SUBCATEGORIA LOJA ===================  */
-  alertSelectLojas(BuildContext context, Loja c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: builderConteudoListLojas(),
-          ),
-        );
-      },
-    );
-  }
-
-  builderConteudoListLojas() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<Loja> lojas = lojaController.lojas;
-          if (lojaController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
-
-          if (lojas == null) {
-            return CircularProgressorMini();
-          }
-
-          return builderListLojas(lojas);
-        },
-      ),
-    );
-  }
-
-  builderListLojas(List<Loja> lojas) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: lojas.length,
-      itemBuilder: (context, index) {
-        Loja c = lojas[index];
-
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoLoja + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
-              ),
-              onTap: () {
-                setState(() {
-                  lojaSelecionada = c;
-                  print("${lojaSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            Divider()
-          ],
-        );
-      },
-    );
-  }
-
-  /* ===================  PROMOÇÃO LISTA ===================  */
-  alertSelectPromocao(BuildContext context, Promocao c) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: builderConteudoListPromocao(),
-          ),
-        );
-      },
-    );
-  }
-
-  builderConteudoListPromocao() {
-    return Container(
-      padding: EdgeInsets.only(top: 0),
-      child: Observer(
-        builder: (context) {
-          List<Promocao> promocoes = promocaoController.promocoes;
-          if (promocaoController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
-
-          if (promocoes == null) {
-            return CircularProgressorMini();
-          }
-
-          return builderListPromocoes(promocoes);
-        },
-      ),
-    );
-  }
-
-  builderListPromocoes(List<Promocao> promocoes) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: promocoes.length,
-      itemBuilder: (context, index) {
-        Promocao c = promocoes[index];
-
-        return Column(
-          children: [
-            GestureDetector(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoPromocao + c.foto}",
-                  ),
-                ),
-                title: Text(c.nome),
-              ),
-              onTap: () {
-                setState(() {
-                  promocaoSelecionada = c;
-                  print("${promocaoSelecionada.nome}");
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            Divider()
-          ],
-        );
-      },
-    );
-  }
-
-  /* ===================  TAMANHO LISTA ===================  */
-
-  onSelected(bool selected, Tamanho tamanho) {
-    if (selected == true) {
-      setState(() {
-        tamanhoSelecionada.add(tamanho);
-      });
-    } else {
-      setState(() {
-        tamanhoSelecionada.remove(tamanho);
-      });
-    }
-  }
-
-  alertSelectTamanhos(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: buildObserverTamanhos(),
-          ),
-        );
-      },
-    );
-  }
-
-  buildObserverTamanhos() {
-    return Observer(
-      builder: (context) {
-        List<Tamanho> tamanhos = tamanhoController.tamanhos;
-        if (tamanhoController.error != null) {
-          return Text("Não foi possível carregados dados");
-        }
-
-        if (tamanhos == null) {
-          return CircularProgressorMini();
-        }
-
-        return builderList(tamanhos);
-      },
-    );
-  }
-
-  builderList(List<Tamanho> tamanhos) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.separated(
-      itemCount: tamanhos.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
-      itemBuilder: (context, index) {
-        Tamanho c = tamanhos[index];
-
-        return CheckboxListTile(
-          value: tamanhoSelecionada.contains(tamanhos[index]),
-          onChanged: (bool select) {
-            clicadoTamanho = select;
-            onSelected(clicadoTamanho, c);
-            print("Clicado: ${clicadoTamanho} - ${c.descricao}");
-            for (Tamanho t in tamanhoSelecionada) {
-              print("Lista: ${t.descricao}");
-            }
-          },
-          title: Text("${c.descricao}"),
-        );
-      },
-    );
-  }
-
-  /* ===================  TAMANHO LISTA ===================  */
-
-  onSelectedCor(bool selected, Cor cor) {
-    if (selected == true) {
-      setState(() {
-        corSelecionada.add(cor);
-      });
-    } else {
-      setState(() {
-        corSelecionada.remove(cor);
-      });
-    }
-  }
-
-  alertSelectCor(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: buildObserverCores(),
-          ),
-        );
-      },
-    );
-  }
-
-  buildObserverCores() {
-    return Observer(
-      builder: (context) {
-        List<Cor> cores = corController.cores;
-        if (corController.error != null) {
-          return Text("Não foi possível carregados dados");
-        }
-
-        if (cores == null) {
-          return CircularProgressorMini();
-        }
-
-        return builderListCor(cores);
-      },
-    );
-  }
-
-  builderListCor(List<Cor> cores) {
-    double containerWidth = 160;
-    double containerHeight = 20;
-
-    return ListView.separated(
-      itemCount: cores.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
-      itemBuilder: (context, index) {
-        Cor c = cores[index];
-
-        return CheckboxListTile(
-          value: corSelecionada.contains(cores[index]),
-          onChanged: (bool select) {
-            clicadoCor = select;
-            onSelectedCor(clicadoCor, c);
-            print("Clicado: ${clicadoCor} - ${c.descricao}");
-            for (Cor c in corSelecionada) {
-              print("Lista: ${c.descricao}");
-            }
-          },
-          title: Text("${c.descricao}"),
-        );
-      },
     );
   }
 }
