@@ -142,7 +142,7 @@ class MyApp extends StatelessWidget {
         buttonColor: Colors.orange[900],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
-          side: BorderSide(color: Colors.white),
+          side: BorderSide(color: Colors.grey),
         ),
       ),
 

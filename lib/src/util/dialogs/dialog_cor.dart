@@ -30,9 +30,13 @@ class _DialogCorState extends State<DialogCor> {
 
   onSelectedCor(bool selected, Cor cor) {
     if (selected == true) {
-      produtoController.addCores(cor);
+      setState(() {
+        produtoController.addCores(cor);
+      });
     } else {
-      produtoController.removerCores(cor);
+      setState(() {
+        produtoController.removerCores(cor);
+      });
     }
   }
 

@@ -109,7 +109,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       destaque = false;
 
       medida = "UNIDADE";
-      tamanho = "PEQUENO";
       origem = "NACIONAL";
     } else {
       favorito = p.favorito;
@@ -287,6 +286,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
     p.estoque = e;
 
+    p.loja = lojaController.lojaSelecionada;
+    p.subCategoria = subCategoriaController.subCategoriaSelecionada;
+    p.marca = marcaController.marcaSelecionada;
+    p.promocao = promocaoController.promocaoSelecionada;
+
     p.estoque.quantidade = int.tryParse(controllerQuantidade.text);
     p.estoque.valor = double.tryParse(controllerValor.text);
     p.desconto = double.tryParse(controllerDesconto.text);
@@ -299,6 +303,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Card(
                   child: GestureDetector(
@@ -437,6 +442,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 /* ================ Cadastro produto ================ */
+                SizedBox(height: 20),
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -470,6 +476,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           maxLength: 100,
                           maxLines: null,
                         ),
+                        SizedBox(height: 20),
                         TextFormField(
                           initialValue: p.descricao,
                           onSaved: (value) => p.descricao = value,
@@ -525,7 +532,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           maxLength: 100,
                           maxLines: 1,
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         TextFormField(
                           controller: controllerQuantidade,
                           onSaved: (value) {
@@ -554,6 +561,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           keyboardType: TextInputType.number,
                           maxLength: 6,
                         ),
+                        SizedBox(height: 10),
                         TextFormField(
                           controller: controllerValor,
                           onSaved: (value) {
@@ -586,6 +594,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           //   RealInputFormatter(centavos: true)
                           // ],
                         ),
+                        SizedBox(height: 10),
                         TextFormField(
                           controller: controllerDesconto,
                           onSaved: (value) =>
@@ -615,6 +624,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           //   RealInputFormatter(centavos: true)
                           // ],
                         ),
+                        SizedBox(height: 10),
                         DateTimeField(
                           initialValue: p.dataRegistro,
                           format: dateFormat,
@@ -647,6 +657,157 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           },
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                DropDownMarca(),
+                Observer(
+                  builder: (context) {
+                    if (marcaController.marcaSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 10),
+                DropDownSubCategoria(subCategoriaSelecionada),
+                Observer(
+                  builder: (context) {
+                    if (subCategoriaController.subCategoriaSelecionada ==
+                        null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 10),
+                DropDownLoja(lojaSelecionada),
+                Observer(
+                  builder: (context) {
+                    if (lojaController.lojaSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 10),
+                DropDownPromocao(promocaoSelecionada),
+                Observer(
+                  builder: (context) {
+                    if (promocaoController.promocaoSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 10),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ExpansionTile(
+                        leading: Icon(Icons.format_size_outlined),
+                        title: Text("Tamanho"),
+                        children: [
+                          Container(
+                            height: 400,
+                            padding: EdgeInsets.all(5),
+                            child: DialogTamanho(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: ExpansionTile(
+                        leading: Icon(Icons.color_lens_outlined),
+                        title: Text("Cores"),
+                        children: [
+                          Container(
+                            height: 400,
+                            padding: EdgeInsets.all(5),
+                            child: DialogCor(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -824,12 +985,16 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("NACIONAL"),
                                 value: "NACIONAL",
-                                groupValue:
-                                    p.origem == null ? origem : p.origem,
+                                groupValue: p.origem == null
+                                    ? p.origem = origem
+                                    : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
-                                    p.origem = valor;
+                                    if (p.origem == null) {
+                                      p.origem = origem;
+                                    }
+
                                     print("resultado: " + p.origem);
                                   });
                                 },
@@ -839,70 +1004,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("INTERNACIONAL"),
                                 value: "INTERNACIONAL",
-                                groupValue:
-                                    p.origem == null ? origem : p.origem,
+                                groupValue: p.origem == null
+                                    ? p.origem = origem
+                                    : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
-                                    p.origem = valor;
+                                    if (p.origem == null) {
+                                      p.origem = origem;
+                                    }
                                     print("resultado: " + p.origem);
                                   });
                                 },
                               ),
                             ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                DropDownMarca(),
-                SizedBox(height: 20),
-                DropDownSubCategoria(subCategoriaSelecionada),
-                SizedBox(height: 20),
-                DropDownLoja(lojaSelecionada),
-                SizedBox(height: 20),
-                DropDownPromocao(promocaoSelecionada),
-                SizedBox(height: 20),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ExpansionTile(
-                        leading: Icon(Icons.format_size_outlined),
-                        title: Text("Tamanho"),
-                        children: [
-                          Container(
-                            height: 400,
-                            padding: EdgeInsets.all(5),
-                            child: DialogTamanho(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ExpansionTile(
-                        leading: Icon(Icons.color_lens_outlined),
-                        title: Text("Cores"),
-                        children: [
-                          Container(
-                            height: 400,
-                            padding: EdgeInsets.all(5),
-                            child: DialogCor(),
                           ),
                         ],
                       ),
@@ -923,33 +1038,71 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                if (p.foto == null) {
-                  openBottomSheet(context);
+                // if (p.foto == null) {
+                //   openBottomSheet(context);
+                // } else {
+
+                if (marcaController.marcaSelecionada == null) {
+                  print("campo marca obrigatório");
+                }
+                if (subCategoriaController.subCategoriaSelecionada == null) {
+                  print("campo categoria obrigatório");
+                }
+                if (lojaController.lojaSelecionada == null) {
+                  print("campo loja obrigatório");
+                }
+                if (promocaoController.promocaoSelecionada == null) {
+                  print("campo promoção obrigatório");
                 } else {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
-                      p.loja = lojaSelecionada;
-                      p.subCategoria = subCategoriaSelecionada;
-                      p.marca = marcaSelecionada;
-                      p.promocao = promocaoSelecionada;
-
                       // produtoController.create(p);
-
                       // Navigator.of(context).pop();
                       // buildPush(context);
+
+                      DateTime agora = DateTime.now();
+
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
+
                       print("Quantidade: ${p.estoque.quantidade}");
                       print("Valor: ${p.estoque.valor}");
                       print("Desconto: ${p.desconto}");
+
+                      print("Favorito: ${p.favorito}");
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
+
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
+
+                      print("Data: ${p.dataRegistro}");
+                      print("Agora: ${agora}");
                     });
                   } else {
                     dialogs.information(
                         context, "preparando para o alteração...");
                     Timer(Duration(seconds: 1), () {
-                      p.loja = lojaSelecionada;
-                      p.subCategoria = subCategoriaSelecionada;
-                      p.marca = marcaSelecionada;
-                      p.promocao = promocaoSelecionada;
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
+
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
+                      print("Desconto: ${p.desconto}");
+
+                      print("Favorito: ${p.favorito}");
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
+
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
 
                       p.estoque.quantidade = int.tryParse(controllerValor.text);
                       p.estoque.valor = double.tryParse(controllerValor.text);
@@ -962,6 +1115,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   }
                 }
               }
+              // }
             },
           ),
         ),

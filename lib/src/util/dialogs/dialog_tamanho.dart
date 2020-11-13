@@ -30,9 +30,13 @@ class _DialogTamanhoState extends State<DialogTamanho> {
 
   onSelectedTamanho(bool selected, Tamanho tamanho) {
     if (selected == true) {
-      produtoController.addTamanhos(tamanho);
+      setState(() {
+        produtoController.addTamanhos(tamanho);
+      });
     } else {
-      produtoController.removerTamanhos(tamanho);
+      setState(() {
+        produtoController.removerTamanhos(tamanho);
+      });
     }
   }
 
