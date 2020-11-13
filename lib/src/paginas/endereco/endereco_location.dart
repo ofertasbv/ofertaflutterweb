@@ -23,7 +23,7 @@ class EnderecoLocation extends StatefulWidget {
 }
 
 class _EnderecoLocationState extends State<EnderecoLocation> {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   _EnderecoLocationState({this.endereco});
 

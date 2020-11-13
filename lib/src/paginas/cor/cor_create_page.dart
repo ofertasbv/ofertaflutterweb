@@ -21,7 +21,7 @@ class CorCreatePage extends StatefulWidget {
 }
 
 class _CorCreatePageState extends State<CorCreatePage> {
-  CorController corController = GetIt.I.get<CorController>();
+  var corController = GetIt.I.get<CorController>();
   Dialogs dialogs = Dialogs();
 
   Cor c;

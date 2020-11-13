@@ -18,7 +18,7 @@ class EnderecoList extends StatefulWidget {
 
 class _EnderecoListState extends State<EnderecoList>
     with AutomaticKeepAliveClientMixin<EnderecoList> {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   @override
   void initState() {

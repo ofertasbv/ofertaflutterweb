@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
-import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
-import 'package:nosso/src/paginas/arquivo/arquivo_create_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
@@ -18,7 +16,7 @@ class TamanhoList extends StatefulWidget {
 
 class _TamanhoListState extends State<TamanhoList>
     with AutomaticKeepAliveClientMixin<TamanhoList> {
-  TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
+  var tamanhoController = GetIt.I.get<TamanhoController>();
 
   @override
   void initState() {

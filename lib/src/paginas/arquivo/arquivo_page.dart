@@ -5,11 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_create_page.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_list.dart';
-import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
-import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 
 class ArquivoPage extends StatelessWidget {
-  ArquivoController arquivoController = GetIt.I.get<ArquivoController>();
+  var arquivoController = GetIt.I.get<ArquivoController>();
 
   @override
   Widget build(BuildContext context) {

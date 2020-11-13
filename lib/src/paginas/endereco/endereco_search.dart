@@ -9,7 +9,7 @@ import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class EnderecoSearchDelegate extends SearchDelegate<Produto> {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   @override
   List<Widget> buildActions(BuildContext context) {

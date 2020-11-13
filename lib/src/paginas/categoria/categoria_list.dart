@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
@@ -18,7 +17,7 @@ class CategoriaList extends StatefulWidget {
 
 class _CategoriaListState extends State<CategoriaList>
     with AutomaticKeepAliveClientMixin<CategoriaList> {
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
   @override
   void initState() {
@@ -76,7 +75,7 @@ class _CategoriaListState extends State<CategoriaList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoCategoria + c.foto}",
+                "${categoriaController.arquivo + c.foto}",
               ),
             ),
             title: Text(c.nome),

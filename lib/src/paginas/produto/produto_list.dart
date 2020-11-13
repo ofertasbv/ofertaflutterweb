@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
@@ -17,7 +16,7 @@ class ProdutoList extends StatefulWidget {
 
 class _ProdutoListState extends State<ProdutoList>
     with AutomaticKeepAliveClientMixin<ProdutoList> {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   ProdutoFilter filter = ProdutoFilter();
 
@@ -86,7 +85,7 @@ class _ProdutoListState extends State<ProdutoList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoProduto + p.foto}",
+                "${produtoController.arquivo + p.foto}",
               ),
             ),
             title: Text(p.nome),

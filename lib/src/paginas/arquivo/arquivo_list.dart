@@ -4,14 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
-import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
-import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_create_page.dart';
-import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
-import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class ArquivoList extends StatefulWidget {
@@ -21,7 +16,7 @@ class ArquivoList extends StatefulWidget {
 
 class _ArquivoListState extends State<ArquivoList>
     with AutomaticKeepAliveClientMixin<ArquivoList> {
-  ArquivoController arquivoController = GetIt.I.get<ArquivoController>();
+  var arquivoController = GetIt.I.get<ArquivoController>();
 
   @override
   void initState() {
@@ -79,7 +74,7 @@ class _ArquivoListState extends State<ArquivoList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoArquivo + c.foto}",
+                "${arquivoController.arquivoFoto + c.foto}",
               ),
             ),
             title: Text(c.foto),

@@ -6,10 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/paginas/endereco/endereco_create_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_list.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
 
 class EnderecoPage extends StatelessWidget {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   @override
   Widget build(BuildContext context) {

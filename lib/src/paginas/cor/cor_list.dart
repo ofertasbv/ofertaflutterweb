@@ -16,7 +16,7 @@ class CorList extends StatefulWidget {
 
 class _CorListState extends State<CorList>
     with AutomaticKeepAliveClientMixin<CorList> {
-  CorController corController = GetIt.I.get<CorController>();
+  var corController = GetIt.I.get<CorController>();
 
   @override
   void initState() {

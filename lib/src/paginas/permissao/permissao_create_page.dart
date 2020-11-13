@@ -21,7 +21,7 @@ class PermissaoCreatePage extends StatefulWidget {
 }
 
 class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
-  PermissaoController permissaoController = GetIt.I.get<PermissaoController>();
+  var permissaoController = GetIt.I.get<PermissaoController>();
 
   Dialogs dialogs = Dialogs();
 

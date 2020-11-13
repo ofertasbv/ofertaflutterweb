@@ -26,7 +26,7 @@ class ArquivoCreatePage extends StatefulWidget {
 }
 
 class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
-  ArquivoController arquivoController = GetIt.I.get<ArquivoController>();
+  var arquivoController = GetIt.I.get<ArquivoController>();
   Dialogs dialogs = Dialogs();
 
   Arquivo a;

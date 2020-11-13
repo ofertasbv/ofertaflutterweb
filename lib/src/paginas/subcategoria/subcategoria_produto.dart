@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class SubCategoriaProduto extends StatefulWidget {
@@ -23,9 +21,8 @@ class SubCategoriaProduto extends StatefulWidget {
 
 class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     with SingleTickerProviderStateMixin {
-  SubCategoriaController subCategoriaController =
-      GetIt.I.get<SubCategoriaController>();
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   SubCategoria subCategoria;
   var selectedCard = 'WEIGHT';
@@ -252,7 +249,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoProduto + p.foto}",
+                "${produtoController.arquivo + p.foto}",
               ),
             ),
             title: Text(p.nome),

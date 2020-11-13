@@ -24,7 +24,7 @@ class TamanhoCreatePage extends StatefulWidget {
 }
 
 class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
-  TamanhoController tamanhoController = GetIt.I.get<TamanhoController>();
+  var tamanhoController = GetIt.I.get<TamanhoController>();
 
   Dialogs dialogs = Dialogs();
 

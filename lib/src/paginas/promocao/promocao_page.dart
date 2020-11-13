@@ -17,7 +17,7 @@ class PromocaoPage extends StatefulWidget {
 }
 
 class _PromocaoPageState extends State<PromocaoPage> {
-  PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
+  var promocaoController = GetIt.I.get<PromoCaoController>();
 
   Loja p;
 

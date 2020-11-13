@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
@@ -21,9 +20,8 @@ class CategoriaSubCategoria extends StatefulWidget {
 }
 
 class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
-  SubCategoriaController subCategoriaController =
-      GetIt.I.get<SubCategoriaController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   Categoria categoria;
 
@@ -164,62 +162,60 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
-              child: AnimatedContainer(
-                width: 90,
-                height: 150,
-                duration: Duration(seconds: 1),
-
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.grey[100],
-                      Colors.grey[300],
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: c.nome == selectedCard
-                      ? Colors.greenAccent
-                      : Colors.white,
+            child: AnimatedContainer(
+              width: 90,
+              height: 150,
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.grey[100],
+                    Colors.grey[300],
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: new BoxDecoration(
-                        gradient: LinearGradient(colors: [Colors.black, Colors.orange]),
-                        border: Border.all(
-                          color: Colors.deepOrangeAccent,
-                        ),
-                        borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(10),
+                color:
+                    c.nome == selectedCard ? Colors.greenAccent : Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(1),
+                    decoration: new BoxDecoration(
+                      gradient:
+                          LinearGradient(colors: [Colors.black, Colors.orange]),
+                      border: Border.all(
+                        color: Colors.deepOrangeAccent,
                       ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          "${ConstantApi.urlArquivoCategoria + c.foto}",
-                        ),
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                        "${categoriaController.arquivo + c.foto}",
                       ),
                     ),
-                    SizedBox(height: 0),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(5),
-                      height: 40,
-                      width: containerWidth,
-                      child: Text(
-                        c.nome.toLowerCase(),
-                        style: TextStyle(color: Colors.orange[900]),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 0),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(5),
+                    height: 40,
+                    width: containerWidth,
+                    child: Text(
+                      c.nome.toLowerCase(),
+                      style: TextStyle(color: Colors.orange[900]),
+                    ),
+                  )
+                ],
               ),
             ),
-
+          ),
           onTap: () {
             selectCard(c.nome);
             print("id catgeoria ${c.id}");

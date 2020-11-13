@@ -7,12 +7,11 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/categoria/categoria_pesquisa.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class ProdutoSearchDelegate extends SearchDelegate<Produto> {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
   @override
   List<Widget> buildActions(BuildContext context) {

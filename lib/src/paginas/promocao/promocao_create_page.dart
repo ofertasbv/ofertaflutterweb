@@ -35,8 +35,8 @@ class PromocaoCreatePage extends StatefulWidget {
 }
 
 class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
-  PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
-  LojaController lojaController = GetIt.I.get<LojaController>();
+  var promocaoController = GetIt.I.get<PromoCaoController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   Dialogs dialogs = Dialogs();
 
@@ -55,7 +55,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TextEditingController descontoController = TextEditingController();
+  var descontoController = TextEditingController();
 
   @override
   void initState() {

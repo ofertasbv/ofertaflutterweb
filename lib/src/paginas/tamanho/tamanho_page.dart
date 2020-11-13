@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
-import 'package:nosso/src/paginas/marca/marca_create_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_create_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_list.dart';
 
 class TamanhoPage extends StatelessWidget {
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
+  var marcaController = GetIt.I.get<MarcaController>();
 
   @override
   Widget build(BuildContext context) {

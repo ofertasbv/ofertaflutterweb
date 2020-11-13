@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
-import 'package:nosso/src/paginas/cliente/cliente_page.dart';
+import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
+import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
@@ -73,7 +74,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return ProdutoPage();
+                            return ProdutoCreatePage();
                           },
                         ),
                       );
@@ -100,7 +101,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return ClientePage();
+                            return ClienteCreatePage();
                           },
                         ),
                       );

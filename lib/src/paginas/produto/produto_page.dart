@@ -35,8 +35,8 @@ class ProdutoPage extends StatefulWidget {
 
 class _ProdutoPageState extends State<ProdutoPage>
     with SingleTickerProviderStateMixin {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-  final pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
+  var pedidoItemController = GetIt.I.get<PedidoItemController>();
 
   Promocao p;
   SubCategoria s;

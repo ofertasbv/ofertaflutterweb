@@ -30,9 +30,9 @@ class EnderecoCreatePage extends StatefulWidget {
 }
 
 class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
-  EnderecoController enderecoController = GetIt.I.get<EnderecoController>();
-  EstadoController estadoController = GetIt.I.get<EstadoController>();
-  CidadeController cidadeController = GetIt.I.get<CidadeController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
+  var estadoController = GetIt.I.get<EstadoController>();
+  var cidadeController = GetIt.I.get<CidadeController>();
 
   Dialogs dialogs = Dialogs();
 

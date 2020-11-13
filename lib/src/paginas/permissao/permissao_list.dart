@@ -13,7 +13,7 @@ class PermissaoList extends StatefulWidget {
 
 class _PermissaoListState extends State<PermissaoList>
     with AutomaticKeepAliveClientMixin<PermissaoList> {
-  PermissaoController permissaoController = GetIt.I.get<PermissaoController>();
+  var permissaoController = GetIt.I.get<PermissaoController>();
 
   @override
   void initState() {

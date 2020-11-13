@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_create_page.dart';
@@ -18,7 +17,7 @@ class LojaList extends StatefulWidget {
 
 class _LojaListState extends State<LojaList>
     with AutomaticKeepAliveClientMixin<LojaList> {
-  LojaController lojaController = GetIt.I.get<LojaController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   @override
   void initState() {
@@ -79,7 +78,7 @@ class _LojaListState extends State<LojaList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoLoja + p.foto}",
+                "${lojaController.arquivo + p.foto}",
               ),
             ),
             title: Text(p.nome),

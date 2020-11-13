@@ -14,7 +14,7 @@ class CategoriaPesquisa extends StatefulWidget {
 }
 
 class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
   @override
   void initState() {

@@ -7,7 +7,7 @@ import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 
 class CategoriaPage extends StatelessWidget {
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
   @override
   Widget build(BuildContext context) {

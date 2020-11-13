@@ -30,9 +30,8 @@ class SubCategoriaCreatePage extends StatefulWidget {
 }
 
 class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
-  SubCategoriaController subCategoriaController =
-      GetIt.I.get<SubCategoriaController>();
-  CategoriaController categoriaController = GetIt.I.get<CategoriaController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
   Dialogs dialogs = Dialogs();
 

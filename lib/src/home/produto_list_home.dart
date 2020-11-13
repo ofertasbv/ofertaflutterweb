@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
@@ -17,7 +16,7 @@ class ProdutoListHome extends StatefulWidget {
 
 class _ProdutoListHomeState extends State<ProdutoListHome>
     with AutomaticKeepAliveClientMixin<ProdutoListHome> {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   @override
   void initState() {
@@ -99,7 +98,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        ConstantApi.urlArquivoProduto + p.foto,
+                        produtoController.arquivo + p.foto,
                         fit: BoxFit.cover,
                         width: 100,
                         height: 110,

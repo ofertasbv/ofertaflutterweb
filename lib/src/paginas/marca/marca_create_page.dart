@@ -21,7 +21,7 @@ class MarcaCreatePage extends StatefulWidget {
 }
 
 class _MarcaCreatePageState extends State<MarcaCreatePage> {
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
+  var marcaController = GetIt.I.get<MarcaController>();
   Dialogs dialogs = Dialogs();
 
   Marca c;

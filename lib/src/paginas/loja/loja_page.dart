@@ -7,7 +7,7 @@ import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
 
 class LojaPage extends StatelessWidget {
-  LojaController lojaController = GetIt.I.get<LojaController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   @override
   Widget build(BuildContext context) {

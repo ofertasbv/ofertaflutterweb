@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
@@ -23,7 +22,7 @@ class PromocaoList extends StatefulWidget {
 
 class _PromocaoListState extends State<PromocaoList>
     with AutomaticKeepAliveClientMixin<PromocaoList> {
-  PromoCaoController promocaoController = GetIt.I.get<PromoCaoController>();
+  var promocaoController = GetIt.I.get<PromoCaoController>();
 
   Loja p;
 
@@ -84,7 +83,7 @@ class _PromocaoListState extends State<PromocaoList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoPromocao + p.foto}",
+                "${promocaoController.arquivo + p.foto}",
               ),
             ),
             title: Text(p.nome),

@@ -5,10 +5,9 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/paginas/permissao/permissao_create_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_list.dart';
-import 'package:nosso/src/paginas/produto/produto_search.dart';
 
 class PermissaoPage extends StatelessWidget {
-  PermissaoController permissaoController = GetIt.I.get<PermissaoController>();
+  var permissaoController = GetIt.I.get<PermissaoController>();
 
   @override
   Widget build(BuildContext context) {

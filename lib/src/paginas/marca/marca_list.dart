@@ -17,7 +17,7 @@ class MarcaList extends StatefulWidget {
 
 class _MarcaListState extends State<MarcaList>
     with AutomaticKeepAliveClientMixin<MarcaList> {
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
+  var marcaController = GetIt.I.get<MarcaController>();
 
   @override
   void initState() {

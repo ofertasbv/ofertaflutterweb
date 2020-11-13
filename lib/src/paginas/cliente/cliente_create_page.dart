@@ -29,7 +29,7 @@ class ClienteCreatePage extends StatefulWidget {
 }
 
 class _ClienteCreatePageState extends State<ClienteCreatePage> {
-  ClienteController clienteController = GetIt.I.get<ClienteController>();
+  var clienteController = GetIt.I.get<ClienteController>();
   Dialogs dialogs = Dialogs();
 
   Cliente p;

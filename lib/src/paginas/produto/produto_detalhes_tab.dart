@@ -20,8 +20,8 @@ class ProdutoDetalhesTab extends StatefulWidget {
 
 class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
     with SingleTickerProviderStateMixin {
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-  final pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
+  var pedidoItemController = GetIt.I.get<PedidoItemController>();
 
   AnimationController animationController;
   Animation<double> animation;

@@ -19,7 +19,7 @@ class LojaLocation extends StatefulWidget {
 }
 
 class _LojaLocationState extends State<LojaLocation> {
-  LojaController lojaController = GetIt.I.get<LojaController>();
+  var lojaController = GetIt.I.get<LojaController>();
   final pessoa = Loja();
 
   var selectedCard = 'WEIGHT';

@@ -7,7 +7,7 @@ import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_list.dart';
 
 class ClientePage extends StatelessWidget {
-  ClienteController clienteController = GetIt.I.get<ClienteController>();
+  var clienteController = GetIt.I.get<ClienteController>();
 
   @override
   Widget build(BuildContext context) {

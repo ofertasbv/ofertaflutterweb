@@ -29,7 +29,7 @@ class LojaCreatePage extends StatefulWidget {
 }
 
 class _LojaCreatePageState extends State<LojaCreatePage> {
-  LojaController lojaController = GetIt.I.get<LojaController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   Dialogs dialogs = Dialogs();
 

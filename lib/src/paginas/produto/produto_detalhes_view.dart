@@ -16,7 +16,7 @@ class ProdutoDetalhesView extends StatefulWidget {
 
 class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     with SingleTickerProviderStateMixin {
-  final pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var pedidoItemController = GetIt.I.get<PedidoItemController>();
 
   AnimationController animationController;
   Animation<double> animation;

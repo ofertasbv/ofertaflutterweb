@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
@@ -16,7 +15,7 @@ class ClienteList extends StatefulWidget {
 
 class _ClienteListState extends State<ClienteList>
     with AutomaticKeepAliveClientMixin<ClienteList> {
-  ClienteController clienteController = GetIt.I.get<ClienteController>();
+  var clienteController = GetIt.I.get<ClienteController>();
 
   @override
   void initState() {
@@ -74,7 +73,7 @@ class _ClienteListState extends State<ClienteList>
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                "${ConstantApi.urlArquivoCliente + p.foto}",
+                "${clienteController.arquivo + p.foto}",
               ),
             ),
             title: Text(p.nome),
