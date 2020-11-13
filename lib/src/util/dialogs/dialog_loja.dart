@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -17,8 +16,7 @@ class DialogLoja extends StatefulWidget {
 
 class _DialogLojaState extends State<DialogLoja> {
   _DialogLojaState(this.loja);
-  LojaController lojaController = GetIt.I.get<LojaController>();
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   Loja loja;
 
@@ -75,8 +73,8 @@ class _DialogLojaState extends State<DialogLoja> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                produtoController.lojaSelecionada = c;
-                print("Loja: ${produtoController.lojaSelecionada.nome}");
+                lojaController.lojaSelecionada = c;
+                print("Loja: ${lojaController.lojaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

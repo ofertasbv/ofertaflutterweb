@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/cor_controller.dart';
+import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -11,8 +12,8 @@ class DialogCor extends StatefulWidget {
 }
 
 class _DialogCorState extends State<DialogCor> {
-  CorController corController = GetIt.I.get<CorController>();
-  List<Cor> corSelecionada = List();
+  var corController = GetIt.I.get<CorController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   bool clicadoCor = false;
 
@@ -29,13 +30,9 @@ class _DialogCorState extends State<DialogCor> {
 
   onSelectedCor(bool selected, Cor cor) {
     if (selected == true) {
-      setState(() {
-        corSelecionada.add(cor);
-      });
+      produtoController.addCores(cor);
     } else {
-      setState(() {
-        corSelecionada.remove(cor);
-      });
+      produtoController.removerCores(cor);
     }
   }
 
@@ -67,12 +64,12 @@ class _DialogCorState extends State<DialogCor> {
         Cor c = cores[index];
 
         return CheckboxListTile(
-          value: corSelecionada.contains(cores[index]),
+          value: produtoController.coresSelecionada.contains(cores[index]),
           onChanged: (bool select) {
             clicadoCor = select;
             onSelectedCor(clicadoCor, c);
             print("Clicado: ${clicadoCor} - ${c.descricao}");
-            for (Cor c in corSelecionada) {
+            for (Cor c in produtoController.coresSelecionada) {
               print("Lista: ${c.descricao}");
             }
           },

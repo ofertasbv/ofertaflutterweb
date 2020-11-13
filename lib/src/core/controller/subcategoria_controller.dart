@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/repository/subcategoria_repository.dart';
 
@@ -29,6 +30,9 @@ abstract class SubCategoriaControllerBase with Store {
 
   @observable
   String mensagem;
+
+  @observable
+  Categoria categoriaSelecionada;
 
   @observable
   SubCategoria subCategoriaSelecionada;

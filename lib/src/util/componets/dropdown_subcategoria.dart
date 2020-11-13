@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/util/dialogs/dialog_subcategoria.dart';
 
@@ -11,12 +11,13 @@ class DropDownSubCategoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController produtoController = GetIt.I.get<ProdutoController>();
-    AlertSubCateria alertSubCateria = AlertSubCateria();
+    var subCategoriaController = GetIt.I.get<SubCategoriaController>();
+    AlertSubCategoria alertSubCateria = AlertSubCategoria();
 
     return Observer(
       builder: (context) {
-        SubCategoria subCategoria = produtoController.subCategoriaSelecionada;
+        SubCategoria subCategoria =
+            subCategoriaController.subCategoriaSelecionada;
 
         return Card(
           child: Container(

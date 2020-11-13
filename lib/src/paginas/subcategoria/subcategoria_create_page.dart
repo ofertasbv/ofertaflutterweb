@@ -14,6 +14,7 @@ import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_dialog.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
+import 'package:nosso/src/util/componets/dropdown_categoria.dart';
 import 'package:nosso/src/util/dialogs/dialog_subcategoria.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
@@ -155,28 +156,9 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 0),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: ListTile(
-                        title: Text("Categoria *"),
-                        subtitle: categoriaSelecionada == null
-                            ? Text("Selecione uma categoria")
-                            : Text(categoriaSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          CategoriaDialog();
-                        },
-                      ),
-                    ),
-                  ),
-                ),
+                SizedBox(height: 20),
+                DropDownCategoria(categoriaSelecionada),
+                SizedBox(height: 20),
               ],
             ),
           ),

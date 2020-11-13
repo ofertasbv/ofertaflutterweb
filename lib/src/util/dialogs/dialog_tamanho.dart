@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
@@ -12,7 +13,7 @@ class DialogTamanho extends StatefulWidget {
 
 class _DialogTamanhoState extends State<DialogTamanho> {
   var tamanhoController = GetIt.I.get<TamanhoController>();
-  List<Tamanho> tamanhoSelecionada = List();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   bool clicadoTamanho = false;
 
@@ -29,13 +30,9 @@ class _DialogTamanhoState extends State<DialogTamanho> {
 
   onSelectedTamanho(bool selected, Tamanho tamanho) {
     if (selected == true) {
-      setState(() {
-        tamanhoSelecionada.add(tamanho);
-      });
+      produtoController.addTamanhos(tamanho);
     } else {
-      setState(() {
-        tamanhoSelecionada.remove(tamanho);
-      });
+      produtoController.removerTamanhos(tamanho);
     }
   }
 
@@ -67,12 +64,13 @@ class _DialogTamanhoState extends State<DialogTamanho> {
         Tamanho c = tamanhos[index];
 
         return CheckboxListTile(
-          value: tamanhoSelecionada.contains(tamanhos[index]),
+          value:
+              produtoController.tamanhosSelecionada.contains(tamanhos[index]),
           onChanged: (bool select) {
             clicadoTamanho = select;
             onSelectedTamanho(clicadoTamanho, c);
             print("Clicado: ${clicadoTamanho} - ${c.descricao}");
-            for (Tamanho t in tamanhoSelecionada) {
+            for (Tamanho t in produtoController.tamanhosSelecionada) {
               print("Lista: ${t.descricao}");
             }
           },

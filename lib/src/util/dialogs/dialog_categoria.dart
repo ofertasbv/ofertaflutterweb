@@ -1,82 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/controller/promocao_controller.dart';
-import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/core/controller/categoria_controller.dart';
+
+import 'package:nosso/src/core/controller/subcategoria_controller.dart';
+import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
-class DialogPromocao extends StatefulWidget {
-  Promocao promocao;
-  DialogPromocao(this.promocao);
+class DialogCategoria extends StatefulWidget {
+  Categoria categoria;
+  DialogCategoria(this.categoria);
   @override
-  _DialogPromocaoState createState() => _DialogPromocaoState(this.promocao);
+  _DialogCategoriaState createState() => _DialogCategoriaState(this.categoria);
 }
 
-class _DialogPromocaoState extends State<DialogPromocao> {
-  _DialogPromocaoState(this.promocao);
+class _DialogCategoriaState extends State<DialogCategoria> {
+  _DialogCategoriaState(this.categoria);
 
-  var promocaoController = GetIt.I.get<PromoCaoController>();
+  var categoriaController = GetIt.I.get<CategoriaController>();
 
-  Promocao promocao;
+  Categoria categoria;
 
   @override
   void initState() {
-    promocaoController.getAll();
+    categoriaController.getAll();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return builderConteudoListPromocao();
+    return builderConteudoListSubCategorias();
   }
 
-  /* ===================  PROMOÇÃO LISTA ===================  */
-
-  builderConteudoListPromocao() {
+  builderConteudoListSubCategorias() {
     return Container(
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<Promocao> promocoes = promocaoController.promocoes;
-          if (promocaoController.error != null) {
+          List<Categoria> categorias = categoriaController.categorias;
+          if (categoriaController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
-          if (promocoes == null) {
+          if (categorias == null) {
             return CircularProgressorMini();
           }
 
-          return builderListPromocoes(promocoes);
+          return builderListCategorias(categorias);
         },
       ),
     );
   }
 
-  builderListPromocoes(List<Promocao> promocoes) {
+  builderListCategorias(List<Categoria> categorias) {
     double containerWidth = 160;
     double containerHeight = 20;
 
     return ListView.builder(
-      itemCount: promocoes.length,
+      itemCount: categorias.length,
       itemBuilder: (context, index) {
-        Promocao c = promocoes[index];
+        Categoria c = categorias[index];
 
         return Column(
           children: [
             GestureDetector(
               child: ListTile(
                 leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoPromocao + c.foto}",
-                  ),
+                  backgroundColor: Colors.grey[200],
+                  radius: 30,
+                  child: Icon(Icons.check_outlined),
                 ),
                 title: Text(c.nome),
               ),
               onTap: () {
-                promocaoController.promocaoSelecionada = c;
-                print("Loja: ${promocaoController.promocaoSelecionada.nome}");
+                categoriaController.categoriaSelecionada = c;
+                print(
+                    "SubCategoria: ${categoriaController.categoriaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),
@@ -88,8 +87,8 @@ class _DialogPromocaoState extends State<DialogPromocao> {
   }
 }
 
-class AlertPromocao {
-  alert(BuildContext context, Promocao promocao) {
+class AlertCategoria {
+  alert(BuildContext context, Categoria categoria) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -99,7 +98,7 @@ class AlertPromocao {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
-            child: DialogPromocao(promocao),
+            child: DialogCategoria(categoria),
           ),
           actions: [
             FlatButton(

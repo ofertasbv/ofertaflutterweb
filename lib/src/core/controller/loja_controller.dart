@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/repository/loja_repository.dart';
 
@@ -49,6 +50,9 @@ abstract class LojaControllerBase with Store {
 
   @observable
   Loja lojaSelecionada;
+
+  @observable
+  String arquivo = ConstantApi.urlArquivoLoja;
 
   @action
   Future<List<Loja>> getAll() async {

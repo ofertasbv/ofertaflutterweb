@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/loja_controller.dart';
-import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/util/dialogs/dialog_loja.dart';
+import 'package:nosso/src/core/controller/categoria_controller.dart';
+import 'package:nosso/src/core/model/categoria.dart';
+import 'package:nosso/src/util/dialogs/dialog_categoria.dart';
 
-class DropDownLoja extends StatelessWidget {
-  Loja loja;
-
-  DropDownLoja(this.loja);
+class DropDownCategoria extends StatelessWidget {
+  Categoria categoria;
+  DropDownCategoria(this.categoria);
 
   @override
   Widget build(BuildContext context) {
-    var lojaController = GetIt.I.get<LojaController>();
-    AlertLoja alertLoja = AlertLoja();
+    var categoriaController = GetIt.I.get<CategoriaController>();
+    AlertCategoria alertCateria = AlertCategoria();
 
     return Observer(
       builder: (context) {
-        Loja loja = lojaController.lojaSelecionada;
+        Categoria categoria = categoriaController.categoriaSelecionada;
 
         return Card(
           child: Container(
@@ -28,13 +27,14 @@ class DropDownLoja extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: ListTile(
-                title: Text("Loja *"),
-                subtitle:
-                    loja == null ? Text("Selecione uma loja") : Text(loja.nome),
+                title: Text("SubCategoria *"),
+                subtitle: categoria == null
+                    ? Text("Selecione uma SubCategoria")
+                    : Text(categoria.nome),
                 leading: Icon(Icons.list_alt_outlined),
                 trailing: Icon(Icons.arrow_drop_down_sharp),
                 onTap: () {
-                  alertLoja.alert(context, loja);
+                  alertCateria.alert(context, categoria);
                 },
               ),
             ),

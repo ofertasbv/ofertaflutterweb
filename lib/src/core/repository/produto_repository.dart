@@ -54,7 +54,7 @@ class ProdutoRepository {
     return null;
   }
 
-  Future<Produto> getProdutoByCodBarra(String codigoBarra) async {
+  Future<Produto> getByCodBarra(String codigoBarra) async {
     try {
       print("carregando produtos by codigo de barra");
       var response = await dio.client.get("/produtos/codigobarra/$codigoBarra");

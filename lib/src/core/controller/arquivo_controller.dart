@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/repository/arquivo_repository.dart';
 
@@ -33,6 +34,9 @@ abstract class ArquivoControllerBase with Store {
 
   @observable
   String mensagem;
+
+  @observable
+  String arquivoFoto = ConstantApi.urlArquivoArquivo;
 
   @action
   Future<List<Arquivo>> getAll() async {

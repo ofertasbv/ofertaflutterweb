@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -17,8 +16,7 @@ class DialogMarca extends StatefulWidget {
 class _DialogMarcaState extends State<DialogMarca> {
   _DialogMarcaState(this.marca);
 
-  MarcaController marcaController = GetIt.I.get<MarcaController>();
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var marcaController = GetIt.I.get<MarcaController>();
 
   AlertMarca alertMarca = AlertMarca();
 
@@ -75,8 +73,8 @@ class _DialogMarcaState extends State<DialogMarca> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                produtoController.marcaSelecionada = c;
-                print("Marca: ${produtoController.marcaSelecionada.nome}");
+                marcaController.marcaSelecionada = c;
+                print("Marca: ${marcaController.marcaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

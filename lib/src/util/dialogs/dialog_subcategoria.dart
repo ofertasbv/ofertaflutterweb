@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
@@ -17,10 +16,7 @@ class DialogSubCategoria extends StatefulWidget {
 class _DialogSubCategoriaState extends State<DialogSubCategoria> {
   _DialogSubCategoriaState(this.subCategoria);
 
-  SubCategoriaController subCategoriaController =
-      GetIt.I.get<SubCategoriaController>();
-
-  ProdutoController produtoController = GetIt.I.get<ProdutoController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   SubCategoria subCategoria;
 
@@ -77,8 +73,9 @@ class _DialogSubCategoriaState extends State<DialogSubCategoria> {
                 title: Text(c.nome),
               ),
               onTap: () {
-                produtoController.subCategoriaSelecionada = c;
-                print("SubCategoria: ${produtoController.subCategoriaSelecionada.nome}");
+                subCategoriaController.subCategoriaSelecionada = c;
+                print(
+                    "SubCategoria: ${subCategoriaController.subCategoriaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),
@@ -90,7 +87,7 @@ class _DialogSubCategoriaState extends State<DialogSubCategoria> {
   }
 }
 
-class AlertSubCateria {
+class AlertSubCategoria {
   alert(BuildContext context, SubCategoria subCategoria) {
     return showDialog(
       context: context,

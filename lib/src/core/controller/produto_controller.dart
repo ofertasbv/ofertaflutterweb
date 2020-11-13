@@ -2,12 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/cor.dart';
-import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/core/model/promocao.dart';
-import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
@@ -33,6 +30,9 @@ abstract class ProdutoControllerBase with Store {
   Produto produtoSelecionado;
 
   @observable
+  String arquivo = ConstantApi.urlArquivoProduto;
+
+  @observable
   FormData formData;
 
   @observable
@@ -45,22 +45,10 @@ abstract class ProdutoControllerBase with Store {
   String mensagem;
 
   @observable
-  Marca marcaSelecionada;
+  ObservableList<Cor> coresSelecionada = ObservableList<Cor>();
 
   @observable
-  SubCategoria subCategoriaSelecionada;
-
-  @observable
-  Loja lojaSelecionada;
-
-  @observable
-  Promocao promocaoSelecionada;
-
-  @observable
-  ObservableList<Cor> coresSelecionada;
-
-  @observable
-  ObservableList<Tamanho> tamanhosSelecionada;
+  ObservableList<Tamanho> tamanhosSelecionada = ObservableList<Tamanho>();
 
   @action
   Future<List<Produto>> getAll() async {
@@ -95,8 +83,7 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<Produto> getCodigoBarra(String codBarra) async {
     try {
-      produtoSelecionado =
-          await produtoRepository.getProdutoByCodBarra(codBarra);
+      produtoSelecionado = await produtoRepository.getByCodBarra(codBarra);
       return produtoSelecionado;
     } catch (e) {
       error = e;
@@ -106,11 +93,6 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<int> create(Produto p) async {
     try {
-      p.marca = marcaSelecionada;
-      p.subCategoria = subCategoriaSelecionada;
-      p.loja = lojaSelecionada;
-      p.promocao = promocaoSelecionada;
-
       produto = await produtoRepository.create(p.toJson());
       if (produto == null) {
         mensagem = "sem dados";
@@ -126,11 +108,6 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<int> update(int id, Produto p) async {
     try {
-      p.marca = marcaSelecionada;
-      p.subCategoria = subCategoriaSelecionada;
-      p.loja = lojaSelecionada;
-      p.promocao = promocaoSelecionada;
-
       produto = await produtoRepository.update(id, p.toJson());
       return produto;
     } on DioError catch (e) {
@@ -153,6 +130,42 @@ abstract class ProdutoControllerBase with Store {
   Future<void> deleteFoto(String foto) async {
     try {
       await produtoRepository.deleteFoto(foto);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void addCores(Cor cor) {
+    try {
+      coresSelecionada.add(cor);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void addTamanhos(Tamanho tamanho) {
+    try {
+      tamanhosSelecionada.add(tamanho);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void removerCores(Cor cor) {
+    try {
+      coresSelecionada.remove(cor);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void removerTamanhos(Tamanho tamanho) {
+    try {
+      tamanhosSelecionada.remove(tamanho);
     } catch (e) {
       error = e;
     }

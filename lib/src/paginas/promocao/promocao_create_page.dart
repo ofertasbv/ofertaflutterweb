@@ -20,6 +20,7 @@ import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -232,23 +233,23 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           children: <Widget>[
                             file != null
                                 ? Image.file(
-                              file,
-                              fit: BoxFit.fitWidth,
-                            )
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
                                 : p.foto != null
-                                ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                ConstantApi.urlArquivoPromocao +
-                                    p.foto,
-                              ),
-                            )
-                                : CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                            ),
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi.urlArquivoPromocao +
+                                              p.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
                           ],
                         ),
                       ),
@@ -274,7 +275,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                                 child: Icon(Icons.delete_forever),
                                 shape: new CircleBorder(),
                                 onPressed: isEnabledDelete
-                                    ? () => promocaoController.deleteFoto(p.foto)
+                                    ? () =>
+                                        promocaoController.deleteFoto(p.foto)
                                     : null,
                               ),
                               RaisedButton(
@@ -299,7 +301,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -501,29 +502,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                     ),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text("Loja *"),
-                        subtitle: lojaSelecionada == null
-                            ? Text("Selecione uma loja")
-                            : Text(lojaSelecionada.nome),
-                        leading: Icon(Icons.list_alt_outlined),
-                        trailing: Icon(Icons.arrow_drop_down_sharp),
-                        onTap: () {
-                          alertSelectLojas(context, lojaSelecionada);
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 0),
+                SizedBox(height: 20),
+                DropDownLoja(lojaSelecionada),
+                SizedBox(height: 20),
               ],
             ),
           ),
