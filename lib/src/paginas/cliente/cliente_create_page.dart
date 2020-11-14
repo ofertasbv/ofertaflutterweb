@@ -210,19 +210,15 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
+                Container(
                   child: GestureDetector(
                     onTap: () {
                       openBottomSheet(context);
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[400],
+                      color: Colors.grey[300],
                       child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -252,47 +248,41 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                     ),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    color: Colors.grey[400],
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RaisedButton(
-                                child: Icon(Icons.delete_forever),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledDelete
-                                    ? () => clienteController.deleteFoto(p.foto)
-                                    : null,
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.photo),
-                                shape: new CircleBorder(),
-                                onPressed: () {
-                                  openBottomSheet(context);
-                                },
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.check),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledEnviar
-                                    ? () => onClickUpload()
-                                    : null,
-                              )
-                            ],
-                          ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  color: Colors.grey[300],
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            RaisedButton(
+                              child: Icon(Icons.delete_forever),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledDelete
+                                  ? () => clienteController.deleteFoto(p.foto)
+                                  : null,
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.photo),
+                              shape: new CircleBorder(),
+                              onPressed: () {
+                                openBottomSheet(context);
+                              },
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.check),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledEnviar
+                                  ? () => onClickUpload()
+                                  : null,
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -529,6 +519,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             ),
           ),
         ),
+        SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
           icon: Icon(
@@ -563,6 +554,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             }
           },
         ),
+        SizedBox(height: 20),
       ],
     );
   }

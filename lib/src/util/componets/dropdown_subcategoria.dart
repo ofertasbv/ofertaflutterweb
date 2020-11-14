@@ -19,25 +19,23 @@ class DropDownSubCategoria extends StatelessWidget {
         SubCategoria subCategoria =
             subCategoriaController.subCategoriaSelecionada;
 
-        return Card(
+        return Container(
+          padding: EdgeInsets.all(5),
           child: Container(
-            padding: EdgeInsets.all(5),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: ListTile(
-                title: Text("SubCategoria *"),
-                subtitle: subCategoria == null
-                    ? Text("Selecione uma SubCategoria")
-                    : Text(subCategoria.nome),
-                leading: Icon(Icons.list_alt_outlined),
-                trailing: Icon(Icons.arrow_drop_down_sharp),
-                onTap: () {
-                  alertSubCateria.alert(context, subCategoria);
-                },
-              ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: ListTile(
+              title: Text("SubCategoria *"),
+              subtitle: subCategoria == null
+                  ? Text("Selecione uma SubCategoria")
+                  : Text(subCategoria.nome),
+              leading: Icon(Icons.list_alt_outlined),
+              trailing: Icon(Icons.arrow_drop_down_sharp),
+              onTap: () {
+                alertSubCateria.alert(context, subCategoria);
+              },
             ),
           ),
         );

@@ -140,6 +140,7 @@ class _CorCreatePageState extends State<CorCreatePage> {
             ),
           ),
         ),
+        SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
           icon: Icon(

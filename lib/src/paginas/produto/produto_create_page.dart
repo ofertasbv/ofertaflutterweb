@@ -298,6 +298,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          padding: EdgeInsets.all(2),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -305,19 +306,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Card(
+                Container(
                   child: GestureDetector(
                     onTap: () {
                       openBottomSheet(context);
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[400],
+                      color: Colors.grey[300],
                       child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -347,48 +344,41 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    color: Colors.grey[400],
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RaisedButton(
-                                child: Icon(Icons.delete_forever),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledDelete
-                                    ? () =>
-                                        promocaoController.deleteFoto(p.foto)
-                                    : null,
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.photo),
-                                shape: new CircleBorder(),
-                                onPressed: () {
-                                  openBottomSheet(context);
-                                },
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.check),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledEnviar
-                                    ? () => onClickUpload()
-                                    : null,
-                              )
-                            ],
-                          ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  color: Colors.grey[300],
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            RaisedButton(
+                              child: Icon(Icons.delete_forever),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledDelete
+                                  ? () => produtoController.deleteFoto(p.foto)
+                                  : null,
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.photo),
+                              shape: new CircleBorder(),
+                              onPressed: () {
+                                openBottomSheet(context);
+                              },
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.check),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledEnviar
+                                  ? () => onClickUpload()
+                                  : null,
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -442,7 +432,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 /* ================ Cadastro produto ================ */
-                SizedBox(height: 20),
+                SizedBox(height: 0),
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -660,158 +650,166 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                DropDownMarca(),
-                Observer(
-                  builder: (context) {
-                    if (marcaController.marcaSelecionada == null) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return Container(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Container(
-                        child: Icon(Icons.check_outlined, color: Colors.green),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 10),
-                DropDownSubCategoria(subCategoriaSelecionada),
-                Observer(
-                  builder: (context) {
-                    if (subCategoriaController.subCategoriaSelecionada ==
-                        null) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return Container(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Container(
-                        child: Icon(Icons.check_outlined, color: Colors.green),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 10),
-                DropDownLoja(lojaSelecionada),
-                Observer(
-                  builder: (context) {
-                    if (lojaController.lojaSelecionada == null) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return Container(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Container(
-                        child: Icon(Icons.check_outlined, color: Colors.green),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 10),
-                DropDownPromocao(promocaoSelecionada),
-                Observer(
-                  builder: (context) {
-                    if (promocaoController.promocaoSelecionada == null) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-                    return Container(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Container(
-                        child: Icon(Icons.check_outlined, color: Colors.green),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: 10),
+                SizedBox(height: 0),
                 Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DropDownMarca(),
+                      Observer(
+                        builder: (context) {
+                          if (marcaController.marcaSelecionada == null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: Text(
+                                  "campo obrigatório",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
+                            ),
+                          );
+                        },
                       ),
-                      child: ExpansionTile(
-                        leading: Icon(Icons.format_size_outlined),
-                        title: Text("Tamanho"),
-                        children: [
-                          Container(
-                            height: 400,
-                            padding: EdgeInsets.all(5),
-                            child: DialogTamanho(),
+                      SizedBox(height: 10),
+                      DropDownSubCategoria(subCategoriaSelecionada),
+                      Observer(
+                        builder: (context) {
+                          if (subCategoriaController.subCategoriaSelecionada ==
+                              null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: Text(
+                                  "campo obrigatório",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      DropDownLoja(lojaSelecionada),
+                      Observer(
+                        builder: (context) {
+                          if (lojaController.lojaSelecionada == null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: Text(
+                                  "campo obrigatório",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      DropDownPromocao(promocaoSelecionada),
+                      Observer(
+                        builder: (context) {
+                          if (promocaoController.promocaoSelecionada == null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: Text(
+                                  "campo obrigatório",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        ],
+                          child: ExpansionTile(
+                            leading: Icon(Icons.format_size_outlined),
+                            title: Text("Tamanho"),
+                            children: [
+                              Container(
+                                height: 400,
+                                padding: EdgeInsets.all(5),
+                                child: DialogTamanho(),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 20),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: ExpansionTile(
+                            leading: Icon(Icons.color_lens_outlined),
+                            title: Text("Cores"),
+                            children: [
+                              Container(
+                                height: 400,
+                                padding: EdgeInsets.all(5),
+                                child: DialogCor(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ExpansionTile(
-                        leading: Icon(Icons.color_lens_outlined),
-                        title: Text("Cores"),
-                        children: [
-                          Container(
-                            height: 400,
-                            padding: EdgeInsets.all(5),
-                            child: DialogCor(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
+                SizedBox(height: 0),
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),

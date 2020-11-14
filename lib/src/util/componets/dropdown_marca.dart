@@ -15,25 +15,23 @@ class DropDownMarca extends StatelessWidget {
       builder: (context) {
         Marca marca = marcaController.marcaSelecionada;
 
-        return Card(
+        return Container(
+          padding: EdgeInsets.all(5),
           child: Container(
-            padding: EdgeInsets.all(5),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: ListTile(
-                title: Text("Marca *"),
-                subtitle: marca == null
-                    ? Text("Selecione uma marca")
-                    : Text(marca.nome),
-                leading: Icon(Icons.list_alt_outlined),
-                trailing: Icon(Icons.arrow_drop_down_sharp),
-                onTap: () {
-                  alertMarca.alert(context, marca);
-                },
-              ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: ListTile(
+              title: Text("Marca *"),
+              subtitle: marca == null
+                  ? Text("Selecione uma marca")
+                  : Text(marca.nome),
+              leading: Icon(Icons.list_alt_outlined),
+              trailing: Icon(Icons.arrow_drop_down_sharp),
+              onTap: () {
+                alertMarca.alert(context, marca);
+              },
             ),
           ),
         );

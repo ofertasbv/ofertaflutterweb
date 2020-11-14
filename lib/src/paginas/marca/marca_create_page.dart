@@ -142,6 +142,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
             ),
           ),
         ),
+        SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
           icon: Icon(

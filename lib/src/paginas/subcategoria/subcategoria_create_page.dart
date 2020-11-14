@@ -156,31 +156,40 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                DropDownCategoria(categoriaSelecionada),
-                Observer(
-                  builder: (context) {
-                    if (categoriaController.categoriaSelecionada == null) {
-                      return Container(
-                        padding: EdgeInsets.only(left: 25),
-                        child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
+                SizedBox(height: 0),
+                Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DropDownCategoria(categoriaSelecionada),
+                      Observer(
+                        builder: (context) {
+                          if (categoriaController.categoriaSelecionada ==
+                              null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: Text(
+                                  "campo obrigatório",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
                             ),
-                          ),
-                        ),
-                      );
-                    }
-                    return Container(
-                      padding: EdgeInsets.only(left: 25),
-                      child: Container(
-                        child: Icon(Icons.check_outlined, color: Colors.green),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ],
+                  ),
                 ),
               ],
             ),

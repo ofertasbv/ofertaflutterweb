@@ -143,6 +143,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
             ),
           ),
         ),
+        SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
           icon: Icon(

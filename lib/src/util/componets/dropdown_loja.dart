@@ -19,24 +19,22 @@ class DropDownLoja extends StatelessWidget {
       builder: (context) {
         Loja loja = lojaController.lojaSelecionada;
 
-        return Card(
+        return Container(
+          padding: EdgeInsets.all(5),
           child: Container(
-            padding: EdgeInsets.all(5),
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: ListTile(
-                title: Text("Loja *"),
-                subtitle:
-                    loja == null ? Text("Selecione uma loja") : Text(loja.nome),
-                leading: Icon(Icons.list_alt_outlined),
-                trailing: Icon(Icons.arrow_drop_down_sharp),
-                onTap: () {
-                  alertLoja.alert(context, loja);
-                },
-              ),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: ListTile(
+              title: Text("Loja *"),
+              subtitle:
+                  loja == null ? Text("Selecione uma loja") : Text(loja.nome),
+              leading: Icon(Icons.list_alt_outlined),
+              trailing: Icon(Icons.arrow_drop_down_sharp),
+              onTap: () {
+                alertLoja.alert(context, loja);
+              },
             ),
           ),
         );

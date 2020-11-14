@@ -560,6 +560,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             ),
           ),
         ),
+        SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
           icon: Icon(
@@ -588,6 +589,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             }
           },
         ),
+        SizedBox(height: 20),
       ],
     );
   }
