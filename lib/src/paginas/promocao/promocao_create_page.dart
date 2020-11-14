@@ -213,6 +213,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
             key: controller.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Card(
                   child: GestureDetector(
@@ -333,6 +334,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           maxLength: 100,
                           maxLines: null,
                         ),
+                        SizedBox(height: 10),
                         TextFormField(
                           initialValue: p.descricao,
                           onSaved: (value) => p.descricao = value,
@@ -360,6 +362,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           maxLines: null,
                           keyboardType: TextInputType.text,
                         ),
+                        SizedBox(height: 10),
                         TextFormField(
                           initialValue: p.desconto == null
                               ? desconto.toString()
@@ -428,7 +431,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             );
                           },
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 20),
                         DateTimeField(
                           initialValue: p.dataInicio,
                           format: dateFormat,
@@ -463,7 +466,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                             );
                           },
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 20),
                         DateTimeField(
                           initialValue: p.dataFinal,
                           format: dateFormat,
@@ -504,12 +507,35 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                 ),
                 SizedBox(height: 20),
                 DropDownLoja(lojaSelecionada),
-                SizedBox(height: 20),
+                Observer(
+                  builder: (context) {
+                    if (lojaController.lojaSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 0),
+        SizedBox(height: 20),
         Card(
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
@@ -525,7 +551,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
-                      p.loja = lojaSelecionada;
+                      p.loja = lojaController.lojaSelecionada;
                       promocaoController.create(p);
                       Navigator.of(context).pop();
                       buildPush(context);
@@ -534,7 +560,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                     dialogs.information(
                         context, "preparando para o alteração...");
                     Timer(Duration(seconds: 1), () {
-                      p.loja = lojaSelecionada;
+                      p.loja = lojaController.lojaSelecionada;
                       promocaoController.update(p.id, p);
                       Navigator.of(context).pop();
                       buildPush(context);

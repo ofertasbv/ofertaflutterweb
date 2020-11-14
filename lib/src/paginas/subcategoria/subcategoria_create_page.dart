@@ -119,6 +119,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
             key: controller.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Card(
                   child: Container(
@@ -157,12 +158,35 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 ),
                 SizedBox(height: 20),
                 DropDownCategoria(categoriaSelecionada),
-                SizedBox(height: 20),
+                Observer(
+                  builder: (context) {
+                    if (categoriaController.categoriaSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: Text(
+                            "campo obrigatório",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 0),
+        SizedBox(height: 20),
         Card(
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
@@ -175,7 +199,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 if (s.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    s.categoria = categoriaSelecionada;
+                    s.categoria = categoriaController.categoriaSelecionada;
                     subCategoriaController.create(s);
                     Navigator.of(context).pop();
                     buildPush(context);
@@ -184,7 +208,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 1), () {
-                    s.categoria = categoriaSelecionada;
+                    s.categoria = categoriaController.categoriaSelecionada;
                     subCategoriaController.update(s.id, s);
 
                     Navigator.of(context).pop();
