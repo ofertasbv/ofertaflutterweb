@@ -92,6 +92,8 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                 Text("Loja: ${p.loja.nome}"),
                 SizedBox(height: 10),
                 Text("Registro: ${dateFormat.format(p.dataInicio)}"),
+                SizedBox(height: 10),
+                Text("De: ${dateFormat.format(p.dataInicio)} á ${dateFormat.format(p.dataFinal)}"),
               ],
             ),
           ),
@@ -126,7 +128,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.black,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

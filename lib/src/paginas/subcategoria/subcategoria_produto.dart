@@ -131,10 +131,11 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                 ),
               ),
             ),
-            Card(
-              child: Container(
-                height: 460,
-                child: builderConteudoListProduto(),
+            Expanded(
+              child: Card(
+                child: Container(
+                  child: builderConteudoListProduto(),
+                ),
               ),
             )
           ],
@@ -178,7 +179,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             child: Chip(
               label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
-                  ? Colors.greenAccent
+                  ? Colors.orange[200]
                   : Colors.grey[200],
             ),
           ),

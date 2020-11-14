@@ -124,9 +124,9 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 0,
+        elevation: 1,
         color: Colors.grey[100],
-        margin: EdgeInsets.all(0),
+        margin: EdgeInsets.all(2),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(2),
           side: BorderSide(color: Colors.grey[200]),

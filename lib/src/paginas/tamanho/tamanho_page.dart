@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/marca_controller.dart';
+import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_create_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_list.dart';
 
 class TamanhoPage extends StatelessWidget {
-  var marcaController = GetIt.I.get<MarcaController>();
+  var tamanhoController = GetIt.I.get<TamanhoController>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class TamanhoPage extends StatelessWidget {
         actions: <Widget>[
           Observer(
             builder: (context) {
-              if (marcaController.error != null) {
+              if (tamanhoController.error != null) {
                 return Text("Não foi possível carregar");
               }
 
-              if (marcaController.marcas == null) {
+              if (tamanhoController.tamanhos == null) {
                 return Center(
                   child: Icon(Icons.warning_amber_outlined),
                 );
@@ -29,7 +29,7 @@ class TamanhoPage extends StatelessWidget {
 
               return Chip(
                 label: Text(
-                  (marcaController.marcas.length ?? 0).toString(),
+                  (tamanhoController.tamanhos.length ?? 0).toString(),
                 ),
               );
             },

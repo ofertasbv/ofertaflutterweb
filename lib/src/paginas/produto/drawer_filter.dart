@@ -46,7 +46,7 @@ class DrawerFilter extends StatelessWidget {
                 child: Icon(
                   Icons.add_box_outlined,
                   size: 25,
-                  color: Colors.indigo[900],
+                  color: Colors.black,
                 ),
                 maxRadius: 15,
                 backgroundColor: Colors.orange[900],

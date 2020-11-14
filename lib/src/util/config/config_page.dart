@@ -88,6 +88,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -118,7 +120,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -149,7 +152,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -180,6 +184,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -210,6 +216,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -240,6 +248,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -268,6 +278,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -296,6 +308,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -324,6 +338,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -352,6 +368,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -380,6 +398,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -408,6 +428,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -437,6 +459,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -466,6 +490,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
@@ -495,6 +521,8 @@ class _ConfigPageState extends State<ConfigPage> {
               );
             },
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(

@@ -191,7 +191,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.black,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

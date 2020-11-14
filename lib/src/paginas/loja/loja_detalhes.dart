@@ -134,7 +134,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.black,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

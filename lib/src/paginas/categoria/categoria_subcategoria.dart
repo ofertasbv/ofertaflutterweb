@@ -111,11 +111,11 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 ),
               ),
             ),
-            Card(
-              child: Container(
-                height: 380,
-                color: Colors.transparent,
-                child: builderConteutoListSubCategoria(),
+            Expanded(
+              child: Card(
+                child: Container(
+                  child: builderConteutoListSubCategoria(),
+                ),
               ),
             ),
           ],
@@ -169,15 +169,17 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.grey[100],
-                    Colors.grey[300],
+                    c.nome == selectedCard
+                        ? Colors.orange[100]
+                        : Colors.grey[100],
+                    c.nome == selectedCard
+                        ? Colors.orange[200]
+                        : Colors.grey[200],
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.circular(10),
-                color:
-                    c.nome == selectedCard ? Colors.greenAccent : Colors.white,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
