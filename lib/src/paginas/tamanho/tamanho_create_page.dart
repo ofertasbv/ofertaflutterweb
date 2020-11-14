@@ -6,11 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
-import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
-import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
@@ -146,37 +143,34 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (c.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    tamanhoController.create(c).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    tamanhoController.update(c.id, c);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
-              }
-            },
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (c.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  tamanhoController.create(c).then((arquivo) {
+                    var resultado = arquivo;
+                    print("resultado : ${resultado}");
+                  });
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              } else {
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  tamanhoController.update(c.id, c);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              }
+            }
+          },
         ),
       ],
     );

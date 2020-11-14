@@ -230,23 +230,22 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           children: <Widget>[
                             file != null
                                 ? Image.file(
-                              file,
-                              fit: BoxFit.fitWidth,
-                            )
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
                                 : p.foto != null
-                                ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                ConstantApi.urlArquivoLoja +
-                                    p.foto,
-                              ),
-                            )
-                                : CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                            ),
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi.urlArquivoLoja + p.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
                           ],
                         ),
                       ),
@@ -554,41 +553,39 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  openBottomSheet(context);
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (p.foto == null) {
+                openBottomSheet(context);
+              } else {
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    lojaController.create(p).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 } else {
-                  if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      lojaController.create(p).then((arquivo) {
-                        var resultado = arquivo;
-                        print("resultado : ${resultado}");
-                      });
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      lojaController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    lojaController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 }
               }
-            },
-          ),
+            }
+          },
         ),
       ],
     );

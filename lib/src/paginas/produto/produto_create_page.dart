@@ -816,68 +816,87 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   child: Container(
                     padding: EdgeInsets.all(5),
                     child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
                       child: Column(
                         children: <Widget>[
-                          Text("Configurações do sistema"),
-                          SwitchListTile(
-                            autofocus: true,
-                            title: Text("Produto Favorito? "),
-                            subtitle: Text("sim/não"),
-                            value: p.favorito = favorito,
-                            secondary: const Icon(Icons.check_outlined),
-                            onChanged: (bool valor) {
-                              setState(() {
-                                favorito = valor;
-                                print("resultado: " + p.favorito.toString());
-                              });
-                            },
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: SwitchListTile(
+                              autofocus: true,
+                              title: Text("Produto Favorito? "),
+                              subtitle: Text("sim/não"),
+                              value: p.favorito = favorito,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (bool valor) {
+                                setState(() {
+                                  favorito = valor;
+                                  print("resultado: " + p.favorito.toString());
+                                });
+                              },
+                            ),
                           ),
                           SizedBox(height: 30),
-                          SwitchListTile(
-                            autofocus: true,
-                            title: Text("Produto novo? "),
-                            subtitle: Text("sim/não"),
-                            value: p.novo = novo,
-                            secondary: const Icon(Icons.check_outlined),
-                            onChanged: (bool valor) {
-                              setState(() {
-                                novo = valor;
-                                print("resultado: " + p.novo.toString());
-                              });
-                            },
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: SwitchListTile(
+                              autofocus: true,
+                              title: Text("Produto novo? "),
+                              subtitle: Text("sim/não"),
+                              value: p.novo = novo,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (bool valor) {
+                                setState(() {
+                                  novo = valor;
+                                  print("resultado: " + p.novo.toString());
+                                });
+                              },
+                            ),
                           ),
                           SizedBox(height: 30),
-                          SwitchListTile(
-                            subtitle: Text("sim/não"),
-                            title: Text("Produto Disponível?"),
-                            value: p.status = status,
-                            secondary: const Icon(Icons.check_outlined),
-                            onChanged: (bool valor) {
-                              setState(() {
-                                status = valor;
-                                print("resultado: " + p.status.toString());
-                              });
-                            },
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: SwitchListTile(
+                              subtitle: Text("sim/não"),
+                              title: Text("Produto Disponível?"),
+                              value: p.status = status,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (bool valor) {
+                                setState(() {
+                                  status = valor;
+                                  print("resultado: " + p.status.toString());
+                                });
+                              },
+                            ),
                           ),
                           SizedBox(height: 30),
-                          SwitchListTile(
-                            autofocus: true,
-                            subtitle: Text("sim/não"),
-                            title: Text("Produto destaque?"),
-                            value: p.destaque = destaque,
-                            secondary: const Icon(Icons.check_outlined),
-                            onChanged: (bool valor) {
-                              setState(() {
-                                destaque = valor;
-                                print("resultado: " + p.destaque.toString());
-                              });
-                            },
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: SwitchListTile(
+                              autofocus: true,
+                              subtitle: Text("sim/não"),
+                              title: Text("Produto destaque?"),
+                              value: p.destaque = destaque,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (bool valor) {
+                                setState(() {
+                                  destaque = valor;
+                                  print("resultado: " + p.destaque.toString());
+                                });
+                              },
+                            ),
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -985,16 +1004,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("NACIONAL"),
                                 value: "NACIONAL",
-                                groupValue: p.origem == null
-                                    ? p.origem = origem
-                                    : p.origem,
+                                groupValue:
+                                    p.origem == null ? origem : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
-                                    if (p.origem == null) {
-                                      p.origem = origem;
-                                    }
-
+                                    p.origem = valor;
                                     print("resultado: " + p.origem);
                                   });
                                 },
@@ -1004,15 +1019,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("INTERNACIONAL"),
                                 value: "INTERNACIONAL",
-                                groupValue: p.origem == null
-                                    ? p.origem = origem
-                                    : p.origem,
+                                groupValue:
+                                    p.origem == null ? origem : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
-                                    if (p.origem == null) {
-                                      p.origem = origem;
-                                    }
+                                    p.origem = valor;
                                     print("resultado: " + p.origem);
                                   });
                                 },
@@ -1029,96 +1041,95 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                // if (p.foto == null) {
-                //   openBottomSheet(context);
-                // } else {
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (controller.validate()) {
+              // if (p.foto == null) {
+              //   openBottomSheet(context);
+              // } else {
 
-                if (marcaController.marcaSelecionada == null) {
-                  print("campo marca obrigatório");
-                }
-                if (subCategoriaController.subCategoriaSelecionada == null) {
-                  print("campo categoria obrigatório");
-                }
-                if (lojaController.lojaSelecionada == null) {
-                  print("campo loja obrigatório");
-                }
-                if (promocaoController.promocaoSelecionada == null) {
-                  print("campo promoção obrigatório");
+              if (marcaController.marcaSelecionada == null) {
+                print("campo marca obrigatório");
+              }
+              if (subCategoriaController.subCategoriaSelecionada == null) {
+                print("campo categoria obrigatório");
+              }
+              if (lojaController.lojaSelecionada == null) {
+                print("campo loja obrigatório");
+              }
+              if (promocaoController.promocaoSelecionada == null) {
+                print("campo promoção obrigatório");
+              } else {
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    // produtoController.create(p);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
+
+                    DateTime agora = DateTime.now();
+
+                    print("Loja: ${p.loja.nome}");
+                    print("SubCategoria: ${p.subCategoria.nome}");
+                    print("Marca: ${p.marca.nome}");
+                    print("Promoção: ${p.promocao.nome}");
+
+                    print("Quantidade: ${p.estoque.quantidade}");
+                    print("Valor: ${p.estoque.valor}");
+                    print("Desconto: ${p.desconto}");
+
+                    print("Favorito: ${p.favorito}");
+                    print("Novo: ${p.novo}");
+                    print("Status: ${p.status}");
+                    print("Destaque: ${p.destaque}");
+
+                    print("Medida: ${p.medida}");
+                    print("Origem: ${p.origem}");
+
+                    print("Data: ${p.dataRegistro}");
+                    print("Agora: ${agora}");
+                  });
                 } else {
-                  if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      // produtoController.create(p);
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    print("Loja: ${p.loja.nome}");
+                    print("SubCategoria: ${p.subCategoria.nome}");
+                    print("Marca: ${p.marca.nome}");
+                    print("Promoção: ${p.promocao.nome}");
 
-                      DateTime agora = DateTime.now();
+                    print("Quantidade: ${p.estoque.quantidade}");
+                    print("Valor: ${p.estoque.valor}");
+                    print("Desconto: ${p.desconto}");
 
-                      print("Loja: ${p.loja.nome}");
-                      print("SubCategoria: ${p.subCategoria.nome}");
-                      print("Marca: ${p.marca.nome}");
-                      print("Promoção: ${p.promocao.nome}");
+                    print("Favorito: ${p.favorito}");
+                    print("Novo: ${p.novo}");
+                    print("Status: ${p.status}");
+                    print("Destaque: ${p.destaque}");
 
-                      print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
-                      print("Desconto: ${p.desconto}");
+                    print("Medida: ${p.medida}");
+                    print("Origem: ${p.origem}");
 
-                      print("Favorito: ${p.favorito}");
-                      print("Novo: ${p.novo}");
-                      print("Status: ${p.status}");
-                      print("Destaque: ${p.destaque}");
+                    p.estoque.quantidade = int.tryParse(controllerValor.text);
+                    p.estoque.valor = double.tryParse(controllerValor.text);
+                    p.desconto = double.tryParse(controllerValor.text);
+                    // produtoController.update(p.id, p);
 
-                      print("Medida: ${p.medida}");
-                      print("Origem: ${p.origem}");
-
-                      print("Data: ${p.dataRegistro}");
-                      print("Agora: ${agora}");
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      print("Loja: ${p.loja.nome}");
-                      print("SubCategoria: ${p.subCategoria.nome}");
-                      print("Marca: ${p.marca.nome}");
-                      print("Promoção: ${p.promocao.nome}");
-
-                      print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
-                      print("Desconto: ${p.desconto}");
-
-                      print("Favorito: ${p.favorito}");
-                      print("Novo: ${p.novo}");
-                      print("Status: ${p.status}");
-                      print("Destaque: ${p.destaque}");
-
-                      print("Medida: ${p.medida}");
-                      print("Origem: ${p.origem}");
-
-                      p.estoque.quantidade = int.tryParse(controllerValor.text);
-                      p.estoque.valor = double.tryParse(controllerValor.text);
-                      p.desconto = double.tryParse(controllerValor.text);
-                      // produtoController.update(p.id, p);
-
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
-                    });
-                  }
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
+                  });
                 }
               }
-              // }
-            },
-          ),
+            }
+            // }
+          },
         ),
+        SizedBox(height: 20),
       ],
     );
   }

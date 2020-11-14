@@ -209,23 +209,23 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           children: <Widget>[
                             file != null
                                 ? Image.file(
-                              file,
-                              fit: BoxFit.fitWidth,
-                            )
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
                                 : c.foto != null
-                                ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                ConstantApi.urlArquivoCategoria +
-                                    c.foto,
-                              ),
-                            )
-                                : CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                            ),
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi.urlArquivoCategoria +
+                                              c.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
                           ],
                         ),
                       ),
@@ -251,7 +251,8 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                                 child: Icon(Icons.delete_forever),
                                 shape: new CircleBorder(),
                                 onPressed: isEnabledDelete
-                                    ? () => categoriaController.deleteFoto(c.foto)
+                                    ? () =>
+                                        categoriaController.deleteFoto(c.foto)
                                     : null,
                               ),
                               RaisedButton(
@@ -276,7 +277,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -318,41 +318,39 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (c.foto == null) {
-                  openBottomSheet(context);
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (c.foto == null) {
+                openBottomSheet(context);
+              } else {
+                if (c.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    categoriaController.create(c).then((categoria) {
+                      var resultado = categoria;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 } else {
-                  if (c.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      categoriaController.create(c).then((categoria) {
-                        var resultado = categoria;
-                        print("resultado : ${resultado}");
-                      });
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      categoriaController.update(c.id, c);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    categoriaController.update(c.id, c);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 }
               }
-            },
-          ),
+            }
+          },
         ),
       ],
     );

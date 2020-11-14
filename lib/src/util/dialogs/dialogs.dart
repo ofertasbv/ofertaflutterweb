@@ -9,24 +9,30 @@ class Dialogs {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(title),
+          title: Center(child: Text(title)),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
                 CircularProgressor(),
                 Divider(),
                 Center(
-                  child: Text("aguarde um momento."),
+                  child: Text("aguarde um momento..."),
                 )
               ],
             ),
           ),
           actions: [
-            FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("ok"),
+            Align(
+              alignment: Alignment.center,
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "cancelar",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
             )
           ],
         );

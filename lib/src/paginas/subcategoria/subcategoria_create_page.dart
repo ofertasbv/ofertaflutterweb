@@ -187,37 +187,34 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (s.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    s.categoria = categoriaController.categoriaSelecionada;
-                    subCategoriaController.create(s);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    s.categoria = categoriaController.categoriaSelecionada;
-                    subCategoriaController.update(s.id, s);
-
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
-              }
-            },
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (s.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  s.categoria = categoriaController.categoriaSelecionada;
+                  subCategoriaController.create(s);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              } else {
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  s.categoria = categoriaController.categoriaSelecionada;
+                  subCategoriaController.update(s.id, s);
+
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              }
+            }
+          },
         ),
       ],
     );

@@ -210,7 +210,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-
                 Card(
                   child: GestureDetector(
                     onTap: () {
@@ -230,23 +229,23 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           children: <Widget>[
                             file != null
                                 ? Image.file(
-                              file,
-                              fit: BoxFit.fitWidth,
-                            )
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
                                 : p.foto != null
-                                ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                ConstantApi.urlArquivoCliente +
-                                    p.foto,
-                              ),
-                            )
-                                : CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                            ),
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi.urlArquivoCliente +
+                                              p.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
                           ],
                         ),
                       ),
@@ -297,7 +296,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   ),
                 ),
                 SizedBox(height: 20),
-
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -531,41 +529,39 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  openBottomSheet(context);
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (p.foto == null) {
+                openBottomSheet(context);
+              } else {
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    clienteController.create(p).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 } else {
-                  if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      clienteController.create(p).then((arquivo) {
-                        var resultado = arquivo;
-                        print("resultado : ${resultado}");
-                      });
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      clienteController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    clienteController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 }
               }
-            },
-          ),
+            }
+          },
         ),
       ],
     );

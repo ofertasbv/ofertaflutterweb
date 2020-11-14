@@ -203,8 +203,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat numberFormat = NumberFormat("00.00");
 
-    desconto = 0.0;
-
     return ListView(
       children: <Widget>[
         Container(
@@ -364,16 +362,13 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                         ),
                         SizedBox(height: 10),
                         TextFormField(
-                          initialValue: p.desconto == null
-                              ? desconto.toString()
-                              : p.desconto.toStringAsFixed(2),
                           onSaved: (value) =>
                               p.desconto = double.tryParse(value),
                           validator: (value) =>
                               value.isEmpty ? "campo obrigário" : null,
                           decoration: InputDecoration(
                             labelText: "Desconto",
-                            hintText: "R\$ ",
+                            hintText: "% ",
                             prefixIcon: Icon(
                               Icons.monetization_on,
                               color: Colors.grey,
@@ -536,41 +531,57 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  openBottomSheet(context);
-                } else {
-                  if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      p.loja = lojaController.lojaSelecionada;
-                      promocaoController.create(p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      p.loja = lojaController.lojaSelecionada;
-                      promocaoController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
-                }
-              }
-            },
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
+          onPressed: () {
+            if (controller.validate()) {
+              // if (p.foto == null) {
+              //   openBottomSheet(context);
+              // } else {
+              if (p.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  p.loja = lojaController.lojaSelecionada;
+
+                  print("Loja: ${p.loja.nome}");
+                  print("Nome: ${p.nome}");
+                  print("Descrição: ${p.descricao}");
+                  print("Desconto: ${p.desconto}");
+                  print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
+                  print("Início: ${dateFormat.format(p.dataInicio)}");
+                  print("Final: ${dateFormat.format(p.dataFinal)}");
+
+                  // promocaoController.create(p);
+                  // Navigator.of(context).pop();
+                  // buildPush(context);
+                });
+              } else {
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  p.loja = lojaController.lojaSelecionada;
+
+                  print("Loja: ${p.loja.nome}");
+                  print("Nome: ${p.nome}");
+                  print("Descrição: ${p.descricao}");
+                  print("Desconto: ${p.desconto}");
+                  print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
+                  print("Início: ${dateFormat.format(p.dataInicio)}");
+                  print("Final: ${dateFormat.format(p.dataFinal)}");
+
+                  // promocaoController.update(p.id, p);
+                  // Navigator.of(context).pop();
+                  // buildPush(context);
+                });
+              }
+              // }
+            }
+          },
         ),
+        SizedBox(height: 20),
       ],
     );
   }

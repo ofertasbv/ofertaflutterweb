@@ -560,36 +560,33 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (endereco.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    endereco.cidade = cidadeSelecionada;
-                    enderecoController.create(endereco);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    endereco.cidade = cidadeSelecionada;
-                    enderecoController.update(endereco.id, endereco);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
-              }
-            },
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (endereco.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  endereco.cidade = cidadeSelecionada;
+                  enderecoController.create(endereco);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              } else {
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  endereco.cidade = cidadeSelecionada;
+                  enderecoController.update(endereco.id, endereco);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              }
+            }
+          },
         ),
       ],
     );

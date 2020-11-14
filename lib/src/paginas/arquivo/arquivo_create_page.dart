@@ -189,19 +189,19 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
+                Container(
                   child: GestureDetector(
                     onTap: () {
                       openBottomSheet(context);
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[400],
+                      color: Colors.grey[300],
                       child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
+                        // decoration: BoxDecoration(
+                        //   border: Border.all(color: Colors.white),
+                        //   borderRadius: BorderRadius.circular(5),
+                        // ),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -231,89 +231,85 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     ),
                   ),
                 ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    color: Colors.grey[400],
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RaisedButton(
-                                child: Icon(Icons.delete_forever),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledDelete
-                                    ? () => arquivoController.deleteFoto(a.foto)
-                                    : null,
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.photo),
-                                shape: new CircleBorder(),
-                                onPressed: () {
-                                  openBottomSheet(context);
-                                },
-                              ),
-                              RaisedButton(
-                                child: Icon(Icons.check),
-                                shape: new CircleBorder(),
-                                onPressed: isEnabledEnviar
-                                    ? () => onClickUpload()
-                                    : null,
-                              )
-                            ],
-                          ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  color: Colors.grey[300],
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        // decoration: BoxDecoration(
+                        //   border: Border.all(color: Colors.grey),
+                        //   borderRadius: BorderRadius.circular(5),
+                        // ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            RaisedButton(
+                              child: Icon(Icons.delete_forever),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledDelete
+                                  ? () => arquivoController.deleteFoto(a.foto)
+                                  : null,
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.photo),
+                              shape: new CircleBorder(),
+                              onPressed: () {
+                                openBottomSheet(context);
+                              },
+                            ),
+                            RaisedButton(
+                              child: Icon(Icons.check),
+                              shape: new CircleBorder(),
+                              onPressed: isEnabledEnviar
+                                  ? () => onClickUpload()
+                                  : null,
+                            )
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 20),
               ],
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (a.foto == null) {
-                  openBottomSheet(context);
+        SizedBox(height: 20),
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (a.foto == null) {
+                openBottomSheet(context);
+              } else {
+                if (a.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    arquivoController.create(a).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 } else {
-                  if (a.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      arquivoController.create(a).then((arquivo) {
-                        var resultado = arquivo;
-                        print("resultado : ${resultado}");
-                      });
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 1), () {
-                      arquivoController.update(a.id, a);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 1), () {
+                    arquivoController.update(a.id, a);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 }
               }
-            },
-          ),
+            }
+          },
         ),
       ],
     );

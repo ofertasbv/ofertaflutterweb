@@ -140,37 +140,34 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
             ),
           ),
         ),
-        Card(
-          child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    permissaoController.create(p).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    permissaoController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
-              }
-            },
+        RaisedButton.icon(
+          label: Text("Enviar formulário"),
+          icon: Icon(
+            Icons.check,
+            color: Colors.white,
           ),
+          onPressed: () {
+            if (controller.validate()) {
+              if (p.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  permissaoController.create(p).then((arquivo) {
+                    var resultado = arquivo;
+                    print("resultado : ${resultado}");
+                  });
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              } else {
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  permissaoController.update(p.id, p);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
+              }
+            }
+          },
         ),
       ],
     );
