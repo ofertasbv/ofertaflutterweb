@@ -44,8 +44,6 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
       msg: "Atenção: $cardTitle",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }
@@ -82,7 +80,7 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
           Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.purple,
+                color: Colors.grey,
                 width: 1.0,
               ),
             ),

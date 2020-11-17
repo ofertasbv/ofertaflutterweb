@@ -663,13 +663,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             return Container(
                               padding: EdgeInsets.only(left: 25),
                               child: Container(
-                                child: Text(
-                                  "campo obrigatório",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: marcaController.mensagem == null
+                                    ? Text(
+                                        "*",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    : Text(
+                                        "${marcaController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
                             );
                           }
@@ -691,13 +699,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             return Container(
                               padding: EdgeInsets.only(left: 25),
                               child: Container(
-                                child: Text(
-                                  "campo obrigatório",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: subCategoriaController.mensagem == null
+                                    ? Text(
+                                        "*",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    : Text(
+                                        "${subCategoriaController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
                             );
                           }
@@ -718,13 +734,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             return Container(
                               padding: EdgeInsets.only(left: 25),
                               child: Container(
-                                child: Text(
-                                  "campo obrigatório",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: lojaController.mensagem == null
+                                    ? Text(
+                                        "*",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    : Text(
+                                        "${lojaController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
                             );
                           }
@@ -745,13 +769,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             return Container(
                               padding: EdgeInsets.only(left: 25),
                               child: Container(
-                                child: Text(
-                                  "campo obrigatório",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: promocaoController.mensagem == null
+                                    ? Text(
+                                        "*",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    : Text(
+                                        "${promocaoController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
                             );
                           }
@@ -920,8 +952,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("UNIDADE"),
                                 value: "UNIDADE",
-                                groupValue:
-                                    p.medida == null ? medida : p.medida,
+                                groupValue: p.medida == null
+                                    ? p.medida = medida
+                                    : p.medida,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -935,8 +968,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("PEÇA"),
                                 value: "PECA",
-                                groupValue:
-                                    p.medida == null ? medida : p.medida,
+                                groupValue: p.medida == null
+                                    ? p.medida = medida
+                                    : p.medida,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -950,8 +984,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("QUILOGRAMA"),
                                 value: "QUILOGRAMA",
-                                groupValue:
-                                    p.medida == null ? medida : p.medida,
+                                groupValue: p.medida == null
+                                    ? p.medida = medida
+                                    : p.medida,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -965,8 +1000,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("OUTRO"),
                                 value: "OUTRO",
-                                groupValue:
-                                    p.medida == null ? medida : p.medida,
+                                groupValue: p.medida == null
+                                    ? p.medida = medida
+                                    : p.medida,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -1002,8 +1038,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("NACIONAL"),
                                 value: "NACIONAL",
-                                groupValue:
-                                    p.origem == null ? origem : p.origem,
+                                groupValue: p.origem == null
+                                    ? p.origem = origem
+                                    : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -1017,8 +1054,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                     ListTileControlAffinity.trailing,
                                 title: Text("INTERNACIONAL"),
                                 value: "INTERNACIONAL",
-                                groupValue:
-                                    p.origem == null ? origem : p.origem,
+                                groupValue: p.origem == null
+                                    ? p.origem = origem
+                                    : p.origem,
                                 secondary: const Icon(Icons.check_outlined),
                                 onChanged: (String valor) {
                                   setState(() {
@@ -1050,17 +1088,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
               // if (p.foto == null) {
               //   openBottomSheet(context);
               // } else {
-
               if (marcaController.marcaSelecionada == null) {
+                marcaController.mensagem = "campo obrigatório";
                 print("campo marca obrigatório");
               }
               if (subCategoriaController.subCategoriaSelecionada == null) {
+                subCategoriaController.mensagem = "campo obrigatório";
                 print("campo categoria obrigatório");
               }
               if (lojaController.lojaSelecionada == null) {
+                lojaController.mensagem = "campo obrigatório";
                 print("campo loja obrigatório");
               }
               if (promocaoController.promocaoSelecionada == null) {
+                promocaoController.mensagem = "campo obrigatório";
                 print("campo promoção obrigatório");
               } else {
                 if (p.id == null) {
@@ -1122,9 +1163,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     // buildPush(context);
                   });
                 }
+                // }
               }
             }
-            // }
           },
         ),
         SizedBox(height: 20),

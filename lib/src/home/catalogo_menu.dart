@@ -97,6 +97,7 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
       crossAxisCount: 3,
 
       //childAspectRatio: MediaQuery.of(context).size.aspectRatio * 1.9,
+
       scrollDirection: Axis.vertical,
       children: <Widget>[
         GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewSite extends StatefulWidget {
@@ -52,12 +53,7 @@ class _WebViewSiteState extends State<WebViewSite> {
             ),
           ],
         ),
-        Center(
-          child: CircularProgressIndicator(
-            backgroundColor: Colors.purple,
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
-          ),
-        ),
+       CircularProgressor(),
       ],
     );
   }
