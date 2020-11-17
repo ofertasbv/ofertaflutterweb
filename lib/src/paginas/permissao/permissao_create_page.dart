@@ -161,7 +161,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                 });
               } else {
                 dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(seconds: 3), () {
                   permissaoController.update(p.id, p);
                   Navigator.of(context).pop();
                   buildPush(context);

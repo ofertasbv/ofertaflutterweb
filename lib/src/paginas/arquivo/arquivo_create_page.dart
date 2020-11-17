@@ -301,7 +301,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                 } else {
                   dialogs.information(
                       context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
+                  Timer(Duration(seconds: 3), () {
                     arquivoController.update(a.id, a);
                     Navigator.of(context).pop();
                     buildPush(context);

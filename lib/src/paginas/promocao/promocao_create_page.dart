@@ -63,8 +63,11 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     lojas = lojaController.getAll();
     if (p == null) {
       p = Promocao();
+    } else {
+      descontoController.text = p.desconto.toStringAsFixed(2);
+      lojaSelecionada = p.loja;
     }
-    lojaSelecionada = p.loja;
+
     super.initState();
   }
 
@@ -203,6 +206,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat numberFormat = NumberFormat("00.00");
 
+    lojaController.lojaSelecionada = p.loja;
+
     return ListView(
       children: <Widget>[
         Container(
@@ -228,23 +233,23 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           children: <Widget>[
                             file != null
                                 ? Image.file(
-                              file,
-                              fit: BoxFit.fitWidth,
-                            )
+                                    file,
+                                    fit: BoxFit.fitWidth,
+                                  )
                                 : p.foto != null
-                                ? CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(
-                                ConstantApi.urlArquivoPromocao +
-                                    p.foto,
-                              ),
-                            )
-                                : CircleAvatar(
-                              radius: 50,
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                              ),
-                            ),
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(
+                                          ConstantApi.urlArquivoPromocao +
+                                              p.foto,
+                                        ),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        child: Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
                           ],
                         ),
                       ),
@@ -351,6 +356,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                         ),
                         SizedBox(height: 10),
                         TextFormField(
+                          controller: descontoController,
                           onSaved: (value) =>
                               p.desconto = double.tryParse(value),
                           validator: (value) =>
@@ -373,12 +379,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
-                          keyboardType: TextInputType.numberWithOptions(),
-                          inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly,
-                            RealInputFormatter(centavos: true)
-                          ],
-                          maxLength: 5,
+                          keyboardType: TextInputType.number,
+                          maxLength: 2,
                         ),
                         SizedBox(height: 10),
                         DateTimeField(
@@ -530,45 +532,46 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
           ),
           onPressed: () {
             if (controller.validate()) {
-              // if (p.foto == null) {
-              //   openBottomSheet(context);
-              // } else {
-              if (p.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  p.loja = lojaController.lojaSelecionada;
-
-                  print("Loja: ${p.loja.nome}");
-                  print("Nome: ${p.nome}");
-                  print("Descrição: ${p.descricao}");
-                  print("Desconto: ${p.desconto}");
-                  print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
-                  print("Início: ${dateFormat.format(p.dataInicio)}");
-                  print("Final: ${dateFormat.format(p.dataFinal)}");
-
-                  // promocaoController.create(p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
+              if (p.foto == null) {
+                openBottomSheet(context);
               } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
-                  p.loja = lojaController.lojaSelecionada;
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    p.loja = lojaController.lojaSelecionada;
 
-                  print("Loja: ${p.loja.nome}");
-                  print("Nome: ${p.nome}");
-                  print("Descrição: ${p.descricao}");
-                  print("Desconto: ${p.desconto}");
-                  print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
-                  print("Início: ${dateFormat.format(p.dataInicio)}");
-                  print("Final: ${dateFormat.format(p.dataFinal)}");
+                    print("Loja: ${p.loja.nome}");
+                    print("Nome: ${p.nome}");
+                    print("Descrição: ${p.descricao}");
+                    print("Desconto: ${p.desconto}");
+                    print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
+                    print("Início: ${dateFormat.format(p.dataInicio)}");
+                    print("Final: ${dateFormat.format(p.dataFinal)}");
 
-                  // promocaoController.update(p.id, p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
+                    promocaoController.create(p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    p.loja = lojaController.lojaSelecionada;
+
+                    print("Loja: ${p.loja.nome}");
+                    print("Nome: ${p.nome}");
+                    print("Descrição: ${p.descricao}");
+                    print("Desconto: ${p.desconto}");
+                    print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
+                    print("Início: ${dateFormat.format(p.dataInicio)}");
+                    print("Final: ${dateFormat.format(p.dataFinal)}");
+
+                    promocaoController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-              // }
             }
           },
         ),

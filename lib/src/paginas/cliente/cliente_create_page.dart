@@ -542,14 +542,14 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
 
-                    // clienteController.create(p);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
+                    clienteController.create(p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
                 } else {
                   dialogs.information(
                       context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
+                  Timer(Duration(seconds: 3), () {
                     print("Pessoa: ${p.tipoPessoa}");
                     print("Nome: ${p.nome}");
                     print("CPF: ${p.cpf}");
@@ -558,9 +558,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
 
-                    // clienteController.update(p.id, p);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
+                    clienteController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
                 }
               }

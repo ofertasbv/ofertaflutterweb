@@ -164,7 +164,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                 });
               } else {
                 dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(seconds: 3), () {
                   tamanhoController.update(c.id, c);
                   Navigator.of(context).pop();
                   buildPush(context);

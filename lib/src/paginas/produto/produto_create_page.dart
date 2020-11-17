@@ -1085,85 +1085,86 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           ),
           onPressed: () {
             if (controller.validate()) {
-              // if (p.foto == null) {
-              //   openBottomSheet(context);
-              // } else {
-              if (marcaController.marcaSelecionada == null) {
-                marcaController.mensagem = "campo obrigatório";
-                print("campo marca obrigatório");
-              }
-              if (subCategoriaController.subCategoriaSelecionada == null) {
-                subCategoriaController.mensagem = "campo obrigatório";
-                print("campo categoria obrigatório");
-              }
-              if (lojaController.lojaSelecionada == null) {
-                lojaController.mensagem = "campo obrigatório";
-                print("campo loja obrigatório");
-              }
-              if (promocaoController.promocaoSelecionada == null) {
-                promocaoController.mensagem = "campo obrigatório";
-                print("campo promoção obrigatório");
+              if (p.foto == null) {
+                openBottomSheet(context);
               } else {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    // produtoController.create(p);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
-
-                    DateTime agora = DateTime.now();
-
-                    print("Loja: ${p.loja.nome}");
-                    print("SubCategoria: ${p.subCategoria.nome}");
-                    print("Marca: ${p.marca.nome}");
-                    print("Promoção: ${p.promocao.nome}");
-
-                    print("Quantidade: ${p.estoque.quantidade}");
-                    print("Valor: ${p.estoque.valor}");
-                    print("Desconto: ${p.desconto}");
-
-                    print("Favorito: ${p.favorito}");
-                    print("Novo: ${p.novo}");
-                    print("Status: ${p.status}");
-                    print("Destaque: ${p.destaque}");
-
-                    print("Medida: ${p.medida}");
-                    print("Origem: ${p.origem}");
-
-                    print("Data: ${p.dataRegistro}");
-                    print("Agora: ${agora}");
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    print("Loja: ${p.loja.nome}");
-                    print("SubCategoria: ${p.subCategoria.nome}");
-                    print("Marca: ${p.marca.nome}");
-                    print("Promoção: ${p.promocao.nome}");
-
-                    print("Quantidade: ${p.estoque.quantidade}");
-                    print("Valor: ${p.estoque.valor}");
-                    print("Desconto: ${p.desconto}");
-
-                    print("Favorito: ${p.favorito}");
-                    print("Novo: ${p.novo}");
-                    print("Status: ${p.status}");
-                    print("Destaque: ${p.destaque}");
-
-                    print("Medida: ${p.medida}");
-                    print("Origem: ${p.origem}");
-
-                    p.estoque.quantidade = int.tryParse(controllerValor.text);
-                    p.estoque.valor = double.tryParse(controllerValor.text);
-                    p.desconto = double.tryParse(controllerValor.text);
-                    // produtoController.update(p.id, p);
-
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
-                  });
+                if (marcaController.marcaSelecionada == null) {
+                  marcaController.mensagem = "campo obrigatório";
+                  print("campo marca obrigatório");
                 }
-                // }
+                if (subCategoriaController.subCategoriaSelecionada == null) {
+                  subCategoriaController.mensagem = "campo obrigatório";
+                  print("campo categoria obrigatório");
+                }
+                if (lojaController.lojaSelecionada == null) {
+                  lojaController.mensagem = "campo obrigatório";
+                  print("campo loja obrigatório");
+                }
+                if (promocaoController.promocaoSelecionada == null) {
+                  promocaoController.mensagem = "campo obrigatório";
+                  print("campo promoção obrigatório");
+                } else {
+                  if (p.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      DateTime agora = DateTime.now();
+
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
+
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
+                      print("Desconto: ${p.desconto}");
+
+                      print("Favorito: ${p.favorito}");
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
+
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
+
+                      print("Data: ${p.dataRegistro}");
+                      print("Agora: ${agora}");
+
+                      produtoController.create(p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
+
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
+                      print("Desconto: ${p.desconto}");
+
+                      print("Favorito: ${p.favorito}");
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
+
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
+
+                      p.estoque.quantidade =
+                          int.tryParse(controllerQuantidade.text);
+                      p.estoque.valor = double.tryParse(controllerValor.text);
+                      p.desconto = double.tryParse(controllerDesconto.text);
+
+                      produtoController.update(p.id, p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
+                }
               }
             }
           },

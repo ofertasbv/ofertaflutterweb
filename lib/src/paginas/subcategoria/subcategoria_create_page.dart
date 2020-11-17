@@ -214,7 +214,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                 });
               } else {
                 dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(seconds: 3), () {
                   s.categoria = categoriaController.categoriaSelecionada;
                   subCategoriaController.update(s.id, s);
 

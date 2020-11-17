@@ -579,7 +579,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                 });
               } else {
                 dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
+                Timer(Duration(seconds: 3), () {
                   endereco.cidade = cidadeSelecionada;
                   enderecoController.update(endereco.id, endereco);
                   Navigator.of(context).pop();

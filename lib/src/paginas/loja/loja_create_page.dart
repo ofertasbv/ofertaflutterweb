@@ -552,43 +552,44 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
           ),
           onPressed: () {
             if (controller.validate()) {
-              // if (p.foto == null) {
-              //   openBottomSheet(context);
-              // } else {
-              if (p.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  print("Pessoa: ${p.tipoPessoa}");
-                  print("Nome: ${p.nome}");
-                  print("Rasão social: ${p.razaoSocial}");
-                  print("Cnpj: ${p.cnpj}");
-                  print("Telefone: ${p.telefone}");
-                  print("DataRegistro: ${p.dataRegistro}");
-                  print("Email: ${p.usuario.email}");
-                  print("Senha: ${p.usuario.senha}");
-
-                  // lojaController.create(p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
+              if (p.foto == null) {
+                openBottomSheet(context);
               } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 1), () {
-                  print("Pessoa: ${p.tipoPessoa}");
-                  print("Nome: ${p.nome}");
-                  print("Rasão social: ${p.razaoSocial}");
-                  print("Cnpj: ${p.cnpj}");
-                  print("Telefone: ${p.telefone}");
-                  print("DataRegistro: ${p.dataRegistro}");
-                  print("Email: ${p.usuario.email}");
-                  print("Senha: ${p.usuario.senha}");
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    print("Pessoa: ${p.tipoPessoa}");
+                    print("Nome: ${p.nome}");
+                    print("Rasão social: ${p.razaoSocial}");
+                    print("Cnpj: ${p.cnpj}");
+                    print("Telefone: ${p.telefone}");
+                    print("DataRegistro: ${p.dataRegistro}");
+                    print("Email: ${p.usuario.email}");
+                    print("Senha: ${p.usuario.senha}");
 
-                  // lojaController.update(p.id, p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
+                    lojaController.create(p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    print("Pessoa: ${p.tipoPessoa}");
+                    print("Nome: ${p.nome}");
+                    print("Rasão social: ${p.razaoSocial}");
+                    print("Cnpj: ${p.cnpj}");
+                    print("Telefone: ${p.telefone}");
+                    print("DataRegistro: ${p.dataRegistro}");
+                    print("Email: ${p.usuario.email}");
+                    print("Senha: ${p.usuario.senha}");
+
+                    lojaController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-              // }
             }
           },
         ),

@@ -332,7 +332,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                 } else {
                   dialogs.information(
                       context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
+                  Timer(Duration(seconds: 3), () {
                     categoriaController.update(c.id, c);
                     Navigator.of(context).pop();
                     buildPush(context);
