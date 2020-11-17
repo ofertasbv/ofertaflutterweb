@@ -308,7 +308,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                 title: Text("PESSOA FISICA"),
                                 value: "FISICA",
                                 groupValue: p.tipoPessoa == null
-                                    ? tipoPessoa
+                                    ? p.tipoPessoa = tipoPessoa
                                     : p.tipoPessoa,
                                 onChanged: (String valor) {
                                   setState(() {
@@ -323,7 +323,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                 title: Text("PESSOA JURIDICA"),
                                 value: "JURIDICA",
                                 groupValue: p.tipoPessoa == null
-                                    ? tipoPessoa
+                                    ? p.tipoPessoa = tipoPessoa
                                     : p.tipoPessoa,
                                 onChanged: (String valor) {
                                   setState(() {
@@ -534,20 +534,33 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                 if (p.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    clienteController.create(p).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
+                    print("Pessoa: ${p.tipoPessoa}");
+                    print("Nome: ${p.nome}");
+                    print("CPF: ${p.cpf}");
+                    print("Telefone: ${p.telefone}");
+                    print("DataRegistro: ${p.dataRegistro}");
+                    print("Email: ${p.usuario.email}");
+                    print("Senha: ${p.usuario.senha}");
+
+                    // clienteController.create(p);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
                   });
                 } else {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 1), () {
-                    clienteController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
+                    print("Pessoa: ${p.tipoPessoa}");
+                    print("Nome: ${p.nome}");
+                    print("CPF: ${p.cpf}");
+                    print("Telefone: ${p.telefone}");
+                    print("DataRegistro: ${p.dataRegistro}");
+                    print("Email: ${p.usuario.email}");
+                    print("Senha: ${p.usuario.senha}");
+
+                    // clienteController.update(p.id, p);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
                   });
                 }
               }

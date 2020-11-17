@@ -307,7 +307,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 title: Text("PESSOA FISICA"),
                                 value: "FISICA",
                                 groupValue: p.tipoPessoa == null
-                                    ? tipoPessoa
+                                    ? p.tipoPessoa = tipoPessoa
                                     : p.tipoPessoa,
                                 onChanged: (String valor) {
                                   setState(() {
@@ -322,12 +322,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 title: Text("PESSOA JURIDICA"),
                                 value: "JURIDICA",
                                 groupValue: p.tipoPessoa == null
-                                    ? tipoPessoa
+                                    ? p.tipoPessoa = tipoPessoa
                                     : p.tipoPessoa,
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.tipoPessoa = valor;
-                                    print("resultado: " + p.tipoPessoa);
+                                    print("Pessoa: " + p.tipoPessoa);
                                   });
                                 },
                               ),
@@ -552,29 +552,43 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
           ),
           onPressed: () {
             if (controller.validate()) {
-              if (p.foto == null) {
-                openBottomSheet(context);
+              // if (p.foto == null) {
+              //   openBottomSheet(context);
+              // } else {
+              if (p.id == null) {
+                dialogs.information(context, "prepando para o cadastro...");
+                Timer(Duration(seconds: 3), () {
+                  print("Pessoa: ${p.tipoPessoa}");
+                  print("Nome: ${p.nome}");
+                  print("Rasão social: ${p.razaoSocial}");
+                  print("Cnpj: ${p.cnpj}");
+                  print("Telefone: ${p.telefone}");
+                  print("DataRegistro: ${p.dataRegistro}");
+                  print("Email: ${p.usuario.email}");
+                  print("Senha: ${p.usuario.senha}");
+
+                  // lojaController.create(p);
+                  // Navigator.of(context).pop();
+                  // buildPush(context);
+                });
               } else {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    lojaController.create(p).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 1), () {
-                    lojaController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
+                dialogs.information(context, "preparando para o alteração...");
+                Timer(Duration(seconds: 1), () {
+                  print("Pessoa: ${p.tipoPessoa}");
+                  print("Nome: ${p.nome}");
+                  print("Rasão social: ${p.razaoSocial}");
+                  print("Cnpj: ${p.cnpj}");
+                  print("Telefone: ${p.telefone}");
+                  print("DataRegistro: ${p.dataRegistro}");
+                  print("Email: ${p.usuario.email}");
+                  print("Senha: ${p.usuario.senha}");
+
+                  // lojaController.update(p.id, p);
+                  // Navigator.of(context).pop();
+                  // buildPush(context);
+                });
               }
+              // }
             }
           },
         ),
