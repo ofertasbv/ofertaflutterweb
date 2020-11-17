@@ -124,12 +124,12 @@ class MyApp extends StatelessWidget {
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
-        elevation: 1,
-        color: Colors.white,
+        elevation: 0,
+        color: Colors.grey[100],
         margin: EdgeInsets.all(2),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(2),
-          side: BorderSide(color: Colors.grey[200]),
+          borderRadius: new BorderRadius.circular(4),
+          side: BorderSide(color: Colors.grey[100]),
         ),
       ),
 

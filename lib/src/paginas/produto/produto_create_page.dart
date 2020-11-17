@@ -862,7 +862,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               onChanged: (bool valor) {
                                 setState(() {
                                   favorito = valor;
-                                  print("resultado: " + p.favorito.toString());
+                                  print("Favorito: " + p.favorito.toString());
                                 });
                               },
                             ),
@@ -882,7 +882,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               onChanged: (bool valor) {
                                 setState(() {
                                   novo = valor;
-                                  print("resultado: " + p.novo.toString());
+                                  print("Novo: " + p.novo.toString());
                                 });
                               },
                             ),
@@ -901,7 +901,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               onChanged: (bool valor) {
                                 setState(() {
                                   status = valor;
-                                  print("resultado: " + p.status.toString());
+                                  print("Disponivel: " + p.status.toString());
                                 });
                               },
                             ),
@@ -921,7 +921,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               onChanged: (bool valor) {
                                 setState(() {
                                   destaque = valor;
-                                  print("resultado: " + p.destaque.toString());
+                                  print("Destaque: " + p.destaque.toString());
                                 });
                               },
                             ),
@@ -959,7 +959,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
-                                    print("resultado: " + p.medida);
+                                    print("Medida: " + p.medida);
                                   });
                                 },
                               ),
@@ -975,7 +975,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.medida = valor;
-                                    print("resultado: " + p.medida);
+                                    print("Medida: " + p.medida);
                                   });
                                 },
                               ),
@@ -1045,7 +1045,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.origem = valor;
-                                    print("resultado: " + p.origem);
+                                    print("Origem: " + p.origem);
                                   });
                                 },
                               ),
@@ -1061,7 +1061,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 onChanged: (String valor) {
                                   setState(() {
                                     p.origem = valor;
-                                    print("resultado: " + p.origem);
+                                    print("Origem: " + p.origem);
                                   });
                                 },
                               ),
