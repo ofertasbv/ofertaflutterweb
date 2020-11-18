@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
+import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -32,6 +33,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
   Arquivo a;
   File file;
   bool isButtonDesable = false;
+  var caminho;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -103,7 +105,36 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      FormData url = await arquivoController.upload(file, a.foto);
+      var url = await arquivoController.upload(file, a.foto);
+
+      print("url: ${url}");
+
+      var parseJson = json.decode(url);
+
+      var fileName = parseJson['fileName'];
+      var fileDownloadUri = parseJson['fileDownloadUri'];
+      var fileType = parseJson['fileType'];
+      var size = parseJson['size'];
+
+      print("fileName: ${fileName}");
+      print("fileDownloadUri: ${fileDownloadUri}");
+      print("fileType: ${fileType}");
+      print("size: ${size}");
+
+      print("========= UPLOAD FILE RESPONSE ========= ");
+
+      var ufr = UploadFileResponse();
+
+      ufr.fileName = parseJson['fileName'];
+      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
+      ufr.fileType = parseJson['fileType'];
+      ufr.size = parseJson['size'];
+
+      print("fileName: ${ufr.fileName}");
+      print("fileDownloadUri: ${ufr.fileDownloadUri}");
+      print("fileType: ${ufr.fileType}");
+      print("size: ${ufr.size}");
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
@@ -198,10 +229,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                       padding: EdgeInsets.all(5),
                       color: Colors.grey[300],
                       child: Container(
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(color: Colors.white),
-                        //   borderRadius: BorderRadius.circular(5),
-                        // ),
                         width: double.infinity,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -210,6 +237,8 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    width: 200,
+                                    height: 200,
                                   )
                                 : a.foto != null
                                     ? CircleAvatar(
@@ -238,10 +267,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.all(10),
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(color: Colors.grey),
-                        //   borderRadius: BorderRadius.circular(5),
-                        // ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -291,20 +316,21 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                 if (a.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    arquivoController.create(a).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
+                    print("Foto : ${a.foto}");
+
+                    // arquivoController.create(a);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
                   });
                 } else {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    arquivoController.update(a.id, a);
-                    Navigator.of(context).pop();
-                    buildPush(context);
+                    print("Foto : ${a.foto}");
+
+                    // arquivoController.update(a.id, a);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
                   });
                 }
               }

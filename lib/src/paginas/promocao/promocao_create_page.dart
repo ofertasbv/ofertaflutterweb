@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -543,6 +542,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                     print("Loja: ${p.loja.nome}");
                     print("Nome: ${p.nome}");
                     print("Descrição: ${p.descricao}");
+                    print("Foto: ${p.foto}");
                     print("Desconto: ${p.desconto}");
                     print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
                     print("Início: ${dateFormat.format(p.dataInicio)}");
@@ -561,6 +561,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                     print("Loja: ${p.loja.nome}");
                     print("Nome: ${p.nome}");
                     print("Descrição: ${p.descricao}");
+                    print("Foto: ${p.foto}");
                     print("Desconto: ${p.desconto}");
                     print("Resgistro: ${dateFormat.format(p.dataRegistro)}");
                     print("Início: ${dateFormat.format(p.dataInicio)}");
