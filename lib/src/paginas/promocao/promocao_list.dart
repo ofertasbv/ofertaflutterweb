@@ -119,6 +119,7 @@ class _PromocaoListState extends State<PromocaoList>
         }
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {

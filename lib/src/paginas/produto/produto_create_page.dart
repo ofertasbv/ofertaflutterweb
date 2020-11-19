@@ -35,6 +35,7 @@ import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
 import 'package:nosso/src/util/dialogs/dialog_cor.dart';
 import 'package:nosso/src/util/dialogs/dialog_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/upload/upload_response.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -79,6 +80,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   var controllerQuantidade = TextEditingController();
   var controllerValor = TextEditingController();
   var controllerDesconto = TextEditingController();
+
+  var uploadFileResponse = UploadFileResponse();
+  var response = UploadRespnse();
 
   String barcode = "";
 
@@ -203,35 +207,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      var url = await produtoController.upload(file, p.foto);
+      var url = await promocaoController.upload(file, p.foto);
 
       print("url: ${url}");
 
-      var parseJson = json.decode(url);
-
-      var fileName = parseJson['fileName'];
-      var fileDownloadUri = parseJson['fileDownloadUri'];
-      var fileType = parseJson['fileType'];
-      var size = parseJson['size'];
-
-      print("fileName: ${fileName}");
-      print("fileDownloadUri: ${fileDownloadUri}");
-      print("fileType: ${fileType}");
-      print("size: ${size}");
-
       print("========= UPLOAD FILE RESPONSE ========= ");
 
-      var ufr = UploadFileResponse();
+      uploadFileResponse = response.response(uploadFileResponse, url);
 
-      ufr.fileName = parseJson['fileName'];
-      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
-      ufr.fileType = parseJson['fileType'];
-      ufr.size = parseJson['size'];
+      print("fileName: ${uploadFileResponse.fileName}");
+      print("fileDownloadUri: ${uploadFileResponse.fileDownloadUri}");
+      print("fileType: ${uploadFileResponse.fileType}");
+      print("size: ${uploadFileResponse.size}");
 
-      print("fileName: ${ufr.fileName}");
-      print("fileDownloadUri: ${ufr.fileDownloadUri}");
-      print("fileType: ${ufr.fileType}");
-      print("size: ${ufr.size}");
+      p.foto = uploadFileResponse.fileName;
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
@@ -373,6 +362,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
+                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   color: Colors.grey[300],
@@ -409,6 +399,45 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       ),
                     ],
                   ),
+                ),
+                ExpansionTile(
+                  leading: Icon(Icons.photo),
+                  title: Text("Descrição"),
+                  children: [
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: ListTile(
+                              title: Text("fileName"),
+                              subtitle: Text("${uploadFileResponse.fileName}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("fileDownloadUri"),
+                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("fileType"),
+                              subtitle: Text("${uploadFileResponse.fileType}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("size"),
+                              subtitle: Text("${uploadFileResponse.size}"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 Card(
@@ -1105,6 +1134,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
           ),
         ),
+
         SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),

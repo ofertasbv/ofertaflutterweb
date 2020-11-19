@@ -124,6 +124,7 @@ class _ProdutoListState extends State<ProdutoList>
         }
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {

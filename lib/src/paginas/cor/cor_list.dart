@@ -111,6 +111,7 @@ class _CorListState extends State<CorList>
         }
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {

@@ -16,6 +16,7 @@ import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/upload/upload_response.dart';
 
 class ArquivoCreatePage extends StatefulWidget {
   Arquivo arquivo;
@@ -33,7 +34,9 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
   Arquivo a;
   File file;
   bool isButtonDesable = false;
-  var caminho;
+
+  var uploadFileResponse = UploadFileResponse();
+  var response = UploadRespnse();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -83,7 +86,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
         this.file = f;
         String arquivo = file.path.split('/').last;
         print("filePath: $arquivo");
-        a.foto = arquivo;
       });
     }
   }
@@ -98,7 +100,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
         this.file = f;
         String arquivo = file.path.split('/').last;
         print("filePath: $arquivo");
-        a.foto = arquivo;
       });
     }
   }
@@ -109,31 +110,16 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
 
       print("url: ${url}");
 
-      var parseJson = json.decode(url);
-
-      var fileName = parseJson['fileName'];
-      var fileDownloadUri = parseJson['fileDownloadUri'];
-      var fileType = parseJson['fileType'];
-      var size = parseJson['size'];
-
-      print("fileName: ${fileName}");
-      print("fileDownloadUri: ${fileDownloadUri}");
-      print("fileType: ${fileType}");
-      print("size: ${size}");
-
       print("========= UPLOAD FILE RESPONSE ========= ");
 
-      var ufr = UploadFileResponse();
+      uploadFileResponse = response.response(uploadFileResponse, url);
 
-      ufr.fileName = parseJson['fileName'];
-      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
-      ufr.fileType = parseJson['fileType'];
-      ufr.size = parseJson['size'];
+      print("fileName: ${uploadFileResponse.fileName}");
+      print("fileDownloadUri: ${uploadFileResponse.fileDownloadUri}");
+      print("fileType: ${uploadFileResponse.fileType}");
+      print("size: ${uploadFileResponse.size}");
 
-      print("fileName: ${ufr.fileName}");
-      print("fileDownloadUri: ${ufr.fileDownloadUri}");
-      print("fileType: ${ufr.fileType}");
-      print("size: ${ufr.size}");
+      a.foto = uploadFileResponse.fileName;
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
@@ -215,6 +201,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(0),
+          color: Colors.grey[300],
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -227,7 +214,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[300],
                       child: Container(
                         width: double.infinity,
                         child: Column(
@@ -237,8 +223,8 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
-                                    width: 200,
-                                    height: 200,
+                                    width: double.infinity,
+                                    height: 300,
                                   )
                                 : a.foto != null
                                     ? CircleAvatar(
@@ -260,9 +246,9 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     ),
                   ),
                 ),
+                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
-                  color: Colors.grey[300],
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -301,6 +287,45 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             ),
           ),
         ),
+        ExpansionTile(
+          leading: Icon(Icons.photo),
+          title: Text("Descrição"),
+          children: [
+            Container(
+              height: 400,
+              padding: EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: ListTile(
+                      title: Text("fileName"),
+                      subtitle: Text("${uploadFileResponse.fileName}"),
+                    ),
+                  ),
+                  Container(
+                    child: ListTile(
+                      title: Text("fileDownloadUri"),
+                      subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                    ),
+                  ),
+                  Container(
+                    child: ListTile(
+                      title: Text("fileType"),
+                      subtitle: Text("${uploadFileResponse.fileType}"),
+                    ),
+                  ),
+                  Container(
+                    child: ListTile(
+                      title: Text("size"),
+                      subtitle: Text("${uploadFileResponse.size}"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
@@ -318,9 +343,9 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                   Timer(Duration(seconds: 3), () {
                     print("Foto : ${a.foto}");
 
-                    // arquivoController.create(a);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
+                    arquivoController.create(a);
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
                 } else {
                   dialogs.information(
@@ -328,9 +353,9 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                   Timer(Duration(seconds: 3), () {
                     print("Foto : ${a.foto}");
 
-                    // arquivoController.update(a.id, a);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
+                    arquivoController.update(a.id, a);
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
                 }
               }

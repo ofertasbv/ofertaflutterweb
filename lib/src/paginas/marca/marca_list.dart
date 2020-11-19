@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/paginas/marca/marca_create_page.dart';

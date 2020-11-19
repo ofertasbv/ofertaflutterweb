@@ -18,6 +18,7 @@ import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/upload/upload_response.dart';
 
 class LojaCreatePage extends StatefulWidget {
   Loja loja;
@@ -45,6 +46,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
   String tipoPessoa;
   String valorSlecionado;
   File file;
+
+  var uploadFileResponse = UploadFileResponse();
+  var response = UploadRespnse();
 
   @override
   void initState() {
@@ -119,31 +123,16 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
 
       print("url: ${url}");
 
-      var parseJson = json.decode(url);
-
-      var fileName = parseJson['fileName'];
-      var fileDownloadUri = parseJson['fileDownloadUri'];
-      var fileType = parseJson['fileType'];
-      var size = parseJson['size'];
-
-      print("fileName: ${fileName}");
-      print("fileDownloadUri: ${fileDownloadUri}");
-      print("fileType: ${fileType}");
-      print("size: ${size}");
-
       print("========= UPLOAD FILE RESPONSE ========= ");
 
-      var ufr = UploadFileResponse();
+      uploadFileResponse = response.response(uploadFileResponse, url);
 
-      ufr.fileName = parseJson['fileName'];
-      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
-      ufr.fileType = parseJson['fileType'];
-      ufr.size = parseJson['size'];
+      print("fileName: ${uploadFileResponse.fileName}");
+      print("fileDownloadUri: ${uploadFileResponse.fileDownloadUri}");
+      print("fileType: ${uploadFileResponse.fileType}");
+      print("size: ${uploadFileResponse.size}");
 
-      print("fileName: ${ufr.fileName}");
-      print("fileDownloadUri: ${ufr.fileDownloadUri}");
-      print("fileType: ${ufr.fileType}");
-      print("size: ${ufr.size}");
+      p.foto = uploadFileResponse.fileName;
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
@@ -277,6 +266,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     ),
                   ),
                 ),
+                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   color: Colors.grey[300],
@@ -313,6 +303,45 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       ),
                     ],
                   ),
+                ),
+                ExpansionTile(
+                  leading: Icon(Icons.photo),
+                  title: Text("Descrição"),
+                  children: [
+                    Container(
+                      height: 400,
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: ListTile(
+                              title: Text("fileName"),
+                              subtitle: Text("${uploadFileResponse.fileName}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("fileDownloadUri"),
+                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("fileType"),
+                              subtitle: Text("${uploadFileResponse.fileType}"),
+                            ),
+                          ),
+                          Container(
+                            child: ListTile(
+                              title: Text("size"),
+                              subtitle: Text("${uploadFileResponse.size}"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 Card(
