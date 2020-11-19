@@ -331,7 +331,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           Container(
                             child: ListTile(
                               title: Text("fileDownloadUri"),
-                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                              subtitle:
+                                  Text("${uploadFileResponse.fileDownloadUri}"),
                             ),
                           ),
                           Container(
@@ -559,13 +560,21 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       return Container(
                         padding: EdgeInsets.only(left: 25),
                         child: Container(
-                          child: Text(
-                            "campo obrigatório",
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 12,
-                            ),
-                          ),
+                          child: lojaController.mensagem == null
+                              ? Text(
+                                  "*",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  "${lojaController.mensagem}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
                         ),
                       );
                     }

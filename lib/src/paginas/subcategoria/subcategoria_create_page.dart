@@ -111,6 +111,8 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
   }
 
   ListView buildListViewForm(BuildContext context) {
+    categoriaController.categoriaSelecionada = s.categoria;
+
     return ListView(
       children: <Widget>[
         Container(
@@ -169,8 +171,16 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             return Container(
                               padding: EdgeInsets.only(left: 25),
                               child: Container(
-                                child: Text(
-                                  "campo obrigatório",
+                                child: categoriaController.mensagem == null
+                                    ? Text(
+                                  "*",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                                    : Text(
+                                  "${categoriaController.mensagem}",
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,

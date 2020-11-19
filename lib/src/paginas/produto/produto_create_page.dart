@@ -637,10 +637,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           ),
                           keyboardType: TextInputType.number,
                           maxLength: 6,
-                          // inputFormatters: [
-                          //   FilteringTextInputFormatter.digitsOnly,
-                          //   RealInputFormatter(centavos: true)
-                          // ],
                         ),
                         SizedBox(height: 10),
                         TextFormField(
@@ -667,10 +663,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           ),
                           keyboardType: TextInputType.number,
                           maxLength: 10,
-                          // inputFormatters: [
-                          //   FilteringTextInputFormatter.digitsOnly,
-                          //   RealInputFormatter(centavos: true)
-                          // ],
                         ),
                         SizedBox(height: 10),
                         DateTimeField(
