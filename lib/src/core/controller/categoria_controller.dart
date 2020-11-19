@@ -25,7 +25,7 @@ abstract class CategoriaControllerBase with Store {
   int categoria;
 
   @observable
-  FormData formData;
+  var formData;
 
   @observable
   Exception error;
@@ -79,7 +79,7 @@ abstract class CategoriaControllerBase with Store {
   }
 
   @action
-  Future<FormData> upload(File foto, String fileName) async {
+  Future<String> upload(File foto, String fileName) async {
     try {
       formData = await categoriaRepository.upload(foto, fileName);
       return formData;

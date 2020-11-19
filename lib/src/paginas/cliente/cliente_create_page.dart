@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,6 +14,7 @@ import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/endereco.dart';
+import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -114,7 +115,36 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      FormData url = await clienteController.upload(file, p.foto);
+      var url = await clienteController.upload(file, p.foto);
+
+      print("url: ${url}");
+
+      var parseJson = json.decode(url);
+
+      var fileName = parseJson['fileName'];
+      var fileDownloadUri = parseJson['fileDownloadUri'];
+      var fileType = parseJson['fileType'];
+      var size = parseJson['size'];
+
+      print("fileName: ${fileName}");
+      print("fileDownloadUri: ${fileDownloadUri}");
+      print("fileType: ${fileType}");
+      print("size: ${size}");
+
+      print("========= UPLOAD FILE RESPONSE ========= ");
+
+      var ufr = UploadFileResponse();
+
+      ufr.fileName = parseJson['fileName'];
+      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
+      ufr.fileType = parseJson['fileType'];
+      ufr.size = parseJson['size'];
+
+      print("fileName: ${ufr.fileName}");
+      print("fileDownloadUri: ${ufr.fileDownloadUri}");
+      print("fileType: ${ufr.fileType}");
+      print("size: ${ufr.size}");
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }

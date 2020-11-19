@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,13 +26,13 @@ import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/componets/dropdown_marca.dart';
 import 'package:nosso/src/util/componets/dropdown_promocao.dart';
 import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
 import 'package:nosso/src/util/dialogs/dialog_cor.dart';
-import 'package:nosso/src/util/dialogs/dialog_marca.dart';
 import 'package:nosso/src/util/dialogs/dialog_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
@@ -203,7 +203,36 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      FormData url = await produtoController.upload(file, p.foto);
+      var url = await produtoController.upload(file, p.foto);
+
+      print("url: ${url}");
+
+      var parseJson = json.decode(url);
+
+      var fileName = parseJson['fileName'];
+      var fileDownloadUri = parseJson['fileDownloadUri'];
+      var fileType = parseJson['fileType'];
+      var size = parseJson['size'];
+
+      print("fileName: ${fileName}");
+      print("fileDownloadUri: ${fileDownloadUri}");
+      print("fileType: ${fileType}");
+      print("size: ${size}");
+
+      print("========= UPLOAD FILE RESPONSE ========= ");
+
+      var ufr = UploadFileResponse();
+
+      ufr.fileName = parseJson['fileName'];
+      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
+      ufr.fileType = parseJson['fileType'];
+      ufr.size = parseJson['size'];
+
+      print("fileName: ${ufr.fileName}");
+      print("fileDownloadUri: ${ufr.fileDownloadUri}");
+      print("fileType: ${ufr.fileType}");
+      print("size: ${ufr.size}");
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }

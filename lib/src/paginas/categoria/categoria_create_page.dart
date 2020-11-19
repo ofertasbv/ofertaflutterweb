@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
+import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -104,7 +105,36 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      FormData url = await categoriaController.upload(file, c.foto);
+      var url = await categoriaController.upload(file, c.foto);
+
+      print("url: ${url}");
+
+      var parseJson = json.decode(url);
+
+      var fileName = parseJson['fileName'];
+      var fileDownloadUri = parseJson['fileDownloadUri'];
+      var fileType = parseJson['fileType'];
+      var size = parseJson['size'];
+
+      print("fileName: ${fileName}");
+      print("fileDownloadUri: ${fileDownloadUri}");
+      print("fileType: ${fileType}");
+      print("size: ${size}");
+
+      print("========= UPLOAD FILE RESPONSE ========= ");
+
+      var ufr = UploadFileResponse();
+
+      ufr.fileName = parseJson['fileName'];
+      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
+      ufr.fileType = parseJson['fileType'];
+      ufr.size = parseJson['size'];
+
+      print("fileName: ${ufr.fileName}");
+      print("fileDownloadUri: ${ufr.fileDownloadUri}");
+      print("fileType: ${ufr.fileType}");
+      print("size: ${ufr.size}");
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }

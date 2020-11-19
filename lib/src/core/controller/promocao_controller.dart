@@ -25,7 +25,7 @@ abstract class PromoCaoControllerBase with Store {
   int promocao;
 
   @observable
-  FormData formData;
+  var formData;
 
   @observable
   Exception error;
@@ -79,7 +79,7 @@ abstract class PromoCaoControllerBase with Store {
   }
 
   @action
-  Future<FormData> upload(File foto, String fileName) async {
+  Future<String> upload(File foto, String fileName) async {
     try {
       formData = await promocaoRepository.upload(foto, fileName);
       return formData;

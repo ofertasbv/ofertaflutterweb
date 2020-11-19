@@ -1,9 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,6 +18,7 @@ import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -125,8 +126,37 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
   onClickUpload() async {
     if (file != null) {
-      FormData url = await promocaoController.upload(file, p.foto);
-      print("URL: ${url}");
+      var url = await promocaoController.upload(file, p.foto);
+
+      print("url: ${url}");
+
+      var parseJson = json.decode(url);
+
+      var fileName = parseJson['fileName'];
+      var fileDownloadUri = parseJson['fileDownloadUri'];
+      var fileType = parseJson['fileType'];
+      var size = parseJson['size'];
+
+      print("fileName: ${fileName}");
+      print("fileDownloadUri: ${fileDownloadUri}");
+      print("fileType: ${fileType}");
+      print("size: ${size}");
+
+      print("========= UPLOAD FILE RESPONSE ========= ");
+
+      var ufr = UploadFileResponse();
+
+      ufr.fileName = parseJson['fileName'];
+      ufr.fileDownloadUri = parseJson['fileDownloadUri'];
+      ufr.fileType = parseJson['fileType'];
+      ufr.size = parseJson['size'];
+
+      print("fileName: ${ufr.fileName}");
+      print("fileDownloadUri: ${ufr.fileDownloadUri}");
+      print("fileType: ${ufr.fileType}");
+      print("size: ${ufr.size}");
+
+      showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
 

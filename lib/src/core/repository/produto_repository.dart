@@ -84,7 +84,7 @@ class ProdutoRepository {
     }
   }
 
-  Future<FormData> upload(File file, String fileName) async {
+  Future<String> upload(File file, String fileName) async {
     var arquivo = file.path;
 
     var paramentros = {
@@ -94,9 +94,6 @@ class ProdutoRepository {
     FormData formData = FormData.fromMap(paramentros);
     var response = await dio.client
         .post(ConstantApi.urlList + "/produtos/upload", data: formData);
-
-    print("RESPONSE: ${response.data}");
-    print("fileDir: ${file.path}");
-    return formData;
+    return response.toString();
   }
 }

@@ -24,7 +24,7 @@ abstract class ArquivoControllerBase with Store {
   int arquivo;
 
   @observable
-  FormData formData;
+  var formData;
 
   @observable
   Exception error;
@@ -34,9 +34,6 @@ abstract class ArquivoControllerBase with Store {
 
   @observable
   String mensagem;
-
-  @observable
-  var resposta;
 
   @observable
   String arquivoFoto = ConstantApi.urlArquivoArquivo;
@@ -80,8 +77,8 @@ abstract class ArquivoControllerBase with Store {
   @action
   Future<String> upload(File foto, String fileName) async {
     try {
-      resposta = await arquivoRepository.upload(foto, fileName);
-      return resposta;
+      formData = await arquivoRepository.upload(foto, fileName);
+      return formData;
     } catch (e) {
       error = e;
     }

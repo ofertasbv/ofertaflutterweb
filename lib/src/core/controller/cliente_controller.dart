@@ -25,7 +25,7 @@ abstract class ClienteControllerBase with Store {
   int cliente;
 
   @observable
-  FormData formData;
+  var formData;
 
   @observable
   bool senhaVisivel = false;
@@ -87,7 +87,7 @@ abstract class ClienteControllerBase with Store {
   }
 
   @action
-  Future<FormData> upload(File foto, String fileName) async {
+  Future<String> upload(File foto, String fileName) async {
     try {
       formData = await clienteRepository.upload(foto, fileName);
       return formData;
