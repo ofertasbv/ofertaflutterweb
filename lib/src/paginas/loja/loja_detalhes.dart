@@ -98,7 +98,6 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
                   title: Text(
                     "${p.nome}",
                   ),
-                  leading: Icon(Icons.local_convenience_store),
                 ),
               ],
             ),

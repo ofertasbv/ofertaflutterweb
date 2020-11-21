@@ -121,19 +121,19 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       destaque = p.destaque;
 
       e = p.estoque;
-    }
 
-    lojas = lojaController.getAll();
-    subCategorias = subCategoriaController.getAll();
-    marcas = marcaController.getAll();
-    promocoes = promocaoController.getAll();
+      lojaController.lojaSelecionada = p.loja;
+      subCategoriaController.subCategoriaSelecionada = p.subCategoria;
+      marcaController.marcaSelecionada = p.marca;
+      promocaoController.promocaoSelecionada = p.promocao;
+
+      controllerQuantidade.text = p.estoque.quantidade.toStringAsFixed(0);
+      controllerValor.text = p.estoque.valor.toStringAsFixed(2);
+      controllerDesconto.text = p.desconto.toStringAsFixed(2);
+    }
 
     produtoController.getAll();
 
-    lojaSelecionada = p.loja;
-    subCategoriaSelecionada = p.subCategoria;
-    marcaSelecionada = p.marca;
-    promocaoSelecionada = p.promocao;
     super.initState();
   }
 
@@ -222,6 +222,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
       p.foto = uploadFileResponse.fileName;
 
+      setState(() {
+        uploadFileResponse;
+      });
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
@@ -300,7 +304,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   buildListViewForm(BuildContext context) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat formatter = NumberFormat("00.00");
-    double initialValue = num.parse(0.18941.toStringAsPrecision(2));
     NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
     p.estoque = e;
 
@@ -308,10 +311,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     p.subCategoria = subCategoriaController.subCategoriaSelecionada;
     p.marca = marcaController.marcaSelecionada;
     p.promocao = promocaoController.promocaoSelecionada;
-
-    p.estoque.quantidade = int.tryParse(controllerQuantidade.text);
-    p.estoque.valor = double.tryParse(controllerValor.text);
-    p.desconto = double.tryParse(controllerDesconto.text);
 
     return ListView(
       children: <Widget>[
@@ -341,6 +340,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    width: double.infinity,
+                                    height: 300,
                                   )
                                 : p.foto != null
                                     ? CircleAvatar(
@@ -419,7 +420,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           Container(
                             child: ListTile(
                               title: Text("fileDownloadUri"),
-                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                              subtitle:
+                                  Text("${uploadFileResponse.fileDownloadUri}"),
                             ),
                           ),
                           Container(
@@ -715,7 +717,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Container(
                                 child: marcaController.mensagem == null
                                     ? Text(
-                                        "*",
+                                        "Campo obrigatório *",
                                         style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
@@ -751,7 +753,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Container(
                                 child: subCategoriaController.mensagem == null
                                     ? Text(
-                                        "*",
+                                        "campo obrigatório *",
                                         style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
@@ -786,7 +788,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Container(
                                 child: lojaController.mensagem == null
                                     ? Text(
-                                        "*",
+                                        "campo obrigatório *",
                                         style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
@@ -821,7 +823,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Container(
                                 child: promocaoController.mensagem == null
                                     ? Text(
-                                        "*",
+                                        "campo obrigatório *",
                                         style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,
@@ -1126,7 +1128,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
           ),
         ),
-
         SizedBox(height: 20),
         RaisedButton.icon(
           label: Text("Enviar formulário"),
@@ -1139,82 +1140,71 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
               if (p.foto == null) {
                 openBottomSheet(context);
               } else {
-                if (marcaController.marcaSelecionada == null) {
-                  marcaController.mensagem = "campo obrigatório";
-                  print("campo marca obrigatório");
-                }
-                if (subCategoriaController.subCategoriaSelecionada == null) {
-                  subCategoriaController.mensagem = "campo obrigatório";
-                  print("campo categoria obrigatório");
-                }
-                if (lojaController.lojaSelecionada == null) {
-                  lojaController.mensagem = "campo obrigatório";
-                  print("campo loja obrigatório");
-                }
-                if (promocaoController.promocaoSelecionada == null) {
-                  promocaoController.mensagem = "campo obrigatório";
-                  print("campo promoção obrigatório");
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    DateTime agora = DateTime.now();
+
+                    print("Foto: ${p.foto}");
+                    print("Loja: ${p.loja.nome}");
+                    print("SubCategoria: ${p.subCategoria.nome}");
+                    print("Marca: ${p.marca.nome}");
+                    print("Promoção: ${p.promocao.nome}");
+
+                    print("Código de Barra: ${p.codigoBarra}");
+                    print("Produto: ${p.nome}");
+                    print("Quantidade: ${p.estoque.quantidade}");
+                    print("Valor: ${p.estoque.valor}");
+                    print("Desconto: ${p.desconto}");
+
+                    print("Favorito: ${p.favorito}");
+                    print("Novo: ${p.novo}");
+                    print("Status: ${p.status}");
+                    print("Destaque: ${p.destaque}");
+
+                    print("Medida: ${p.medida}");
+                    print("Origem: ${p.origem}");
+
+                    print("Data: ${p.dataRegistro}");
+                    print("Agora: ${agora}");
+
+                    produtoController.create(p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 } else {
-                  if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      DateTime agora = DateTime.now();
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    print("Foto: ${p.foto}");
+                    print("Loja: ${p.loja.nome}");
+                    print("SubCategoria: ${p.subCategoria.nome}");
+                    print("Marca: ${p.marca.nome}");
+                    print("Promoção: ${p.promocao.nome}");
 
-                      print("Loja: ${p.loja.nome}");
-                      print("SubCategoria: ${p.subCategoria.nome}");
-                      print("Marca: ${p.marca.nome}");
-                      print("Promoção: ${p.promocao.nome}");
+                    print("Código de Barra: ${p.codigoBarra}");
+                    print("Produto: ${p.nome}");
+                    print("Quantidade: ${p.estoque.quantidade}");
+                    print("Valor: ${p.estoque.valor}");
+                    print("Desconto: ${p.desconto}");
 
-                      print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
-                      print("Desconto: ${p.desconto}");
+                    print("Favorito: ${p.favorito}");
+                    print("Novo: ${p.novo}");
+                    print("Status: ${p.status}");
+                    print("Destaque: ${p.destaque}");
 
-                      print("Favorito: ${p.favorito}");
-                      print("Novo: ${p.novo}");
-                      print("Status: ${p.status}");
-                      print("Destaque: ${p.destaque}");
+                    print("Medida: ${p.medida}");
+                    print("Origem: ${p.origem}");
 
-                      print("Medida: ${p.medida}");
-                      print("Origem: ${p.origem}");
+                    p.estoque.quantidade =
+                        int.tryParse(controllerQuantidade.text);
+                    p.estoque.valor = double.tryParse(controllerValor.text);
+                    p.desconto = double.tryParse(controllerDesconto.text);
 
-                      print("Data: ${p.dataRegistro}");
-                      print("Agora: ${agora}");
-
-                      produtoController.create(p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 3), () {
-                      print("Loja: ${p.loja.nome}");
-                      print("SubCategoria: ${p.subCategoria.nome}");
-                      print("Marca: ${p.marca.nome}");
-                      print("Promoção: ${p.promocao.nome}");
-
-                      print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
-                      print("Desconto: ${p.desconto}");
-
-                      print("Favorito: ${p.favorito}");
-                      print("Novo: ${p.novo}");
-                      print("Status: ${p.status}");
-                      print("Destaque: ${p.destaque}");
-
-                      print("Medida: ${p.medida}");
-                      print("Origem: ${p.origem}");
-
-                      p.estoque.quantidade =
-                          int.tryParse(controllerQuantidade.text);
-                      p.estoque.valor = double.tryParse(controllerValor.text);
-                      p.desconto = double.tryParse(controllerDesconto.text);
-
-                      produtoController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
-                  }
+                    produtoController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
                 }
               }
             }

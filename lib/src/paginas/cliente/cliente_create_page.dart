@@ -44,6 +44,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
 
   DateTime dataAtual = DateTime.now();
   String tipoPessoa;
+  String sexo;
   String valorSlecionado;
   File file;
 
@@ -61,6 +62,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     }
 
     tipoPessoa = "FISICA";
+    sexo = "MASCULINO";
     super.initState();
   }
 
@@ -133,6 +135,10 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
       print("size: ${uploadFileResponse.size}");
 
       p.foto = uploadFileResponse.fileName;
+
+      setState(() {
+        uploadFileResponse;
+      });
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
@@ -246,6 +252,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    width: double.infinity,
+                                    height: 300,
                                   )
                                 : p.foto != null
                                     ? CircleAvatar(
@@ -324,7 +332,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           Container(
                             child: ListTile(
                               title: Text("fileDownloadUri"),
-                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                              subtitle:
+                                  Text("${uploadFileResponse.fileDownloadUri}"),
                             ),
                           ),
                           Container(
@@ -388,6 +397,71 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                                   setState(() {
                                     p.tipoPessoa = valor;
                                     print("resultado: " + p.tipoPessoa);
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      padding: EdgeInsets.all(5),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 15),
+                          Text("Genero sexual"),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("MASCULINO"),
+                                value: "MASCULINO",
+                                groupValue:
+                                    p.sexo == null ? p.sexo = sexo : p.sexo,
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.sexo = valor;
+                                    print("sexo: " + p.sexo);
+                                  });
+                                },
+                              ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("FEMININO"),
+                                value: "FEMININO",
+                                groupValue:
+                                    p.sexo == null ? p.sexo = sexo : p.sexo,
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.sexo = valor;
+                                    print("sexo: " + p.sexo);
+                                  });
+                                },
+                              ),
+                              RadioListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.trailing,
+                                title: Text("OUTRO"),
+                                value: "OUTRO",
+                                groupValue:
+                                    p.sexo == null ? p.sexo = sexo : p.sexo,
+                                onChanged: (String valor) {
+                                  setState(() {
+                                    p.sexo = valor;
+                                    print("sexo: " + p.sexo);
                                   });
                                 },
                               ),

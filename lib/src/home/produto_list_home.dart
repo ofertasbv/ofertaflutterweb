@@ -79,7 +79,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                 gradient: LinearGradient(
                   colors: [
                     Colors.white,
-                    Colors.grey[100],
+                    Colors.white,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

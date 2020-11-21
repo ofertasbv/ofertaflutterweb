@@ -30,33 +30,29 @@ class SubCategoriaCreatePage extends StatefulWidget {
 }
 
 class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
+  _SubCategoriaCreatePageState({this.s});
+
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
   var categoriaController = GetIt.I.get<CategoriaController>();
 
   Dialogs dialogs = Dialogs();
 
-  Future<List<Categoria>> categorias;
-  List<DropdownMenuItem<Categoria>> dropDownItems = [];
-
   SubCategoria s;
   Categoria categoriaSelecionada;
-
-  Controller controller;
-
   File file;
 
-  _SubCategoriaCreatePageState({this.s});
+  Controller controller;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    categorias = categoriaController.getAll();
     if (s == null) {
       s = SubCategoria();
-      subCategoriaController.getAll();
+    } else {
+      categoriaSelecionada = s.categoria;
     }
-    categoriaSelecionada = s.categoria;
+    subCategoriaController.getAll();
     super.initState();
   }
 
@@ -173,19 +169,19 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                               child: Container(
                                 child: categoriaController.mensagem == null
                                     ? Text(
-                                  "*",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                )
+                                        "*",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
                                     : Text(
-                                  "${categoriaController.mensagem}",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                        "${categoriaController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
                             );
                           }

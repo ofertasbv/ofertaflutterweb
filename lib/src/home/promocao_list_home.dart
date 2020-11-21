@@ -87,8 +87,8 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.grey[100],
-                    Colors.grey[200],
+                    Colors.white,
+                    Colors.white,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

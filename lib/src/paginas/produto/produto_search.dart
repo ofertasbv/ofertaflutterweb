@@ -77,10 +77,11 @@ class ProdutoSearchDelegate extends SearchDelegate<Produto> {
           itemBuilder: (context, index) {
             Produto p = resultados[index];
             return ListTile(
+              isThreeLine: false,
               leading: CircleAvatar(
-                child: ClipRRect(
-                  borderRadius: new BorderRadius.circular(100.0),
-                  child: Image.network(ConstantApi.urlArquivoProduto + p.foto),
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  "${produtoController.arquivo + p.foto}",
                 ),
               ),
               title: RichText(

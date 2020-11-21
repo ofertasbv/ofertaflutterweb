@@ -21,13 +21,7 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin<HomePage> {
   int elementIndex = 0;
 
-  PageController pageController;
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageController.dispose();
-  }
+  var pageController = PageController();
 
   @override
   void initState() {
@@ -113,7 +107,7 @@ class _HomePageState extends State<HomePage>
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_basket),
                 title: Text(
-                  'pedido',
+                  'produto',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),

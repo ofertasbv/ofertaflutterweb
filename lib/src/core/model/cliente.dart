@@ -5,7 +5,6 @@ class Cliente {
   int id;
   String nome;
   String telefone;
-  bool ativo;
   String tipoPessoa;
   DateTime dataRegistro;
   String foto;
@@ -18,7 +17,6 @@ class Cliente {
     this.id,
     this.nome,
     this.telefone,
-    this.ativo,
     this.tipoPessoa,
     this.dataRegistro,
     this.foto,
@@ -32,7 +30,6 @@ class Cliente {
     id = json['id'];
     nome = json['nome'];
     telefone = json['telefone'];
-    ativo = json['ativo'];
     tipoPessoa = json['tipoPessoa'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     foto = json['foto'];
@@ -55,7 +52,6 @@ class Cliente {
     data['id'] = this.id;
     data['nome'] = this.nome;
     data['telefone'] = this.telefone;
-    data['ativo'] = this.ativo;
     data['tipoPessoa'] = this.tipoPessoa;
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['foto'] = this.foto;

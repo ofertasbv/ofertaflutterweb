@@ -184,6 +184,175 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
             ],
           ),
         ),
+
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorQRCode();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.qr_code,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "QR code",
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorCodigoBarra();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.aspect_ratio,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Cod de barra",
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaLocation();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.map,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Locais",
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorQRCode();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.qr_code,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "QR code",
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorCodigoBarra();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.aspect_ratio,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Cod de barra",
+              ),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaLocation();
+                },
+              ),
+            );
+          },
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.map,
+                  size: 30,
+                ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Locais",
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

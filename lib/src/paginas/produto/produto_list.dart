@@ -2,43 +2,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class ProdutoList extends StatefulWidget {
+  ProdutoFilter filter;
+
+  ProdutoList({Key key, this.filter}) : super(key: key);
+
   @override
   _ProdutoListState createState() => _ProdutoListState();
 }
 
 class _ProdutoListState extends State<ProdutoList>
     with AutomaticKeepAliveClientMixin<ProdutoList> {
-  var produtoController = GetIt.I.get<ProdutoController>();
+  _ProdutoListState({this.filtrado});
 
-  ProdutoFilter filter = ProdutoFilter();
+  var produtoController = GetIt.I.get<ProdutoController>();
+  var filter = ProdutoFilter();
+
+  ProdutoFilter filtrado;
+  SubCategoria s;
 
   @override
   void initState() {
-    var nomeProduto;
-    var nomeSubCategoria = "Ali";
-
-    if (nomeProduto != null) {
-      filter.nomeProduto = nomeProduto;
+    if (filtrado != null) {
+      produtoController.getFilter(filter);
+    } else {
+      produtoController.getAll();
     }
-
-    if (nomeSubCategoria != null) {
-      filter.nomeSubCategoria = nomeSubCategoria;
-    }
-
-    produtoController.getAll();
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return produtoController.getAll();
+    if (filtrado != null) {
+      produtoController.getFilter(filter);
+    } else {
+      return produtoController.getAll();
+    }
+    return null;
   }
 
   @override
@@ -72,6 +80,8 @@ class _ProdutoListState extends State<ProdutoList>
   builderList(List<Produto> produtos) {
     double containerWidth = 160;
     double containerHeight = 30;
+
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 
     return ListView.separated(
       itemCount: produtos.length,
@@ -124,7 +134,6 @@ class _ProdutoListState extends State<ProdutoList>
         }
         if (valor == "editar") {
           print("editar");
-          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {

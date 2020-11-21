@@ -36,26 +36,18 @@ class PromocaoCreatePage extends StatefulWidget {
 }
 
 class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
-  var promocaoController = GetIt.I.get<PromoCaoController>();
-  var lojaController = GetIt.I.get<LojaController>();
-
-  Dialogs dialogs = Dialogs();
-
-  Future<List<Loja>> lojas;
-
-  Promocao p;
-  Loja lojaSelecionada;
-
   _PromocaoCreatePageState({this.p});
 
-  DateTime dataAtual = DateTime.now();
-  String valorSlecionado;
-  File file;
-
+  var promocaoController = GetIt.I.get<PromoCaoController>();
+  var lojaController = GetIt.I.get<LojaController>();
   var uploadFileResponse = UploadFileResponse();
   var response = UploadRespnse();
 
-  double desconto;
+  Dialogs dialogs = Dialogs();
+
+  Promocao p;
+  Loja lojaSelecionada;
+  File file;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -63,15 +55,14 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
   @override
   void initState() {
-    promocaoController.getAll();
-    lojas = lojaController.getAll();
     if (p == null) {
       p = Promocao();
     } else {
-      descontoController.text = p.desconto.toStringAsFixed(2);
-      lojaSelecionada = p.loja;
+      descontoController.text = p.desconto.toStringAsFixed(0);
+      lojaController.lojaSelecionada = p.loja;
     }
 
+    promocaoController.getAll();
     super.initState();
   }
 
@@ -223,8 +214,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
   buildListViewForm(BuildContext context) {
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     NumberFormat numberFormat = NumberFormat("00.00");
-
-    lojaController.lojaSelecionada = p.loja;
 
     return ListView(
       children: <Widget>[

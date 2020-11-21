@@ -66,7 +66,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
           child: ListTile(
               isThreeLine: true,
               leading: CircleAvatar(
-                radius: 30,
+                radius: 20,
                 backgroundImage: NetworkImage(
                   "${ConstantApi.urlArquivoCategoria + c.foto}",
                 ),

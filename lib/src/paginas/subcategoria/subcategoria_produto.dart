@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
@@ -238,6 +239,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     double containerWidth = 200;
     double containerHeight = 30;
 
+    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+
     return ListView.separated(
       itemCount: produtos.length,
       separatorBuilder: (BuildContext context, int index) => Divider(),
@@ -254,10 +257,10 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               ),
             ),
             title: Text(p.nome),
-            subtitle: Text("${p.subCategoria.nome}"),
+            subtitle: Text("${dateFormat.format(p.dataRegistro)}"),
             trailing: Text(
               "R\$ ${p.estoque.valor}",
-              style: TextStyle(color: Colors.green),
+              style: TextStyle(color: Colors.green, fontSize: 18),
             ),
           ),
           onTap: () {

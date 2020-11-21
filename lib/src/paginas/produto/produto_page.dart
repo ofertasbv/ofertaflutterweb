@@ -14,37 +14,22 @@ import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
 class ProdutoPage extends StatefulWidget {
-  Promocao p;
-  SubCategoria s;
-  Produto pd;
-  String nome;
   ProdutoFilter filter;
 
-  ProdutoPage({Key key, this.p, this.s, this.pd, this.nome, this.filter})
-      : super(key: key);
+  ProdutoPage({Key key, this.filter}) : super(key: key);
 
   @override
-  _ProdutoPageState createState() => _ProdutoPageState(
-        p: this.p,
-        s: this.s,
-        pd: this.pd,
-        nome: this.nome,
-        filter: this.filter,
-      );
+  _ProdutoPageState createState() => _ProdutoPageState(filter: this.filter);
 }
 
 class _ProdutoPageState extends State<ProdutoPage>
     with SingleTickerProviderStateMixin {
+  _ProdutoPageState({this.filter});
+
   var produtoController = GetIt.I.get<ProdutoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
 
-  Promocao p;
-  SubCategoria s;
-  Produto pd;
-  String nome;
   ProdutoFilter filter;
-
-  _ProdutoPageState({this.p, this.s, this.pd, this.nome, this.filter});
 
   AnimationController animationController;
   Animation<double> animation;

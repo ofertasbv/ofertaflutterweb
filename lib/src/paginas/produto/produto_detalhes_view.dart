@@ -91,7 +91,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   }).toList())
               : Image.network(
                   ConstantApi.urlArquivoProduto + p.foto,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
         ),
         Card(
