@@ -27,7 +27,7 @@ class DropDownEndereco extends StatelessWidget {
               title: Text("Endereço *"),
               subtitle: endereco == null
                   ? Text("Selecione um endereço")
-                  : Text(endereco.logradouro),
+                  : Text("${endereco.logradouro}, ${endereco.numero}"),
               leading: Icon(Icons.location_on_outlined),
               trailing: Icon(Icons.arrow_drop_down_sharp),
               onTap: () {

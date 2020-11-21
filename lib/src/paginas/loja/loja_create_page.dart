@@ -62,6 +62,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       e = Endereco();
     } else {
       u = p.usuario;
+      enderecoController.enderecoSelecionado = p.enderecos[0];
     }
 
     tipoPessoa = "JURIDICA";
@@ -596,7 +597,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: !lojaController.senhaVisivel,
-                          maxLength: 8,
+                          maxLength: 100,
                         ),
                       ],
                     ),
