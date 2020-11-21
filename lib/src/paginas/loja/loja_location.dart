@@ -97,7 +97,7 @@ class _LojaLocationState extends State<LojaLocation> {
       markerId: MarkerId(p.nome),
       position: LatLng(p.enderecos[0].latitude, p.enderecos[0].longitude),
       infoWindow: InfoWindow(title: p.nome, snippet: p.enderecos[0].logradouro),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
     );
   }
 
@@ -318,7 +318,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard ? Colors.amber : Colors.white,
+              color: p.nome == selectedCard ? Colors.orange[100] : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,

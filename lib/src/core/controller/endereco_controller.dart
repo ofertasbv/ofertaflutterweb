@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/repository/endereco_repository.dart';
 
@@ -29,6 +28,9 @@ abstract class EnderecoControllerBase with Store {
 
   @observable
   String mensagem;
+
+  @observable
+  Endereco enderecoSelecionado;
 
   @action
   Future<List<Endereco>> getAll() async {

@@ -13,7 +13,7 @@ class Loja {
   String razaoSocial;
   String cnpj;
   List<Produto> produtos;
-  List<Endereco> enderecos;
+  List<Endereco> enderecos = List<Endereco>();
 
   Loja({
     this.id,

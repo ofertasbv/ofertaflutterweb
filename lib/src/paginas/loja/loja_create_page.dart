@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -11,34 +10,39 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
+import 'package:nosso/src/util/componets/dropdown_endereco.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
 class LojaCreatePage extends StatefulWidget {
   Loja loja;
+  Endereco endereco;
 
-  LojaCreatePage({Key key, this.loja}) : super(key: key);
+  LojaCreatePage({Key key, this.loja, this.endereco}) : super(key: key);
 
   @override
-  _LojaCreatePageState createState() => _LojaCreatePageState(p: this.loja);
+  _LojaCreatePageState createState() =>
+      _LojaCreatePageState(p: this.loja, e: this.endereco);
 }
 
 class _LojaCreatePageState extends State<LojaCreatePage> {
+  _LojaCreatePageState({this.p, this.e});
+
   var lojaController = GetIt.I.get<LojaController>();
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   Dialogs dialogs = Dialogs();
 
   Loja p;
   Endereco e;
   Usuario u;
-
-  _LojaCreatePageState({this.p});
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -220,6 +224,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
 
     p.usuario = u;
 
+    e = enderecoController.enderecoSelecionado;
+
     return ListView(
       children: <Widget>[
         Container(
@@ -323,7 +329,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           Container(
                             child: ListTile(
                               title: Text("fileDownloadUri"),
-                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                              subtitle:
+                                  Text("${uploadFileResponse.fileDownloadUri}"),
                             ),
                           ),
                           Container(
@@ -495,7 +502,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           keyboardType: TextInputType.phone,
                           inputFormatters: [maskFormatterCelular],
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 20),
                         DateTimeField(
                           initialValue: p.dataRegistro,
                           format: dateFormat,
@@ -532,6 +539,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Card(
                   child: Container(
                     padding: EdgeInsets.all(5),
@@ -559,9 +567,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           ),
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           initialValue: p.usuario.senha,
                           onSaved: (value) => p.usuario.senha = value,
@@ -597,6 +603,47 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                   ),
                 ),
                 SizedBox(height: 0),
+                Card(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DropDownEndereco(e),
+                      Observer(
+                        builder: (context) {
+                          if (enderecoController.enderecoSelecionado == null) {
+                            return Container(
+                              padding: EdgeInsets.only(left: 25),
+                              child: Container(
+                                child: enderecoController.mensagem == null
+                                    ? Text(
+                                        "campo obrigatório *",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      )
+                                    : Text(
+                                        "${enderecoController.mensagem}",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: Icon(Icons.check_outlined,
+                                  color: Colors.green),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -625,6 +672,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
 
+                    p.enderecos.add(e);
+
                     lojaController.create(p);
                     Navigator.of(context).pop();
                     buildPush(context);
@@ -641,6 +690,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     print("DataRegistro: ${p.dataRegistro}");
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
+
+                    p.enderecos.add(e);
 
                     lojaController.update(p.id, p);
                     Navigator.of(context).pop();

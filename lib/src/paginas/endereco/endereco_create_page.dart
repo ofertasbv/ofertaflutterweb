@@ -250,7 +250,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                criaMapa(),
                 SizedBox(height: 20),
                 Card(
                   child: Container(
@@ -357,7 +356,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
-                          controller: controllerLogradouro,
+                          initialValue: endereco.complemento,
                           onSaved: (value) => endereco.complemento = value,
                           validator: (value) =>
                               value.isEmpty ? "campo obrigário" : null,
@@ -572,6 +571,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
               if (endereco.id == null) {
                 dialogs.information(context, "prepando para o cadastro...");
                 Timer(Duration(seconds: 3), () {
+                  print("Latitude: ${endereco.latitude}");
+                  print("Longitude: ${endereco.longitude}");
+
                   endereco.cidade = cidadeSelecionada;
                   enderecoController.create(endereco);
                   Navigator.of(context).pop();
@@ -580,6 +582,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
               } else {
                 dialogs.information(context, "preparando para o alteração...");
                 Timer(Duration(seconds: 3), () {
+                  print("Latitude: ${endereco.latitude}");
+                  print("Longitude: ${endereco.longitude}");
+
                   endereco.cidade = cidadeSelecionada;
                   enderecoController.update(endereco.id, endereco);
                   Navigator.of(context).pop();

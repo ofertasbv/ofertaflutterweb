@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/loja/loja_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class EnderecoSearchDelegate extends SearchDelegate<Produto> {
@@ -75,10 +73,10 @@ class EnderecoSearchDelegate extends SearchDelegate<Produto> {
             Endereco e = resultados[index];
             return ListTile(
               leading: CircleAvatar(
-                child: ClipRRect(
-                  borderRadius: new BorderRadius.circular(100.0),
-                  child: Image.asset(ConstantApi.urlNormal),
-                ),
+                backgroundColor: Colors.grey[200],
+                maxRadius: 25,
+                minRadius: 25,
+                child: Icon(Icons.location_on_outlined),
               ),
               title: RichText(
                 text: TextSpan(
@@ -94,13 +92,7 @@ class EnderecoSearchDelegate extends SearchDelegate<Produto> {
                     ]),
               ),
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return LojaCreatePage();
-                    },
-                  ),
-                );
+                enderecoController.enderecoSelecionado = e;
               },
             );
           },
