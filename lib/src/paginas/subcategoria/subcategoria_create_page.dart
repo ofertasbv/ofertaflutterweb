@@ -169,7 +169,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                               child: Container(
                                 child: categoriaController.mensagem == null
                                     ? Text(
-                                        "*",
+                                        "campo obrigatório *",
                                         style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 12,

@@ -58,6 +58,13 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 ),
                 Card(
                   child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Colors.grey[300],
+                        width: 2,
+                      ),
+                    ),
                     height: 350,
                     child: buildGridView(context),
                   ),
@@ -184,7 +191,6 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
             ],
           ),
         ),
-
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(

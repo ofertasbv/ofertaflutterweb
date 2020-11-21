@@ -87,13 +87,14 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white,
-                    Colors.white,
+                    Colors.grey[100],
+                    Colors.grey[200],
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.grey[200], width: 1),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -77,7 +77,7 @@ class _ClienteListState extends State<ClienteList>
               ),
             ),
             title: Text(p.nome),
-            subtitle: Text("${p.cpf}"),
+            subtitle: Text("${p.telefone}"),
             trailing: Container(
               height: 80,
               width: 50,

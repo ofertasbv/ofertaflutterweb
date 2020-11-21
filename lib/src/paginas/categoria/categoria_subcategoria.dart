@@ -8,6 +8,7 @@ import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class CategoriaSubCategoria extends StatefulWidget {
   Categoria categoria;
@@ -135,12 +136,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           }
 
           if (categorias == null) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.indigo[900],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
-              ),
-            );
+            return CircularProgressorMini();
           }
 
           return builderListCategoria(categorias);
@@ -192,6 +188,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                           LinearGradient(colors: [Colors.black, Colors.orange]),
                       border: Border.all(
                         color: Colors.deepOrangeAccent,
+                        width: 2
                       ),
                       borderRadius: BorderRadius.circular(50),
                     ),
@@ -211,7 +208,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                     width: containerWidth,
                     child: Text(
                       c.nome.toLowerCase(),
-                      style: TextStyle(color: Colors.orange[900]),
+                      style: TextStyle(color: Colors.grey[900]),
                     ),
                   )
                 ],

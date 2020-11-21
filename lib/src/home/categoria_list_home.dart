@@ -110,6 +110,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
+                border: Border.all(color: Colors.transparent, width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -121,9 +122,8 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                     decoration: new BoxDecoration(
                       gradient:
                           LinearGradient(colors: [Colors.black, Colors.orange]),
-                      border: Border.all(
-                        color: Colors.deepOrangeAccent,
-                      ),
+                      border:
+                          Border.all(color: Colors.deepOrangeAccent, width: 2),
                       borderRadius: BorderRadius.circular(35),
                     ),
                     child: CircleAvatar(
@@ -142,7 +142,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                     width: containerWidth,
                     child: Text(
                       c.nome.toLowerCase(),
-                      style: TextStyle(color: Colors.orange[900]),
+                      style: TextStyle(color: Colors.grey[900]),
                     ),
                   )
                 ],

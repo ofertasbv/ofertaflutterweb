@@ -551,7 +551,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                         child: Container(
                           child: lojaController.mensagem == null
                               ? Text(
-                                  "*",
+                                  "campo obrigatório *",
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,

@@ -22,7 +22,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
       padding: EdgeInsets.all(0),
       children: <Widget>[
         Container(
-            color: Colors.white,
+            color: Colors.grey[100],
             width: MediaQuery.of(context).size.width,
             height: 50.0,
             padding: EdgeInsets.all(2),
@@ -53,10 +53,10 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                         ),
                       );
                     },
-                    color: Colors.white,
+                    color: Colors.grey[100],
                   ),
                 ),
-                VerticalDivider(color: Colors.grey[200]),
+                VerticalDivider(color: Colors.grey[300]),
                 Flexible(
                   flex: 4,
                   child: RaisedButton.icon(
@@ -79,10 +79,10 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                         ),
                       );
                     },
-                    color: Colors.white,
+                    color: Colors.grey[100],
                   ),
                 ),
-                VerticalDivider(color: Colors.grey[200]),
+                VerticalDivider(color: Colors.grey[300]),
                 Flexible(
                   fit: FlexFit.tight,
                   flex: 4,
@@ -106,7 +106,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                         ),
                       );
                     },
-                    color: Colors.white,
+                    color: Colors.grey[100],
                   ),
                 ),
               ],
@@ -116,7 +116,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(2),
+              padding: EdgeInsets.only(top: 10),
               height: 160,
               child: CategoriaListHome(),
             ),

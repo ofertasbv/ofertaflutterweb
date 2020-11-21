@@ -47,13 +47,13 @@ void main() async {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       // cor da barra superior
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.white,
+      systemNavigationBarColor: Colors.grey[100],
       // cor da barra inferior
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark,
       //
-      systemNavigationBarDividerColor: Colors.white,
+      systemNavigationBarDividerColor: Colors.black,
       // ícones da barra inferior
 
       statusBarBrightness: Brightness.light,
@@ -82,7 +82,7 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.white,
+      primaryColor: Colors.grey[100],
       accentColor: Colors.grey[900],
       primarySwatch: Colors.orange,
 
@@ -104,7 +104,7 @@ class MyApp extends StatelessWidget {
 
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: "Cabin",
-            bodyColor: Colors.grey[900],
+            bodyColor: Colors.black,
             displayColor: Colors.grey[600],
           ),
 
@@ -182,7 +182,7 @@ class MyApp extends StatelessWidget {
         selectedItemColor: Colors.orange[900],
         unselectedItemColor: Colors.grey[900],
         unselectedLabelStyle: TextStyle(color: Colors.orange[900]),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey[100],
       ),
     );
   }

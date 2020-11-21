@@ -91,6 +91,13 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_basket),
+                title: Text(
+                  'produto',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.local_convenience_store),
                 title: Text(
                   'loja',
@@ -101,13 +108,6 @@ class _HomePageState extends State<HomePage>
                 icon: Icon(Icons.add_alert),
                 title: Text(
                   'oferta',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket),
-                title: Text(
-                  'produto',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -182,9 +182,9 @@ class _HomePageState extends State<HomePage>
   List lista = [
     CatalogoHome(),
     CategoriaList(),
+    ProdutoList(),
     LojaList(),
     PromocaoList(),
-    ProdutoList(),
   ];
 
   changeIndex(int index) {
