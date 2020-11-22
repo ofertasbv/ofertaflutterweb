@@ -641,7 +641,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: !clienteController.senhaVisivel,
-                          maxLength: 8,
+                          maxLength: 100,
                         ),
                       ],
                     ),

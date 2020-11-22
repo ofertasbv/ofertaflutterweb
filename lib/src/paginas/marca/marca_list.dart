@@ -71,11 +71,30 @@ class _MarcaListState extends State<MarcaList>
         return GestureDetector(
           child: ListTile(
             isThreeLine: true,
-            leading: CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              maxRadius: 35,
-              minRadius: 35,
-              child: Icon(Icons.shopping_bag),
+            leading: Container(
+              padding: EdgeInsets.all(1),
+              decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.orange[900]],
+                ),
+                border: Border.all(
+                  color: Colors.deepOrangeAccent,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 25,
+                child: Text(
+                  c.nome.substring(0, 1).toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
             title: Text(c.nome),
             subtitle: Text("cod: ${c.id}"),

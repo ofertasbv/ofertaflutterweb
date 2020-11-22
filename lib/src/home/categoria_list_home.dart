@@ -120,10 +120,13 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                   Container(
                     padding: EdgeInsets.all(1),
                     decoration: new BoxDecoration(
-                      gradient:
-                          LinearGradient(colors: [Colors.black, Colors.orange]),
-                      border:
-                          Border.all(color: Colors.deepOrangeAccent, width: 2),
+                      gradient: LinearGradient(
+                        colors: [Colors.black, Colors.orange],
+                      ),
+                      border: Border.all(
+                        color: Colors.deepOrangeAccent,
+                        width: 2,
+                      ),
                       borderRadius: BorderRadius.circular(35),
                     ),
                     child: CircleAvatar(

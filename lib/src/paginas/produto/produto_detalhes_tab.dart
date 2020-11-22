@@ -154,7 +154,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
           ),
         ),
         body: TabBarView(
-          // physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             ProdutoDetalhesView(produto),
             ProdutoDetalhesInfo(produto),

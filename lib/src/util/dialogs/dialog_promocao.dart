@@ -66,10 +66,24 @@ class _DialogPromocaoState extends State<DialogPromocao> {
           children: [
             GestureDetector(
               child: ListTile(
-                leading: CircleAvatar(
-                  radius: 20,
-                  backgroundImage: NetworkImage(
-                    "${ConstantApi.urlArquivoPromocao + c.foto}",
+                leading: Container(
+                  padding: EdgeInsets.all(1),
+                  decoration: new BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.black, Colors.orange[900]],
+                    ),
+                    border: Border.all(
+                      color: Colors.deepOrangeAccent,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    radius: 15,
+                    backgroundImage: NetworkImage(
+                      "${promocaoController.arquivo + c.foto}",
+                    ),
                   ),
                 ),
                 title: Text(c.nome),

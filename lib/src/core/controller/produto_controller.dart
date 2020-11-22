@@ -50,6 +50,14 @@ abstract class ProdutoControllerBase with Store {
   @observable
   ObservableList<Tamanho> tamanhosSelecionada = ObservableList<Tamanho>();
 
+  @observable
+  bool status = false;
+
+  @action
+  favoritar() {
+    status = !status;
+  }
+
   @action
   Future<List<Produto>> getAll() async {
     try {

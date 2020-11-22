@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
+import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
@@ -17,6 +18,7 @@ class ProdutoDetalhesView extends StatefulWidget {
 class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     with SingleTickerProviderStateMixin {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var produtoController = GetIt.I.get<ProdutoController>();
 
   AnimationController animationController;
   Animation<double> animation;
@@ -72,8 +74,12 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
   @override
   Widget build(BuildContext context) {
     produto = widget.p;
-
     return buildContainer(produto);
+  }
+
+  favoritar() {
+    this.isFavorito = !this.isFavorito;
+    print("${this.isFavorito}");
   }
 
   buildContainer(Produto p) {
@@ -98,7 +104,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
           elevation: 0.2,
           child: ListTile(
             isThreeLine: true,
-            leading: CircleAvatar(child: Icon(Icons.shopping_cart_outlined)),
+            leading: CircleAvatar(child: Icon(Icons.shopping_basket_outlined)),
             title: Text(
               p.nome,
               style: TextStyle(fontSize: 20),
@@ -113,19 +119,19 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
             trailing: CircleAvatar(
               foregroundColor: Colors.redAccent,
               child: IconButton(
-                icon: (p.favorito == false
+                splashColor: Colors.black,
+                icon: (this.isFavorito == false
                     ? Icon(
                         Icons.favorite_border,
                         color: Colors.redAccent,
                       )
                     : Icon(
-                        Icons.favorite,
+                        Icons.favorite_outlined,
                         color: Colors.redAccent,
                       )),
                 onPressed: () {
                   setState(() {
-                    p.favorito = true;
-                    print(p.favorito);
+                    favoritar();
                   });
                 },
               ),

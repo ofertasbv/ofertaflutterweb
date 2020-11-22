@@ -81,10 +81,25 @@ class _PromocaoListState extends State<PromocaoList>
 
         return GestureDetector(
           child: ListTile(
-            leading: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                "${promocaoController.arquivo + p.foto}",
+            isThreeLine: true,
+            leading: Container(
+              padding: EdgeInsets.all(1),
+              decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.orange[900]],
+                ),
+                border: Border.all(
+                  color: Colors.deepOrangeAccent,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 25,
+                backgroundImage: NetworkImage(
+                  "${promocaoController.arquivo + p.foto}",
+                ),
               ),
             ),
             title: Text(p.nome),

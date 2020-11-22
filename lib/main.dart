@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
-        elevation: 0,
+        elevation: 1,
         textTheme: TextTheme(
           headline6: TextStyle(
             color: Colors.orange[900],
@@ -120,16 +120,16 @@ class MyApp extends StatelessWidget {
 
       primaryIconTheme: IconThemeData(color: Colors.orange[900]),
 
-      fontFamily: 'Georgia',
+      fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
 
       cardTheme: CardTheme(
         elevation: 0,
         color: Colors.grey[100],
-        margin: EdgeInsets.all(2),
+        margin: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(4),
-          side: BorderSide(color: Colors.grey[100]),
+          side: BorderSide(color: Colors.grey[100], width: 1),
         ),
       ),
 

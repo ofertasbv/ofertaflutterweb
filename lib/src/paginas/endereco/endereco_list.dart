@@ -72,11 +72,23 @@ class _EnderecoListState extends State<EnderecoList>
         return GestureDetector(
           child: ListTile(
             isThreeLine: true,
-            leading: CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              maxRadius: 35,
-              minRadius: 35,
-              child: Icon(Icons.location_on_outlined),
+            leading: Container(
+              padding: EdgeInsets.all(1),
+              decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.orange[900]],
+                ),
+                border: Border.all(
+                  color: Colors.deepOrangeAccent,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 20,
+                child: Icon(Icons.location_on_outlined),
+              ),
             ),
             title: Text(
                 "${e.logradouro}, ${e.numero}, ${e.latitude}/${e.longitude}"),

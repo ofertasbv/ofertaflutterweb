@@ -77,6 +77,25 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
       appBar: AppBar(
         title: Text("Produtos por departamento"),
         actions: <Widget>[
+          Observer(
+            builder: (context) {
+              if (produtoController.error != null) {
+                return Text("Não foi possível carregar");
+              }
+
+              if (produtoController.produtos == null) {
+                return Center(
+                  child: Icon(Icons.warning_amber_outlined),
+                );
+              }
+
+              return Chip(
+                label: Text(
+                  (produtoController.produtos.length ?? 0).toString(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.refresh_outlined),
             onPressed: () {
@@ -94,42 +113,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             Card(
               child: Container(
                 height: 60,
+                padding: EdgeInsets.all(4),
                 child: builderConteudoListSubCategoria(),
-              ),
-            ),
-            Card(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                height: 50,
-                width: double.infinity,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      subCategoria == null ? "sem busca" : (subCategoria.nome),
-                    ),
-                    Observer(
-                      builder: (context) {
-                        if (produtoController.error != null) {
-                          return Text("Não foi possível carregar");
-                        }
-
-                        if (produtoController.produtos == null) {
-                          return Center(
-                            child: Icon(Icons.warning_amber_outlined),
-                          );
-                        }
-
-                        return Chip(
-                          label: Text(
-                            (produtoController.produtos.length ?? 0).toString(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
               ),
             ),
             Expanded(
@@ -250,10 +235,24 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         return GestureDetector(
           child: ListTile(
             isThreeLine: true,
-            leading: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                "${produtoController.arquivo + p.foto}",
+            leading: Container(
+              padding: EdgeInsets.all(1),
+              decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.orange[900]],
+                ),
+                border: Border.all(
+                  color: Colors.deepOrangeAccent,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 25,
+                backgroundImage: NetworkImage(
+                  "${produtoController.arquivo + p.foto}",
+                ),
               ),
             ),
             title: Text(p.nome),

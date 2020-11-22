@@ -36,12 +36,12 @@ class _HomePageState extends State<HomePage>
         onWillPop: onBackPressed,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 0.3,
+            elevation: 1,
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
               CircleAvatar(
-                backgroundColor: Colors.grey[200],
+                backgroundColor: Colors.grey[300],
                 foregroundColor: Colors.orange[900],
                 child: IconButton(
                   icon: Icon(Icons.search_outlined),
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage>
               ),
               SizedBox(width: 10),
               CircleAvatar(
-                backgroundColor: Colors.grey[200],
+                backgroundColor: Colors.grey[300],
                 foregroundColor: Colors.orange[900],
                 child: IconButton(
                   icon: Icon(Icons.apps),
@@ -77,35 +77,35 @@ class _HomePageState extends State<HomePage>
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home_outlined),
                 title: Text(
                   'home',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.list),
+                icon: Icon(Icons.list_alt_outlined),
                 title: Text(
                   'departamento',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket),
+                icon: Icon(Icons.shopping_basket_outlined),
                 title: Text(
                   'produto',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.local_convenience_store),
+                icon: Icon(Icons.local_convenience_store_outlined),
                 title: Text(
                   'loja',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.add_alert),
+                icon: Icon(Icons.add_alert_outlined),
                 title: Text(
                   'oferta',
                   style: TextStyle(fontWeight: FontWeight.bold),

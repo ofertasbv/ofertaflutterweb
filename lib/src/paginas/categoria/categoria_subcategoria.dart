@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -56,6 +58,25 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
       appBar: AppBar(
         title: Text("Departamento"),
         actions: <Widget>[
+          Observer(
+            builder: (context) {
+              if (subCategoriaController.error != null) {
+                return Text("Não foi possível carregar");
+              }
+
+              if (subCategoriaController.subCategorias == null) {
+                return Center(
+                  child: Icon(Icons.warning_amber_outlined),
+                );
+              }
+
+              return Chip(
+                label: Text(
+                  (subCategoriaController.subCategorias.length ?? 0).toString(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
@@ -72,45 +93,11 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 5),
             Container(
               height: 150,
+              padding: EdgeInsets.all(2),
               child: builderConteudoListCategoria(),
-            ),
-            Card(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                height: 50,
-                width: double.infinity,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      categoria == null ? "sem busca" : (categoria.nome),
-                    ),
-                    Observer(
-                      builder: (context) {
-                        if (subCategoriaController.error != null) {
-                          return Text("Não foi possível carregar");
-                        }
-
-                        if (subCategoriaController.subCategorias == null) {
-                          return Center(
-                            child: Icon(Icons.warning_amber_outlined),
-                          );
-                        }
-
-                        return Chip(
-                          label: Text(
-                            (subCategoriaController.subCategorias.length ?? 0)
-                                .toString(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ),
             Expanded(
               child: Card(
@@ -186,10 +173,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                     decoration: new BoxDecoration(
                       gradient:
                           LinearGradient(colors: [Colors.black, Colors.orange]),
-                      border: Border.all(
-                        color: Colors.deepOrangeAccent,
-                        width: 2
-                      ),
+                      border:
+                          Border.all(color: Colors.deepOrangeAccent, width: 2),
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: CircleAvatar(
@@ -285,14 +270,34 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         return GestureDetector(
           child: ListTile(
               isThreeLine: true,
-              leading: CircleAvatar(
-                backgroundColor: Colors.grey[200],
-                radius: 30,
-                child: Icon(Icons.check_outlined),
+              leading: Container(
+                padding: EdgeInsets.all(1),
+                decoration: new BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.black, Colors.orange[900]],
+                  ),
+                  border: Border.all(
+                    color: Colors.deepOrangeAccent,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  radius: 25,
+                  child: Text(
+                    c.nome.substring(0, 1).toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               title: Text(c.nome),
               subtitle: Text("${c.categoria.nome}"),
-              trailing: Text("${c.id}")),
+              trailing: Icon(Icons.arrow_right)),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
