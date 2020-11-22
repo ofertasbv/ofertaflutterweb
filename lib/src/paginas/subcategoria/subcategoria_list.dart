@@ -57,10 +57,9 @@ class _SubCategoriaListState extends State<SubCategoriaList>
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.separated(
+    return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: categorias.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         SubCategoria c = categorias[index];
 

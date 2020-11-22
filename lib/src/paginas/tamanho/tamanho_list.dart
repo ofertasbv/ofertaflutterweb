@@ -62,9 +62,8 @@ class _TamanhoListState extends State<TamanhoList>
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: tamanhos.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Tamanho c = tamanhos[index];
 

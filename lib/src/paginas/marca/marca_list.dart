@@ -62,9 +62,8 @@ class _MarcaListState extends State<MarcaList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: marcas.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Marca c = marcas[index];
 

@@ -226,9 +226,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
     DateFormat dateFormat = DateFormat('dd-MM-yyyy');
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: produtos.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Produto p = produtos[index];
 

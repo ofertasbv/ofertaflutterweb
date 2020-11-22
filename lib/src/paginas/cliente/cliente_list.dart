@@ -61,9 +61,8 @@ class _ClienteListState extends State<ClienteList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: clientes.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Cliente p = clientes[index];
 

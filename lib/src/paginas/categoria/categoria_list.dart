@@ -63,9 +63,8 @@ class _CategoriaListState extends State<CategoriaList>
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: categorias.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 

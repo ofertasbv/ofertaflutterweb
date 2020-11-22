@@ -65,9 +65,8 @@ class _LojaListState extends State<LojaList>
 
     DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: lojas.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Loja p = lojas[index];
         print("${p.dataRegistro}");

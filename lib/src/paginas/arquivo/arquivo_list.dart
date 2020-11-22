@@ -64,7 +64,6 @@ class _ArquivoListState extends State<ArquivoList>
 
     return ListView.separated(
       itemCount: arquivos.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Arquivo c = arquivos[index];
 

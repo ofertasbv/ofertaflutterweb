@@ -54,9 +54,8 @@ class _PermissaoListState extends State<PermissaoList>
   }
 
   ListView builderList(List<Permissao> permissoes) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: permissoes.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Permissao c = permissoes[index];
 

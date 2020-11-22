@@ -63,9 +63,8 @@ class _EnderecoListState extends State<EnderecoList>
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: enderecos.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Endereco e = enderecos[index];
 
