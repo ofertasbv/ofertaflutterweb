@@ -31,7 +31,6 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
     return Scaffold(
       appBar: AppBar(
         title: Text(p.nome),
-        elevation: 0.0,
       ),
       body: buildContainer(p),
       bottomNavigationBar: buildBottomNavigationBar(context, p),
@@ -51,7 +50,7 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
         ),
         Card(
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,19 +80,29 @@ class _PromocaoDetalhesState extends State<PromocaoDetalhes> {
             ),
           ),
         ),
+        Divider(),
         Card(
           child: Container(
-            padding: EdgeInsets.all(25),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Código: ${p.id}"),
-                SizedBox(height: 10),
-                Text("Loja: ${p.loja.nome}"),
-                SizedBox(height: 10),
-                Text("Registro: ${dateFormat.format(p.dataInicio)}"),
-                SizedBox(height: 10),
-                Text("De: ${dateFormat.format(p.dataInicio)} á ${dateFormat.format(p.dataFinal)}"),
+                ListTile(
+                  title: Text("Loja"),
+                  subtitle: Text("${p.loja.nome}"),
+                  leading: Icon(Icons.local_convenience_store_outlined),
+                ),
+                ListTile(
+                  title: Text("Descrição"),
+                  subtitle: Text("${p.descricao}"),
+                  leading: Icon(Icons.edit_road_outlined),
+                ),
+                ListTile(
+                  title: Text("Validade"),
+                  subtitle: Text(
+                      "${dateFormat.format(p.dataInicio)} até ${dateFormat.format(p.dataFinal)}"),
+                  leading: Icon(Icons.calendar_today_outlined),
+                ),
               ],
             ),
           ),

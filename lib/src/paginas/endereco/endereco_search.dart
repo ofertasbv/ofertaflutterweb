@@ -88,7 +88,7 @@ class EnderecoSearchDelegate extends SearchDelegate<Produto> {
                       TextSpan(
                           text: e.logradouro.substring(query.length) +
                               ", " +
-                              e.numero,
+                              e.numero + " - " + e.complemento,
                           style: TextStyle(color: Colors.grey))
                     ]),
               ),

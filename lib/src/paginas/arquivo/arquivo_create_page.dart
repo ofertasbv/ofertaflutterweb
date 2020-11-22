@@ -121,6 +121,10 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
 
       a.foto = uploadFileResponse.fileName;
 
+      setState(() {
+        uploadFileResponse;
+      });
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }

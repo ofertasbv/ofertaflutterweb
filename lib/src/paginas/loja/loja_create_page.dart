@@ -23,17 +23,16 @@ import 'package:nosso/src/util/upload/upload_response.dart';
 
 class LojaCreatePage extends StatefulWidget {
   Loja loja;
-  Endereco endereco;
 
-  LojaCreatePage({Key key, this.loja, this.endereco}) : super(key: key);
+  LojaCreatePage({Key key, this.loja}) : super(key: key);
 
   @override
   _LojaCreatePageState createState() =>
-      _LojaCreatePageState(p: this.loja, e: this.endereco);
+      _LojaCreatePageState(p: this.loja);
 }
 
 class _LojaCreatePageState extends State<LojaCreatePage> {
-  _LojaCreatePageState({this.p, this.e});
+  _LojaCreatePageState({this.p});
 
   var lojaController = GetIt.I.get<LojaController>();
   var enderecoController = GetIt.I.get<EnderecoController>();
@@ -62,7 +61,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       e = Endereco();
     } else {
       u = p.usuario;
-      enderecoController.enderecoSelecionado = p.enderecos[0];
+      // enderecoController.enderecoSelecionado = p.enderecos[0];
     }
 
     tipoPessoa = "JURIDICA";
@@ -138,6 +137,10 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
       print("size: ${uploadFileResponse.size}");
 
       p.foto = uploadFileResponse.fileName;
+
+      setState(() {
+        uploadFileResponse;
+      });
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
@@ -227,6 +230,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
 
     e = enderecoController.enderecoSelecionado;
 
+    // print("Logradouro: ${e.logradouro}");
+
     return ListView(
       children: <Widget>[
         Container(
@@ -253,6 +258,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    width: double.infinity,
+                                    height: 300,
                                   )
                                 : p.foto != null
                                     ? CircleAvatar(
@@ -597,7 +604,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: !lojaController.senhaVisivel,
-                          maxLength: 100,
+                          maxLength: 8,
                         ),
                       ],
                     ),
@@ -673,7 +680,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
 
-                    p.enderecos.add(e);
+                    // p.enderecos.add(enderecoController.enderecoSelecionado);
 
                     lojaController.create(p);
                     Navigator.of(context).pop();
@@ -692,7 +699,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     print("Email: ${p.usuario.email}");
                     print("Senha: ${p.usuario.senha}");
 
-                    p.enderecos.add(e);
+                    p.enderecos.add(enderecoController.enderecoSelecionado);
 
                     lojaController.update(p.id, p);
                     Navigator.of(context).pop();

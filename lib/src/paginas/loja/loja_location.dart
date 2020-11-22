@@ -214,8 +214,9 @@ class _LojaLocationState extends State<LojaLocation> {
                           BitmapDescriptor.hueYellow),
                       infoWindow: InfoWindow(
                         title: p.nome,
-                        snippet:
-                            p.enderecos[0].logradouro + ", " + p.enderecos[0].numero,
+                        snippet: p.enderecos[0].logradouro +
+                            ", " +
+                            p.enderecos[0].numero,
                       ),
                       markerId: MarkerId(p.nome),
                       position: LatLng(p.enderecos[0].latitude ?? 0.0,
@@ -509,14 +510,12 @@ class _LojaLocationState extends State<LojaLocation> {
     );
   }
 
-  void showToast(String cardTitle, String unit) {
+  showToast(String cardTitle, String unit) {
     Fluttertoast.showToast(
       msg:
           "Loja: $cardTitle - $unit - ${distanciaKilomentros.toStringAsPrecision(2)} km",
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 1,
-      backgroundColor: Colors.indigo,
-      textColor: Colors.white,
       fontSize: 16.0,
     );
   }

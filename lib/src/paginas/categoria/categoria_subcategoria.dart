@@ -296,7 +296,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 ),
               ),
               title: Text(c.nome),
-              subtitle: Text("${c.categoria.nome}"),
+              subtitle: Text("Cód: ${c.id}"),
               trailing: Icon(Icons.arrow_right)),
           onTap: () {
             Navigator.of(context).push(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
@@ -31,6 +32,7 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
   }
 
   buildContainer(Loja p) {
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
     return ListView(
       children: <Widget>[
         AspectRatio(
@@ -42,9 +44,8 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
         ),
         SizedBox(height: 0),
         Card(
-          elevation: 0.5,
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(30),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,17 +88,23 @@ class _LojaDetalhesState extends State<LojaDetalhes> {
             ),
           ),
         ),
+        Divider(),
         Card(
-          elevation: 0.5,
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ListTile(
-                  title: Text(
-                    "${p.nome}",
-                  ),
+                  title: Text("Endereço"),
+                  subtitle: Text("${p.enderecos[0].logradouro}- ${p.enderecos[0].numero}"),
+                  leading: Icon(Icons.local_convenience_store_outlined),
+                ),
+
+                ListTile(
+                  title: Text("Resgistro"),
+                  subtitle: Text("${dateFormat.format(p.dataRegistro)}"),
+                  leading: Icon(Icons.calendar_today_outlined),
                 ),
               ],
             ),
