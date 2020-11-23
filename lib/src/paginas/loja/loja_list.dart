@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_create_page.dart';
-import 'package:nosso/src/paginas/loja/loja_detalhes.dart';
+import 'package:nosso/src/paginas/loja/loja_detalhes_tab.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class LojaList extends StatefulWidget {
@@ -106,9 +106,7 @@ class _LojaListState extends State<LojaList>
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return LojaDetalhes(
-                    loja: p,
-                  );
+                  return LojaDetalhesTab(p);
                 },
               ),
             );
@@ -146,9 +144,7 @@ class _LojaListState extends State<LojaList>
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return LojaDetalhes(
-                  loja: p,
-                );
+                return LojaDetalhesTab(p);
               },
             ),
           );

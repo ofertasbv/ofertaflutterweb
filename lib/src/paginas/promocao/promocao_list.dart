@@ -9,7 +9,8 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
-import 'package:nosso/src/paginas/promocao/promocao_detalhes.dart';
+import 'package:nosso/src/paginas/promocao/promocao_detalhes-view.dart';
+import 'package:nosso/src/paginas/promocao/promocao_detalhes_tab.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PromocaoList extends StatefulWidget {
@@ -113,7 +114,7 @@ class _PromocaoListState extends State<PromocaoList>
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return PromocaoDetalhes(p);
+                  return PromocaoDetalhesTab(p);
                 },
               ),
             );

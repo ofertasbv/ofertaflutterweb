@@ -515,7 +515,7 @@ class _ConfigPageState extends State<ConfigPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return TamanhoPage();
+                    return ProdutoPage();
                   },
                 ),
               );

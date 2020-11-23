@@ -11,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/paginas/loja/loja_detalhes.dart';
+import 'package:nosso/src/paginas/loja/loja_detalhes_tab.dart';
 
 class LojaLocation extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class LojaLocation extends StatefulWidget {
 
 class _LojaLocationState extends State<LojaLocation> {
   var lojaController = GetIt.I.get<LojaController>();
-  final pessoa = Loja();
+  final loja = Loja();
 
   var selectedCard = 'WEIGHT';
   double distanciaKilomentros = 0;
@@ -55,7 +55,6 @@ class _LojaLocationState extends State<LojaLocation> {
     return FloatingActionButton(
       onPressed: function,
       materialTapTargetSize: MaterialTapTargetSize.padded,
-      backgroundColor: Colors.redAccent,
       child: Icon(icon, size: 36),
     );
   }
@@ -319,7 +318,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard ? Colors.orange[100] : Colors.white,
+              color: p.nome == selectedCard ? Colors.orange[200] : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,
@@ -398,9 +397,7 @@ class _LojaLocationState extends State<LojaLocation> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return LojaDetalhes(
-                        loja: p,
-                      );
+                      return LojaDetalhesTab(p);
                     },
                   ),
                 );

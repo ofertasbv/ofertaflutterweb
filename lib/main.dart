@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
       primarySwatch: Colors.orange,
 
       appBarTheme: AppBarTheme(
-        elevation: 1,
+        elevation: 0.5,
         textTheme: TextTheme(
           headline6: TextStyle(
             color: Colors.orange[900],

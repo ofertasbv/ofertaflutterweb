@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
@@ -1145,12 +1144,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   Timer(Duration(seconds: 3), () {
                     DateTime agora = DateTime.now();
 
-                    print("Foto: ${p.foto}");
                     print("Loja: ${p.loja.nome}");
                     print("SubCategoria: ${p.subCategoria.nome}");
                     print("Marca: ${p.marca.nome}");
                     print("Promoção: ${p.promocao.nome}");
 
+                    print("Foto: ${p.foto}");
                     print("Código de Barra: ${p.codigoBarra}");
                     print("Produto: ${p.nome}");
                     print("Quantidade: ${p.estoque.quantidade}");
@@ -1176,12 +1175,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    print("Foto: ${p.foto}");
+
                     print("Loja: ${p.loja.nome}");
                     print("SubCategoria: ${p.subCategoria.nome}");
                     print("Marca: ${p.marca.nome}");
                     print("Promoção: ${p.promocao.nome}");
 
+                    print("Foto: ${p.foto}");
                     print("Código de Barra: ${p.codigoBarra}");
                     print("Produto: ${p.nome}");
                     print("Quantidade: ${p.estoque.quantidade}");

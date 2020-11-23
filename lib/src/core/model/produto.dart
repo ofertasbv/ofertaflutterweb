@@ -70,13 +70,17 @@ class Produto {
     medida = json['medida'];
     origem = json['origem'];
     desconto = json['desconto'];
+
     subCategoria = json['subCategoria'] != null
         ? new SubCategoria.fromJson(json['subCategoria'])
         : null;
+
     promocao = json['promocao'] != null
         ? new Promocao.fromJson(json['promocao'])
         : null;
+
     loja = json['loja'] != null ? new Loja.fromJson(json['loja']) : null;
+
     if (json['arquivos'] != null) {
       arquivos = new List<Arquivo>();
       json['arquivos'].forEach((v) {
@@ -119,6 +123,7 @@ class Produto {
     data['medida'] = this.medida;
     data['origem'] = this.origem;
     data['desconto'] = this.desconto;
+
     if (this.subCategoria != null) {
       data['subCategoria'] = this.subCategoria.toJson();
     }

@@ -81,7 +81,14 @@ class _SubCategoriaListState extends State<SubCategoriaList>
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
                 radius: 25,
-                child: Icon(Icons.list_alt_outlined),
+                child: Text(
+                  c.nome.substring(0, 1).toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
             title: Text(c.nome),

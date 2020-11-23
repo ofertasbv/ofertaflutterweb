@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
@@ -65,10 +64,24 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
         return GestureDetector(
           child: ListTile(
               isThreeLine: true,
-              leading: CircleAvatar(
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  "${ConstantApi.urlArquivoCategoria + c.foto}",
+              leading: Container(
+                padding: EdgeInsets.all(1),
+                decoration: new BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.black, Colors.orange[900]],
+                  ),
+                  border: Border.all(
+                    color: Colors.deepOrangeAccent,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  radius: 20,
+                  backgroundImage: NetworkImage(
+                    "${categoriaController.arquivo + c.foto}",
+                  ),
                 ),
               ),
               title: Text(c.nome),

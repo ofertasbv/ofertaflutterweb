@@ -238,7 +238,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 children: <Widget>[
                   Center(
                     child: Icon(
-                      Icons.mood_bad,
+                      Icons.mood_outlined,
                       size: 100,
                     ),
                   ),
@@ -302,7 +302,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return SubCategoriaProduto(
-                    s: c,
+                    s: c, c: c.categoria,
                   );
                 },
               ),

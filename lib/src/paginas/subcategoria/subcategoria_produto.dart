@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
@@ -12,31 +13,33 @@ import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class SubCategoriaProduto extends StatefulWidget {
   SubCategoria s;
+  Categoria c;
 
-  SubCategoriaProduto({Key key, this.s}) : super(key: key);
+  SubCategoriaProduto({Key key, this.s, this.c}) : super(key: key);
 
   @override
   _SubCategoriaProdutoState createState() =>
-      _SubCategoriaProdutoState(subCategoria: this.s);
+      _SubCategoriaProdutoState(subCategoria: this.s, categoria: this.c);
 }
 
 class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     with SingleTickerProviderStateMixin {
+  _SubCategoriaProdutoState({this.subCategoria, this.categoria});
+
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
   var produtoController = GetIt.I.get<ProdutoController>();
 
   SubCategoria subCategoria;
-  var selectedCard = 'WEIGHT';
-
-  _SubCategoriaProdutoState({this.subCategoria});
+  Categoria categoria;
 
   AnimationController animationController;
   Animation<double> animation;
   static final _scaleTween = Tween<double>(begin: 1.0, end: 1.5);
+  var selectedCard = 'WEIGHT';
 
   @override
   void initState() {
-    subCategoriaController.getAll();
+    subCategoriaController.getAllByCategoriaById(categoria.id);
     if (subCategoria.id == null) {
       produtoController.getAll();
     }
@@ -204,7 +207,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                 children: <Widget>[
                   Center(
                     child: Icon(
-                      Icons.mood_bad,
+                      Icons.mood_outlined,
                       size: 100,
                     ),
                   ),

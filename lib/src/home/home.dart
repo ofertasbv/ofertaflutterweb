@@ -8,6 +8,7 @@ import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
+import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
@@ -36,10 +37,26 @@ class _HomePageState extends State<HomePage>
         onWillPop: onBackPressed,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 1,
+            elevation: 0,
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
+              CircleAvatar(
+                backgroundColor: Colors.grey[300],
+                foregroundColor: Colors.orange[900],
+                child: IconButton(
+                  icon: Icon(Icons.location_on_outlined),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LojaLocation(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
                 foregroundColor: Colors.orange[900],
