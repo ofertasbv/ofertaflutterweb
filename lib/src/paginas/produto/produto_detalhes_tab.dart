@@ -6,8 +6,8 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_info.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_view.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 
 class ProdutoDetalhesTab extends StatefulWidget {
   Produto p;
@@ -83,11 +83,11 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Detalhes"),
+          title: Text(produto.nome),
           actions: <Widget>[
             CircleAvatar(
               backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.orange[900],
+              foregroundColor: Colors.brown[500],
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
                 onPressed: () {
@@ -102,7 +102,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: Colors.grey[200],
-                foregroundColor: Colors.orange[900],
+                foregroundColor: Colors.brown[500],
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: <Widget>[
@@ -186,7 +186,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoPage();
+                      return ProdutoTab();
                     },
                   ),
                 );
@@ -218,7 +218,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoPage();
+                      return ProdutoTab();
                     },
                   ),
                 );

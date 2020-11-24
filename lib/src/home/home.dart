@@ -37,13 +37,13 @@ class _HomePageState extends State<HomePage>
         onWillPop: onBackPressed,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 0,
+            elevation: 1,
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.orange[900],
+                foregroundColor: Colors.brown[500],
                 child: IconButton(
                   icon: Icon(Icons.location_on_outlined),
                   onPressed: () {
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.orange[900],
+                foregroundColor: Colors.brown[500],
                 child: IconButton(
                   icon: Icon(Icons.search_outlined),
                   onPressed: () {
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.orange[900],
+                foregroundColor: Colors.brown[500],
                 child: IconButton(
                   icon: Icon(Icons.apps),
                   onPressed: () {

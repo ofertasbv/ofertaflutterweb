@@ -168,7 +168,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             child: Chip(
               label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
-                  ? Colors.orange[200]
+                  ? Colors.brown[200]
                   : Colors.grey[200],
             ),
           ),
@@ -241,10 +241,10 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black, Colors.orange[900]],
+                  colors: [Colors.amber[900], Colors.brown[900]],
                 ),
                 border: Border.all(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.brown[500],
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(35),

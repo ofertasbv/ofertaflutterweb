@@ -75,10 +75,10 @@ class _EnderecoListState extends State<EnderecoList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black, Colors.orange[900]],
+                  colors: [Colors.amber[900], Colors.brown[900]],
                 ),
                 border: Border.all(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.brown[500],
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(35),
@@ -89,8 +89,7 @@ class _EnderecoListState extends State<EnderecoList>
                 child: Icon(Icons.location_on_outlined),
               ),
             ),
-            title: Text(
-                "${e.logradouro}, ${e.numero}, ${e.latitude}/${e.longitude}"),
+            title: Text("${e.logradouro}, ${e.numero}"),
             subtitle: Text("${e.complemento}"),
             trailing: Container(
               height: 80,

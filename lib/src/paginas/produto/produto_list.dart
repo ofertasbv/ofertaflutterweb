@@ -22,26 +22,26 @@ class ProdutoList extends StatefulWidget {
 
 class _ProdutoListState extends State<ProdutoList>
     with AutomaticKeepAliveClientMixin<ProdutoList> {
-  _ProdutoListState({this.filtrado});
+  _ProdutoListState({this.filter});
 
   var produtoController = GetIt.I.get<ProdutoController>();
-  var filter = ProdutoFilter();
 
-  ProdutoFilter filtrado;
+  ProdutoFilter filter;
   SubCategoria s;
 
   @override
   void initState() {
-    if (filtrado != null) {
-      produtoController.getFilter(filter);
-    } else {
-      produtoController.getAll();
-    }
+    produtoController.getFilter(filter);
+    // if (filter != null) {
+    //   produtoController.getFilter(filter);
+    // } else {
+    //   produtoController.getAll();
+    // }
     super.initState();
   }
 
   Future<void> onRefresh() {
-    if (filtrado != null) {
+    if (filter != null) {
       produtoController.getFilter(filter);
     } else {
       return produtoController.getAll();
@@ -95,10 +95,10 @@ class _ProdutoListState extends State<ProdutoList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black, Colors.orange[900]],
+                  colors: [Colors.amber[900], Colors.brown[900]],
                 ),
                 border: Border.all(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.brown[500],
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(35),
@@ -112,7 +112,10 @@ class _ProdutoListState extends State<ProdutoList>
               ),
             ),
             title: Text(p.nome),
-            subtitle: Text("R\$ ${p.estoque.valor}"),
+            subtitle: Text(
+              "R\$ ${p.estoque.valor}",
+              style: TextStyle(color: Colors.green, fontSize: 16),
+            ),
             trailing: Container(
               height: 80,
               width: 50,

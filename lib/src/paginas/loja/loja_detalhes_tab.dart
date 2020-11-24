@@ -5,8 +5,9 @@ import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes-view.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes_info.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 
 class LojaDetalhesTab extends StatefulWidget {
   Loja p;
@@ -117,7 +118,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoPage();
+                      return LojaPage();
                     },
                   ),
                 );
@@ -149,7 +150,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoPage();
+                      return ProdutoTab();
                     },
                   ),
                 );

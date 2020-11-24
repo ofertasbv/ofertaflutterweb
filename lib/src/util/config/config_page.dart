@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
@@ -11,7 +10,7 @@ import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
@@ -82,7 +81,7 @@ class _ConfigPageState extends State<ConfigPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return ProdutoPage();
+                    return ProdutoTab();
                   },
                 ),
               );
@@ -515,7 +514,7 @@ class _ConfigPageState extends State<ConfigPage> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return ProdutoPage();
+                    return ProdutoTab();
                   },
                 ),
               );

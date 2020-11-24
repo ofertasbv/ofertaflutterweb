@@ -7,9 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
-import 'package:nosso/src/paginas/promocao/promocao_detalhes-view.dart';
 import 'package:nosso/src/paginas/promocao/promocao_detalhes_tab.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
@@ -86,10 +85,10 @@ class _PromocaoListState extends State<PromocaoList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black, Colors.orange[900]],
+                  colors: [Colors.amber[900], Colors.brown[900]],
                 ),
                 border: Border.all(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.brown[500],
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(35),
@@ -154,7 +153,7 @@ class _PromocaoListState extends State<PromocaoList>
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return ProdutoPage();
+                return ProdutoTab();
               },
             ),
           );

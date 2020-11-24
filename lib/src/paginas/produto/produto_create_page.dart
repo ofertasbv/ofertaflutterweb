@@ -26,7 +26,7 @@ import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/componets/dropdown_marca.dart';
 import 'package:nosso/src/util/componets/dropdown_promocao.dart';
@@ -1219,7 +1219,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProdutoPage(),
+        builder: (context) => ProdutoTab(),
       ),
     );
   }

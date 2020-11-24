@@ -1,13 +1,11 @@
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
 import 'package:nosso/src/home/promocao_list_home.dart';
-import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
-import 'package:nosso/src/paginas/loja/loja_location.dart';
-import 'package:nosso/src/paginas/produto/produto_create_page.dart';
-import 'package:nosso/src/paginas/produto/produto_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
 class CatalogoHome extends StatefulWidget {
@@ -39,9 +37,15 @@ class _CatalogoHomeState extends State<CatalogoHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(" ofertas"),
+                  Text(
+                    "ofertas",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   GestureDetector(
-                    child: Text("veja mais"),
+                    child: Text(
+                      "veja mais",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -71,14 +75,20 @@ class _CatalogoHomeState extends State<CatalogoHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(" produtos em destaque"),
+                  Text(
+                    "destaque",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   GestureDetector(
-                    child: Text("veja mais"),
+                    child: Text(
+                      "veja mais",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return ProdutoPage();
+                            return ProdutoTab();
                           },
                         ),
                       );

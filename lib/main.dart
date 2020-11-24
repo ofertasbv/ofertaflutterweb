@@ -57,6 +57,7 @@ void main() async {
       // ícones da barra inferior
 
       statusBarBrightness: Brightness.light,
+
     ),
   );
 
@@ -84,13 +85,13 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
       accentColor: Colors.grey[900],
-      primarySwatch: Colors.orange,
+      primarySwatch: Colors.brown,
 
       appBarTheme: AppBarTheme(
         elevation: 0.5,
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.orange[900],
+            color: Colors.brown[900],
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -118,7 +119,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      primaryIconTheme: IconThemeData(color: Colors.orange[900]),
+      primaryIconTheme: IconThemeData(color: Colors.brown[500]),
 
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
@@ -139,49 +140,49 @@ class MyApp extends StatelessWidget {
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.orange[900],
+        buttonColor: Colors.brown[600],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
-          side: BorderSide(color: Colors.orange[900]),
+          side: BorderSide(color: Colors.brown[500]),
         ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
-        prefixStyle: TextStyle(color: Colors.orange[900]),
+        prefixStyle: TextStyle(color: Colors.brown[500]),
         hintStyle: TextStyle(color: Colors.grey[900]),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        focusColor: Colors.orange[900],
+        focusColor: Colors.brown[500],
         hoverColor: Colors.purple,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
       ),
 
-      hintColor: Colors.orange[900],
+      hintColor: Colors.brown[500],
 
       iconTheme: IconThemeData(
-        color: Colors.orange[900],
+        color: Colors.brown[500],
       ),
 
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.grey,
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.brown[500],
       ),
 
       scaffoldBackgroundColor: Colors.grey[100],
 
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.brown[500],
       ),
 
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
-        selectedItemColor: Colors.orange[900],
-        unselectedItemColor: Colors.grey[900],
-        unselectedLabelStyle: TextStyle(color: Colors.orange[900]),
+        selectedItemColor: Colors.brown[500],
+        unselectedItemColor: Colors.black,
+        unselectedLabelStyle: TextStyle(color: Colors.brown[500]),
         backgroundColor: Colors.grey[100],
       ),
     );

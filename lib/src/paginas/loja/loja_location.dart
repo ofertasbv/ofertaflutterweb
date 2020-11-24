@@ -318,7 +318,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard ? Colors.orange[200] : Colors.white,
+              color: p.nome == selectedCard ? Colors.brown[200] : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,

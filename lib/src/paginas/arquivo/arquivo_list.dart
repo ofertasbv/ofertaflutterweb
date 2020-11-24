@@ -62,7 +62,7 @@ class _ArquivoListState extends State<ArquivoList>
     double containerWidth = 160;
     double containerHeight = 20;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: arquivos.length,
       itemBuilder: (context, index) {
         Arquivo c = arquivos[index];
@@ -74,10 +74,10 @@ class _ArquivoListState extends State<ArquivoList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.black, Colors.orange[900]],
+                  colors: [Colors.amber[900], Colors.brown[900]],
                 ),
                 border: Border.all(
-                  color: Colors.deepOrangeAccent,
+                  color: Colors.brown[500],
                   width: 2,
                 ),
                 borderRadius: BorderRadius.circular(35),

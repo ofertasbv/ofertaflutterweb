@@ -153,10 +153,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 gradient: LinearGradient(
                   colors: [
                     c.nome == selectedCard
-                        ? Colors.orange[100]
+                        ? Colors.brown[100]
                         : Colors.grey[100],
                     c.nome == selectedCard
-                        ? Colors.orange[200]
+                        ? Colors.brown[200]
                         : Colors.grey[200],
                   ],
                   begin: Alignment.topCenter,
@@ -171,11 +171,14 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   Container(
                     padding: EdgeInsets.all(1),
                     decoration: new BoxDecoration(
-                      gradient:
-                          LinearGradient(colors: [Colors.black, Colors.orange]),
-                      border:
-                          Border.all(color: Colors.deepOrangeAccent, width: 2),
-                      borderRadius: BorderRadius.circular(50),
+                      gradient: LinearGradient(
+                        colors: [Colors.amber[900], Colors.brown[900]],
+                      ),
+                      border: Border.all(
+                        color: Colors.brown[500],
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(35),
                     ),
                     child: CircleAvatar(
                       backgroundColor: Colors.grey[100],
@@ -273,10 +276,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.black, Colors.orange[900]],
+                    colors: [Colors.amber[900], Colors.brown[900]],
                   ),
                   border: Border.all(
-                    color: Colors.deepOrangeAccent,
+                    color: Colors.brown[500],
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(35),

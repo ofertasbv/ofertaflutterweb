@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/categoria_controller.dart';
+import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 
-import 'package:nosso/src/core/model/categoria.dart';
+import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/util/filter/produto_filter.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
-class DialogCategoria extends StatefulWidget {
-  Categoria categoria;
-  DialogCategoria(this.categoria);
+class DialogProdutoFilter extends StatefulWidget {
+  ProdutoFilter filter;
+  DialogProdutoFilter(this.filter);
   @override
-  _DialogCategoriaState createState() => _DialogCategoriaState(this.categoria);
+  _DialogProdutoFilterState createState() =>
+      _DialogProdutoFilterState(this.filter);
 }
 
-class _DialogCategoriaState extends State<DialogCategoria> {
-  _DialogCategoriaState(this.categoria);
+class _DialogProdutoFilterState extends State<DialogProdutoFilter> {
+  _DialogProdutoFilterState(this.filter);
 
-  var categoriaController = GetIt.I.get<CategoriaController>();
+  var subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
-  Categoria categoria;
+  ProdutoFilter filter;
 
   @override
   void initState() {
-    categoriaController.getAll();
+    if (filter == null) {
+      filter = ProdutoFilter();
+    }
+    subCategoriaController.getAll();
     super.initState();
   }
 
@@ -36,8 +41,8 @@ class _DialogCategoriaState extends State<DialogCategoria> {
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<Categoria> categorias = categoriaController.categorias;
-          if (categoriaController.error != null) {
+          List<SubCategoria> categorias = subCategoriaController.subCategorias;
+          if (subCategoriaController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
@@ -51,14 +56,14 @@ class _DialogCategoriaState extends State<DialogCategoria> {
     );
   }
 
-  builderListCategorias(List<Categoria> categorias) {
+  builderListCategorias(List<SubCategoria> categorias) {
     double containerWidth = 160;
     double containerHeight = 20;
 
     return ListView.builder(
       itemCount: categorias.length,
       itemBuilder: (context, index) {
-        Categoria c = categorias[index];
+        SubCategoria c = categorias[index];
 
         return Column(
           children: [
@@ -66,16 +71,16 @@ class _DialogCategoriaState extends State<DialogCategoria> {
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey[200],
-                  radius: 30,
+                  radius: 20,
                   child: Icon(Icons.check_outlined),
                 ),
                 title: Text(c.nome),
               ),
               onTap: () {
-                categoriaController.categoriaSelecionada = c;
-                print(
-                    "SubCategoria: ${categoriaController.categoriaSelecionada.nome}");
-                Navigator.of(context).pop();
+                setState(() {
+                  filter.categoria = c.nome;
+                  print("SubCategoria: ${filter.categoria}");
+                });
               },
             ),
             Divider()
@@ -86,8 +91,8 @@ class _DialogCategoriaState extends State<DialogCategoria> {
   }
 }
 
-class AlertCategoria {
-  alert(BuildContext context, Categoria categoria) {
+class AlertProdutoFilter {
+  alert(BuildContext context, ProdutoFilter filter) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -97,14 +102,20 @@ class AlertCategoria {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
-            child: DialogCategoria(categoria),
+            child: DialogProdutoFilter(filter),
           ),
           actions: [
             FlatButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(context).pop();
               },
-              child: Text("ok"),
+              child: Text("Cancelar"),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Aplicar"),
             )
           ],
         );

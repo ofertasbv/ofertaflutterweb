@@ -1,13 +1,23 @@
 class ProdutoFilter {
-  String nomeProduto;
-  String nomeSubCategoria;
+  String _nome;
+  String _categoria;
+  String _preco;
+  bool _destaque;
 
-  // String get nomeProduto => _nomeProduto;
-  //
-  // set nomeProduto(String nomeProduto) => _nomeProduto = nomeProduto;
-  //
-  // String get nomeSubCategoria => _nomeSubCategoria;
-  //
-  // set nomeSubCategoria(String nomeSubCategoria) =>
-  //     _nomeSubCategoria = nomeSubCategoria;
+
+  String get nome => _nome;
+
+  set nome(String nome) => _nome = nome;
+
+  String get categoria => _categoria;
+
+  set categoria(String categoria) => _categoria = categoria;
+
+  String get preco => _preco;
+
+  set preco(String preco) => _preco = preco;
+
+  bool get destaque => _destaque;
+
+  set destaque(bool destaque) => _destaque = destaque;
 }
