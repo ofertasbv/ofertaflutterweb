@@ -1,9 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/favorito.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
@@ -24,15 +28,22 @@ class _ProdutoGridState extends State<ProdutoGrid>
   _ProdutoGridState({this.filter});
 
   var produtoController = GetIt.I.get<ProdutoController>();
+  var favoritoController = GetIt.I.get<FavoritoController>();
 
   final formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
-  ProdutoFilter filter;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  Favorito favorito;
+  ProdutoFilter filter;
   bool isFavorito = false;
 
   @override
   void initState() {
+    if (favorito == null) {
+      favorito = Favorito();
+    }
+
     if (filter != null) {
       produtoController.getFilter(filter);
     } else {
@@ -48,6 +59,18 @@ class _ProdutoGridState extends State<ProdutoGrid>
   favoritar(Produto p) {
     p.favorito = !p.favorito;
     print("${p.favorito}");
+  }
+
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
+    );
   }
 
   showDialogAlert(BuildContext context, Produto p) async {
@@ -128,7 +151,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
         crossAxisCount: 2,
         mainAxisSpacing: 2,
         crossAxisSpacing: 2,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.6,
       ),
       itemCount: produtos.length,
       itemBuilder: (context, index) {
@@ -157,27 +180,50 @@ class _ProdutoGridState extends State<ProdutoGrid>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.all(10),
+                      height: 50,
+                      padding: EdgeInsets.all(8),
                       child: Text(
                         p.nome,
                         style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
+                      padding: EdgeInsets.all(8),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "R\$ ${p.estoque.valor}",
-                            style: TextStyle(color: Colors.green, fontSize: 16),
+                            "De ${p.estoque.valor}0",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          Text(
+                            "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
+                            style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Chip(
+                            label: Text(
+                              "- ${p.promocao.desconto}%",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           CircleAvatar(
-                            foregroundColor: Colors.redAccent,
                             backgroundColor: Colors.grey[300],
+                            foregroundColor: Colors.redAccent,
                             radius: 15,
                             child: IconButton(
                               splashColor: Colors.black,
@@ -196,13 +242,24 @@ class _ProdutoGridState extends State<ProdutoGrid>
                                 setState(() {
                                   print("Favoritar: ${p.nome}");
                                   favoritar(p);
+                                  favorito.status = p.favorito;
                                 });
+
+                                if (favorito.id == null) {
+                                  favoritoController.create(favorito);
+                                  print("Adicionar: ${p.nome}");
+                                } else {
+                                  favoritoController.update(
+                                      favorito.id, favorito);
+                                  print("Alterar: ${p.nome}");
+                                  showSnackbar(context, "favorito");
+                                }
                               },
                             ),
                           ),
                         ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],

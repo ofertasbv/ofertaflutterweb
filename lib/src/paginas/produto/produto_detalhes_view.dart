@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/favorito.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
@@ -19,6 +23,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     with SingleTickerProviderStateMixin {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var produtoController = GetIt.I.get<ProdutoController>();
+  var favoritoController = GetIt.I.get<FavoritoController>();
 
   AnimationController animationController;
   Animation<double> animation;
@@ -28,11 +33,13 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
   bool isFavorito = false;
 
   Produto produto;
+  Favorito favorito;
 
   @override
   void initState() {
     if (produto == null) {
       produto = Produto();
+      favorito = Favorito();
     }
     animationController = AnimationController(
       vsync: this,
@@ -59,7 +66,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     animationController.dispose();
   }
 
-  void showDefaultSnackbar(BuildContext context, String content) {
+  showSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         content: Text(content),
@@ -77,9 +84,9 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     return buildContainer(produto);
   }
 
-  favoritar() {
-    this.isFavorito = !this.isFavorito;
-    print("${this.isFavorito}");
+  favoritar(Produto p) {
+    p.favorito = !p.favorito;
+    print("${p.favorito}");
   }
 
   buildContainer(Produto p) {
@@ -93,47 +100,85 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   autoplay: false,
                   dotBgColor: Colors.transparent,
                   images: p.arquivos.map((a) {
-                    return NetworkImage(ConstantApi.urlArquivoProduto + a.foto);
+                    return NetworkImage(produtoController.arquivo + a.foto);
                   }).toList())
               : Image.network(
-                  ConstantApi.urlArquivoProduto + p.foto,
+                  produtoController.arquivo + p.foto,
                   fit: BoxFit.cover,
                 ),
+        ),
+        Card(
+          child: Container(
+            child: ListTile(
+              title: Text(
+                p.nome,
+                style: TextStyle(fontSize: 20),
+              ),
+              subtitle: Text(
+                "Cód. ${p.id}",
+                style: TextStyle(fontSize: 20),
+              ),
+              trailing: CircleAvatar(
+                backgroundColor: Colors.grey[300],
+                foregroundColor: Colors.redAccent,
+                radius: 15,
+                child: IconButton(
+                  splashColor: Colors.black,
+                  icon: (p.favorito == false
+                      ? Icon(
+                          Icons.favorite_border,
+                          color: Colors.redAccent,
+                          size: 15,
+                        )
+                      : Icon(
+                          Icons.favorite_outlined,
+                          color: Colors.redAccent,
+                          size: 15,
+                        )),
+                  onPressed: () {
+                    setState(() {
+                      print("Favoritar: ${p.nome}");
+                      favoritar(p);
+                      favorito.status = p.favorito;
+                    });
+
+                    if (favorito.id == null) {
+                      favoritoController.create(favorito);
+                      print("Adicionar: ${p.nome}");
+                    } else {
+                      favoritoController.update(favorito.id, favorito);
+                      print("Alterar: ${p.nome}");
+                      showSnackbar(context, "favorito");
+                    }
+                  },
+                ),
+              ),
+            ),
+          ),
         ),
         Card(
           elevation: 0.2,
           child: ListTile(
             isThreeLine: true,
-            leading: CircleAvatar(child: Icon(Icons.shopping_basket_outlined)),
             title: Text(
-              p.nome,
-              style: TextStyle(fontSize: 20),
+              "De ${p.estoque.valor}0",
+              style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal),
             ),
             subtitle: Text(
-              "R\$ ${p.estoque.valor}",
+              "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
               style: TextStyle(
-                fontSize: 20,
-                color: Colors.green,
-              ),
+                  fontSize: 26,
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold),
             ),
-            trailing: CircleAvatar(
-              foregroundColor: Colors.redAccent,
-              child: IconButton(
-                splashColor: Colors.black,
-                icon: (this.isFavorito == false
-                    ? Icon(
-                        Icons.favorite_border,
-                        color: Colors.redAccent,
-                      )
-                    : Icon(
-                        Icons.favorite_outlined,
-                        color: Colors.redAccent,
-                      )),
-                onPressed: () {
-                  setState(() {
-                    favoritar();
-                  });
-                },
+            trailing: Chip(
+              label: Text(
+                "- ${p.promocao.desconto}%",
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

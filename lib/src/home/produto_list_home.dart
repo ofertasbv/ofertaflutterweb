@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -117,14 +118,15 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                             style: TextStyle(fontSize: 18),
                           ),
                           Text(
-                            p.descricao,
-                            style: TextStyle(color: Colors.grey),
+                            "De ${p.estoque.valor}0",
+                            style: TextStyle(fontSize: 14),
                           ),
                           Text(
-                            "R\$ ${p.estoque.valor}",
+                            "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 22,
                               color: Colors.green,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],

@@ -9,6 +9,7 @@ import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/cor_controller.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/estado_controller.dart';
+import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
@@ -42,22 +43,22 @@ void main() async {
   getIt.registerSingleton<CidadeController>(CidadeController());
   getIt.registerSingleton<TamanhoController>(TamanhoController());
   getIt.registerSingleton<CorController>(CorController());
+  getIt.registerSingleton<FavoritoController>(FavoritoController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       // cor da barra superior
-      statusBarIconBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.grey[100],
+      systemNavigationBarColor: Colors.black,
       // cor da barra inferior
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.light,
       //
-      systemNavigationBarDividerColor: Colors.black,
+      systemNavigationBarDividerColor: Colors.white,
       // ícones da barra inferior
 
       statusBarBrightness: Brightness.light,
-
     ),
   );
 
@@ -84,9 +85,8 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
-      accentColor: Colors.grey[900],
-      primarySwatch: Colors.brown,
-
+      accentColor: Colors.black,
+      primarySwatch: Colors.grey,
       appBarTheme: AppBarTheme(
         elevation: 0.5,
         textTheme: TextTheme(
@@ -102,13 +102,11 @@ class MyApp extends StatelessWidget {
           headline1: TextStyle(color: Colors.cyan),
         ),
       ),
-
       textTheme: Theme.of(context).textTheme.apply(
-            fontFamily: "Cabin",
+            fontFamily: 'Reboto',
             bodyColor: Colors.black,
-            displayColor: Colors.grey[600],
+            displayColor: Colors.brown,
           ),
-
       dialogTheme: DialogTheme(
         backgroundColor: Colors.grey[100],
         elevation: 2,
@@ -118,12 +116,9 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.white),
         ),
       ),
-
       primaryIconTheme: IconThemeData(color: Colors.brown[500]),
-
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
-
       cardTheme: CardTheme(
         elevation: 0,
         color: Colors.grey[100],
@@ -133,20 +128,18 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.grey[100], width: 1),
         ),
       ),
-
       buttonTheme: ButtonThemeData(
-        splashColor: Colors.grey[900],
+        splashColor: Colors.redAccent,
         textTheme: ButtonTextTheme.primary,
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.brown[600],
+        buttonColor: Colors.brown[300],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
           side: BorderSide(color: Colors.brown[500]),
         ),
       ),
-
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
         prefixStyle: TextStyle(color: Colors.brown[500]),
@@ -159,25 +152,19 @@ class MyApp extends StatelessWidget {
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
       ),
-
       hintColor: Colors.brown[500],
-
       iconTheme: IconThemeData(
-        color: Colors.brown[500],
+        color: Colors.redAccent,
       ),
-
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.grey,
         backgroundColor: Colors.brown[500],
       ),
-
       scaffoldBackgroundColor: Colors.grey[100],
-
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
         backgroundColor: Colors.brown[500],
       ),
-
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
         selectedItemColor: Colors.brown[500],

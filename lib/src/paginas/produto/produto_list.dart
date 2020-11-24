@@ -113,8 +113,11 @@ class _ProdutoListState extends State<ProdutoList>
             ),
             title: Text(p.nome),
             subtitle: Text(
-              "R\$ ${p.estoque.valor}",
-              style: TextStyle(color: Colors.green, fontSize: 16),
+              "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
+              style: TextStyle(
+                  color: Colors.green,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
             trailing: Container(
               height: 80,

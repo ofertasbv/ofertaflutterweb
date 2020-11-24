@@ -75,467 +75,479 @@ class _ConfigPageState extends State<ConfigPage> {
       //childAspectRatio: MediaQuery.of(context).size.aspectRatio * 1.9,
       scrollDirection: Axis.vertical,
       children: <Widget>[
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return ProdutoTab();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ProdutoTab();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.shopping_basket_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Center(
-                  child: Text("Produto"),
-                ),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Center(
+                child: Text("Produto"),
+              ),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return CategoriaPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CategoriaPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.list_alt_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text(
-                  "Categoria",
-                ),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Categoria",
+              ),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return SubcategoriaPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SubcategoriaPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.list_alt_sharp,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text(
-                  "SubCategoria",
-                ),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "SubCategoria",
+              ),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return PromocaoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PromocaoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.add_alert_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text(
-                  "Oferta",
-                ),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Oferta",
+              ),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return LojaPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.shopping_bag_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text(
-                  "Loja",
-                ),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text(
+                "Loja",
+              ),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return ClientePage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ClientePage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.people_alt_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Cliente"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Cliente"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return PermissaoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PermissaoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.account_circle_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Usuário"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Usuário"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return PermissaoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PermissaoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.account_tree_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Permissão"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Permissão"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return ArquivoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ArquivoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.photo_album_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Arquivo"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Arquivo"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return MarcaPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MarcaPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.shopping_bag_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Marca"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Marca"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return LojaLocation();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaLocation();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.map_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Mapas"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Mapas"),
+            ],
           ),
         ),
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return EnderecoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return EnderecoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.location_on_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Endereço"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Endereço"),
+            ],
           ),
         ),
-
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return CorPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CorPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.color_lens_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Cor"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Cor"),
+            ],
           ),
         ),
-
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return TamanhoPage();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return TamanhoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.format_size_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Tamanho"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Tamanho"),
+            ],
           ),
         ),
-
-        Card(
-          child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return ProdutoTab();
-                  },
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ProdutoTab();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                child: CircleAvatar(
+                  radius: 30,
                   child: Icon(
                     Icons.shopping_cart_outlined,
-                    size: 40,
+                    size: 30,
                   ),
-                  padding: EdgeInsets.all(20),
                 ),
-                Text("Pedido"),
-              ],
-            ),
+                padding: EdgeInsets.all(20),
+              ),
+              Text("Pedido"),
+            ],
           ),
         ),
       ],

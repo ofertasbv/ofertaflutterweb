@@ -139,8 +139,8 @@ class _LojaLocationState extends State<LojaLocation> {
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(latitude, longitude),
-          zoom: 16.0,
-          tilt: 20,
+          zoom: 18.0,
+          tilt: 30,
         ),
       ),
     );
@@ -318,7 +318,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard ? Colors.brown[200] : Colors.white,
+              color: p.nome == selectedCard ? Colors.brown[100] : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,
