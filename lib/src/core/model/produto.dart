@@ -13,7 +13,6 @@ class Produto {
   String nome;
   String descricao;
   String foto;
-  bool favorito;
   DateTime dataRegistro;
   String codigoBarra;
   bool status;
@@ -37,7 +36,6 @@ class Produto {
       this.nome,
       this.descricao,
       this.foto,
-      this.favorito,
       this.dataRegistro,
       this.codigoBarra,
       this.status,
@@ -61,7 +59,6 @@ class Produto {
     nome = json['nome'];
     descricao = json['descricao'];
     foto = json['foto'];
-    favorito = json['favorito'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     codigoBarra = json['codigoBarra'];
     status = json['status'];
@@ -114,7 +111,6 @@ class Produto {
     data['nome'] = this.nome;
     data['descricao'] = this.descricao;
     data['foto'] = this.foto;
-    data['favorito'] = this.favorito;
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['codigoBarra'] = this.codigoBarra;
     data['status'] = this.status;

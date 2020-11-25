@@ -100,12 +100,6 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
                       ),
                       Divider(),
                       ListTile(
-                        title: Text("Favorito"),
-                        subtitle: Text("${p.favorito}"),
-                        trailing: Icon(Icons.check_outlined),
-                      ),
-                      Divider(),
-                      ListTile(
                         title: Text("Medida"),
                         subtitle: Text("${p.medida}"),
                         trailing: Icon(Icons.check_outlined),

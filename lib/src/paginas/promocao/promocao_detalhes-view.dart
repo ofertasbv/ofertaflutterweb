@@ -35,7 +35,7 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
     return ListView(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.2,
+          aspectRatio: 1,
           child: Image.network(
             promocaoController.arquivo + p.foto,
             fit: BoxFit.cover,

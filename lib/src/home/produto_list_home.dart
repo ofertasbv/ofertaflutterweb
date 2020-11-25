@@ -119,7 +119,11 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
                           ),
                           Text(
                             "De ${p.estoque.valor}0",
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                              fontSize: 12,
+                              decoration: TextDecoration.lineThrough,
+                              decorationStyle: TextDecorationStyle.dashed,
+                            ),
                           ),
                           Text(
                             "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",

@@ -167,9 +167,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             padding: EdgeInsets.symmetric(horizontal: 2),
             child: Chip(
               label: Text(c.nome.toLowerCase()),
-              backgroundColor: c.nome == selectedCard
-                  ? Colors.brown[200]
-                  : Colors.grey[200],
+              backgroundColor:
+                  c.nome == selectedCard ? Colors.brown[200] : Colors.grey[200],
             ),
           ),
           onTap: () {
@@ -260,8 +259,12 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             title: Text(p.nome),
             subtitle: Text("${dateFormat.format(p.dataRegistro)}"),
             trailing: Text(
-              "R\$ ${p.estoque.valor}",
-              style: TextStyle(color: Colors.green, fontSize: 18),
+              "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           onTap: () {

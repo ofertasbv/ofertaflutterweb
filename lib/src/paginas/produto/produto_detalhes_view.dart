@@ -85,8 +85,8 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
   }
 
   favoritar(Produto p) {
-    p.favorito = !p.favorito;
-    print("${p.favorito}");
+    this.isFavorito = !this.isFavorito;
+    print("${isFavorito}");
   }
 
   buildContainer(Produto p) {
@@ -94,7 +94,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
       padding: EdgeInsets.all(0),
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.2,
+          aspectRatio: 1,
           child: p.arquivos.isNotEmpty
               ? Carousel(
                   autoplay: false,
@@ -124,7 +124,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                 radius: 15,
                 child: IconButton(
                   splashColor: Colors.black,
-                  icon: (p.favorito == false
+                  icon: (this.favorito == false
                       ? Icon(
                           Icons.favorite_border,
                           color: Colors.redAccent,
@@ -139,13 +139,16 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                     setState(() {
                       print("Favoritar: ${p.nome}");
                       favoritar(p);
-                      favorito.status = p.favorito;
                     });
 
                     if (favorito.id == null) {
+                      favorito.produto = p;
+                      favorito.status = isFavorito;
                       favoritoController.create(favorito);
                       print("Adicionar: ${p.nome}");
                     } else {
+                      favorito.produto = p;
+                      favorito.status = isFavorito;
                       favoritoController.update(favorito.id, favorito);
                       print("Alterar: ${p.nome}");
                       showSnackbar(context, "favorito");
@@ -162,7 +165,11 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
             isThreeLine: true,
             title: Text(
               "De ${p.estoque.valor}0",
-              style: TextStyle(fontSize: 14, fontStyle: FontStyle.normal),
+              style: TextStyle(
+                fontSize: 14,
+                decoration: TextDecoration.lineThrough,
+                decorationStyle: TextDecorationStyle.dashed,
+              ),
             ),
             subtitle: Text(
               "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",

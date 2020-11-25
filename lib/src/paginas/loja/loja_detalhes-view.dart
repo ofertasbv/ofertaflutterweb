@@ -36,7 +36,7 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
     return ListView(
       children: <Widget>[
         AspectRatio(
-          aspectRatio: 1.2,
+          aspectRatio: 1,
           child: Image.network(
             lojaController.arquivo + p.foto,
             fit: BoxFit.cover,

@@ -57,8 +57,8 @@ class _ProdutoGridState extends State<ProdutoGrid>
   }
 
   favoritar(Produto p) {
-    p.favorito = !p.favorito;
-    print("${p.favorito}");
+    this.isFavorito = !this.isFavorito;
+    print("${isFavorito}");
   }
 
   showSnackbar(BuildContext context, String content) {
@@ -194,7 +194,11 @@ class _ProdutoGridState extends State<ProdutoGrid>
                         children: [
                           Text(
                             "De ${p.estoque.valor}0",
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: 12,
+                              decoration: TextDecoration.lineThrough,
+                              decorationStyle: TextDecorationStyle.dashed,
+                            ),
                           ),
                           Text(
                             "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
@@ -227,7 +231,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                             radius: 15,
                             child: IconButton(
                               splashColor: Colors.black,
-                              icon: (p.favorito == false
+                              icon: (this.favorito == false
                                   ? Icon(
                                       Icons.favorite_border,
                                       color: Colors.redAccent,
@@ -242,13 +246,16 @@ class _ProdutoGridState extends State<ProdutoGrid>
                                 setState(() {
                                   print("Favoritar: ${p.nome}");
                                   favoritar(p);
-                                  favorito.status = p.favorito;
                                 });
 
                                 if (favorito.id == null) {
+                                  favorito.produto = p;
+                                  favorito.status = isFavorito;
                                   favoritoController.create(favorito);
                                   print("Adicionar: ${p.nome}");
                                 } else {
+                                  favorito.produto = p;
+                                  favorito.status = isFavorito;
                                   favoritoController.update(
                                       favorito.id, favorito);
                                   print("Alterar: ${p.nome}");

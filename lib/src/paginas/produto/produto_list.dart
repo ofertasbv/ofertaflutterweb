@@ -116,7 +116,7 @@ class _ProdutoListState extends State<ProdutoList>
               "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
               style: TextStyle(
                   color: Colors.green,
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             trailing: Container(

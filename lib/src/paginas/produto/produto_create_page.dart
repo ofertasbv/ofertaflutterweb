@@ -84,8 +84,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   var response = UploadRespnse();
 
   String barcode = "";
-
-  bool favorito;
   bool novo;
   bool status;
   bool destaque;
@@ -106,7 +104,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       p = Produto();
       e = Estoque();
 
-      favorito = false;
       novo = false;
       status = false;
       destaque = false;
@@ -114,7 +111,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       medida = "UNIDADE";
       origem = "NACIONAL";
     } else {
-      favorito = p.favorito;
       novo = p.novo;
       status = p.status;
       destaque = p.destaque;
@@ -906,26 +902,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             ),
                             child: SwitchListTile(
                               autofocus: true,
-                              title: Text("Produto Favorito? "),
-                              subtitle: Text("sim/não"),
-                              value: p.favorito = favorito,
-                              secondary: const Icon(Icons.check_outlined),
-                              onChanged: (bool valor) {
-                                setState(() {
-                                  favorito = valor;
-                                  print("Favorito: " + p.favorito.toString());
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: SwitchListTile(
-                              autofocus: true,
                               title: Text("Produto novo? "),
                               subtitle: Text("sim/não"),
                               value: p.novo = novo,
@@ -1156,7 +1132,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Valor: ${p.estoque.valor}");
                     print("Desconto: ${p.desconto}");
 
-                    print("Favorito: ${p.favorito}");
                     print("Novo: ${p.novo}");
                     print("Status: ${p.status}");
                     print("Destaque: ${p.destaque}");
@@ -1188,7 +1163,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Valor: ${p.estoque.valor}");
                     print("Desconto: ${p.desconto}");
 
-                    print("Favorito: ${p.favorito}");
                     print("Novo: ${p.novo}");
                     print("Status: ${p.status}");
                     print("Destaque: ${p.destaque}");
