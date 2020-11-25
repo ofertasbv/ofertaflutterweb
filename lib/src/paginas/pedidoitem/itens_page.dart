@@ -4,9 +4,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
-import 'package:nosso/src/paginas/pedidoitem/pedidoitem_list.dart';
+import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 
-class PedidoItemPage extends StatelessWidget {
+class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
 
   @override
@@ -21,7 +21,7 @@ class PedidoItemPage extends StatelessWidget {
                 return Text("Não foi possível carregar");
               }
 
-              if (pedidoItemController.pedidoItens == null) {
+              if (pedidoItemController.itens == null) {
                 return Center(
                   child: Icon(Icons.warning_amber_outlined),
                 );
@@ -29,7 +29,7 @@ class PedidoItemPage extends StatelessWidget {
 
               return Chip(
                 label: Text(
-                  (pedidoItemController.pedidoItens.length ?? 0).toString(),
+                  (pedidoItemController.itens.length ?? 0).toString(),
                 ),
               );
             },
@@ -37,7 +37,7 @@ class PedidoItemPage extends StatelessWidget {
           SizedBox(width: 20),
         ],
       ),
-      body: PedidoItemList(),
+      body: PedidoItensList(),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[

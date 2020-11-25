@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_info.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_view.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
@@ -25,7 +27,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
 
   AnimationController animationController;
   Animation<double> animation;
-  static final _scaleTween = Tween<double>(begin: 1.0, end: 1.5);
+  static final scaleTween = Tween<double>(begin: 1.0, end: 1.5);
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorito = false;
@@ -114,7 +116,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                       animation: animation,
                       builder: (context, child) {
                         return Transform.scale(
-                          scale: _scaleTween.evaluate(animation),
+                          scale: scaleTween.evaluate(animation),
                           child: child,
                         );
                       },
@@ -128,16 +130,25 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                           color: Colors.white.withOpacity(.7),
                         ),
                         child: Center(
-                          child: Text("0"),
+                          child: Text(
+                            (pedidoItemController.itens.length ?? 0).toString(),
+                            style: TextStyle(color: Colors.deepOrangeAccent),
+                          ),
                         ),
                       ),
                     )
                   ],
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemPage(),
+                  ),
+                );
+              },
             ),
-
             SizedBox(width: 10),
           ],
           bottom: TabBar(
@@ -215,13 +226,15 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 side: BorderSide(color: Colors.transparent),
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return ProdutoTab();
-                    },
-                  ),
-                );
+                // if (pedidoItemController.isExiste(produto)) {
+                //   showDefaultSnackbar(context, "já existe este item");
+                // } else {
+                pedidoItemController
+                    .adicionar(new PedidoItem(produto: produto));
+                setState(() {
+                  animationController.forward();
+                });
+                // }
               },
               color: Colors.orange[900],
               child: Center(

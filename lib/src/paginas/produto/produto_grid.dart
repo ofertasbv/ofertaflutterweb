@@ -35,6 +35,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   Favorito favorito;
+  Produto produto;
   ProdutoFilter filter;
   bool isFavorito = false;
 
@@ -42,6 +43,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
   void initState() {
     if (favorito == null) {
       favorito = Favorito();
+      produto = Produto();
     }
 
     if (filter != null) {
@@ -56,9 +58,9 @@ class _ProdutoGridState extends State<ProdutoGrid>
     return produtoController.getAll();
   }
 
-  favoritar(Produto p) {
-    this.isFavorito = !this.isFavorito;
-    print("${isFavorito}");
+  favoritar() {
+    this.favorito.status = !this.favorito.status;
+    print("${this.favorito.status}");
   }
 
   showSnackbar(BuildContext context, String content) {
@@ -231,7 +233,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                             radius: 15,
                             child: IconButton(
                               splashColor: Colors.black,
-                              icon: (this.favorito == false
+                              icon: (this.favorito.status == false
                                   ? Icon(
                                       Icons.favorite_border,
                                       color: Colors.redAccent,
@@ -245,22 +247,22 @@ class _ProdutoGridState extends State<ProdutoGrid>
                               onPressed: () {
                                 setState(() {
                                   print("Favoritar: ${p.nome}");
-                                  favoritar(p);
+                                  favoritar();
                                 });
 
-                                if (favorito.id == null) {
-                                  favorito.produto = p;
-                                  favorito.status = isFavorito;
-                                  favoritoController.create(favorito);
-                                  print("Adicionar: ${p.nome}");
-                                } else {
-                                  favorito.produto = p;
-                                  favorito.status = isFavorito;
-                                  favoritoController.update(
-                                      favorito.id, favorito);
-                                  print("Alterar: ${p.nome}");
-                                  showSnackbar(context, "favorito");
-                                }
+                                // if (favorito.id == null) {
+                                //   favorito.produto = p;
+                                //   favorito.status = isFavorito;
+                                //   favoritoController.create(favorito);
+                                //   print("Adicionar: ${p.nome}");
+                                // } else {
+                                //   favorito.produto = p;
+                                //   favorito.status = isFavorito;
+                                //   favoritoController.update(
+                                //       favorito.id, favorito);
+                                //   print("Alterar: ${p.nome}");
+                                //   showSnackbar(context, "favorito");
+                                // }
                               },
                             ),
                           ),

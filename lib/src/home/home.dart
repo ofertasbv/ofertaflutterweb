@@ -2,13 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:nosso/main.dart';
+import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
+import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
@@ -22,6 +25,7 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin<HomePage> {
   int elementIndex = 0;
 
+  var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var pageController = PageController();
 
   @override
@@ -41,6 +45,7 @@ class _HomePageState extends State<HomePage>
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
+
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
                 foregroundColor: Colors.brown[500],
@@ -85,6 +90,49 @@ class _HomePageState extends State<HomePage>
                     );
                   },
                 ),
+              ),
+              SizedBox(width: 10),
+              GestureDetector(
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[300],
+                  foregroundColor: Colors.brown[500],
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(top: 0, right: 0),
+                        child: Icon(Icons.shopping_basket),
+                      ),
+                      Container(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 0, right: 0),
+                          width: 18,
+                          height: 18,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            border: Border.all(color: Colors.black, width: 1),
+                            color: Colors.white.withOpacity(.7),
+                          ),
+                          child: Center(
+                            child: Text(
+                              (pedidoItemController.itens.length ?? 0)
+                                  .toString(),
+                              style: TextStyle(color: Colors.deepOrangeAccent),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ItemPage(),
+                    ),
+                  );
+                },
               ),
               SizedBox(width: 10),
             ],

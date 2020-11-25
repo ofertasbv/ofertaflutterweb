@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/repository/cor_repository.dart';
 

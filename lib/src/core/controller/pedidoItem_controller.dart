@@ -23,6 +23,9 @@ abstract class PedidoItemControllerBase with Store {
   List<PedidoItem> pedidoItens;
 
   @observable
+  List<PedidoItem> itens = List<PedidoItem>();
+
+  @observable
   int pedidoitem;
 
   @observable
@@ -33,6 +36,15 @@ abstract class PedidoItemControllerBase with Store {
 
   @observable
   String mensagem;
+
+  @action
+  List<PedidoItem> pedidosItens() {
+    try {
+      return itens;
+    } catch (e) {
+      error = e;
+    }
+  }
 
   @action
   Future<List<PedidoItem>> getAll() async {
@@ -70,20 +82,19 @@ abstract class PedidoItemControllerBase with Store {
     }
   }
 
-
   @action
   adicionar(PedidoItem item) {
     item.quantidade = 1;
     item.valorUnitario = item.produto.estoque.valor;
     item.valorTotal = item.quantidade * item.valorUnitario;
-    pedidoItens.add(item);
+    itens.add(item);
     calculateTotal();
   }
 
   @action
   isExiste(Produto p) {
     var result = false;
-    for (PedidoItem p in pedidoItens) {
+    for (PedidoItem p in itens) {
       if (p.produto.id == p.id) {
         return result = true;
       }
@@ -109,17 +120,16 @@ abstract class PedidoItemControllerBase with Store {
 
   @action
   remove(PedidoItem item) {
-    pedidoItens.remove(item);
+    itens.remove(item);
     calculateTotal();
   }
 
   @action
   calculateTotal() {
     total = 0;
-    pedidoItens.forEach((p) {
+    itens.forEach((p) {
       total += p.valorTotal;
     });
     return total;
   }
-
 }
