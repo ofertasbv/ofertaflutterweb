@@ -11,7 +11,7 @@ class PedidoItemRepository {
   Future<List<PedidoItem>> getAllById(int id) async {
     try {
       print("carregando pedidoitens by id");
-      var response = await dio.client.get("/pedidoitens/${id}");
+      var response = await dio.client.get("/pedidositens/${id}");
       return (response.data as List)
           .map((c) => PedidoItem.fromJson(c))
           .toList();
@@ -24,7 +24,7 @@ class PedidoItemRepository {
   Future<List<PedidoItem>> getAll() async {
     try {
       print("carregando pedidoitens");
-      var response = await dio.client.get("/pedidoitens");
+      var response = await dio.client.get("/pedidositens");
       return (response.data as List)
           .map((c) => PedidoItem.fromJson(c))
           .toList();
@@ -35,29 +35,13 @@ class PedidoItemRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    var response = await dio.client.post("/pedidoitens/create", data: data);
+    var response = await dio.client.post("/pedidositens/create", data: data);
     return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    var response = await dio.client.put("/pedidoitens/update/$id", data: data);
+    var response = await dio.client.put("/pedidositens/update/$id", data: data);
     return response.statusCode;
   }
 
-  static Future<FormData> upload(File file, String fileName) async {
-    var arquivo = file.path;
-    var fileDir = file.path;
-
-    var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
-    };
-
-    FormData formData = FormData.fromMap(paramentros);
-
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/pedidoitens/upload", data: formData);
-    print("RESPONSE: $response");
-    print("fileDir: $fileDir");
-    return formData;
-  }
 }

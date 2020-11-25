@@ -9,11 +9,14 @@ import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
+import 'package:nosso/src/paginas/pedido/pedido_page.dart';
+import 'package:nosso/src/paginas/pedidoitem/pedidoitem_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -276,7 +279,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return PermissaoPage();
+                  return UsuarioPage();
                 },
               ),
             );
@@ -400,7 +403,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return LojaLocation();
+                  return PedidoItemPage();
                 },
               ),
             );
@@ -416,13 +419,13 @@ class _ConfigPageState extends State<ConfigPage> {
                 child: CircleAvatar(
                   radius: 30,
                   child: Icon(
-                    Icons.map_outlined,
+                    Icons.shopping_basket_outlined,
                     size: 30,
                   ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text("Mapas"),
+              Text("Items"),
             ],
           ),
         ),
@@ -524,7 +527,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return ProdutoTab();
+                  return PedidoPage();
                 },
               ),
             );

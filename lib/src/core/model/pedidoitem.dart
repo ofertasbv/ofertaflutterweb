@@ -1,14 +1,12 @@
-
-
 import 'package:nosso/src/core/model/produto.dart';
 
 class PedidoItem {
   int id;
-  int valorUnitario;
+  double valorUnitario;
   int quantidade;
   String dataRegistro;
   Produto produto;
-  int valorTotal;
+  double valorTotal;
   bool estoqueSuficiente;
   bool produtoAssociado;
   bool estoqueInsuficiente;

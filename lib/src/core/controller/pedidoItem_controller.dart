@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
+import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/repository/pedidoItem_repository.dart';
 
 part 'pedidoItem_controller.g.dart';
@@ -16,7 +17,10 @@ abstract class PedidoItemControllerBase with Store {
   }
 
   @observable
-  List<PedidoItem> pedidoitens;
+  double total = 0;
+
+  @observable
+  List<PedidoItem> pedidoItens;
 
   @observable
   int pedidoitem;
@@ -33,8 +37,8 @@ abstract class PedidoItemControllerBase with Store {
   @action
   Future<List<PedidoItem>> getAll() async {
     try {
-      pedidoitens = await _pedidoItemRepository.getAll();
-      return pedidoitens;
+      pedidoItens = await _pedidoItemRepository.getAll();
+      return pedidoItens;
     } catch (e) {
       error = e;
     }
@@ -65,4 +69,57 @@ abstract class PedidoItemControllerBase with Store {
       dioError = e;
     }
   }
+
+
+  @action
+  adicionar(PedidoItem item) {
+    item.quantidade = 1;
+    item.valorUnitario = item.produto.estoque.valor;
+    item.valorTotal = item.quantidade * item.valorUnitario;
+    pedidoItens.add(item);
+    calculateTotal();
+  }
+
+  @action
+  isExiste(Produto p) {
+    var result = false;
+    for (PedidoItem p in pedidoItens) {
+      if (p.produto.id == p.id) {
+        return result = true;
+      }
+    }
+    return result;
+  }
+
+  @action
+  incremento(PedidoItem item) {
+    if (item.quantidade < 10) {
+      item.quantidade++;
+    }
+    calculateTotal();
+  }
+
+  @action
+  decremento(PedidoItem item) {
+    if (item.quantidade > 1) {
+      item.quantidade--;
+    }
+    calculateTotal();
+  }
+
+  @action
+  remove(PedidoItem item) {
+    pedidoItens.remove(item);
+    calculateTotal();
+  }
+
+  @action
+  calculateTotal() {
+    total = 0;
+    pedidoItens.forEach((p) {
+      total += p.valorTotal;
+    });
+    return total;
+  }
+
 }

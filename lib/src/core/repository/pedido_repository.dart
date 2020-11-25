@@ -1,7 +1,5 @@
-import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/pedido.dart';
 
@@ -38,22 +36,5 @@ class PedidoRepository {
   Future<int> update(int id, Map<String, dynamic> data) async {
     var response = await dio.client.put("/pedidos/update/$id", data: data);
     return response.statusCode;
-  }
-
-  static Future<FormData> upload(File file, String fileName) async {
-    var arquivo = file.path;
-    var fileDir = file.path;
-
-    var paramentros = {
-      "file": await MultipartFile.fromFile(fileDir, filename: fileName)
-    };
-
-    FormData formData = FormData.fromMap(paramentros);
-
-    var response = await Dio()
-        .post(ConstantApi.urlList + "/pedidos/upload", data: formData);
-    print("RESPONSE: $response");
-    print("fileDir: $fileDir");
-    return formData;
   }
 }

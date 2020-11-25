@@ -1,5 +1,3 @@
-
-
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
@@ -7,20 +5,20 @@ import 'package:nosso/src/core/model/pedidoitem.dart';
 class Pedido {
   int id;
   String descricao;
-  String dataHoraEntrega;
-  int valorFrete;
-  int valorDesconto;
-  int valorTotal;
+  DateTime dataHoraEntrega;
+  double valorFrete;
+  double valorDesconto;
+  double valorTotal;
   List<PedidoItem> pedidoItems;
   Cliente cliente;
   Loja loja;
   String statusPedido;
   String formaPagamento;
-  Null dataEntrega;
-  Null horarioEntrega;
+  DateTime dataEntrega;
+  DateTime horarioEntrega;
   bool novo;
   bool existente;
-  int valorTotalItens;
+  double valorTotalItens;
   bool salvarPermitido;
   bool vazio;
   bool emitido;
@@ -29,31 +27,31 @@ class Pedido {
 
   Pedido(
       {this.id,
-        this.descricao,
-        this.dataHoraEntrega,
-        this.valorFrete,
-        this.valorDesconto,
-        this.valorTotal,
-        this.pedidoItems,
-        this.cliente,
-        this.loja,
-        this.statusPedido,
-        this.formaPagamento,
-        this.dataEntrega,
-        this.horarioEntrega,
-        this.novo,
-        this.existente,
-        this.valorTotalItens,
-        this.salvarPermitido,
-        this.vazio,
-        this.emitido,
-        this.diasCriacao,
-        this.salvarProibido});
+      this.descricao,
+      this.dataHoraEntrega,
+      this.valorFrete,
+      this.valorDesconto,
+      this.valorTotal,
+      this.pedidoItems,
+      this.cliente,
+      this.loja,
+      this.statusPedido,
+      this.formaPagamento,
+      this.dataEntrega,
+      this.horarioEntrega,
+      this.novo,
+      this.existente,
+      this.valorTotalItens,
+      this.salvarPermitido,
+      this.vazio,
+      this.emitido,
+      this.diasCriacao,
+      this.salvarProibido});
 
   Pedido.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     descricao = json['descricao'];
-    dataHoraEntrega = json['dataHoraEntrega'];
+    dataHoraEntrega = DateTime.tryParse(json['dataHoraEntrega'].toString());
     valorFrete = json['valorFrete'];
     valorDesconto = json['valorDesconto'];
     valorTotal = json['valorTotal'];
@@ -64,12 +62,12 @@ class Pedido {
       });
     }
     cliente =
-    json['cliente'] != null ? new Cliente.fromJson(json['cliente']) : null;
+        json['cliente'] != null ? new Cliente.fromJson(json['cliente']) : null;
     loja = json['loja'] != null ? new Loja.fromJson(json['loja']) : null;
     statusPedido = json['statusPedido'];
     formaPagamento = json['formaPagamento'];
-    dataEntrega = json['dataEntrega'];
-    horarioEntrega = json['horarioEntrega'];
+    dataEntrega = DateTime.tryParse(json['dataEntrega'].toString());
+    horarioEntrega = DateTime.tryParse(json['horarioEntrega'].toString());
     novo = json['novo'];
     existente = json['existente'];
     valorTotalItens = json['valorTotalItens'];
@@ -84,7 +82,7 @@ class Pedido {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['descricao'] = this.descricao;
-    data['dataHoraEntrega'] = this.dataHoraEntrega;
+    data['dataHoraEntrega'] = this.dataHoraEntrega.toIso8601String();
     data['valorFrete'] = this.valorFrete;
     data['valorDesconto'] = this.valorDesconto;
     data['valorTotal'] = this.valorTotal;
@@ -99,8 +97,8 @@ class Pedido {
     }
     data['statusPedido'] = this.statusPedido;
     data['formaPagamento'] = this.formaPagamento;
-    data['dataEntrega'] = this.dataEntrega;
-    data['horarioEntrega'] = this.horarioEntrega;
+    data['dataEntrega'] = this.dataEntrega.toIso8601String();
+    data['horarioEntrega'] = this.horarioEntrega.toIso8601String();
     data['novo'] = this.novo;
     data['existente'] = this.existente;
     data['valorTotalItens'] = this.valorTotalItens;

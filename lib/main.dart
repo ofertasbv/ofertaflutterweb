@@ -22,6 +22,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
+import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/home/home.dart';
 
 void main() async {
@@ -44,6 +45,7 @@ void main() async {
   getIt.registerSingleton<TamanhoController>(TamanhoController());
   getIt.registerSingleton<CorController>(CorController());
   getIt.registerSingleton<FavoritoController>(FavoritoController());
+  getIt.registerSingleton<UsuarioController>(UsuarioController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -116,7 +118,7 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.white),
         ),
       ),
-      primaryIconTheme: IconThemeData(color: Colors.brown[500]),
+      primaryIconTheme: IconThemeData(color: Colors.grey[900]),
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
@@ -134,10 +136,10 @@ class MyApp extends StatelessWidget {
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.brown[300],
+        buttonColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30),
-          side: BorderSide(color: Colors.brown[500]),
+          side: BorderSide(color: Colors.transparent),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
