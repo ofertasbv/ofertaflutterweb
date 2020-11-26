@@ -144,77 +144,79 @@ class _ProdutoTabState extends State<ProdutoTab> {
       context: context,
       barrierDismissible: false, // user must tap button for close dialog!
       builder: (BuildContext context) {
-        return StatefulBuilder(builder: (context, setState) {
-          return AlertDialog(
-            title: Text("Filtro de pesquisa"),
-            content: Column(
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(0),
-                  color: Colors.white,
-                  height: 50,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Center(
-                        child: Checkbox(
-                          value: destaque,
-                          onChanged: (bool value) {
-                            setState(() {
-                              destaque = value;
-                              filter.destaque = destaque;
-                              print("Filter destaque: ${filter.destaque}");
-                            });
-                          },
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("Filtro de pesquisa"),
+              content: Column(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(0),
+                    color: Colors.white,
+                    height: 50,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Center(
+                          child: Checkbox(
+                            value: destaque,
+                            onChanged: (bool value) {
+                              setState(() {
+                                destaque = value;
+                                filter.destaque = destaque;
+                                print("Filter destaque: ${filter.destaque}");
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      Center(
-                        child: Text("Destaque"),
-                      ),
-                    ],
+                        Center(
+                          child: Text("Destaque"),
+                        ),
+                      ],
+                    ),
                   ),
+                ],
+              ),
+              actions: <Widget>[
+                RaisedButton.icon(
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Colors.white,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(35)),
+                  ),
+                  label: Text('CANCELAR'),
+                  color: Colors.grey,
+                  elevation: 0,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                RaisedButton.icon(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(color: Colors.orange[800]),
+                    borderRadius: BorderRadius.all(Radius.circular(35)),
+                  ),
+                  label: Text('APLICAR'),
+                  color: Colors.orange[800],
+                  elevation: 0,
+                  onPressed: () {
+                    produtoController.getFilter(filter);
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
-            ),
-            actions: <Widget>[
-              RaisedButton.icon(
-                icon: Icon(
-                  Icons.cancel,
-                  color: Colors.white,
-                ),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.all(Radius.circular(35)),
-                ),
-                label: Text('CANCELAR'),
-                color: Colors.grey,
-                elevation: 0,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              RaisedButton.icon(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.orange[800]),
-                  borderRadius: BorderRadius.all(Radius.circular(35)),
-                ),
-                label: Text('APLICAR'),
-                color: Colors.orange[800],
-                elevation: 0,
-                onPressed: () {
-                  produtoController.getFilter(filter);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
+            );
+          },
+        );
       },
     );
   }

@@ -10,6 +10,7 @@ import 'package:nosso/src/paginas/produto/produto_detalhes_info.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_view.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 
 class ProdutoDetalhesTab extends StatefulWidget {
   Produto p;
@@ -29,16 +30,15 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
   Animation<double> animation;
   static final scaleTween = Tween<double>(begin: 1.0, end: 1.5);
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorito = false;
 
-  Produto produto;
+  Produto p;
   var text = "";
 
   @override
   void initState() {
-    if (produto == null) {
-      produto = Produto();
+    if (p == null) {
+      p = Produto();
     }
     animationController = AnimationController(
       vsync: this,
@@ -65,28 +65,20 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
     animationController.dispose();
   }
 
-  void showDefaultSnackbar(BuildContext context, String content) {
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(content),
-        action: SnackBarAction(
-          label: "OK",
-          onPressed: () {},
-        ),
-      ),
-    );
+  showSnackbar(BuildContext context, String texto) {
+    final snackbar = SnackBar(content: Text(texto));
+    GlobalScaffold.instance.showSnackbar(snackbar);
   }
 
   @override
   Widget build(BuildContext context) {
-    produto = widget.p;
+    p = widget.p;
 
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        key: scaffoldKey,
         appBar: AppBar(
-          title: Text(produto.nome),
+          title: Text(p.nome),
           actions: <Widget>[
             CircleAvatar(
               backgroundColor: Colors.grey[300],
@@ -142,6 +134,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 ),
               ),
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -168,8 +161,8 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            ProdutoDetalhesView(produto),
-            ProdutoDetalhesInfo(produto),
+            ProdutoDetalhesView(p),
+            ProdutoDetalhesInfo(p),
           ],
         ),
         bottomNavigationBar: buildBottomNavigationBar(context),
@@ -227,12 +220,11 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 side: BorderSide(color: Colors.transparent),
               ),
               onPressed: () {
-                if (pedidoItemController.isExiste(produto)) {
-                  showDefaultSnackbar(context, "já existe este item");
+                if (pedidoItemController.isExiste(p)) {
+                  // showSnackbar(context, "Produto ${p.nome} já existe");
                 } else {
-                  pedidoItemController
-                      .adicionar(new PedidoItem(produto: produto));
-                  showDefaultSnackbar(context, "produto adicionado");
+                  pedidoItemController.adicionar(new PedidoItem(produto: p));
+                  // showSnackbar(context, "Produto ${p.nome} adicionado");
                   setState(() {
                     animationController.forward();
                   });

@@ -11,6 +11,7 @@ import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
+import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 
 class PedidoItensList extends StatefulWidget {
   @override
@@ -18,15 +19,19 @@ class PedidoItensList extends StatefulWidget {
 }
 
 class _PedidoItensListState extends State<PedidoItensList> {
-  final pedidoItemController = GetIt.I.get<PedidoItemController>();
-
-  final formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+  var pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   @override
   void initState() {
     pedidoItemController.pedidosItens();
     pedidoItemController.calculateTotal();
     super.initState();
+  }
+
+  showSnackbar(BuildContext context, String texto) {
+    final snackbar = SnackBar(content: Text(texto));
+    GlobalScaffold.instance.showSnackbar(snackbar);
   }
 
   @override
@@ -61,8 +66,6 @@ class _PedidoItensListState extends State<PedidoItensList> {
                     ),
                   ),
                   Text("Sua cesta está vazia"),
-                  SizedBox(height: 10),
-                  Text("Continue sua busca por produto"),
                   SizedBox(height: 20),
                   RaisedButton.icon(
                     onPressed: () {
@@ -358,6 +361,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                   pedidoItemController.itens;
                 });
 
+                showSnackbar(context, "Produto ${p.produto.nome} removido");
                 Navigator.of(context).pop();
               },
             ),

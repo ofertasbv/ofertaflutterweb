@@ -8,6 +8,8 @@ import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 
 class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
@@ -43,27 +45,18 @@ class ItemPage extends StatelessWidget {
       ),
       body: PedidoItensList(),
       bottomNavigationBar: buildBottomNavigationBar(context),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          SizedBox(
-            width: 8,
-            height: 8,
-          ),
-          FloatingActionButton(
-            elevation: 10,
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PedidoCreatePage(),
-                ),
-              );
-            },
-          )
-        ],
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProdutoTab(),
+            ),
+          );
+        },
       ),
     );
   }
@@ -87,14 +80,14 @@ class ItemPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
-              color: Colors.grey[200],
+              color: Colors.grey[400],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(
                       Icons.home,
-                      color: Colors.yellow[800],
+                      color: Colors.purple[800],
                     ),
                     SizedBox(
                       width: 4.0,
@@ -118,7 +111,7 @@ class ItemPage extends StatelessWidget {
                   ),
                 );
               },
-              color: Colors.grey[200],
+              color: Colors.grey[400],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +152,15 @@ class ItemPage extends StatelessWidget {
             flex: 1,
             child: RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return PedidoCreatePage();
+                    },
+                  ),
+                );
+              },
               color: Colors.yellow[800],
               child: Center(
                 child: Row(
