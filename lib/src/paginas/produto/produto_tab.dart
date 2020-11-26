@@ -43,8 +43,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.grey[100],
         appBar: AppBar(
+          elevation: 1,
           title: Text("Produtos"),
           actions: <Widget>[
             Observer(
@@ -60,19 +60,19 @@ class _ProdutoTabState extends State<ProdutoTab> {
                 }
 
                 return CircleAvatar(
-                  foregroundColor: Colors.redAccent,
                   backgroundColor: Colors.grey[300],
+                  foregroundColor: Colors.purple[800],
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
-                    style: TextStyle(color: Colors.redAccent),
+                    style: TextStyle(color: Colors.yellow[900]),
                   ),
                 );
               },
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              foregroundColor: Colors.redAccent,
               backgroundColor: Colors.grey[300],
+              foregroundColor: Colors.purple[800],
               child: IconButton(
                 icon: Icon(
                   Icons.tune,
@@ -84,8 +84,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              foregroundColor: Colors.redAccent,
               backgroundColor: Colors.grey[300],
+              foregroundColor: Colors.purple[800],
               child: IconButton(
                 icon: Icon(
                   CupertinoIcons.search,

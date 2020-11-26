@@ -30,7 +30,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
   var produtoController = GetIt.I.get<ProdutoController>();
   var favoritoController = GetIt.I.get<FavoritoController>();
 
-  final formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -168,14 +168,63 @@ class _ProdutoGridState extends State<ProdutoGrid>
             curve: Curves.bounceIn,
             child: Column(
               children: <Widget>[
-                Container(
-                  height: 150,
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: Image.network(
-                    produtoController.arquivo + p.foto,
-                    fit: BoxFit.cover,
-                  ),
+                Stack(
+                  children: [
+                    Container(
+                      height: 150,
+                      width: double.infinity,
+                      color: Colors.white,
+                      child: Image.network(
+                        produtoController.arquivo + p.foto,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, right: 10),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.grey[300],
+                          foregroundColor: Colors.redAccent,
+                          radius: 15,
+                          child: IconButton(
+                            splashColor: Colors.black,
+                            icon: (this.favorito.status == false
+                                ? Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.redAccent,
+                                    size: 15,
+                                  )
+                                : Icon(
+                                    Icons.favorite_outlined,
+                                    color: Colors.redAccent,
+                                    size: 15,
+                                  )),
+                            onPressed: () {
+                              setState(() {
+                                print("Favoritar: ${p.nome}");
+                                favoritar();
+                              });
+
+                              // if (favorito.id == null) {
+                              //   favorito.produto = p;
+                              //   favorito.status = isFavorito;
+                              //   favoritoController.create(favorito);
+                              //   print("Adicionar: ${p.nome}");
+                              // } else {
+                              //   favorito.produto = p;
+                              //   favorito.status = isFavorito;
+                              //   favoritoController.update(
+                              //       favorito.id, favorito);
+                              //   print("Alterar: ${p.nome}");
+                              //   showSnackbar(context, "favorito");
+                              // }
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -186,89 +235,41 @@ class _ProdutoGridState extends State<ProdutoGrid>
                       padding: EdgeInsets.all(8),
                       child: Text(
                         p.nome,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "De ${p.estoque.valor}0",
+                      child: ListTile(
+                        title: Text(
+                          "De ${formatMoeda.format(p.estoque.valor)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            decoration: TextDecoration.lineThrough,
+                            decorationStyle: TextDecorationStyle.dashed,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Chip(
+                          label: Text(
+                            "- ${formatMoeda.format(p.promocao.desconto)}",
                             style: TextStyle(
                               fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                              decorationStyle: TextDecorationStyle.dashed,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
-                            style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Chip(
-                            label: Text(
-                              "- ${p.promocao.desconto}%",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.grey[300],
-                            foregroundColor: Colors.redAccent,
-                            radius: 15,
-                            child: IconButton(
-                              splashColor: Colors.black,
-                              icon: (this.favorito.status == false
-                                  ? Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.redAccent,
-                                      size: 15,
-                                    )
-                                  : Icon(
-                                      Icons.favorite_outlined,
-                                      color: Colors.redAccent,
-                                      size: 15,
-                                    )),
-                              onPressed: () {
-                                setState(() {
-                                  print("Favoritar: ${p.nome}");
-                                  favoritar();
-                                });
-
-                                // if (favorito.id == null) {
-                                //   favorito.produto = p;
-                                //   favorito.status = isFavorito;
-                                //   favoritoController.create(favorito);
-                                //   print("Adicionar: ${p.nome}");
-                                // } else {
-                                //   favorito.produto = p;
-                                //   favorito.status = isFavorito;
-                                //   favoritoController.update(
-                                //       favorito.id, favorito);
-                                //   print("Alterar: ${p.nome}");
-                                //   showSnackbar(context, "favorito");
-                                // }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ],

@@ -6,7 +6,6 @@ import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
-import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
@@ -97,6 +96,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.shopping_basket_outlined,
@@ -130,6 +131,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.list_alt_outlined,
@@ -163,6 +166,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.list_alt_sharp,
@@ -196,6 +201,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.add_alert_outlined,
@@ -229,6 +236,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.shopping_bag_outlined,
@@ -262,6 +271,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.people_alt_outlined,
@@ -293,6 +304,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.account_circle_outlined,
@@ -324,6 +337,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.account_tree_outlined,
@@ -355,6 +370,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.photo_album_outlined,
@@ -386,6 +403,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.shopping_bag_outlined,
@@ -417,6 +436,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.shopping_basket_outlined,
@@ -448,6 +469,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.location_on_outlined,
@@ -479,6 +502,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.color_lens_outlined,
@@ -510,6 +535,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.format_size_outlined,
@@ -541,6 +568,8 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[100],
+                  foregroundColor: Colors.purple[800],
                   radius: 30,
                   child: Icon(
                     Icons.shopping_cart_outlined,

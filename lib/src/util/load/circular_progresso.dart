@@ -8,8 +8,8 @@ class CircularProgressor extends StatelessWidget {
         height: 150,
         width: 150,
         child: CircularProgressIndicator(
-          backgroundColor: Colors.grey[900],
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.orange[900]),
+          backgroundColor: Colors.purple[800],
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow[800]),
         ),
       ),
     );

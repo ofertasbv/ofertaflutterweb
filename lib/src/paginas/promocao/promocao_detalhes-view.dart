@@ -17,6 +17,7 @@ class PromocaoDetalhesView extends StatefulWidget {
 class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
   var selectedCard = 'WEIGHT';
   var promocaoController = GetIt.I.get<PromoCaoController>();
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
         ),
         Card(
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,12 +61,14 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
                   subtitle: Text(
                     p.descricao,
                   ),
-                  trailing: Text(
-                    "OFF ${p.desconto} %",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                  trailing: Chip(
+                    label: Text(
+                      "OFF ${formatMoeda.format(p.desconto)}",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),

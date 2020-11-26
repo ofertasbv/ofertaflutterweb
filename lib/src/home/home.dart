@@ -41,14 +41,14 @@ class _HomePageState extends State<HomePage>
         onWillPop: onBackPressed,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 1,
+            elevation: 0.4,
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
 
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.brown[500],
+                foregroundColor: Colors.purple[800],
                 child: IconButton(
                   icon: Icon(Icons.location_on_outlined),
                   onPressed: () {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.brown[500],
+                foregroundColor: Colors.purple[800],
                 child: IconButton(
                   icon: Icon(Icons.search_outlined),
                   onPressed: () {
@@ -76,26 +76,10 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               SizedBox(width: 10),
-              CircleAvatar(
-                backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.brown[500],
-                child: IconButton(
-                  icon: Icon(Icons.apps),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CatalogoMenu(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(width: 10),
               GestureDetector(
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.brown[500],
+                  foregroundColor: Colors.purple[800],
                   child: Stack(
                     alignment: Alignment.topRight,
                     children: <Widget>[

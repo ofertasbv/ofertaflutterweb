@@ -47,13 +47,13 @@ class DrawerList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
+                backgroundColor: Colors.grey[300],
+                foregroundColor: Colors.purple[900],
                 child: Icon(
                   Icons.account_circle,
                   size: 25,
-                  color: Colors.black,
                 ),
                 maxRadius: 15,
-                backgroundColor: Colors.brown[500],
               ),
               Container(
                 padding: EdgeInsets.all(10),

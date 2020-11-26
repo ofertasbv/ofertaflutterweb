@@ -25,6 +25,7 @@ class _ProdutoListState extends State<ProdutoList>
   _ProdutoListState({this.filter});
 
   var produtoController = GetIt.I.get<ProdutoController>();
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   ProdutoFilter filter;
   SubCategoria s;
@@ -113,10 +114,10 @@ class _ProdutoListState extends State<ProdutoList>
             ),
             title: Text(p.nome),
             subtitle: Text(
-              "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
+              "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
               style: TextStyle(
                   color: Colors.green,
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold),
             ),
             trailing: Container(

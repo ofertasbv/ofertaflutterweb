@@ -87,10 +87,10 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
-      accentColor: Colors.black,
+      accentColor: Colors.purple[800],
       primarySwatch: Colors.grey,
       appBarTheme: AppBarTheme(
-        elevation: 0.5,
+        elevation: 1,
         textTheme: TextTheme(
           headline6: TextStyle(
             color: Colors.brown[900],
@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: 'Reboto',
             bodyColor: Colors.black,
-            displayColor: Colors.brown,
+            displayColor: Colors.yellow[900],
           ),
       dialogTheme: DialogTheme(
         backgroundColor: Colors.grey[100],
@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.white),
         ),
       ),
-      primaryIconTheme: IconThemeData(color: Colors.grey[900]),
+      primaryIconTheme: IconThemeData(color: Colors.purple[800]),
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
@@ -136,42 +136,42 @@ class MyApp extends StatelessWidget {
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.black,
+        buttonColor: Colors.purple[800],
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(30),
+          borderRadius: new BorderRadius.circular(0),
           side: BorderSide(color: Colors.transparent),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
-        prefixStyle: TextStyle(color: Colors.brown[500]),
-        hintStyle: TextStyle(color: Colors.grey[900]),
+        prefixStyle: TextStyle(color: Colors.purple[800]),
+        hintStyle: TextStyle(color: Colors.purple[900]),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        focusColor: Colors.brown[500],
+        focusColor: Colors.purple[800],
         hoverColor: Colors.purple,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
       ),
       hintColor: Colors.brown[500],
       iconTheme: IconThemeData(
-        color: Colors.redAccent,
+        color: Colors.purple[800],
       ),
       snackBarTheme: SnackBarThemeData(
-        actionTextColor: Colors.grey,
-        backgroundColor: Colors.brown[500],
+        actionTextColor: Colors.black,
+        backgroundColor: Colors.green[500],
       ),
       scaffoldBackgroundColor: Colors.grey[100],
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
-        backgroundColor: Colors.brown[500],
+        backgroundColor: Colors.yellow[800],
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
-        selectedItemColor: Colors.brown[500],
+        selectedItemColor: Colors.purple[800],
         unselectedItemColor: Colors.black,
-        unselectedLabelStyle: TextStyle(color: Colors.brown[500]),
+        unselectedLabelStyle: TextStyle(color: Colors.purple[800]),
         backgroundColor: Colors.grey[100],
       ),
     );

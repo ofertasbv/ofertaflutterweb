@@ -29,7 +29,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
   Animation<double> animation;
   static final scaleTween = Tween<double>(begin: 1.0, end: 1.5);
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorito = false;
 
   Produto produto;
@@ -84,12 +84,13 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text(produto.nome),
           actions: <Widget>[
             CircleAvatar(
-              backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.brown[500],
+              backgroundColor: Colors.grey[300],
+              foregroundColor: Colors.purple[800],
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
                 onPressed: () {
@@ -103,8 +104,8 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             SizedBox(width: 10),
             GestureDetector(
               child: CircleAvatar(
-                backgroundColor: Colors.grey[200],
-                foregroundColor: Colors.brown[500],
+                backgroundColor: Colors.grey[300],
+                foregroundColor: Colors.purple[800],
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: <Widget>[
@@ -132,7 +133,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                         child: Center(
                           child: Text(
                             (pedidoItemController.itens.length ?? 0).toString(),
-                            style: TextStyle(color: Colors.deepOrangeAccent),
+                            style: TextStyle(color: Colors.yellow[900]),
                           ),
                         ),
                       ),
@@ -202,7 +203,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.black,
+              color: Colors.grey,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -226,17 +227,18 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 side: BorderSide(color: Colors.transparent),
               ),
               onPressed: () {
-                // if (pedidoItemController.isExiste(produto)) {
-                //   showDefaultSnackbar(context, "já existe este item");
-                // } else {
-                pedidoItemController
-                    .adicionar(new PedidoItem(produto: produto));
-                setState(() {
-                  animationController.forward();
-                });
-                // }
+                if (pedidoItemController.isExiste(produto)) {
+                  showDefaultSnackbar(context, "já existe este item");
+                } else {
+                  pedidoItemController
+                      .adicionar(new PedidoItem(produto: produto));
+                  showDefaultSnackbar(context, "produto adicionado");
+                  setState(() {
+                    animationController.forward();
+                  });
+                }
               },
-              color: Colors.orange[900],
+              color: Colors.yellow[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

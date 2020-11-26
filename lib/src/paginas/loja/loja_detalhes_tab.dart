@@ -59,7 +59,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
           actions: <Widget>[
             CircleAvatar(
               backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.orange[900],
+              foregroundColor: Colors.purple[800],
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
                 onPressed: () {
@@ -123,7 +123,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                   ),
                 );
               },
-              color: Colors.black,
+              color: Colors.grey,
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +155,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                   ),
                 );
               },
-              color: Colors.orange[900],
+              color: Colors.yellow[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

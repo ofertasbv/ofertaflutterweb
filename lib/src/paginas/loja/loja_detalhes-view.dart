@@ -44,7 +44,7 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
         ),
         Card(
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

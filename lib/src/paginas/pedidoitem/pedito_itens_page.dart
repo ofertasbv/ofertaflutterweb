@@ -201,7 +201,9 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                 Container(
                                   width: 110,
                                   height: 30,
-                                  color: Colors.grey[200],
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(35),
+                                      color: Colors.grey[200]),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -209,19 +211,22 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                         CrossAxisAlignment.stretch,
                                     children: <Widget>[
                                       SizedBox(
-                                        child: RaisedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              print("removendo - ");
-                                              print("${p.quantidade}");
-                                              pedidoItemController
-                                                  .decremento(p);
-                                              pedidoItemController
-                                                  .calculateTotal();
-                                            });
-                                          },
-                                          child: Text("-"),
-                                          elevation: 0,
+                                        child: CircleAvatar(
+                                          child: IconButton(
+                                            icon: Icon(Icons
+                                                .indeterminate_check_box_outlined),
+                                            splashColor: Colors.black,
+                                            onPressed: () {
+                                              setState(() {
+                                                print("removendo - ");
+                                                print("${p.quantidade}");
+                                                pedidoItemController
+                                                    .decremento(p);
+                                                pedidoItemController
+                                                    .calculateTotal();
+                                              });
+                                            },
+                                          ),
                                         ),
                                         width: 38,
                                       ),
@@ -234,19 +239,21 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                         ),
                                       ),
                                       SizedBox(
-                                        child: RaisedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              print("adicionando + ");
-                                              print("${p.quantidade}");
-                                              pedidoItemController
-                                                  .incremento(p);
-                                              pedidoItemController
-                                                  .calculateTotal();
-                                            });
-                                          },
-                                          child: Text("+"),
-                                          elevation: 0,
+                                        child: CircleAvatar(
+                                          child: IconButton(
+                                            icon: Icon(Icons.add),
+                                            splashColor: Colors.black,
+                                            onPressed: () {
+                                              setState(() {
+                                                print("adicionando + ");
+                                                print("${p.quantidade}");
+                                                pedidoItemController
+                                                    .incremento(p);
+                                                pedidoItemController
+                                                    .calculateTotal();
+                                              });
+                                            },
+                                          ),
                                         ),
                                         width: 38,
                                       ),
@@ -258,11 +265,11 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                   foregroundColor: Colors.redAccent,
                                   radius: 20,
                                   child: IconButton(
+                                    icon: Icon(Icons.delete_forever),
                                     splashColor: Colors.black,
                                     onPressed: () {
                                       showDialogAlert(context, p);
                                     },
-                                    icon: Icon(Icons.delete_forever),
                                   ),
                                 ),
                               ],
@@ -346,8 +353,11 @@ class _PedidoItensListState extends State<PedidoItensList> {
               color: Colors.yellow[800],
               elevation: 0,
               onPressed: () {
-                pedidoItemController.remove(p);
-                pedidoItemController.itens;
+                setState(() {
+                  pedidoItemController.remove(p);
+                  pedidoItemController.itens;
+                });
+
                 Navigator.of(context).pop();
               },
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:nosso/src/home/categoria_list_home.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/home/produto_list_home.dart';
@@ -43,43 +44,38 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
           ),
         ],
       ),
-      body: ListView(
+      body: Container(
         padding: EdgeInsets.all(0),
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                SizedBox(height: 5),
-                Container(
-                  height: 150,
-                  child: CategoriaListHome(),
-                ),
-                SizedBox(height: 5),
-                Card(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: Colors.grey[300],
-                        width: 2,
-                      ),
-                    ),
-                    height: 350,
-                    child: buildGridView(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 5),
+            Container(
+              height: 150,
+              child: CategoriaListHome(),
+            ),
+            SizedBox(height: 5),
+            Card(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Colors.grey[300],
+                    width: 2,
                   ),
                 ),
-                SizedBox(height: 5),
-                Container(
-                  height: 130,
-                  child: ProdutoListHome(),
-                ),
-              ],
+                height: 300,
+                child: buildGridView(context),
+              ),
             ),
-          )
-        ],
+            SizedBox(height: 5),
+            Container(
+              height: 130,
+              child: ProdutoListHome(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -110,90 +106,6 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
 
       scrollDirection: Axis.vertical,
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LeitorQRCode();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.qr_code,
-                  size: 30,
-                ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "QR code",
-              ),
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LeitorCodigoBarra();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.aspect_ratio,
-                  size: 30,
-                ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "Cod de barra",
-              ),
-            ],
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LojaLocation();
-                },
-              ),
-            );
-          },
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.map,
-                  size: 30,
-                ),
-                padding: EdgeInsets.all(20),
-              ),
-              Text(
-                "Locais",
-              ),
-            ],
-          ),
-        ),
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(
