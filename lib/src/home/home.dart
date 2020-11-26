@@ -15,6 +15,7 @@ import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
+import 'package:nosso/src/paginas/usuario/usuario_list.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: WillPopScope(
         onWillPop: onBackPressed,
         child: Scaffold(
@@ -140,23 +141,16 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket_outlined),
-                title: Text(
-                  'produto',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.local_convenience_store_outlined),
-                title: Text(
-                  'loja',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.add_alert_outlined),
                 title: Text(
                   'oferta',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle_outlined),
+                title: Text(
+                  'conta',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -231,9 +225,8 @@ class _HomePageState extends State<HomePage>
   List lista = [
     CatalogoHome(),
     CategoriaList(),
-    ProdutoList(),
-    LojaList(),
     PromocaoList(),
+    UsuarioList(),
   ];
 
   changeIndex(int index) {

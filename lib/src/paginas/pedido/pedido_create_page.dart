@@ -6,9 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/pedido_controller.dart';
+import 'package:nosso/src/core/controller/usuario_controller.dart';
+import 'package:nosso/src/core/model/cliente.dart';
+import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/pedido.dart';
+import 'package:nosso/src/core/model/pedidoitem.dart';
+import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -28,10 +34,16 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
 
   var pedidoController = GetIt.I.get<PedidoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var usuarioController = GetIt.I.get<UsuarioController>();
+  var lojaController = GetIt.I.get<LojaController>();
 
   Dialogs dialogs = Dialogs();
 
   Pedido p;
+  Usuario cliente;
+  Usuario loja;
+  Loja l;
+  Cliente c;
   String formaPagamento;
   String statusPedido;
 
@@ -43,6 +55,10 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
   void initState() {
     if (p == null) {
       p = Pedido();
+      cliente = Usuario();
+      loja = Usuario();
+      l = Loja();
+      c = Cliente();
     }
     super.initState();
   }
@@ -53,6 +69,16 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
   void didChangeDependencies() {
     controller = Controller();
     super.didChangeDependencies();
+  }
+
+  buscarClienteByEmail(String email) async {
+    cliente = await usuarioController.getEmail(email);
+    return cliente;
+  }
+
+  buscarLojaByEmail(String email) async {
+    loja = await usuarioController.getEmail(email);
+    return loja;
   }
 
   showToast(String cardTitle) {
@@ -488,6 +514,12 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
               if (p.id == null) {
                 dialogs.information(context, "prepando para o cadastro...");
                 Timer(Duration(seconds: 3), () {
+                  buscarClienteByEmail("projetogdados@gmail.com");
+                  buscarLojaByEmail("lojadauris@gmail.com");
+
+                  print("Cliente: ${c.nome}");
+                  // print("Loja: ${loja.email}");
+
                   print("Descrição: ${p.descricao}");
                   print("Desconto: ${p.valorDesconto}");
                   print("Frete: ${p.valorFrete}");
@@ -498,6 +530,10 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                   print("Data da entrega: ${p.dataEntrega}");
                   print("Data e hora da entrega: ${p.dataHoraEntrega}");
                   print("Hora entrega: ${p.horarioEntrega}");
+
+                  for (PedidoItem item in pedidoItemController.itens) {
+                    print("Produto: ${item.produto.nome}");
+                  }
 
                   // pedidoController.create(p);
                   // Navigator.of(context).pop();

@@ -134,19 +134,19 @@ class _PedidoItensListState extends State<PedidoItensList> {
                           ConstantApi.urlArquivoProduto + p.produto.foto,
                           fit: BoxFit.cover,
                           width: 100,
-                          height: 110,
+                          height: 130,
                         ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            height: containerHeight,
+                            height: 40,
                             width: containerWidth,
                             child: Text(
                               p.produto.nome,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -361,7 +361,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                   pedidoItemController.itens;
                 });
 
-                showSnackbar(context, "Produto ${p.produto.nome} removido");
+                // showSnackbar(context, "Produto ${p.produto.nome} removido");
                 Navigator.of(context).pop();
               },
             ),
