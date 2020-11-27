@@ -64,10 +64,25 @@ class _DialogCategoriaState extends State<DialogCategoria> {
           children: [
             GestureDetector(
               child: ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.grey[200],
-                  radius: 30,
-                  child: Icon(Icons.check_outlined),
+                leading: Container(
+                  padding: EdgeInsets.all(1),
+                  decoration: new BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.purple, Colors.grey[900]],
+                    ),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    radius: 15,
+                    backgroundImage: NetworkImage(
+                      "${categoriaController.arquivo + c.foto}",
+                    ),
+                  ),
                 ),
                 title: Text(c.nome),
               ),

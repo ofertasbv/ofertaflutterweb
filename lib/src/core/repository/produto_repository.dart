@@ -24,7 +24,7 @@ class ProdutoRepository {
   Future<List<Produto>> getAll() async {
     try {
       print("carregando produtos");
-      var response = await dio.client.get("/produtos/pesquisa");
+      var response = await dio.client.get("/produtos");
       return (response.data as List).map((c) => Produto.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);

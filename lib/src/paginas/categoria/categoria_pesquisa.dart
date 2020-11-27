@@ -68,10 +68,10 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.amber[900], Colors.brown[900]],
+                    colors: [Colors.purple, Colors.grey[900]],
                   ),
                   border: Border.all(
-                    color: Colors.brown[500],
+                    color: Colors.black,
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(35),

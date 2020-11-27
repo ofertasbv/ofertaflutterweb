@@ -122,12 +122,12 @@ class MyApp extends StatelessWidget {
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
-        elevation: 0,
-        color: Colors.grey[100],
-        margin: EdgeInsets.all(0),
+        elevation: 1,
+        color: Colors.white,
+        margin: EdgeInsets.all(2),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(4),
-          side: BorderSide(color: Colors.grey[100], width: 1),
+          borderRadius: new BorderRadius.circular(2),
+          side: BorderSide(color: Colors.white, width: 1),
         ),
       ),
       buttonTheme: ButtonThemeData(

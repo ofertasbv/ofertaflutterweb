@@ -76,7 +76,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "destaque",
+                    "Prouduto em destaque",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
@@ -99,7 +99,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ),
             SizedBox(height: 10),
             Container(
-              height: 130,
+              height: 200,
               padding: EdgeInsets.all(2),
               child: ProdutoListHome(),
             ),

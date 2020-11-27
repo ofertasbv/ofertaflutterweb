@@ -202,11 +202,11 @@ class _ProdutoTabState extends State<ProdutoTab> {
                     color: Colors.white,
                   ),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.orange[800]),
+                    side: BorderSide(color: Colors.yellow[800]),
                     borderRadius: BorderRadius.all(Radius.circular(35)),
                   ),
                   label: Text('APLICAR'),
-                  color: Colors.orange[800],
+                  color: Colors.yellow[800],
                   elevation: 0,
                   onPressed: () {
                     produtoController.getFilter(filter);

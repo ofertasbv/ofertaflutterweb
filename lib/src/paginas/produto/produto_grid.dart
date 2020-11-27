@@ -238,6 +238,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
@@ -254,9 +255,10 @@ class _ProdutoGridState extends State<ProdutoGrid>
                         subtitle: Text(
                           "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
                           style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.green,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         trailing: Chip(
                           label: Text(

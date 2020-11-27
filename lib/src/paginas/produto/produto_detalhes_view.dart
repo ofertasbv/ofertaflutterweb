@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
@@ -31,6 +32,8 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isFavorito = false;
+
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   Produto produto;
   Favorito favorito;
@@ -112,11 +115,14 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
             child: ListTile(
               title: Text(
                 p.nome,
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               subtitle: Text(
-                "Cód. ${p.id}",
-                style: TextStyle(fontSize: 20),
+                "Código. ${p.id}",
+                style: TextStyle(fontSize: 16),
               ),
               trailing: CircleAvatar(
                 backgroundColor: Colors.grey[300],
@@ -160,34 +166,76 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
           ),
         ),
         Card(
-          elevation: 0.2,
-          child: ListTile(
-            isThreeLine: true,
-            title: Text(
-              "De ${p.estoque.valor}0",
-              style: TextStyle(
-                fontSize: 14,
-                decoration: TextDecoration.lineThrough,
-                decorationStyle: TextDecorationStyle.dashed,
-              ),
-            ),
-            subtitle: Text(
-              "R\$ ${p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100)}0",
-              style: TextStyle(
-                  fontSize: 26,
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold),
-            ),
-            trailing: Chip(
-              label: Text(
-                "- ${p.promocao.desconto}%",
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+          child: Column(
+            children: [
+              Container(
+                child: ListTile(
+                  title: Text(
+                    "Departamento",
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "${p.subCategoria.nome}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: Chip(
+                    label: p.status == true
+                        ? Text(
+                            "produto disponivel",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Text(
+                            "produto indisponivel",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.redAccent,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  ),
                 ),
               ),
-            ),
+              Container(
+                child: ListTile(
+                  title: Text(
+                    "De ${formatMoeda.format(p.estoque.valor)}",
+                    style: TextStyle(
+                      fontSize: 14,
+                      decoration: TextDecoration.lineThrough,
+                      decorationStyle: TextDecorationStyle.dashed,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                    style: TextStyle(
+                      fontSize: 26,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: Chip(
+                    label: Text(
+                      "- ${formatMoeda.format(p.promocao.desconto)}%",
+                      style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

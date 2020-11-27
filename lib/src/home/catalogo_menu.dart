@@ -51,9 +51,11 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 5),
-            Container(
-              height: 150,
-              child: CategoriaListHome(),
+            Card(
+              child: Container(
+                height: 150,
+                child: CategoriaListHome(),
+              ),
             ),
             SizedBox(height: 5),
             Card(
