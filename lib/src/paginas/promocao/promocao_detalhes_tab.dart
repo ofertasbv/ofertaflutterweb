@@ -7,6 +7,7 @@ import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_detalhes-view.dart';
 import 'package:nosso/src/paginas/promocao/promocao_detalhes_info.dart';
+import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 
 class PromocaoDetalhesTab extends StatefulWidget {
   Promocao p;
@@ -117,7 +118,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ProdutoTab();
+                      return PromocaoPage();
                     },
                   ),
                 );
@@ -131,7 +132,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("MAIS"),
+                    Text("MAIS OFERTAS"),
                   ],
                 ),
               ),
@@ -163,7 +164,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("LISTA DE DESEJO"),
+                    Text("PRODUTOS"),
                   ],
                 ),
               ),

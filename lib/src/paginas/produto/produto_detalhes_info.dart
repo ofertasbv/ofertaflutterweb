@@ -64,12 +64,6 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
                       ),
                       Divider(),
                       ListTile(
-                        title: Text("Desconto"),
-                        subtitle: Text("R\$ ${p.desconto}"),
-                        trailing: Icon(Icons.check_outlined),
-                      ),
-                      Divider(),
-                      ListTile(
                         title: Text("Quantidade"),
                         subtitle: Text("${p.estoque.quantidade}"),
                         trailing: Icon(Icons.check_outlined),

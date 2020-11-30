@@ -145,61 +145,63 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),
-            child: AnimatedContainer(
-              width: 90,
-              height: 150,
-              duration: Duration(seconds: 1),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    c.nome == selectedCard
-                        ? Colors.purple[200]
-                        : Colors.grey[200],
-                    c.nome == selectedCard
-                        ? Colors.purple[200]
-                        : Colors.grey[200],
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(1),
-                    decoration: new BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.purple, Colors.grey[900]],
-                      ),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(35),
-                    ),
-                    child: CircleAvatar(
-                      backgroundColor: Colors.grey[100],
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        "${categoriaController.arquivo + c.foto}",
-                      ),
-                    ),
+            child: Card(
+              child: AnimatedContainer(
+                width: 90,
+                height: 150,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      c.nome == selectedCard
+                          ? Colors.purple[200]
+                          : Colors.white,
+                      c.nome == selectedCard
+                          ? Colors.purple[200]
+                          : Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
                   ),
-                  SizedBox(height: 0),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(5),
-                    height: 40,
-                    width: containerWidth,
-                    child: Text(
-                      c.nome.toLowerCase(),
-                      style: TextStyle(color: Colors.grey[900]),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: new BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.purple, Colors.grey[900]],
+                        ),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.grey[100],
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          "${categoriaController.arquivo + c.foto}",
+                        ),
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(height: 0),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(5),
+                      height: 40,
+                      width: containerWidth,
+                      child: Text(
+                        c.nome.toLowerCase(),
+                        style: TextStyle(color: Colors.grey[900]),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -305,7 +307,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return SubCategoriaProduto(
-                    s: c, c: c.categoria,
+                    s: c,
+                    c: c.categoria,
                   );
                 },
               ),

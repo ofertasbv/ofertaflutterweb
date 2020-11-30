@@ -45,10 +45,10 @@ abstract class ProdutoControllerBase with Store {
   String mensagem;
 
   @observable
-  ObservableList<Cor> coresSelecionada = ObservableList<Cor>();
+  List<Cor> corSelecionadas = List<Cor>();
 
   @observable
-  ObservableList<Tamanho> tamanhosSelecionada = ObservableList<Tamanho>();
+  List<Tamanho> tamanhoSelecionados = List<Tamanho>();
 
   @observable
   bool status = false;
@@ -146,7 +146,7 @@ abstract class ProdutoControllerBase with Store {
   @action
   void addCores(Cor cor) {
     try {
-      coresSelecionada.add(cor);
+      corSelecionadas.add(cor);
     } catch (e) {
       error = e;
     }
@@ -155,7 +155,7 @@ abstract class ProdutoControllerBase with Store {
   @action
   void addTamanhos(Tamanho tamanho) {
     try {
-      tamanhosSelecionada.add(tamanho);
+      tamanhoSelecionados.add(tamanho);
     } catch (e) {
       error = e;
     }
@@ -164,7 +164,7 @@ abstract class ProdutoControllerBase with Store {
   @action
   void removerCores(Cor cor) {
     try {
-      coresSelecionada.remove(cor);
+      corSelecionadas.remove(cor);
     } catch (e) {
       error = e;
     }
@@ -173,7 +173,25 @@ abstract class ProdutoControllerBase with Store {
   @action
   void removerTamanhos(Tamanho tamanho) {
     try {
-      tamanhosSelecionada.remove(tamanho);
+      tamanhoSelecionados.remove(tamanho);
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void limparCores() {
+    try {
+      corSelecionadas.clear();
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  void limparTamanhos() {
+    try {
+      tamanhoSelecionados.clear();
     } catch (e) {
       error = e;
     }

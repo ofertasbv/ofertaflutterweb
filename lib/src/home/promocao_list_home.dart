@@ -81,55 +81,57 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4),
-            child: AnimatedContainer(
-              width: containerWidth,
-              duration: Duration(seconds: 1),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.grey[200],
-                    Colors.grey[200],
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+            padding: EdgeInsets.symmetric(horizontal: 2),
+            child: Card(
+              child: AnimatedContainer(
+                width: containerWidth,
+                duration: Duration(seconds: 1),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white,
+                      Colors.white,
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.white),
                 ),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.grey[200], width: 1),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[200],
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                        bottomRight: Radius.circular(0),
-                        bottomLeft: Radius.circular(0),
-                      ),
-                      child: Image.network(
-                        promocaoController.arquivo + p.foto,
-                        fit: BoxFit.cover,
-                        width: containerWidth,
-                        height: 200,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      color: Colors.grey[200],
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                          bottomRight: Radius.circular(0),
+                          bottomLeft: Radius.circular(0),
+                        ),
+                        child: Image.network(
+                          promocaoController.arquivo + p.foto,
+                          fit: BoxFit.cover,
+                          width: containerWidth,
+                          height: 200,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 0),
-                  Container(
-                      padding: EdgeInsets.all(2),
-                      width: containerWidth,
-                      color: Colors.transparent,
-                      child: ListTile(
-                        title: Text(
-                          p.nome,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        subtitle: Text(p.descricao),
-                      )),
-                ],
+                    SizedBox(height: 0),
+                    Container(
+                        padding: EdgeInsets.all(2),
+                        width: containerWidth,
+                        color: Colors.transparent,
+                        child: ListTile(
+                          title: Text(
+                            p.nome,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          subtitle: Text(p.descricao),
+                        )),
+                  ],
+                ),
               ),
             ),
           ),

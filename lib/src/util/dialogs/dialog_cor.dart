@@ -7,6 +7,10 @@ import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class DialogCor extends StatefulWidget {
+  List<Cor> cores;
+
+  DialogCor(this.cores);
+
   @override
   _DialogCorState createState() => _DialogCorState();
 }
@@ -68,16 +72,49 @@ class _DialogCorState extends State<DialogCor> {
         Cor c = cores[index];
 
         return CheckboxListTile(
-          value: produtoController.coresSelecionada.contains(cores[index]),
+          value: produtoController.corSelecionadas.contains(cores[index]),
           onChanged: (bool select) {
             clicadoCor = select;
             onSelectedCor(clicadoCor, c);
             print("Clicado: ${clicadoCor} - ${c.descricao}");
-            for (Cor c in produtoController.coresSelecionada) {
+            for (Cor c in produtoController.corSelecionadas) {
               print("Lista: ${c.descricao}");
             }
           },
           title: Text("${c.descricao}"),
+        );
+      },
+    );
+  }
+}
+
+class AlertCor {
+  alert(BuildContext context, List<Cor> cores) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: DialogCor(cores),
+          ),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("cancelar"),
+            ),
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("ok"),
+            )
+          ],
         );
       },
     );

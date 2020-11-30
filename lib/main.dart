@@ -124,9 +124,9 @@ class MyApp extends StatelessWidget {
       cardTheme: CardTheme(
         elevation: 1,
         color: Colors.white,
-        margin: EdgeInsets.all(2),
+        margin: EdgeInsets.all(1),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(2),
+          borderRadius: new BorderRadius.circular(5),
           side: BorderSide(color: Colors.white, width: 1),
         ),
       ),
@@ -138,7 +138,7 @@ class MyApp extends StatelessWidget {
         alignedDropdown: true,
         buttonColor: Colors.purple[800],
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(0),
+          borderRadius: new BorderRadius.circular(35),
           side: BorderSide(color: Colors.transparent),
         ),
       ),

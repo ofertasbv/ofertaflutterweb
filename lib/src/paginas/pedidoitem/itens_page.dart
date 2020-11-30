@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
@@ -14,6 +15,15 @@ import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 20,
+      fontSize: 16.0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,13 +163,18 @@ class ItemPage extends StatelessWidget {
             child: RaisedButton(
               elevation: 0,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return PedidoCreatePage();
-                    },
-                  ),
-                );
+                if (pedidoItemController.itens.isEmpty) {
+                  showToast("seu carrinho está vazio!");
+                  print("seu carrinho está vazio!");
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return PedidoCreatePage();
+                      },
+                    ),
+                  );
+                }
               },
               color: Colors.yellow[800],
               child: Center(

@@ -7,6 +7,9 @@ import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class DialogTamanho extends StatefulWidget {
+
+
+
   @override
   _DialogTamanhoState createState() => _DialogTamanhoState();
 }
@@ -69,12 +72,12 @@ class _DialogTamanhoState extends State<DialogTamanho> {
 
         return CheckboxListTile(
           value:
-              produtoController.tamanhosSelecionada.contains(tamanhos[index]),
+              produtoController.tamanhoSelecionados.contains(tamanhos[index]),
           onChanged: (bool select) {
             clicadoTamanho = select;
             onSelectedTamanho(clicadoTamanho, c);
             print("Clicado: ${clicadoTamanho} - ${c.descricao}");
-            for (Tamanho t in produtoController.tamanhosSelecionada) {
+            for (Tamanho t in produtoController.tamanhoSelecionados) {
               print("Lista: ${t.descricao}");
             }
           },
@@ -84,3 +87,31 @@ class _DialogTamanhoState extends State<DialogTamanho> {
     );
   }
 }
+
+class AlertTamanho {
+  alert(BuildContext context, List<Tamanho> tamanhos) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: DialogTamanho(),
+          ),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("ok"),
+            )
+          ],
+        );
+      },
+    );
+  }
+}
+

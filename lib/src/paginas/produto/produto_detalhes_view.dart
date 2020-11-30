@@ -94,10 +94,10 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
 
   buildContainer(Produto p) {
     return ListView(
-      padding: EdgeInsets.all(0),
       children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1,
+        Container(
+          height: 350,
+          width: double.infinity,
           child: p.arquivos.isNotEmpty
               ? Carousel(
                   autoplay: false,
@@ -218,16 +218,16 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   subtitle: Text(
                     "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
                     style: TextStyle(
-                      fontSize: 26,
+                      fontSize: 20,
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: Chip(
                     label: Text(
-                      "- ${formatMoeda.format(p.promocao.desconto)}%",
+                      "- ${formatMoeda.format(p.promocao.desconto)}",
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 20,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),

@@ -56,6 +56,13 @@ class _LojaDetalhesInfoState extends State<LojaDetalhesInfo> {
                       ),
                       Divider(),
                       ListTile(
+                        title: Text("CNPJ"),
+                        subtitle: Text("${p.cnpj}"),
+                        trailing: Icon(Icons.check_outlined),
+                        leading: Icon(Icons.textsms_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
                         title: Text("Data Registro"),
                         subtitle: Text("${dateFormat.format(p.dataRegistro)}"),
                         trailing: Icon(Icons.check_outlined),
@@ -66,7 +73,7 @@ class _LojaDetalhesInfoState extends State<LojaDetalhesInfo> {
                         title: Text("Endereço"),
                         subtitle: Text("${p.enderecos[0].logradouro}"),
                         trailing: Icon(Icons.check_outlined),
-                        leading: Icon(Icons.monetization_on_outlined),
+                        leading: Icon(Icons.location_on_outlined),
                       ),
                     ],
                   ),

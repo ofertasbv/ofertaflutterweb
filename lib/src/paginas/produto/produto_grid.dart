@@ -203,7 +203,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                             onPressed: () {
                               setState(() {
                                 print("Favoritar: ${p.nome}");
-                                favoritar();
+                                // favoritar();
                               });
 
                               // if (favorito.id == null) {
@@ -231,13 +231,13 @@ class _ProdutoGridState extends State<ProdutoGrid>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      height: 50,
-                      padding: EdgeInsets.all(8),
+                      height: 60,
+                      padding: EdgeInsets.all(10),
                       child: Text(
                         p.nome,
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

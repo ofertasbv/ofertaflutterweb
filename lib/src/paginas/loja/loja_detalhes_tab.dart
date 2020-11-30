@@ -132,7 +132,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("MAIS"),
+                    Text("MAIS LOJAS"),
                   ],
                 ),
               ),
@@ -164,7 +164,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text("LISTA DE DESEJO"),
+                    Text("PRODUTOS"),
                   ],
                 ),
               ),

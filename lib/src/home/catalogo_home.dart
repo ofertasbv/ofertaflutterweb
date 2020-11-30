@@ -24,7 +24,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
           children: <Widget>[
             Container(
               height: 160,
-              padding: EdgeInsets.all(2),
+              padding: EdgeInsets.all(0),
               child: CategoriaListHome(),
             ),
           ],
@@ -33,12 +33,12 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "ofertas",
+                    "Ofertas em destaque",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
@@ -71,7 +71,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
         Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -100,7 +100,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             SizedBox(height: 10),
             Container(
               height: 200,
-              padding: EdgeInsets.all(2),
+              padding: EdgeInsets.all(0),
               child: ProdutoListHome(),
             ),
           ],

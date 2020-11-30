@@ -19,18 +19,22 @@ import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
+import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
+import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/util/componets/dropdown_cor.dart';
 import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/componets/dropdown_marca.dart';
 import 'package:nosso/src/util/componets/dropdown_promocao.dart';
 import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
+import 'package:nosso/src/util/componets/dropdown_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialog_cor.dart';
 import 'package:nosso/src/util/dialogs/dialog_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -73,6 +77,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   Loja lojaSelecionada;
   Promocao promocaoSelecionada;
   Marca marcaSelecionada;
+  List<Cor> coreSelecionados;
+  List<Tamanho> tamanhoSelecionados;
 
   Controller controller;
   var controllerCodigoBarra = TextEditingController();
@@ -121,10 +127,11 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
       subCategoriaController.subCategoriaSelecionada = p.subCategoria;
       marcaController.marcaSelecionada = p.marca;
       promocaoController.promocaoSelecionada = p.promocao;
+      // produtoController.corSelecionadas = p.cores;
+      // produtoController.tamanhoSelecionados = p.tamanhos;
 
       controllerQuantidade.text = p.estoque.quantidade.toStringAsFixed(0);
       controllerValor.text = p.estoque.valor.toStringAsFixed(2);
-      controllerDesconto.text = p.desconto.toStringAsFixed(2);
     }
 
     produtoController.getAll();
@@ -306,6 +313,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     p.subCategoria = subCategoriaController.subCategoriaSelecionada;
     p.marca = marcaController.marcaSelecionada;
     p.promocao = promocaoController.promocaoSelecionada;
+    // p.tamanhos = produtoController.tamanhoSelecionados;
+    // p.cores = produtoController.corSelecionadas;
 
     return ListView(
       children: <Widget>[
@@ -358,7 +367,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     ),
                   ),
                 ),
-                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   color: Colors.grey[300],
@@ -636,32 +644,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           maxLength: 6,
                         ),
                         SizedBox(height: 10),
-                        TextFormField(
-                          controller: controllerDesconto,
-                          onSaved: (value) =>
-                              p.desconto = double.tryParse(value),
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Desconto",
-                            hintText: "R\$ ",
-                            prefixIcon: Icon(
-                              Icons.money,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 10,
-                        ),
-                        SizedBox(height: 10),
                         DateTimeField(
                           initialValue: p.dataRegistro,
                           format: dateFormat,
@@ -844,47 +826,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         },
                       ),
                       SizedBox(height: 10),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: ExpansionTile(
-                            leading: Icon(Icons.format_size_outlined),
-                            title: Text("Tamanho"),
-                            children: [
-                              Container(
-                                height: 400,
-                                padding: EdgeInsets.all(5),
-                                child: DialogTamanho(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      DropDownCor(coreSelecionados),
+                      SizedBox(height: 10),
+                      DropDownTamanho(tamanhoSelecionados),
                       SizedBox(height: 20),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: ExpansionTile(
-                            leading: Icon(Icons.color_lens_outlined),
-                            title: Text("Cores"),
-                            children: [
-                              Container(
-                                height: 400,
-                                padding: EdgeInsets.all(5),
-                                child: DialogCor(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -1130,7 +1075,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Produto: ${p.nome}");
                     print("Quantidade: ${p.estoque.quantidade}");
                     print("Valor: ${p.estoque.valor}");
-                    print("Desconto: ${p.desconto}");
 
                     print("Novo: ${p.novo}");
                     print("Status: ${p.status}");
@@ -1142,6 +1086,17 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Data: ${p.dataRegistro}");
                     print("Agora: ${agora}");
 
+                    for (Cor c in corController.cores) {
+                      print("Cores: ${c.descricao}");
+                    }
+
+                    for (Tamanho c in tamanhoController.tamanhos) {
+                      print("Tamanhos: ${c.descricao}");
+                    }
+
+                    p.cores.addAll(produtoController.corSelecionadas);
+                    p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+
                     produtoController.create(p);
                     Navigator.of(context).pop();
                     buildPush(context);
@@ -1150,7 +1105,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-
+                    DateTime agora = DateTime.now();
+                    
                     print("Loja: ${p.loja.nome}");
                     print("SubCategoria: ${p.subCategoria.nome}");
                     print("Marca: ${p.marca.nome}");
@@ -1161,7 +1117,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Produto: ${p.nome}");
                     print("Quantidade: ${p.estoque.quantidade}");
                     print("Valor: ${p.estoque.valor}");
-                    print("Desconto: ${p.desconto}");
 
                     print("Novo: ${p.novo}");
                     print("Status: ${p.status}");
@@ -1170,10 +1125,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     print("Medida: ${p.medida}");
                     print("Origem: ${p.origem}");
 
+                    for (Cor c in produtoController.corSelecionadas) {
+                      print("Cores: ${c.descricao}");
+                    }
+
+                    for (Tamanho c in produtoController.tamanhoSelecionados) {
+                      print("Tamanhos: ${c.descricao}");
+                    }
+
+                    p.cores.addAll(produtoController.corSelecionadas);
+                    p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+
                     p.estoque.quantidade =
                         int.tryParse(controllerQuantidade.text);
                     p.estoque.valor = double.tryParse(controllerValor.text);
-                    p.desconto = double.tryParse(controllerDesconto.text);
 
                     produtoController.update(p.id, p);
                     Navigator.of(context).pop();

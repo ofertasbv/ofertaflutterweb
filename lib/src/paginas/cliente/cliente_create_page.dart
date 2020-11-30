@@ -275,7 +275,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                     ),
                   ),
                 ),
-                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   color: Colors.grey[300],
@@ -548,39 +547,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           keyboardType: TextInputType.phone,
                           inputFormatters: [maskFormatterCelular],
                         ),
-                        SizedBox(height: 10),
-                        DateTimeField(
-                          initialValue: p.dataRegistro,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataRegistro = value,
-                          decoration: InputDecoration(
-                            labelText: "data registro",
-                            hintText: "99-09-9999",
-                            prefixIcon:
-                                Icon(Icons.calendar_today, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
                       ],
                     ),
                   ),
@@ -667,6 +633,10 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                 if (p.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
+                    DateTime agora = DateTime.now();
+                    p.dataRegistro = agora;
+
+
                     print("Pessoa: ${p.tipoPessoa}");
                     print("Nome: ${p.nome}");
                     print("CPF: ${p.cpf}");
@@ -683,6 +653,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
+                    DateTime agora = DateTime.now();
+                    p.dataRegistro = agora;
+
                     print("Pessoa: ${p.tipoPessoa}");
                     print("Nome: ${p.nome}");
                     print("CPF: ${p.cpf}");

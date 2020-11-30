@@ -6,6 +6,7 @@ import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_perfil.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 import 'package:nosso/src/util/sobre/sobre_page.dart';
 
@@ -107,7 +108,7 @@ class DrawerList extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return LojaPage();
+                  return UsuarioPerfil();
                 },
               ),
             );

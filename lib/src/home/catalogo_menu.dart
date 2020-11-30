@@ -51,29 +51,21 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 5),
-            Card(
-              child: Container(
-                height: 150,
-                child: CategoriaListHome(),
-              ),
+            Container(
+              height: 150,
+              child: CategoriaListHome(),
             ),
-            SizedBox(height: 5),
             Card(
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Colors.grey[300],
-                    width: 2,
-                  ),
+                  border: Border.all(color: Colors.white),
                 ),
-                height: 300,
+                height: 250,
                 child: buildGridView(context),
               ),
             ),
-            SizedBox(height: 5),
-            Container(
-              height: 130,
+            Expanded(
               child: ProdutoListHome(),
             ),
           ],
