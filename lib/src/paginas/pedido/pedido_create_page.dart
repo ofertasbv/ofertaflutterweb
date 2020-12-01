@@ -158,343 +158,331 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.descricao,
+                        onSaved: (value) => p.descricao = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Descrição",
+                          hintText: "Descrição",
+                          prefixIcon: Icon(Icons.edit, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
+                        //initialValue: c.nome,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        onSaved: (value) {
+                          p.valorDesconto = double.tryParse(value);
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Desconto",
+                          hintText: "Desconto",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        onSaved: (value) {
+                          p.valorFrete = double.tryParse(value);
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Frete",
+                          hintText: "frete",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        onSaved: (value) {
+                          p.valorTotal = double.tryParse(value);
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Valor Total",
+                          hintText: "Valor total",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      DateTimeField(
+                        initialValue: p.dataEntrega,
+                        format: dateFormat,
+                        validator: (value) =>
+                            value == null ? "campo obrigário" : null,
+                        onSaved: (value) => p.dataEntrega = value,
+                        decoration: InputDecoration(
+                          labelText: "data da entrega",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      DateTimeField(
+                        initialValue: p.dataHoraEntrega,
+                        format: dateFormat,
+                        validator: (value) =>
+                            value == null ? "campo obrigário" : null,
+                        onSaved: (value) => p.dataHoraEntrega = value,
+                        decoration: InputDecoration(
+                          labelText: "data e hora da entrega",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      DateTimeField(
+                        initialValue: p.horarioEntrega,
+                        format: dateFormat,
+                        validator: (value) =>
+                            value == null ? "campo obrigário" : null,
+                        onSaved: (value) => p.horarioEntrega = value,
+                        decoration: InputDecoration(
+                          labelText: "hora da entrega",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(Icons.calendar_today),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
                     padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
                     child: Column(
                       children: <Widget>[
-                        TextFormField(
-                          initialValue: p.descricao,
-                          onSaved: (value) => p.descricao = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "Descrição",
-                            prefixIcon: Icon(Icons.edit, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Forma de pagamento"),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("BOLETO BANCARIO"),
+                              value: "BOLETO_BANCARIO",
+                              groupValue: p.formaPagamento == null
+                                  ? p.formaPagamento = formaPagamento
+                                  : p.formaPagamento,
+                              secondary:
+                                  const Icon(Icons.picture_as_pdf_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.formaPagamento = valor;
+                                  print("Pagamento: " + p.formaPagamento);
+                                });
+                              },
                             ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
-                          //initialValue: c.nome,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          onSaved: (value) {
-                            p.valorDesconto = double.tryParse(value);
-                          },
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Desconto",
-                            hintText: "Desconto",
-                            prefixIcon: Icon(
-                              Icons.monetization_on_outlined,
-                              color: Colors.grey,
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("TRANSFERENCIA BANCARIA"),
+                              value: "TRANSFERENCIA_BANCARIA",
+                              groupValue: p.formaPagamento == null
+                                  ? p.formaPagamento = formaPagamento
+                                  : p.formaPagamento,
+                              secondary: const Icon(Icons.local_atm),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.formaPagamento = valor;
+                                  print("Pagamento: " + p.formaPagamento);
+                                });
+                              },
                             ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          onSaved: (value) {
-                            p.valorFrete = double.tryParse(value);
-                          },
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Frete",
-                            hintText: "frete",
-                            prefixIcon: Icon(
-                              Icons.monetization_on_outlined,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          onSaved: (value) {
-                            p.valorTotal = double.tryParse(value);
-                          },
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Valor Total",
-                            hintText: "Valor total",
-                            prefixIcon: Icon(
-                              Icons.monetization_on_outlined,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                        ),
-                        SizedBox(height: 10),
-                        DateTimeField(
-                          initialValue: p.dataEntrega,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataEntrega = value,
-                          decoration: InputDecoration(
-                            labelText: "data da entrega",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        DateTimeField(
-                          initialValue: p.dataHoraEntrega,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataHoraEntrega = value,
-                          decoration: InputDecoration(
-                            labelText: "data e hora da entrega",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        DateTimeField(
-                          initialValue: p.horarioEntrega,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.horarioEntrega = value,
-                          decoration: InputDecoration(
-                            labelText: "hora da entrega",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
                     padding: EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Forma de pagamento"),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("BOLETO BANCARIO"),
-                                value: "BOLETO_BANCARIO",
-                                groupValue: p.formaPagamento == null
-                                    ? p.formaPagamento = formaPagamento
-                                    : p.formaPagamento,
-                                secondary:
-                                    const Icon(Icons.picture_as_pdf_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.formaPagamento = valor;
-                                    print("Pagamento: " + p.formaPagamento);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("TRANSFERENCIA BANCARIA"),
-                                value: "TRANSFERENCIA_BANCARIA",
-                                groupValue: p.formaPagamento == null
-                                    ? p.formaPagamento = formaPagamento
-                                    : p.formaPagamento,
-                                secondary: const Icon(Icons.local_atm),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.formaPagamento = valor;
-                                    print("Pagamento: " + p.formaPagamento);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Status do pedido"),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("EMITIDA"),
-                                value: "EMITIDA",
-                                groupValue: p.statusPedido == null
-                                    ? p.statusPedido = statusPedido
-                                    : p.statusPedido,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.statusPedido = valor;
-                                    print("STATUS: " + p.statusPedido);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("ORCAMENTO"),
-                                value: "ORCAMENTO",
-                                groupValue: p.statusPedido == null
-                                    ? p.statusPedido = statusPedido
-                                    : p.statusPedido,
-                                secondary: const Icon(Icons.local_atm),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.statusPedido = valor;
-                                    print("STATUS: " + p.statusPedido);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("CANCELADA"),
-                                value: "CANCELADA",
-                                groupValue: p.statusPedido == null
-                                    ? p.statusPedido = statusPedido
-                                    : p.statusPedido,
-                                secondary:
-                                    const Icon(Icons.delete_forever_sharp),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.statusPedido = valor;
-                                    print("STATUS: " + p.statusPedido);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Status do pedido"),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("EMITIDA"),
+                              value: "EMITIDA",
+                              groupValue: p.statusPedido == null
+                                  ? p.statusPedido = statusPedido
+                                  : p.statusPedido,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.statusPedido = valor;
+                                  print("STATUS: " + p.statusPedido);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("ORCAMENTO"),
+                              value: "ORCAMENTO",
+                              groupValue: p.statusPedido == null
+                                  ? p.statusPedido = statusPedido
+                                  : p.statusPedido,
+                              secondary: const Icon(Icons.local_atm),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.statusPedido = valor;
+                                  print("STATUS: " + p.statusPedido);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("CANCELADA"),
+                              value: "CANCELADA",
+                              groupValue: p.statusPedido == null
+                                  ? p.statusPedido = statusPedido
+                                  : p.statusPedido,
+                              secondary: const Icon(Icons.delete_forever_sharp),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.statusPedido = valor;
+                                  print("STATUS: " + p.statusPedido);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -503,64 +491,69 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (p.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  buscarClienteByEmail("projetogdados@gmail.com");
-                  buscarLojaByEmail("lojadauris@gmail.com");
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    buscarClienteByEmail("projetogdados@gmail.com");
+                    buscarLojaByEmail("lojadauris@gmail.com");
 
-                  print("Cliente: ${c.nome}");
-                  // print("Loja: ${loja.email}");
+                    print("Cliente: ${c.nome}");
+                    // print("Loja: ${loja.email}");
 
-                  print("Descrição: ${p.descricao}");
-                  print("Desconto: ${p.valorDesconto}");
-                  print("Frete: ${p.valorFrete}");
+                    print("Descrição: ${p.descricao}");
+                    print("Desconto: ${p.valorDesconto}");
+                    print("Frete: ${p.valorFrete}");
 
-                  print("Pagamento: ${p.formaPagamento}");
-                  print("Status: ${p.statusPedido}");
+                    print("Pagamento: ${p.formaPagamento}");
+                    print("Status: ${p.statusPedido}");
 
-                  print("Data da entrega: ${p.dataEntrega}");
-                  print("Data e hora da entrega: ${p.dataHoraEntrega}");
-                  print("Hora entrega: ${p.horarioEntrega}");
+                    print("Data da entrega: ${p.dataEntrega}");
+                    print("Data e hora da entrega: ${p.dataHoraEntrega}");
+                    print("Hora entrega: ${p.horarioEntrega}");
 
-                  for (PedidoItem item in pedidoItemController.itens) {
-                    print("Produto: ${item.produto.nome}");
-                  }
+                    for (PedidoItem item in pedidoItemController.itens) {
+                      print("Produto: ${item.produto.nome}");
+                    }
 
-                  // pedidoController.create(p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
-              } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 3), () {
-                  print("Descrição: ${p.descricao}");
-                  print("Desconto: ${p.valorDesconto}");
-                  print("Frete: ${p.valorFrete}");
+                    // pedidoController.create(p);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    print("Descrição: ${p.descricao}");
+                    print("Desconto: ${p.valorDesconto}");
+                    print("Frete: ${p.valorFrete}");
 
-                  print("Pagamento: ${p.formaPagamento}");
-                  print("Status: ${p.statusPedido}");
+                    print("Pagamento: ${p.formaPagamento}");
+                    print("Status: ${p.statusPedido}");
 
-                  print("Data da entrega: ${p.dataEntrega}");
-                  print("Data e hora da entrega: ${p.dataHoraEntrega}");
-                  print("Hora entrega: ${p.horarioEntrega}");
+                    print("Data da entrega: ${p.dataEntrega}");
+                    print("Data e hora da entrega: ${p.dataHoraEntrega}");
+                    print("Hora entrega: ${p.horarioEntrega}");
 
-                  // pedidoController.update(p.id, p);
-                  // Navigator.of(context).pop();
-                  // buildPush(context);
-                });
+                    // pedidoController.update(p.id, p);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
+                  });
+                }
               }
-            }
-          },
+            },
+          ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

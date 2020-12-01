@@ -71,7 +71,7 @@ class _PedidoListState extends State<PedidoList>
                 ),
                 border: Border.all(
                   color: Colors.black,
-                  width: 2,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),

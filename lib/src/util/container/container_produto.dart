@@ -20,7 +20,7 @@ class ContainerProduto extends StatelessWidget {
         duration: Duration(seconds: 1),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.white),
         ),
         child: Column(

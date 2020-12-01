@@ -353,264 +353,250 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                   ],
                 ),
                 SizedBox(height: 20),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        children: <Widget>[
-                          Text("Dados Pessoais"),
-                          SizedBox(height: 15),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("PESSOA FISICA"),
-                                value: "FISICA",
-                                groupValue: p.tipoPessoa == null
-                                    ? p.tipoPessoa = tipoPessoa
-                                    : p.tipoPessoa,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.tipoPessoa = valor;
-                                    print("resultado: " + p.tipoPessoa);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("PESSOA JURIDICA"),
-                                value: "JURIDICA",
-                                groupValue: p.tipoPessoa == null
-                                    ? p.tipoPessoa = tipoPessoa
-                                    : p.tipoPessoa,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.tipoPessoa = valor;
-                                    print("resultado: " + p.tipoPessoa);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 15),
-                          Text("Genero sexual"),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("MASCULINO"),
-                                value: "MASCULINO",
-                                groupValue:
-                                    p.sexo == null ? p.sexo = sexo : p.sexo,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.sexo = valor;
-                                    print("sexo: " + p.sexo);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("FEMININO"),
-                                value: "FEMININO",
-                                groupValue:
-                                    p.sexo == null ? p.sexo = sexo : p.sexo,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.sexo = valor;
-                                    print("sexo: " + p.sexo);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("OUTRO"),
-                                value: "OUTRO",
-                                groupValue:
-                                    p.sexo == null ? p.sexo = sexo : p.sexo,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.sexo = valor;
-                                    print("sexo: " + p.sexo);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
                     padding: EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
-                        TextFormField(
-                          initialValue: p.nome,
-                          onSaved: (value) => p.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Nome",
-                            hintText: "nome",
-                            prefixIcon: Icon(Icons.people, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                        ),
-                        TextFormField(
-                          initialValue: p.cpf,
-                          onSaved: (value) => p.cpf = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "cpf",
-                            hintText: "cpf",
-                            prefixIcon:
-                                Icon(Icons.contact_mail, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          inputFormatters: [maskFormatterCPF],
-                          keyboardType: TextInputType.number,
-                          maxLength: 14,
-                        ),
-                        TextFormField(
-                          initialValue: p.telefone,
-                          onSaved: (value) => p.telefone = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Telefone",
-                            hintText: "Telefone celular",
-                            prefixIcon: Icon(Icons.phone, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [maskFormatterCelular],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: p.usuario.email,
-                          onSaved: (value) => p.usuario.email = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Email",
-                            hintText: "Email",
-                            prefixIcon: Icon(Icons.email, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          initialValue: p.usuario.senha,
-                          onSaved: (value) => p.usuario.senha = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Senha",
-                            hintText: "Senha",
-                            prefixIcon:
-                                Icon(Icons.security, color: Colors.grey),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.visibility, color: Colors.grey),
-                              onPressed: () {
-                                clienteController.visualizarSenha();
+                        Text("Dados Pessoais"),
+                        SizedBox(height: 15),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("PESSOA FISICA"),
+                              value: "FISICA",
+                              groupValue: p.tipoPessoa == null
+                                  ? p.tipoPessoa = tipoPessoa
+                                  : p.tipoPessoa,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.tipoPessoa = valor;
+                                  print("resultado: " + p.tipoPessoa);
+                                });
                               },
                             ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("PESSOA JURIDICA"),
+                              value: "JURIDICA",
+                              groupValue: p.tipoPessoa == null
+                                  ? p.tipoPessoa = tipoPessoa
+                                  : p.tipoPessoa,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.tipoPessoa = valor;
+                                  print("resultado: " + p.tipoPessoa);
+                                });
+                              },
                             ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          obscureText: !clienteController.senhaVisivel,
-                          maxLength: 8,
+                          ],
                         ),
                       ],
                     ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 15),
+                        Text("Genero sexual"),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("MASCULINO"),
+                              value: "MASCULINO",
+                              groupValue:
+                                  p.sexo == null ? p.sexo = sexo : p.sexo,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.sexo = valor;
+                                  print("sexo: " + p.sexo);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("FEMININO"),
+                              value: "FEMININO",
+                              groupValue:
+                                  p.sexo == null ? p.sexo = sexo : p.sexo,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.sexo = valor;
+                                  print("sexo: " + p.sexo);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("OUTRO"),
+                              value: "OUTRO",
+                              groupValue:
+                                  p.sexo == null ? p.sexo = sexo : p.sexo,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.sexo = valor;
+                                  print("sexo: " + p.sexo);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.nome,
+                        onSaved: (value) => p.nome = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          hintText: "nome",
+                          prefixIcon: Icon(Icons.people, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                      ),
+                      TextFormField(
+                        initialValue: p.cpf,
+                        onSaved: (value) => p.cpf = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "cpf",
+                          hintText: "cpf",
+                          prefixIcon:
+                              Icon(Icons.contact_mail, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        inputFormatters: [maskFormatterCPF],
+                        keyboardType: TextInputType.number,
+                        maxLength: 14,
+                      ),
+                      TextFormField(
+                        initialValue: p.telefone,
+                        onSaved: (value) => p.telefone = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Telefone",
+                          hintText: "Telefone celular",
+                          prefixIcon: Icon(Icons.phone, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [maskFormatterCelular],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.usuario.email,
+                        onSaved: (value) => p.usuario.email = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          hintText: "Email",
+                          prefixIcon: Icon(Icons.email, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: p.usuario.senha,
+                        onSaved: (value) => p.usuario.senha = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Senha",
+                          hintText: "Senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            onPressed: () {
+                              clienteController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !clienteController.senhaVisivel,
+                        maxLength: 8,
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 0),
@@ -619,59 +605,61 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (p.foto == null) {
-                openBottomSheet(context);
-              } else {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    DateTime agora = DateTime.now();
-                    p.dataRegistro = agora;
-
-
-                    print("Pessoa: ${p.tipoPessoa}");
-                    print("Nome: ${p.nome}");
-                    print("CPF: ${p.cpf}");
-                    print("Telefone: ${p.telefone}");
-                    print("DataRegistro: ${p.dataRegistro}");
-                    print("Email: ${p.usuario.email}");
-                    print("Senha: ${p.usuario.senha}");
-
-                    clienteController.create(p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    DateTime agora = DateTime.now();
-                    p.dataRegistro = agora;
+                  if (p.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      DateTime agora = DateTime.now();
+                      p.dataRegistro = agora;
 
-                    print("Pessoa: ${p.tipoPessoa}");
-                    print("Nome: ${p.nome}");
-                    print("CPF: ${p.cpf}");
-                    print("Telefone: ${p.telefone}");
-                    print("DataRegistro: ${p.dataRegistro}");
-                    print("Email: ${p.usuario.email}");
-                    print("Senha: ${p.usuario.senha}");
+                      print("Pessoa: ${p.tipoPessoa}");
+                      print("Nome: ${p.nome}");
+                      print("CPF: ${p.cpf}");
+                      print("Telefone: ${p.telefone}");
+                      print("DataRegistro: ${p.dataRegistro}");
+                      print("Email: ${p.usuario.email}");
+                      print("Senha: ${p.usuario.senha}");
 
-                    clienteController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+                      clienteController.create(p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      DateTime agora = DateTime.now();
+                      p.dataRegistro = agora;
+
+                      print("Pessoa: ${p.tipoPessoa}");
+                      print("Nome: ${p.nome}");
+                      print("CPF: ${p.cpf}");
+                      print("Telefone: ${p.telefone}");
+                      print("DataRegistro: ${p.dataRegistro}");
+                      print("Email: ${p.usuario.email}");
+                      print("Senha: ${p.usuario.senha}");
+
+                      clienteController.update(p.id, p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
         SizedBox(height: 20),
       ],

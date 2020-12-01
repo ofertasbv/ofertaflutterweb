@@ -77,7 +77,7 @@ class _ClienteListState extends State<ClienteList>
                 ),
                 border: Border.all(
                   color: Colors.black,
-                  width: 2,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),

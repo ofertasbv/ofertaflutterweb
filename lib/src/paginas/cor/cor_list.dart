@@ -78,7 +78,7 @@ class _CorListState extends State<CorList>
                 ),
                 border: Border.all(
                   color: Colors.black,
-                  width: 2,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),

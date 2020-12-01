@@ -72,7 +72,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
                   ),
                   border: Border.all(
                     color: Colors.black,
-                    width: 2,
+                    width: 1,
                   ),
                   borderRadius: BorderRadius.circular(35),
                 ),

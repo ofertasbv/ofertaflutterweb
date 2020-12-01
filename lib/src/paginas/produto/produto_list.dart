@@ -72,7 +72,7 @@ class _ProdutoListState extends State<ProdutoList>
 
           return RefreshIndicator(
             onRefresh: onRefresh,
-            child: builderList(produtos),
+            child: builderListProduto(produtos),
           );
         },
       ),
@@ -126,11 +126,11 @@ class _ProdutoListState extends State<ProdutoList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.amber[900], Colors.brown[900]],
+                  colors: [Colors.purple, Colors.grey[900]],
                 ),
                 border: Border.all(
-                  color: Colors.brown[500],
-                  width: 2,
+                  color: Colors.black,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),

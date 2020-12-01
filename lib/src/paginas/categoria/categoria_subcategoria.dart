@@ -95,8 +95,8 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           children: <Widget>[
             SizedBox(height: 5),
             Container(
-              height: 150,
-              padding: EdgeInsets.all(2),
+              height: 155,
+              padding: EdgeInsets.all(0),
               child: builderConteudoListCategoria(),
             ),
             Expanded(
@@ -144,7 +144,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: Card(
               child: AnimatedContainer(
                 width: 90,
@@ -163,7 +163,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -177,7 +177,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                         ),
                         border: Border.all(
                           color: Colors.black,
-                          width: 2,
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(35),
                       ),
@@ -282,7 +282,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   ),
                   border: Border.all(
                     color: Colors.black,
-                    width: 2,
+                    width: 1,
                   ),
                   borderRadius: BorderRadius.circular(35),
                 ),

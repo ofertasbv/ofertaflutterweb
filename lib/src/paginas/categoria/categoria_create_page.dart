@@ -204,13 +204,13 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(0),
-          color: Colors.grey[300],
           child: Form(
             key: controller.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
+                  color: Colors.grey[300],
                   child: GestureDetector(
                     onTap: () {
                       openBottomSheet(context);
@@ -247,8 +247,8 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ),
                   ),
                 ),
-                Divider(),
                 Container(
+                  color: Colors.grey[300],
                   padding: EdgeInsets.all(5),
                   child: Column(
                     children: <Widget>[
@@ -303,7 +303,8 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                           Container(
                             child: ListTile(
                               title: Text("fileDownloadUri"),
-                              subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
+                              subtitle:
+                                  Text("${uploadFileResponse.fileDownloadUri}"),
                             ),
                           ),
                           Container(
@@ -324,82 +325,82 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   ],
                 ),
                 SizedBox(height: 20),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: c.nome,
-                          onSaved: (value) => c.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Nome",
-                            hintText: "nome categoria",
-                            prefixIcon: Icon(
-                              Icons.edit,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            labelStyle: TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: c.nome,
+                        onSaved: (value) => c.nome = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          hintText: "nome categoria",
+                          prefixIcon: Icon(
+                            Icons.edit,
+                            color: Colors.grey,
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
-                          //initialValue: c.nome,
+                          suffixIcon: Icon(Icons.close),
+                          labelStyle: TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
+                        //initialValue: c.nome,
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
         ),
-
         SizedBox(height: 10),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (c.foto == null) {
-                openBottomSheet(context);
-              } else {
-                if (c.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    categoriaController.create(c).then((categoria) {
-                      var resultado = categoria;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (c.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    categoriaController.update(c.id, c);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+                  if (c.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      categoriaController.create(c).then((categoria) {
+                        var resultado = categoria;
+                        print("resultado : ${resultado}");
+                      });
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      categoriaController.update(c.id, c);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
       ],
     );

@@ -87,7 +87,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
       children: <Widget>[
         Container(
           height: 200,
-          color: Colors.grey[400],
+          color: Colors.grey[200],
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,

@@ -112,7 +112,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                     end: Alignment.bottomCenter,
                   ),
                   border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +126,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                         ),
                         border: Border.all(
                           color: Colors.black,
-                          width: 2,
+                          width: 1,
                         ),
                         borderRadius: BorderRadius.circular(35),
                       ),

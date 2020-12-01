@@ -95,7 +95,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: Colors.white),
                 ),
                 child: Column(

@@ -16,6 +16,8 @@ import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
 import 'package:nosso/src/paginas/usuario/usuario_list.dart';
+import 'package:nosso/src/paginas/usuario/usuario_perfil.dart';
+import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -226,7 +228,7 @@ class _HomePageState extends State<HomePage>
     CatalogoHome(),
     CategoriaList(),
     PromocaoList(),
-    UsuarioList(),
+    UsuarioPerfil(),
   ];
 
   changeIndex(int index) {

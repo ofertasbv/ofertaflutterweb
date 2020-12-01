@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
       accentColor: Colors.purple[800],
-      primarySwatch: Colors.grey,
+      primarySwatch: Colors.purple,
       appBarTheme: AppBarTheme(
         elevation: 1,
         textTheme: TextTheme(
@@ -122,11 +122,11 @@ class MyApp extends StatelessWidget {
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
-        elevation: 1,
+        elevation: 0.2,
         color: Colors.white,
-        margin: EdgeInsets.all(1),
+        margin: EdgeInsets.all(2),
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(5),
+          borderRadius: new BorderRadius.circular(10),
           side: BorderSide(color: Colors.white, width: 1),
         ),
       ),

@@ -102,38 +102,36 @@ class _PedidoItemCreatePageState extends State<PedidoItemCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: p.quantidade.toString(),
-                          // onSaved: (value) => p.quantidade = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "exe: CADASTRO_ROLE",
-                            prefixIcon: Icon(Icons.edit, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.quantidade.toString(),
+                        // onSaved: (value) => p.quantidade = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Descrição",
+                          hintText: "exe: CADASTRO_ROLE",
+                          prefixIcon: Icon(Icons.edit, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
-                          //initialValue: c.nome,
                         ),
-                      ],
-                    ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
+                        //initialValue: c.nome,
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -141,32 +139,37 @@ class _PedidoItemCreatePageState extends State<PedidoItemCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (p.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  pedidoItemController.create(p);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
-              } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 3), () {
-                  pedidoItemController.update(p.id, p);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    pedidoItemController.create(p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    pedidoItemController.update(p.id, p);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-            }
-          },
+            },
+          ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

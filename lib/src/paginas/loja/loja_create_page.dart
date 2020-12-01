@@ -27,8 +27,7 @@ class LojaCreatePage extends StatefulWidget {
   LojaCreatePage({Key key, this.loja}) : super(key: key);
 
   @override
-  _LojaCreatePageState createState() =>
-      _LojaCreatePageState(p: this.loja);
+  _LojaCreatePageState createState() => _LojaCreatePageState(p: this.loja);
 }
 
 class _LojaCreatePageState extends State<LojaCreatePage> {
@@ -280,7 +279,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     ),
                   ),
                 ),
-                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   color: Colors.grey[300],
@@ -359,356 +357,348 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                   ],
                 ),
                 SizedBox(height: 20),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        children: <Widget>[
-                          SizedBox(height: 15),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("PESSOA FISICA"),
-                                value: "FISICA",
-                                groupValue: p.tipoPessoa == null
-                                    ? p.tipoPessoa = tipoPessoa
-                                    : p.tipoPessoa,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.tipoPessoa = valor;
-                                    print("resultado: " + p.tipoPessoa);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("PESSOA JURIDICA"),
-                                value: "JURIDICA",
-                                groupValue: p.tipoPessoa == null
-                                    ? p.tipoPessoa = tipoPessoa
-                                    : p.tipoPessoa,
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.tipoPessoa = valor;
-                                    print("Pessoa: " + p.tipoPessoa);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                ),
-                Card(
-                  child: Container(
                     padding: EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
-                        TextFormField(
-                          initialValue: p.nome,
-                          onSaved: (value) => p.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Nome",
-                            hintText: "nome",
-                            prefixIcon: Icon(Icons.people, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                        ),
-                        TextFormField(
-                          initialValue: p.razaoSocial,
-                          onSaved: (value) => p.razaoSocial = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Razão social ",
-                            hintText: "razão social",
-                            prefixIcon: Icon(Icons.people, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                        ),
-                        TextFormField(
-                          initialValue: p.cnpj,
-                          onSaved: (value) => p.cnpj = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Cnpj",
-                            hintText: "Cnpj",
-                            prefixIcon:
-                                Icon(Icons.contact_mail, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [maskFormatterCNPJ],
-                          maxLength: 17,
-                        ),
-                        TextFormField(
-                          initialValue: p.telefone,
-                          onSaved: (value) => p.telefone = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Telefone",
-                            hintText: "Telefone celular",
-                            prefixIcon: Icon(Icons.phone, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.phone,
-                          inputFormatters: [maskFormatterCelular],
-                        ),
-                        SizedBox(height: 20),
-                        DateTimeField(
-                          initialValue: p.dataRegistro,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataRegistro = value,
-                          decoration: InputDecoration(
-                            labelText: "data registro",
-                            hintText: "99-09-9999",
-                            prefixIcon:
-                                Icon(Icons.calendar_today, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: p.usuario.email,
-                          onSaved: (value) => p.usuario.email = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Email",
-                            hintText: "Email",
-                            prefixIcon: Icon(Icons.email, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          initialValue: p.usuario.senha,
-                          onSaved: (value) => p.usuario.senha = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Senha",
-                            hintText: "Senha",
-                            prefixIcon:
-                                Icon(Icons.security, color: Colors.grey),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.visibility, color: Colors.grey),
-                              onPressed: () {
-                                lojaController.visualizarSenha();
+                        SizedBox(height: 15),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("PESSOA FISICA"),
+                              value: "FISICA",
+                              groupValue: p.tipoPessoa == null
+                                  ? p.tipoPessoa = tipoPessoa
+                                  : p.tipoPessoa,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.tipoPessoa = valor;
+                                  print("resultado: " + p.tipoPessoa);
+                                });
                               },
                             ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("PESSOA JURIDICA"),
+                              value: "JURIDICA",
+                              groupValue: p.tipoPessoa == null
+                                  ? p.tipoPessoa = tipoPessoa
+                                  : p.tipoPessoa,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.tipoPessoa = valor;
+                                  print("Pessoa: " + p.tipoPessoa);
+                                });
+                              },
                             ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          obscureText: !lojaController.senhaVisivel,
-                          maxLength: 8,
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 0),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DropDownEndereco(e),
-                      Observer(
-                        builder: (context) {
-                          if (enderecoController.enderecoSelecionado == null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: enderecoController.mensagem == null
-                                    ? Text(
-                                        "campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${enderecoController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.nome,
+                        onSaved: (value) => p.nome = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          hintText: "nome",
+                          prefixIcon: Icon(Icons.people, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                      ),
+                      TextFormField(
+                        initialValue: p.razaoSocial,
+                        onSaved: (value) => p.razaoSocial = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Razão social ",
+                          hintText: "razão social",
+                          prefixIcon: Icon(Icons.people, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                      ),
+                      TextFormField(
+                        initialValue: p.cnpj,
+                        onSaved: (value) => p.cnpj = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Cnpj",
+                          hintText: "Cnpj",
+                          prefixIcon:
+                              Icon(Icons.contact_mail, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [maskFormatterCNPJ],
+                        maxLength: 17,
+                      ),
+                      TextFormField(
+                        initialValue: p.telefone,
+                        onSaved: (value) => p.telefone = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Telefone",
+                          hintText: "Telefone celular",
+                          prefixIcon: Icon(Icons.phone, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [maskFormatterCelular],
+                      ),
+                      SizedBox(height: 20),
+                      DateTimeField(
+                        initialValue: p.dataRegistro,
+                        format: dateFormat,
+                        validator: (value) =>
+                            value == null ? "campo obrigário" : null,
+                        onSaved: (value) => p.dataRegistro = value,
+                        decoration: InputDecoration(
+                          labelText: "data registro",
+                          hintText: "99-09-9999",
+                          prefixIcon:
+                              Icon(Icons.calendar_today, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
                           );
                         },
                       ),
                     ],
                   ),
                 ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.usuario.email,
+                        onSaved: (value) => p.usuario.email = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          hintText: "Email",
+                          prefixIcon: Icon(Icons.email, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: 20),
+                      TextFormField(
+                        initialValue: p.usuario.senha,
+                        onSaved: (value) => p.usuario.senha = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Senha",
+                          hintText: "Senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            onPressed: () {
+                              lojaController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !lojaController.senhaVisivel,
+                        maxLength: 8,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DropDownEndereco(e),
+                    Observer(
+                      builder: (context) {
+                        if (enderecoController.enderecoSelecionado == null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: enderecoController.mensagem == null
+                                  ? Text(
+                                      "campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${enderecoController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (p.foto == null) {
-                openBottomSheet(context);
-              } else {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    print("Pessoa: ${p.tipoPessoa}");
-                    print("Nome: ${p.nome}");
-                    print("Rasão social: ${p.razaoSocial}");
-                    print("Cnpj: ${p.cnpj}");
-                    print("Telefone: ${p.telefone}");
-                    print("DataRegistro: ${p.dataRegistro}");
-                    print("Email: ${p.usuario.email}");
-                    print("Senha: ${p.usuario.senha}");
-
-                    // p.enderecos.add(enderecoController.enderecoSelecionado);
-
-                    lojaController.create(p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    print("Pessoa: ${p.tipoPessoa}");
-                    print("Nome: ${p.nome}");
-                    print("Rasão social: ${p.razaoSocial}");
-                    print("Cnpj: ${p.cnpj}");
-                    print("Telefone: ${p.telefone}");
-                    print("DataRegistro: ${p.dataRegistro}");
-                    print("Email: ${p.usuario.email}");
-                    print("Senha: ${p.usuario.senha}");
+                  if (p.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      print("Pessoa: ${p.tipoPessoa}");
+                      print("Nome: ${p.nome}");
+                      print("Rasão social: ${p.razaoSocial}");
+                      print("Cnpj: ${p.cnpj}");
+                      print("Telefone: ${p.telefone}");
+                      print("DataRegistro: ${p.dataRegistro}");
+                      print("Email: ${p.usuario.email}");
+                      print("Senha: ${p.usuario.senha}");
 
-                    p.enderecos.add(enderecoController.enderecoSelecionado);
+                      // p.enderecos.add(enderecoController.enderecoSelecionado);
 
-                    lojaController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+                      lojaController.create(p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      print("Pessoa: ${p.tipoPessoa}");
+                      print("Nome: ${p.nome}");
+                      print("Rasão social: ${p.razaoSocial}");
+                      print("Cnpj: ${p.cnpj}");
+                      print("Telefone: ${p.telefone}");
+                      print("DataRegistro: ${p.dataRegistro}");
+                      print("Email: ${p.usuario.email}");
+                      print("Senha: ${p.usuario.senha}");
+
+                      p.enderecos.add(enderecoController.enderecoSelecionado);
+
+                      lojaController.update(p.id, p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
         SizedBox(height: 20),
       ],

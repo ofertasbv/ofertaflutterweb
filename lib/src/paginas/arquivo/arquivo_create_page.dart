@@ -250,7 +250,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     ),
                   ),
                 ),
-                Divider(),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Column(
@@ -331,40 +330,43 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
           ],
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (a.foto == null) {
-                openBottomSheet(context);
-              } else {
-                if (a.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    print("Foto : ${a.foto}");
-
-                    arquivoController.create(a);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (a.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    print("Foto : ${a.foto}");
+                  if (a.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      print("Foto : ${a.foto}");
 
-                    arquivoController.update(a.id, a);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+                      arquivoController.create(a);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      print("Foto : ${a.foto}");
+
+                      arquivoController.update(a.id, a);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
       ],
     );

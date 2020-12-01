@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -81,16 +80,21 @@ class EnderecoSearchDelegate extends SearchDelegate<Produto> {
               ),
               title: RichText(
                 text: TextSpan(
-                    text: e.logradouro.substring(0, query.length),
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                    children: [
-                      TextSpan(
-                          text: e.logradouro.substring(query.length) +
-                              ", " +
-                              e.numero + " - " + e.complemento,
-                          style: TextStyle(color: Colors.grey))
-                    ]),
+                  text: e.logradouro.substring(0, query.length),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                        text: e.logradouro.substring(query.length) +
+                            ", " +
+                            e.numero +
+                            " - " +
+                            e.complemento,
+                        style: TextStyle(color: Colors.grey))
+                  ],
+                ),
               ),
               onTap: () {
                 enderecoController.enderecoSelecionado = e;

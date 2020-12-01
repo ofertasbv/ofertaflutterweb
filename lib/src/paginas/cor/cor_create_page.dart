@@ -102,38 +102,36 @@ class _CorCreatePageState extends State<CorCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: c.descricao,
-                          onSaved: (value) => c.descricao = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "descrição do tamanho",
-                            prefixIcon: Icon(Icons.edit, color: Colors.grey),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: c.descricao,
+                        onSaved: (value) => c.descricao = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Descrição",
+                          hintText: "descrição do tamanho",
+                          prefixIcon: Icon(Icons.edit, color: Colors.grey),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ),
               ],
@@ -141,34 +139,37 @@ class _CorCreatePageState extends State<CorCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (c.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  corController.create(c).then((arquivo) {
-                    var resultado = arquivo;
-                    print("resultado : ${resultado}");
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (c.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    corController.create(c).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
-              } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 3), () {
-                  corController.update(c.id, c);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
+                } else {
+                  dialogs.information(context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    corController.update(c.id, c);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-            }
-          },
+            },
+          ),
         ),
       ],
     );

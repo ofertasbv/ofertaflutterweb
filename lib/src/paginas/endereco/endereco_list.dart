@@ -79,13 +79,13 @@ class _EnderecoListState extends State<EnderecoList>
                 ),
                 border: Border.all(
                   color: Colors.black,
-                  width: 2,
+                  width: 1,
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 20,
+                radius: 25,
                 child: Icon(Icons.location_on_outlined),
               ),
             ),

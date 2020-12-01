@@ -103,40 +103,38 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: u.email,
-                          onSaved: (value) => u.email = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Email",
-                            hintText: "email@gmail.com",
-                            prefixIcon: Icon(
-                              Icons.edit,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            labelStyle: TextStyle(color: Colors.black),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: u.email,
+                        onSaved: (value) => u.email = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          hintText: "email@gmail.com",
+                          prefixIcon: Icon(
+                            Icons.edit,
+                            color: Colors.grey,
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
+                          suffixIcon: Icon(Icons.close),
+                          labelStyle: TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
+                      ),
+                      SizedBox(height: 10),
+                    ],
                   ),
                 ),
               ],
@@ -144,34 +142,38 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (u.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  usuarioController.create(u).then((arquivo) {
-                    var resultado = arquivo;
-                    print("resultado : ${resultado}");
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (u.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    usuarioController.create(u).then((arquivo) {
+                      var resultado = arquivo;
+                      print("resultado : ${resultado}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
-              } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 3), () {
-                  usuarioController.update(u.id, u);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    usuarioController.update(u.id, u);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-            }
-          },
+            },
+          ),
         ),
       ],
     );

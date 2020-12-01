@@ -119,117 +119,116 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: s.nome,
-                          onSaved: (value) => s.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigatório" : null,
-                          decoration: InputDecoration(
-                            labelText: "Nome",
-                            hintText: "nome subcategoria",
-                            prefixIcon: Icon(
-                              Icons.edit,
-                              color: Colors.grey,
-                            ),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 50,
-                          maxLines: 1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 0),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DropDownCategoria(categoriaSelecionada),
-                      Observer(
-                        builder: (context) {
-                          if (categoriaController.categoriaSelecionada ==
-                              null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: categoriaController.mensagem == null
-                                    ? Text(
-                                        "campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${categoriaController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
-                          );
-                        },
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: s.nome,
+                        onSaved: (value) => s.nome = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigatório" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          hintText: "nome subcategoria",
+                          prefixIcon: Icon(
+                            Icons.edit,
+                            color: Colors.grey,
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 50,
+                        maxLines: 1,
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DropDownCategoria(categoriaSelecionada),
+                    Observer(
+                      builder: (context) {
+                        if (categoriaController.categoriaSelecionada == null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: categoriaController.mensagem == null
+                                  ? Text(
+                                      "campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${categoriaController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (s.id == null) {
-                dialogs.information(context, "prepando para o cadastro...");
-                Timer(Duration(seconds: 3), () {
-                  s.categoria = categoriaController.categoriaSelecionada;
-                  subCategoriaController.create(s);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
-              } else {
-                dialogs.information(context, "preparando para o alteração...");
-                Timer(Duration(seconds: 3), () {
-                  s.categoria = categoriaController.categoriaSelecionada;
-                  subCategoriaController.update(s.id, s);
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (s.id == null) {
+                  dialogs.information(context, "prepando para o cadastro...");
+                  Timer(Duration(seconds: 3), () {
+                    s.categoria = categoriaController.categoriaSelecionada;
+                    subCategoriaController.create(s);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                } else {
+                  dialogs.information(
+                      context, "preparando para o alteração...");
+                  Timer(Duration(seconds: 3), () {
+                    s.categoria = categoriaController.categoriaSelecionada;
+                    subCategoriaController.update(s.id, s);
 
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
-            }
-          },
+            },
+          ),
         ),
       ],
     );

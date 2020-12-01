@@ -319,7 +319,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(2),
+          padding: EdgeInsets.all(0),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -445,602 +445,552 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ],
                 ),
                 SizedBox(height: 20),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    width: double.maxFinite,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        TextFormField(
-                          initialValue: p.codigoBarra,
-                          controller: p.codigoBarra == null
-                              ? controllerCodigoBarra
-                              : null,
-                          onSaved: (value) => p.codigoBarra = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: Colors.grey,
-                            ),
-                            labelText:
-                                "Entre com código de barra ou clique (scanner)",
-                            hintText: "Código de barra",
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  width: double.maxFinite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.codigoBarra,
+                        controller: p.codigoBarra == null
+                            ? controllerCodigoBarra
+                            : null,
+                        onSaved: (value) => p.codigoBarra = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.grey,
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 20,
+                          labelText:
+                              "Entre com código de barra ou clique (scanner)",
+                          hintText: "Código de barra",
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
-                        RaisedButton.icon(
-                          elevation: 0.0,
-                          icon: Icon(Icons.photo_camera_outlined),
-                          label: Text("Scanner"),
-                          onPressed: () {
-                            barcodeScanning();
-                          },
-                        ),
-                      ],
-                    ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 20,
+                      ),
+                      RaisedButton.icon(
+                        elevation: 0.0,
+                        icon: Icon(Icons.photo_camera_outlined),
+                        label: Text("Scanner"),
+                        onPressed: () {
+                          barcodeScanning();
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 /* ================ Cadastro produto ================ */
                 SizedBox(height: 0),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                        initialValue: p.nome,
+                        onSaved: (value) => p.nome = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nome",
+                          hintText: "nome produto",
+                          prefixIcon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 100,
+                        maxLines: null,
+                      ),
+                      SizedBox(height: 20),
+                      TextFormField(
+                        initialValue: p.descricao,
+                        onSaved: (value) => p.descricao = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Descrição",
+                          hintText: "descrição produto",
+                          prefixIcon: Icon(
+                            Icons.description,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 100,
+                        maxLines: null,
+                      ),
+                      SizedBox(height: 20),
+                      TextFormField(
+                        initialValue: p.sku,
+                        onSaved: (value) => p.sku = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "SKU",
+                          hintText: "sku produto",
+                          prefixIcon: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        maxLength: 100,
+                        maxLines: 1,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: controllerQuantidade,
+                        onSaved: (value) {
+                          p.estoque.quantidade = int.tryParse(value);
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Quantidade",
+                          hintText: "quantidade",
+                          prefixIcon: Icon(
+                            Icons.mode_edit,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: controllerValor,
+                        onSaved: (value) {
+                          p.estoque.valor = double.tryParse(value);
+                        },
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Valor",
+                          hintText: "valor",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 0),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DropDownMarca(),
+                    Observer(
+                      builder: (context) {
+                        if (marcaController.marcaSelecionada == null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: marcaController.mensagem == null
+                                  ? Text(
+                                      "Campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${marcaController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    DropDownSubCategoria(subCategoriaSelecionada),
+                    Observer(
+                      builder: (context) {
+                        if (subCategoriaController.subCategoriaSelecionada ==
+                            null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: subCategoriaController.mensagem == null
+                                  ? Text(
+                                      "campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${subCategoriaController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    DropDownLoja(lojaSelecionada),
+                    Observer(
+                      builder: (context) {
+                        if (lojaController.lojaSelecionada == null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: lojaController.mensagem == null
+                                  ? Text(
+                                      "campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${lojaController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    DropDownPromocao(promocaoSelecionada),
+                    Observer(
+                      builder: (context) {
+                        if (promocaoController.promocaoSelecionada == null) {
+                          return Container(
+                            padding: EdgeInsets.only(left: 25),
+                            child: Container(
+                              child: promocaoController.mensagem == null
+                                  ? Text(
+                                      "campo obrigatório *",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  : Text(
+                                      "${promocaoController.mensagem}",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                            ),
+                          );
+                        }
+                        return Container(
+                          padding: EdgeInsets.only(left: 25),
+                          child: Container(
+                            child:
+                                Icon(Icons.check_outlined, color: Colors.green),
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(height: 10),
+                    DropDownCor(coreSelecionados),
+                    SizedBox(height: 10),
+                    DropDownTamanho(tamanhoSelecionados),
+                    SizedBox(height: 20),
+                  ],
+                ),
+                SizedBox(height: 0),
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
-                    padding: EdgeInsets.all(5),
                     child: Column(
                       children: <Widget>[
-                        TextFormField(
-                          initialValue: p.nome,
-                          onSaved: (value) => p.nome = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Nome",
-                            hintText: "nome produto",
-                            prefixIcon: Icon(
-                              Icons.shopping_cart,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 100,
-                          maxLines: null,
+                          child: SwitchListTile(
+                            autofocus: true,
+                            title: Text("Produto novo? "),
+                            subtitle: Text("sim/não"),
+                            value: p.novo = novo,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                novo = valor;
+                                print("Novo: " + p.novo.toString());
+                              });
+                            },
+                          ),
                         ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          initialValue: p.descricao,
-                          onSaved: (value) => p.descricao = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Descrição",
-                            hintText: "descrição produto",
-                            prefixIcon: Icon(
-                              Icons.description,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                        SizedBox(height: 30),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 100,
-                          maxLines: null,
+                          child: SwitchListTile(
+                            subtitle: Text("sim/não"),
+                            title: Text("Produto Disponível?"),
+                            value: p.status = status,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                status = valor;
+                                print("Disponivel: " + p.status.toString());
+                              });
+                            },
+                          ),
                         ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          initialValue: p.sku,
-                          onSaved: (value) => p.sku = value,
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "SKU",
-                            hintText: "sku produto",
-                            prefixIcon: Icon(
-                              Icons.shopping_cart,
-                              color: Colors.grey,
-                            ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
+                        SizedBox(height: 30),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          keyboardType: TextInputType.text,
-                          maxLength: 100,
-                          maxLines: 1,
+                          child: SwitchListTile(
+                            autofocus: true,
+                            subtitle: Text("sim/não"),
+                            title: Text("Produto destaque?"),
+                            value: p.destaque = destaque,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                destaque = valor;
+                                print("Destaque: " + p.destaque.toString());
+                              });
+                            },
+                          ),
                         ),
                         SizedBox(height: 10),
-                        TextFormField(
-                          controller: controllerQuantidade,
-                          onSaved: (value) {
-                            p.estoque.quantidade = int.tryParse(value);
-                          },
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Quantidade",
-                            hintText: "quantidade",
-                            prefixIcon: Icon(
-                              Icons.mode_edit,
-                              color: Colors.grey,
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Unidade de medida"),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("UNIDADE"),
+                              value: "UNIDADE",
+                              groupValue: p.medida == null
+                                  ? p.medida = medida
+                                  : p.medida,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.medida = valor;
+                                  print("Medida: " + p.medida);
+                                });
+                              },
                             ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("PEÇA"),
+                              value: "PECA",
+                              groupValue: p.medida == null
+                                  ? p.medida = medida
+                                  : p.medida,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.medida = valor;
+                                  print("Medida: " + p.medida);
+                                });
+                              },
                             ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          controller: controllerValor,
-                          onSaved: (value) {
-                            p.estoque.valor = double.tryParse(value);
-                          },
-                          validator: (value) =>
-                              value.isEmpty ? "campo obrigário" : null,
-                          decoration: InputDecoration(
-                            labelText: "Valor",
-                            hintText: "valor",
-                            prefixIcon: Icon(
-                              Icons.monetization_on_outlined,
-                              color: Colors.grey,
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("QUILOGRAMA"),
+                              value: "QUILOGRAMA",
+                              groupValue: p.medida == null
+                                  ? p.medida = medida
+                                  : p.medida,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.medida = valor;
+                                  print("resultado: " + p.medida);
+                                });
+                              },
                             ),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("OUTRO"),
+                              value: "OUTRO",
+                              groupValue: p.medida == null
+                                  ? p.medida = medida
+                                  : p.medida,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.medida = valor;
+                                  print("resultado: " + p.medida);
+                                });
+                              },
                             ),
-                          ),
-                          keyboardType: TextInputType.number,
-                          maxLength: 6,
-                        ),
-                        SizedBox(height: 10),
-                        DateTimeField(
-                          initialValue: p.dataRegistro,
-                          format: dateFormat,
-                          validator: (value) =>
-                              value == null ? "campo obrigário" : null,
-                          onSaved: (value) => p.dataRegistro = value,
-                          decoration: InputDecoration(
-                            labelText: "data registro",
-                            hintText: "99-09-9999",
-                            prefixIcon: Icon(Icons.calendar_today),
-                            suffixIcon: Icon(Icons.close),
-                            contentPadding:
-                                EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.lime[900]),
-                              gapPadding: 1,
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          onShowPicker: (context, currentValue) {
-                            return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(2000),
-                              initialDate: currentValue ?? DateTime.now(),
-                              locale: Locale('pt', 'BR'),
-                              lastDate: DateTime(2030),
-                            );
-                          },
+                          ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: 0),
-                Card(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DropDownMarca(),
-                      Observer(
-                        builder: (context) {
-                          if (marcaController.marcaSelecionada == null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: marcaController.mensagem == null
-                                    ? Text(
-                                        "Campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${marcaController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      DropDownSubCategoria(subCategoriaSelecionada),
-                      Observer(
-                        builder: (context) {
-                          if (subCategoriaController.subCategoriaSelecionada ==
-                              null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: subCategoriaController.mensagem == null
-                                    ? Text(
-                                        "campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${subCategoriaController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      DropDownLoja(lojaSelecionada),
-                      Observer(
-                        builder: (context) {
-                          if (lojaController.lojaSelecionada == null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: lojaController.mensagem == null
-                                    ? Text(
-                                        "campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${lojaController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      DropDownPromocao(promocaoSelecionada),
-                      Observer(
-                        builder: (context) {
-                          if (promocaoController.promocaoSelecionada == null) {
-                            return Container(
-                              padding: EdgeInsets.only(left: 25),
-                              child: Container(
-                                child: promocaoController.mensagem == null
-                                    ? Text(
-                                        "campo obrigatório *",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    : Text(
-                                        "${promocaoController.mensagem}",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                              ),
-                            );
-                          }
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: Icon(Icons.check_outlined,
-                                  color: Colors.green),
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 10),
-                      DropDownCor(coreSelecionados),
-                      SizedBox(height: 10),
-                      DropDownTamanho(tamanhoSelecionados),
-                      SizedBox(height: 20),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 0),
-                Card(
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Container(
                     padding: EdgeInsets.all(5),
-                    child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: SwitchListTile(
-                              autofocus: true,
-                              title: Text("Produto novo? "),
-                              subtitle: Text("sim/não"),
-                              value: p.novo = novo,
-                              secondary: const Icon(Icons.check_outlined),
-                              onChanged: (bool valor) {
-                                setState(() {
-                                  novo = valor;
-                                  print("Novo: " + p.novo.toString());
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: SwitchListTile(
-                              subtitle: Text("sim/não"),
-                              title: Text("Produto Disponível?"),
-                              value: p.status = status,
-                              secondary: const Icon(Icons.check_outlined),
-                              onChanged: (bool valor) {
-                                setState(() {
-                                  status = valor;
-                                  print("Disponivel: " + p.status.toString());
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 30),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: SwitchListTile(
-                              autofocus: true,
-                              subtitle: Text("sim/não"),
-                              title: Text("Produto destaque?"),
-                              value: p.destaque = destaque,
-                              secondary: const Icon(Icons.check_outlined),
-                              onChanged: (bool valor) {
-                                setState(() {
-                                  destaque = valor;
-                                  print("Destaque: " + p.destaque.toString());
-                                });
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
                     ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Unidade de medida"),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("UNIDADE"),
-                                value: "UNIDADE",
-                                groupValue: p.medida == null
-                                    ? p.medida = medida
-                                    : p.medida,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.medida = valor;
-                                    print("Medida: " + p.medida);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("PEÇA"),
-                                value: "PECA",
-                                groupValue: p.medida == null
-                                    ? p.medida = medida
-                                    : p.medida,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.medida = valor;
-                                    print("Medida: " + p.medida);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("QUILOGRAMA"),
-                                value: "QUILOGRAMA",
-                                groupValue: p.medida == null
-                                    ? p.medida = medida
-                                    : p.medida,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.medida = valor;
-                                    print("resultado: " + p.medida);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("OUTRO"),
-                                value: "OUTRO",
-                                groupValue: p.medida == null
-                                    ? p.medida = medida
-                                    : p.medida,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.medida = valor;
-                                    print("resultado: " + p.medida);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Text("Origem do produto"),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("NACIONAL"),
-                                value: "NACIONAL",
-                                groupValue: p.origem == null
-                                    ? p.origem = origem
-                                    : p.origem,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.origem = valor;
-                                    print("Origem: " + p.origem);
-                                  });
-                                },
-                              ),
-                              RadioListTile(
-                                controlAffinity:
-                                    ListTileControlAffinity.trailing,
-                                title: Text("INTERNACIONAL"),
-                                value: "INTERNACIONAL",
-                                groupValue: p.origem == null
-                                    ? p.origem = origem
-                                    : p.origem,
-                                secondary: const Icon(Icons.check_outlined),
-                                onChanged: (String valor) {
-                                  setState(() {
-                                    p.origem = valor;
-                                    print("Origem: " + p.origem);
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text("Origem do produto"),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("NACIONAL"),
+                              value: "NACIONAL",
+                              groupValue: p.origem == null
+                                  ? p.origem = origem
+                                  : p.origem,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.origem = valor;
+                                  print("Origem: " + p.origem);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("INTERNACIONAL"),
+                              value: "INTERNACIONAL",
+                              groupValue: p.origem == null
+                                  ? p.origem = origem
+                                  : p.origem,
+                              secondary: const Icon(Icons.check_outlined),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.origem = valor;
+                                  print("Origem: " + p.origem);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -1049,105 +999,108 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           ),
         ),
         SizedBox(height: 20),
-        RaisedButton.icon(
-          label: Text("Enviar formulário"),
-          icon: Icon(
-            Icons.check,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            if (controller.validate()) {
-              if (p.foto == null) {
-                openBottomSheet(context);
-              } else {
-                if (p.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
-                  Timer(Duration(seconds: 3), () {
-                    DateTime agora = DateTime.now();
-
-                    print("Loja: ${p.loja.nome}");
-                    print("SubCategoria: ${p.subCategoria.nome}");
-                    print("Marca: ${p.marca.nome}");
-                    print("Promoção: ${p.promocao.nome}");
-
-                    print("Foto: ${p.foto}");
-                    print("Código de Barra: ${p.codigoBarra}");
-                    print("Produto: ${p.nome}");
-                    print("Quantidade: ${p.estoque.quantidade}");
-                    print("Valor: ${p.estoque.valor}");
-
-                    print("Novo: ${p.novo}");
-                    print("Status: ${p.status}");
-                    print("Destaque: ${p.destaque}");
-
-                    print("Medida: ${p.medida}");
-                    print("Origem: ${p.origem}");
-
-                    print("Data: ${p.dataRegistro}");
-                    print("Agora: ${agora}");
-
-                    for (Cor c in corController.cores) {
-                      print("Cores: ${c.descricao}");
-                    }
-
-                    for (Tamanho c in tamanhoController.tamanhos) {
-                      print("Tamanhos: ${c.descricao}");
-                    }
-
-                    p.cores.addAll(produtoController.corSelecionadas);
-                    p.tamanhos.addAll(produtoController.tamanhoSelecionados);
-
-                    produtoController.create(p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+        Container(
+          padding: EdgeInsets.all(10),
+          child: RaisedButton.icon(
+            label: Text("Enviar formulário"),
+            icon: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (controller.validate()) {
+                if (p.foto == null) {
+                  openBottomSheet(context);
                 } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    DateTime agora = DateTime.now();
-                    
-                    print("Loja: ${p.loja.nome}");
-                    print("SubCategoria: ${p.subCategoria.nome}");
-                    print("Marca: ${p.marca.nome}");
-                    print("Promoção: ${p.promocao.nome}");
+                  if (p.id == null) {
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      DateTime agora = DateTime.now();
 
-                    print("Foto: ${p.foto}");
-                    print("Código de Barra: ${p.codigoBarra}");
-                    print("Produto: ${p.nome}");
-                    print("Quantidade: ${p.estoque.quantidade}");
-                    print("Valor: ${p.estoque.valor}");
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
 
-                    print("Novo: ${p.novo}");
-                    print("Status: ${p.status}");
-                    print("Destaque: ${p.destaque}");
+                      print("Foto: ${p.foto}");
+                      print("Código de Barra: ${p.codigoBarra}");
+                      print("Produto: ${p.nome}");
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
 
-                    print("Medida: ${p.medida}");
-                    print("Origem: ${p.origem}");
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
 
-                    for (Cor c in produtoController.corSelecionadas) {
-                      print("Cores: ${c.descricao}");
-                    }
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
 
-                    for (Tamanho c in produtoController.tamanhoSelecionados) {
-                      print("Tamanhos: ${c.descricao}");
-                    }
+                      print("Data: ${p.dataRegistro}");
+                      print("Agora: ${agora}");
 
-                    p.cores.addAll(produtoController.corSelecionadas);
-                    p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+                      for (Cor c in corController.cores) {
+                        print("Cores: ${c.descricao}");
+                      }
 
-                    p.estoque.quantidade =
-                        int.tryParse(controllerQuantidade.text);
-                    p.estoque.valor = double.tryParse(controllerValor.text);
+                      for (Tamanho c in tamanhoController.tamanhos) {
+                        print("Tamanhos: ${c.descricao}");
+                      }
 
-                    produtoController.update(p.id, p);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
+                      p.cores.addAll(produtoController.corSelecionadas);
+                      p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+
+                      produtoController.create(p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  } else {
+                    dialogs.information(
+                        context, "preparando para o alteração...");
+                    Timer(Duration(seconds: 3), () {
+                      DateTime agora = DateTime.now();
+
+                      print("Loja: ${p.loja.nome}");
+                      print("SubCategoria: ${p.subCategoria.nome}");
+                      print("Marca: ${p.marca.nome}");
+                      print("Promoção: ${p.promocao.nome}");
+
+                      print("Foto: ${p.foto}");
+                      print("Código de Barra: ${p.codigoBarra}");
+                      print("Produto: ${p.nome}");
+                      print("Quantidade: ${p.estoque.quantidade}");
+                      print("Valor: ${p.estoque.valor}");
+
+                      print("Novo: ${p.novo}");
+                      print("Status: ${p.status}");
+                      print("Destaque: ${p.destaque}");
+
+                      print("Medida: ${p.medida}");
+                      print("Origem: ${p.origem}");
+
+                      for (Cor c in produtoController.corSelecionadas) {
+                        print("Cores: ${c.descricao}");
+                      }
+
+                      for (Tamanho c in produtoController.tamanhoSelecionados) {
+                        print("Tamanhos: ${c.descricao}");
+                      }
+
+                      p.cores.addAll(produtoController.corSelecionadas);
+                      p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+
+                      p.estoque.quantidade =
+                          int.tryParse(controllerQuantidade.text);
+                      p.estoque.valor = double.tryParse(controllerValor.text);
+
+                      produtoController.update(p.id, p);
+                      Navigator.of(context).pop();
+                      buildPush(context);
+                    });
+                  }
                 }
               }
-            }
-          },
+            },
+          ),
         ),
         SizedBox(height: 20),
       ],
