@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:nosso/src/core/controller/usuario_controller.dart';
+import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
-import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_perfil.dart';
 import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 import 'package:nosso/src/util/sobre/sobre_page.dart';
@@ -39,7 +41,8 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  ListView menuLateral(BuildContext context) {
+  menuLateral(BuildContext context) {
+    var usuarioController = GetIt.I.get<UsuarioController>();
     return ListView(
       children: <Widget>[
         Container(
@@ -64,7 +67,20 @@ class DrawerList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Bem-vindo ao u-nosso"),
+                    Observer(
+                      builder: (context) {
+                        Usuario u = usuarioController.usuarioSelecionado;
+                        if (u == null) {
+                          return Text("Minha conta");
+                        }
+                        return Text(
+                          "${u.email}",
+                          style: TextStyle(
+                            color: Colors.grey[900],
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

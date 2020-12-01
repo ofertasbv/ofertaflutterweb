@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/main.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
+import 'package:nosso/src/core/controller/usuario_controller.dart';
+import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
@@ -16,6 +19,7 @@ import 'package:nosso/src/paginas/produto/produto_list.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
 import 'package:nosso/src/paginas/usuario/usuario_list.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login.dart';
 import 'package:nosso/src/paginas/usuario/usuario_perfil.dart';
 import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
 
@@ -26,10 +30,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin<HomePage> {
-  int elementIndex = 0;
+
 
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
+  var usuarioController = GetIt.I.get<UsuarioController>();
   var pageController = PageController();
+
+  int elementIndex = 0;
 
   @override
   void initState() {
@@ -48,7 +55,6 @@ class _HomePageState extends State<HomePage>
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[
-
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
                 foregroundColor: Colors.purple[800],
@@ -228,7 +234,7 @@ class _HomePageState extends State<HomePage>
     CatalogoHome(),
     CategoriaList(),
     PromocaoList(),
-    UsuarioPerfil(),
+    UsuarioPerfilPage(),
   ];
 
   changeIndex(int index) {

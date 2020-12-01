@@ -123,7 +123,7 @@ class _LojaDetalhesTabState extends State<LojaDetalhesTab>
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.purple[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

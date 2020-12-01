@@ -9,20 +9,20 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
+import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
-class UsuarioCreatePage extends StatefulWidget {
+class UsuarioRecuperarSenha extends StatefulWidget {
   Usuario usuario;
 
-  UsuarioCreatePage({Key key, this.usuario}) : super(key: key);
+  UsuarioRecuperarSenha({Key key, this.usuario}) : super(key: key);
 
   @override
-  _UsuarioCreatePageState createState() =>
-      _UsuarioCreatePageState(u: this.usuario);
+  _UsuarioRecuperarSenhaState createState() =>
+      _UsuarioRecuperarSenhaState(u: this.usuario);
 }
 
-class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
+class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -32,9 +32,9 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  _UsuarioCreatePageState({this.u});
+  _UsuarioRecuperarSenhaState({this.u});
 
-  var controllerNome = TextEditingController();
+  var controllerEmail = TextEditingController();
 
   @override
   void initState() {
@@ -42,6 +42,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
     if (u == null) {
       u = Usuario();
     }
+    u = usuarioController.usuarioSelecionado;
     super.initState();
   }
 
@@ -78,7 +79,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Usuário cadastros"),
+        title: Text("Recuperar senha"),
       ),
       body: Observer(
         builder: (context) {
@@ -95,13 +96,15 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
+    u = usuarioController.usuarioSelecionado;
+    controllerEmail.text = usuarioController.usuarioSelecionado.email;
     return ListView(
       children: <Widget>[
         Container(
           color: Colors.grey[200],
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("recuperar senha por email"),
+            title: Text("Cadastrar nova senha"),
           ),
         ),
         SizedBox(height: 20),
@@ -117,7 +120,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        initialValue: u.email,
+                        controller: controllerEmail,
                         onSaved: (value) => u.email = value,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
@@ -142,6 +145,62 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
+                      TextFormField(
+                        onSaved: (value) => u.senha = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Nova senha",
+                          hintText: "Nova senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            onPressed: () {
+                              usuarioController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !usuarioController.senhaVisivel,
+                        maxLength: 8,
+                      ),
+                      TextFormField(
+                        onSaved: (value) => u.senha = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Confirma senha",
+                          hintText: "Confirma senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            onPressed: () {
+                              usuarioController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !usuarioController.senhaVisivel,
+                        maxLength: 8,
+                      ),
                       SizedBox(height: 10),
                     ],
                   ),
@@ -161,14 +220,12 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                if (u.id == null) {
-                  dialogs.information(context, "verificando email...");
-                  Timer(Duration(seconds: 3), () {
-                    usuarioController.getEmail(u.email);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
+                dialogs.information(context, "preparando para o alteração");
+                Timer(Duration(seconds: 3), () {
+                  usuarioController.update(u.id, u);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
               }
             },
           ),
@@ -181,7 +238,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UsuarioRecuperarSenha(),
+        builder: (context) => UsuarioPage(),
       ),
     );
   }

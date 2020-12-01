@@ -38,6 +38,17 @@ class UsuarioRepository {
     return null;
   }
 
+  Future<Usuario> getByLogin(String email, String senha) async {
+    try {
+      print("carregando usuario by login");
+      var response = await dio.client.get("/usuarios/login/$email/$senha");
+      return Usuario.fromJson(response.data);
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     var response = await dio.client.post("/usuarios/create", data: data);
     return response.statusCode;

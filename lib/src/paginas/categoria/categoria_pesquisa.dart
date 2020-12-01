@@ -55,9 +55,8 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
     double containerWidth = 160;
     double containerHeight = 30;
 
-    return ListView.separated(
+    return ListView.builder(
       itemCount: categorias.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
@@ -86,7 +85,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
               ),
               title: Text(c.nome),
               subtitle: Text("cod: ${c.id}"),
-              trailing: Icon(Icons.arrow_forward_outlined)),
+              trailing: Icon(Icons.arrow_right)),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(

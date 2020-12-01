@@ -8,6 +8,7 @@ class CircularProgressorMini extends StatelessWidget {
         height: 50,
         width: 50,
         child: CircularProgressIndicator(
+          strokeWidth: 1,
           backgroundColor: Colors.purple[800],
           valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[800]),
         ),

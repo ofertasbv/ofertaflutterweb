@@ -123,7 +123,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.grey,
+              color: Colors.purple[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

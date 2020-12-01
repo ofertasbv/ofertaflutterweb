@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
       accentColor: Colors.purple[800],
-      primarySwatch: Colors.purple,
+      primarySwatch: Colors.indigo,
       appBarTheme: AppBarTheme(
         elevation: 1,
         textTheme: TextTheme(

@@ -83,6 +83,10 @@ class ItemPage extends StatelessWidget {
             fit: FlexFit.tight,
             flex: 1,
             child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               elevation: 0,
               onPressed: () {
                 Navigator.push(
@@ -90,15 +94,12 @@ class ItemPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
-              color: Colors.grey[400],
+              color: Colors.purple[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(
-                      Icons.home,
-                      color: Colors.purple[800],
-                    ),
+                    Icon(Icons.home),
                     SizedBox(
                       width: 4.0,
                     ),
@@ -111,6 +112,10 @@ class ItemPage extends StatelessWidget {
             fit: FlexFit.tight,
             flex: 2,
             child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               elevation: 0,
               onPressed: () {
                 Navigator.of(context).push(
@@ -121,7 +126,7 @@ class ItemPage extends StatelessWidget {
                   ),
                 );
               },
-              color: Colors.grey[400],
+              color: Colors.purple[800],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +143,6 @@ class ItemPage extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
-                                color: Colors.green,
                               ),
                             ),
                             Text(
@@ -146,7 +150,6 @@ class ItemPage extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
-                                color: Colors.redAccent,
                               ),
                             ),
                           ],
@@ -161,6 +164,10 @@ class ItemPage extends StatelessWidget {
           Flexible(
             flex: 1,
             child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(0),
+                side: BorderSide(color: Colors.transparent),
+              ),
               elevation: 0,
               onPressed: () {
                 if (pedidoItemController.itens.isEmpty) {

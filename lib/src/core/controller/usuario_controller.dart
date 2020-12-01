@@ -32,6 +32,14 @@ abstract class UsuarioControllerBase with Store {
   @observable
   Usuario usuarioSelecionado;
 
+  @observable
+  bool senhaVisivel = false;
+
+  @action
+  visualizarSenha() {
+    senhaVisivel = !senhaVisivel;
+  }
+
   @action
   Future<List<Usuario>> getAll() async {
     try {
@@ -46,6 +54,16 @@ abstract class UsuarioControllerBase with Store {
   Future<Usuario> getEmail(String email) async {
     try {
       usuarioSelecionado = await usuarioRepository.getByEmail(email);
+      return usuarioSelecionado;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<Usuario> getLogin(String email, String senha) async {
+    try {
+      usuarioSelecionado = await usuarioRepository.getByLogin(email, senha);
       return usuarioSelecionado;
     } catch (e) {
       error = e;

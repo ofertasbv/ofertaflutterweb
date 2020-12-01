@@ -165,25 +165,23 @@ class ContainerProduto extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(width: 10),
-                              Chip(
-                                label: p.status == true
-                                    ? Text(
-                                        "produto disponivel",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.green,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      )
-                                    : Text(
-                                        "produto indisponivel",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.redAccent,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                              p.status == true
+                                  ? Text(
+                                      "produto disponivel",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                              ),
+                                    )
+                                  : Text(
+                                      "produto indisponivel",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.redAccent,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
                             ],
                           ),
                         ),

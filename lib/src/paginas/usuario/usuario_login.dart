@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
+import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_perfil.dart';
+import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class UsuarioLogin extends StatefulWidget {
@@ -64,21 +67,16 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-      ),
-      body: Observer(
-        builder: (context) {
-          if (usuarioController.dioError == null) {
-            return buildListViewForm(context);
-          } else {
-            print("Erro: ${usuarioController.mensagem}");
-            showToast("${usuarioController.mensagem}");
-            return buildListViewForm(context);
-          }
-        },
-      ),
+    return Observer(
+      builder: (context) {
+        if (usuarioController.dioError == null) {
+          return buildListViewForm(context);
+        } else {
+          print("Erro: ${usuarioController.mensagem}");
+          showToast("${usuarioController.mensagem}");
+          return buildListViewForm(context);
+        }
+      },
     );
   }
 
@@ -86,7 +84,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
     return ListView(
       children: <Widget>[
         Container(
-          height: 200,
+          height: 150,
           color: Colors.grey[200],
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +106,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                   backgroundColor: Colors.grey[100],
                   radius: 40,
                   child: Icon(
-                    Icons.photo_camera,
+                    Icons.person,
                     size: 40,
                   ),
                 ),
@@ -117,7 +115,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
             ],
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(10),
           child: Form(
@@ -138,11 +136,41 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                           labelText: "Email",
                           hintText: "email@gmail.com",
                           prefixIcon: Icon(
-                            Icons.edit,
+                            Icons.email_outlined,
                             color: Colors.grey,
                           ),
                           suffixIcon: Icon(Icons.close),
                           labelStyle: TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        maxLength: 50,
+                        maxLines: 1,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        initialValue: u.senha,
+                        onSaved: (value) => u.senha = value,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Senha",
+                          hintText: "Senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            onPressed: () {
+                              usuarioController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
@@ -152,34 +180,8 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                           ),
                         ),
                         keyboardType: TextInputType.text,
-                        maxLength: 50,
-                        maxLines: 1,
-                      ),
-                      TextFormField(
-                        initialValue: u.email,
-                        onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
-                        decoration: InputDecoration(
-                          labelText: "Senha",
-                          hintText: "senha",
-                          prefixIcon: Icon(
-                            Icons.edit,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: Icon(Icons.close),
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        keyboardType: TextInputType.visiblePassword,
-                        maxLength: 50,
-                        maxLines: 1,
+                        obscureText: !usuarioController.senhaVisivel,
+                        maxLength: 8,
                       ),
                       SizedBox(height: 10),
                     ],
@@ -189,7 +191,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         Container(
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(
@@ -201,21 +203,10 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
             onPressed: () {
               if (controller.validate()) {
                 if (u.id == null) {
-                  dialogs.information(context, "prepando para o cadastro...");
+                  dialogs.information(context, "verificando login...");
                   Timer(Duration(seconds: 3), () {
-                    usuarioController.create(u).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
-                    });
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                } else {
-                  dialogs.information(
-                      context, "preparando para o alteração...");
-                  Timer(Duration(seconds: 3), () {
-                    usuarioController.update(u.id, u);
-                    Navigator.of(context).pop();
+                    usuarioController.getLogin(u.email, u.senha);
+                    Navigator.pop(context);
                     buildPush(context);
                   });
                 }
@@ -240,6 +231,31 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
             label: Text("Não tem conta? cadastre-se"),
           ),
         ),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Esqueceu a senha ? "),
+              GestureDetector(
+                child: Text(
+                  "Alterar senha",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return UsuarioCreatePage();
+                      },
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
+        )
       ],
     );
   }
@@ -248,7 +264,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UsuarioPerfil(),
+        builder: (context) => HomePage(),
       ),
     );
   }

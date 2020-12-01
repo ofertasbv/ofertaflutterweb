@@ -14,7 +14,7 @@ class SobrePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.purple[900],
+              color: Colors.purple[800],
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Image.asset(
@@ -30,7 +30,7 @@ class SobrePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    "OFERTASBV",
+                    "U-NOSSO",
                   ),
                   SizedBox(height: 10),
                   Text("Versão 1.0"),
