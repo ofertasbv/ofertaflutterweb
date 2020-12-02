@@ -61,7 +61,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                   Center(
                     child: Icon(
                       Icons.shopping_basket,
-                      color: Colors.purple[300],
+                      color: Colors.purple[800],
                       size: 100,
                     ),
                   ),
@@ -83,13 +83,13 @@ class _PedidoItensListState extends State<PedidoItensList> {
                     ),
                     icon: Icon(
                       Icons.home,
-                      color: Colors.purple,
+                      color: Colors.purple[800],
                     ),
                     color: Colors.yellow[800],
                     label: Text(
                       "escolher produto",
                       style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.purple[800],
                         fontWeight: FontWeight.w900,
                       ),
                     ),

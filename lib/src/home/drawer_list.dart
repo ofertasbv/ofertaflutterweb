@@ -7,6 +7,7 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
@@ -117,26 +118,19 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: false,
-          leading: Icon(Icons.account_circle),
-          title: Text("Minha Conta"),
+          leading: Icon(Icons.shopping_basket),
+          title: Text("Meus pedidos"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return UsuarioPerfilPage();
+                  return PedidoPage();
                 },
               ),
             );
           },
-        ),
-        ListTile(
-          selected: false,
-          leading: Icon(Icons.shopping_basket),
-          title: Text("Meus pedidos"),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {},
         ),
         ListTile(
           selected: false,
@@ -157,7 +151,7 @@ class DrawerList extends StatelessWidget {
         ListTile(
           selected: false,
           leading: Icon(Icons.list),
-          title: Text("Categorias"),
+          title: Text("Departamentos"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);

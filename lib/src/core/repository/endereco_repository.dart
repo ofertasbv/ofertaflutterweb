@@ -8,6 +8,17 @@ import 'package:nosso/src/core/model/endereco.dart';
 class EnderecoRepository {
   CustonDio dio = CustonDio();
 
+  Future<List<Endereco>> getAll() async {
+    try {
+      print("carregando enderecos");
+      var response = await dio.client.get("/enderecos");
+      return (response.data as List).map((c) => Endereco.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<List<Endereco>> getAllById(int id) async {
     try {
       print("carregando enderecos by id");
@@ -19,10 +30,10 @@ class EnderecoRepository {
     return null;
   }
 
-  Future<List<Endereco>> getAll() async {
+  Future<List<Endereco>> getAllByPessoa(int id) async {
     try {
-      print("carregando enderecos");
-      var response = await dio.client.get("/enderecos");
+      print("carregando enderecos by pessoa");
+      var response = await dio.client.get("/enderecos/pessoa/${id}");
       return (response.data as List).map((c) => Endereco.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);

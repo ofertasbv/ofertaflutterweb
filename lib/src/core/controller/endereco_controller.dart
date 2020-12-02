@@ -43,6 +43,16 @@ abstract class EnderecoControllerBase with Store {
   }
 
   @action
+  Future<List<Endereco>> getAllByPessoa(int id) async {
+    try {
+      enderecos = await enderecoRepository.getAllByPessoa(id);
+      return enderecos;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<int> create(Endereco p) async {
     try {
       endereco = await enderecoRepository.create(p.toJson());

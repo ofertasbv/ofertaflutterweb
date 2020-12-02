@@ -184,7 +184,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             child: Chip(
               label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
-                  ? Colors.purple[200]
+                  ? Theme.of(context).accentColor.withOpacity(0.1)
                   : Colors.grey[200],
             ),
           ),
@@ -213,7 +213,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
           if (produtos == null) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressor(),
             );
           }
           if (produtos.length == 0) {

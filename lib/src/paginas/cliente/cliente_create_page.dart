@@ -51,6 +51,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   var uploadFileResponse = UploadFileResponse();
   var response = UploadRespnse();
 
+  var senhaController = TextEditingController();
+  var confirmaSenhaController = TextEditingController();
+
   @override
   void initState() {
     if (p == null) {
@@ -229,130 +232,20 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("faça seu cadastro, é rapido e seguro"),
+          ),
+        ),
+        SizedBox(height: 20),
+        Container(
           padding: EdgeInsets.all(0),
           child: Form(
             key: controller.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      openBottomSheet(context);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      color: Colors.grey[300],
-                      child: Container(
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            file != null
-                                ? Image.file(
-                                    file,
-                                    fit: BoxFit.fitWidth,
-                                    width: double.infinity,
-                                    height: 300,
-                                  )
-                                : p.foto != null
-                                    ? CircleAvatar(
-                                        radius: 50,
-                                        backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoCliente +
-                                              p.foto,
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 50,
-                                        child: Icon(
-                                          Icons.camera_alt_outlined,
-                                        ),
-                                      ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  color: Colors.grey[300],
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            RaisedButton(
-                              child: Icon(Icons.delete_forever),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledDelete
-                                  ? () => clienteController.deleteFoto(p.foto)
-                                  : null,
-                            ),
-                            RaisedButton(
-                              child: Icon(Icons.photo),
-                              shape: new CircleBorder(),
-                              onPressed: () {
-                                openBottomSheet(context);
-                              },
-                            ),
-                            RaisedButton(
-                              child: Icon(Icons.check),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledEnviar
-                                  ? () => onClickUpload()
-                                  : null,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ExpansionTile(
-                  leading: Icon(Icons.photo),
-                  title: Text("Descrição"),
-                  children: [
-                    Container(
-                      height: 400,
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: ListTile(
-                              title: Text("fileName"),
-                              subtitle: Text("${uploadFileResponse.fileName}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("fileDownloadUri"),
-                              subtitle:
-                                  Text("${uploadFileResponse.fileDownloadUri}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("fileType"),
-                              subtitle: Text("${uploadFileResponse.fileType}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("size"),
-                              subtitle: Text("${uploadFileResponse.size}"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Container(
@@ -568,7 +461,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        initialValue: p.usuario.senha,
+                        controller: senhaController,
                         onSaved: (value) => p.usuario.senha = value,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
@@ -577,7 +470,44 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           hintText: "Senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            icon: clienteController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
+                            onPressed: () {
+                              clienteController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !clienteController.senhaVisivel,
+                        maxLength: 8,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: confirmaSenhaController,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Confirma senha",
+                          hintText: "Confirma senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: clienteController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
                             onPressed: () {
                               clienteController.visualizarSenha();
                             },
@@ -615,10 +545,11 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                if (p.foto == null) {
-                  openBottomSheet(context);
-                } else {
-                  if (p.id == null) {
+                if (p.id == null) {
+                  if (senhaController.text != confirmaSenhaController.text) {
+                    showSnackbar(context, "senha diferentes");
+                    print("senha diferentes");
+                  } else {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
                       DateTime agora = DateTime.now();
@@ -632,10 +563,15 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      clienteController.create(p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // clienteController.create(p);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
                     });
+                  }
+                } else {
+                  if (p.usuario.senha == p.usuario.confirmaSenha) {
+                    showSnackbar(context, "senha diferentes");
+                    print("senha diferentes");
                   } else {
                     dialogs.information(
                         context, "preparando para o alteração...");
@@ -651,9 +587,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      clienteController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // clienteController.update(p.id, p);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
                     });
                   }
                 }
@@ -673,6 +609,10 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
         builder: (context) => ClientePage(),
       ),
     );
+  }
+
+  confirmaSenha() {
+    print("senha diferentes");
   }
 }
 

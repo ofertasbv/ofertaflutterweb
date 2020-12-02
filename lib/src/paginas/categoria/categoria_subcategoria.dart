@@ -154,10 +154,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                   gradient: LinearGradient(
                     colors: [
                       c.nome == selectedCard
-                          ? Colors.purple[200]
+                          ? Theme.of(context).accentColor.withOpacity(0.1)
                           : Colors.white,
                       c.nome == selectedCard
-                          ? Colors.purple[200]
+                          ? Theme.of(context).accentColor.withOpacity(0.1)
                           : Colors.white,
                     ],
                     begin: Alignment.topCenter,

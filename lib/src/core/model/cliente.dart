@@ -1,7 +1,8 @@
 import 'package:nosso/src/core/model/endereco.dart';
+import 'package:nosso/src/core/model/pessoa.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 
-class Cliente {
+class Cliente extends Pessoa{
   int id;
   String nome;
   String telefone;

@@ -1,39 +1,81 @@
-import 'dart:async';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
-import 'package:nosso/src/core/controller/loja_controller.dart';
-import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/paginas/loja/loja_create_page.dart';
-import 'package:nosso/src/paginas/loja/loja_detalhes_tab.dart';
+import 'package:nosso/src/core/controller/endereco_controller.dart';
+import 'package:nosso/src/core/model/endereco.dart';
+import 'package:nosso/src/paginas/endereco/endereco_create_page.dart';
+import 'package:nosso/src/paginas/endereco/endereco_location.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
-class LojaList extends StatefulWidget {
+class EnderecoLojaPage extends StatefulWidget {
   @override
-  _LojaListState createState() => _LojaListState();
+  _EnderecoLojaPageState createState() => _EnderecoLojaPageState();
 }
 
-class _LojaListState extends State<LojaList>
-    with AutomaticKeepAliveClientMixin<LojaList> {
-  var lojaController = GetIt.I.get<LojaController>();
+class _EnderecoLojaPageState extends State<EnderecoLojaPage> {
+  var enderecoController = GetIt.I.get<EnderecoController>();
 
   @override
   void initState() {
-    lojaController.getAll();
+    enderecoController.getAllByPessoa(3);
     super.initState();
   }
 
-  Future<void> onRefresh() {
-    return lojaController.getAll();
-  }
-
-  bool isLoading = true;
-
   @override
   Widget build(BuildContext context) {
-    return builderConteudoList();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Endereços da loja"),
+        actions: <Widget>[
+          Observer(
+            builder: (context) {
+              if (enderecoController.error != null) {
+                return Text("Não foi possível carregar");
+              }
+
+              if (enderecoController.enderecos == null) {
+                return Center(
+                  child: Icon(Icons.warning_amber_outlined),
+                );
+              }
+
+              return Chip(
+                label: Text(
+                  (enderecoController.enderecos.length ?? 0).toString(),
+                ),
+              );
+            },
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
+      body: builderConteudoList(),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          SizedBox(
+            width: 8,
+            height: 8,
+          ),
+          FloatingActionButton(
+            elevation: 10,
+            child: Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return EnderecoCreatePage();
+                  },
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 
   builderConteudoList() {
@@ -41,34 +83,29 @@ class _LojaListState extends State<LojaList>
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<Loja> lojas = lojaController.lojas;
-          if (lojaController.error != null) {
+          List<Endereco> enderecos = enderecoController.enderecos;
+          if (enderecoController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
-          if (lojas == null) {
+          if (enderecos == null) {
             return CircularProgressor();
           }
 
-          return RefreshIndicator(
-            onRefresh: onRefresh,
-            child: builderList(lojas),
-          );
+          return builderList(enderecos);
         },
       ),
     );
   }
 
-  ListView builderList(List<Loja> lojas) {
+  ListView builderList(List<Endereco> enderecos) {
     double containerWidth = 160;
     double containerHeight = 30;
 
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-
     return ListView.builder(
-      itemCount: lojas.length,
+      itemCount: enderecos.length,
       itemBuilder: (context, index) {
-        Loja p = lojas[index];
+        Endereco e = enderecos[index];
 
         return GestureDetector(
           child: ListTile(
@@ -88,34 +125,25 @@ class _LojaListState extends State<LojaList>
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
                 radius: 25,
-                backgroundImage: NetworkImage(
-                  "${lojaController.arquivo + p.foto}",
-                ),
+                child: Icon(Icons.location_on_outlined),
               ),
             ),
-            title: Text(p.nome),
-            subtitle: Text("${p.telefone}"),
+            title: Text("${e.logradouro}, ${e.numero}"),
+            subtitle: Text("${e.complemento}"),
             trailing: Container(
               height: 80,
               width: 50,
-              child: buildPopupMenuButton(context, p),
+              child: buildPopupMenuButton(context, e),
             ),
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return LojaDetalhesTab(p);
-                },
-              ),
-            );
-          },
+          onTap: () {},
         );
       },
     );
   }
 
-  PopupMenuButton<String> buildPopupMenuButton(BuildContext context, Loja p) {
+  PopupMenuButton<String> buildPopupMenuButton(
+      BuildContext context, Endereco e) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),
@@ -123,37 +151,32 @@ class _LojaListState extends State<LojaList>
         if (valor == "novo") {
           print("novo");
         }
-
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return LojaCreatePage(
-                  loja: p,
+                return EnderecoCreatePage(
+                  endereco: e,
                 );
               },
             ),
           );
         }
-
         if (valor == "detalhes") {
           print("detalhes");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return LojaDetalhesTab(p);
+                return EnderecoLocation(endereco: e);
               },
             ),
           );
         }
-
         if (valor == "delete") {
           print("delete");
-        }
-
-        if (valor == "local") {
-          print("local");
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -174,7 +197,7 @@ class _LojaListState extends State<LojaList>
         const PopupMenuItem<String>(
           value: 'detalhes',
           child: ListTile(
-            leading: Icon(Icons.search),
+            leading: Icon(Icons.location_on_outlined),
             title: Text('detalhes'),
           ),
         ),
@@ -182,21 +205,10 @@ class _LojaListState extends State<LojaList>
           value: 'delete',
           child: ListTile(
             leading: Icon(Icons.delete),
-            title: Text('delete'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'local',
-          child: ListTile(
-            leading: Icon(Icons.location_on),
-            title: Text('local'),
+            title: Text('Delete'),
           ),
         )
       ],
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }

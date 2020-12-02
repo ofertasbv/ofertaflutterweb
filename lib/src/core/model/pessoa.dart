@@ -1,36 +1,31 @@
 import 'package:nosso/src/core/model/endereco.dart';
-import 'package:nosso/src/core/model/pessoa.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 
-class Loja extends Pessoa {
+class Pessoa {
   int id;
   String nome;
   String telefone;
   String tipoPessoa;
   DateTime dataRegistro;
   String foto;
-  Usuario usuario = new Usuario();
-  String razaoSocial;
-  String cnpj;
   List<Produto> produtos;
+  Usuario usuario = new Usuario();
   List<Endereco> enderecos = List<Endereco>();
 
-  Loja({
+  Pessoa({
     this.id,
     this.nome,
     this.telefone,
     this.tipoPessoa,
     this.dataRegistro,
     this.foto,
-    this.usuario,
-    this.razaoSocial,
-    this.cnpj,
     this.produtos,
+    this.usuario,
     this.enderecos,
   });
 
-  Loja.fromJson(Map<String, dynamic> json) {
+  Pessoa.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nome = json['nome'];
     telefone = json['telefone'];
@@ -38,18 +33,15 @@ class Loja extends Pessoa {
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     foto = json['foto'];
 
-    usuario =
-        json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
-
-    razaoSocial = json['razaoSocial'];
-    cnpj = json['cnpj'];
-
     if (json['produtos'] != null) {
       produtos = new List<Produto>();
       json['produtos'].forEach((v) {
         produtos.add(new Produto.fromJson(v));
       });
     }
+
+    usuario =
+        json['usuario'] != null ? new Usuario.fromJson(json['usuario']) : null;
 
     if (json['enderecos'] != null) {
       enderecos = new List<Endereco>();
@@ -68,14 +60,12 @@ class Loja extends Pessoa {
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['foto'] = this.foto;
 
-    if (this.usuario != null) {
-      data['usuario'] = this.usuario.toJson();
-    }
-    data['razaoSocial'] = this.razaoSocial;
-    data['cnpj'] = this.cnpj;
-
     if (this.produtos != null) {
       data['produtos'] = this.produtos.map((v) => v.toJson()).toList();
+    }
+
+    if (this.usuario != null) {
+      data['usuario'] = this.usuario.toJson();
     }
 
     if (this.enderecos != null) {

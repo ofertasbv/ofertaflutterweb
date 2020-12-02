@@ -52,6 +52,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
   var uploadFileResponse = UploadFileResponse();
   var response = UploadRespnse();
 
+  var senhaController = TextEditingController();
+  var confirmaSenhaController = TextEditingController();
+
   @override
   void initState() {
     if (p == null) {
@@ -233,6 +236,13 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
 
     return ListView(
       children: <Widget>[
+        Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("faça seu cadastro, é rapido e seguro"),
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(0),
           child: Form(
@@ -568,7 +578,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                        initialValue: p.usuario.senha,
+                        controller: senhaController,
                         onSaved: (value) => p.usuario.senha = value,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
@@ -577,7 +587,44 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                           hintText: "Senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            icon: lojaController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
+                            onPressed: () {
+                              lojaController.visualizarSenha();
+                            },
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.lime[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: !lojaController.senhaVisivel,
+                        maxLength: 8,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: confirmaSenhaController,
+                        validator: (value) =>
+                            value.isEmpty ? "campo obrigário" : null,
+                        decoration: InputDecoration(
+                          labelText: "Confirma senha",
+                          hintText: "Confirma senha",
+                          prefixIcon: Icon(Icons.security, color: Colors.grey),
+                          suffixIcon: IconButton(
+                            icon: lojaController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
                             onPressed: () {
                               lojaController.visualizarSenha();
                             },
@@ -658,42 +705,53 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                   openBottomSheet(context);
                 } else {
                   if (p.id == null) {
-                    dialogs.information(context, "prepando para o cadastro...");
-                    Timer(Duration(seconds: 3), () {
-                      print("Pessoa: ${p.tipoPessoa}");
-                      print("Nome: ${p.nome}");
-                      print("Rasão social: ${p.razaoSocial}");
-                      print("Cnpj: ${p.cnpj}");
-                      print("Telefone: ${p.telefone}");
-                      print("DataRegistro: ${p.dataRegistro}");
-                      print("Email: ${p.usuario.email}");
-                      print("Senha: ${p.usuario.senha}");
+                    if (senhaController.text != confirmaSenhaController.text) {
+                      showSnackbar(context, "senha diferentes");
+                      print("senha diferentes");
+                    } else {
+                      dialogs.information(
+                          context, "prepando para o cadastro...");
+                      Timer(Duration(seconds: 3), () {
+                        print("Pessoa: ${p.tipoPessoa}");
+                        print("Nome: ${p.nome}");
+                        print("Rasão social: ${p.razaoSocial}");
+                        print("Cnpj: ${p.cnpj}");
+                        print("Telefone: ${p.telefone}");
+                        print("DataRegistro: ${p.dataRegistro}");
+                        print("Email: ${p.usuario.email}");
+                        print("Senha: ${p.usuario.senha}");
 
-                      // p.enderecos.add(enderecoController.enderecoSelecionado);
+                        // p.enderecos.add(enderecoController.enderecoSelecionado);
 
-                      lojaController.create(p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
+                        lojaController.create(p);
+                        Navigator.of(context).pop();
+                        buildPush(context);
+                      });
+                    }
                   } else {
-                    dialogs.information(
-                        context, "preparando para o alteração...");
-                    Timer(Duration(seconds: 3), () {
-                      print("Pessoa: ${p.tipoPessoa}");
-                      print("Nome: ${p.nome}");
-                      print("Rasão social: ${p.razaoSocial}");
-                      print("Cnpj: ${p.cnpj}");
-                      print("Telefone: ${p.telefone}");
-                      print("DataRegistro: ${p.dataRegistro}");
-                      print("Email: ${p.usuario.email}");
-                      print("Senha: ${p.usuario.senha}");
+                    if (senhaController.text != confirmaSenhaController.text) {
+                      showSnackbar(context, "senha diferentes");
+                      print("senha diferentes");
+                    } else {
+                      dialogs.information(
+                          context, "preparando para o alteração...");
+                      Timer(Duration(seconds: 3), () {
+                        print("Pessoa: ${p.tipoPessoa}");
+                        print("Nome: ${p.nome}");
+                        print("Rasão social: ${p.razaoSocial}");
+                        print("Cnpj: ${p.cnpj}");
+                        print("Telefone: ${p.telefone}");
+                        print("DataRegistro: ${p.dataRegistro}");
+                        print("Email: ${p.usuario.email}");
+                        print("Senha: ${p.usuario.senha}");
 
-                      p.enderecos.add(enderecoController.enderecoSelecionado);
+                        p.enderecos.add(enderecoController.enderecoSelecionado);
 
-                      lojaController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
-                    });
+                        lojaController.update(p.id, p);
+                        Navigator.of(context).pop();
+                        buildPush(context);
+                      });
+                    }
                   }
                 }
               }

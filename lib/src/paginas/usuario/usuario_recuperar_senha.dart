@@ -34,7 +34,9 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
 
   _UsuarioRecuperarSenhaState({this.u});
 
-  var controllerEmail = TextEditingController();
+  var emailController = TextEditingController();
+  var senhaController = TextEditingController();
+  var confirmaSenhaController = TextEditingController();
 
   @override
   void initState() {
@@ -97,11 +99,11 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
 
   buildListViewForm(BuildContext context) {
     u = usuarioController.usuarioSelecionado;
-    controllerEmail.text = usuarioController.usuarioSelecionado.email;
+    emailController.text = usuarioController.usuarioSelecionado.email;
     return ListView(
       children: <Widget>[
         Container(
-          color: Colors.grey[200],
+          color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("Cadastrar nova senha"),
@@ -120,7 +122,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        controller: controllerEmail,
+                        controller: emailController,
                         onSaved: (value) => u.email = value,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
@@ -146,15 +148,20 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                         maxLines: 1,
                       ),
                       TextFormField(
+                        controller: senhaController,
                         onSaved: (value) => u.senha = value,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
-                          labelText: "Nova senha",
-                          hintText: "Nova senha",
+                          labelText: "Senha",
+                          hintText: "Senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            icon: usuarioController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
                             onPressed: () {
                               usuarioController.visualizarSenha();
                             },
@@ -173,8 +180,9 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                         obscureText: !usuarioController.senhaVisivel,
                         maxLength: 8,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
-                        onSaved: (value) => u.senha = value,
+                        controller: confirmaSenhaController,
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
@@ -182,7 +190,11 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                           hintText: "Confirma senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            icon: usuarioController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
                             onPressed: () {
                               usuarioController.visualizarSenha();
                             },
@@ -220,12 +232,17 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                dialogs.information(context, "preparando para o alteração");
-                Timer(Duration(seconds: 3), () {
-                  usuarioController.update(u.id, u);
-                  Navigator.of(context).pop();
-                  buildPush(context);
-                });
+                if (senhaController.text != confirmaSenhaController.text) {
+                  showSnackbar(context, "senha diferentes");
+                  print("senha diferentes");
+                } else {
+                  dialogs.information(context, "preparando para o alteração");
+                  Timer(Duration(seconds: 3), () {
+                    usuarioController.update(u.id, u);
+                    Navigator.of(context).pop();
+                    buildPush(context);
+                  });
+                }
               }
             },
           ),

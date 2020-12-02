@@ -3,7 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
+import 'package:nosso/src/paginas/endereco/endereco_cliente_page.dart';
+import 'package:nosso/src/paginas/endereco/endereco_loja_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_edit_page.dart';
 
 class UsuarioPerfil extends StatefulWidget {
   @override
@@ -18,8 +21,8 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
     return ListView(
       children: [
         Container(
-          height: 200,
-          color: Colors.grey[200],
+          height: 240,
+          color: Theme.of(context).accentColor.withOpacity(0.1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -69,16 +72,26 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.all(2),
                 height: 30,
-                child: Text(
-                  "sobre",
-                  style: TextStyle(color: Colors.grey[900]),
+                child: Observer(
+                  builder: (context) {
+                    Usuario u = usuarioController.usuarioSelecionado;
+                    if (u == null) {
+                      return Text("Minha conta");
+                    }
+                    return Text(
+                      "${u.pessoa.nome}",
+                      style: TextStyle(
+                        color: Colors.grey[900],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
           ),
         ),
         Container(
-          height: 500,
+          height: 580,
           color: Colors.grey[100],
           alignment: Alignment.center,
           padding: EdgeInsets.all(2),
@@ -128,7 +141,7 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return UsuarioCreatePage();
+                        return UsuarioEditPage();
                       },
                     ),
                   );
@@ -151,7 +164,7 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
                 },
               ),
               ListTile(
-                title: Text("Endereço"),
+                title: Text("Endereço de cliente"),
                 subtitle: Text("Altere seu endereço"),
                 leading: CircleAvatar(
                   child: Icon(Icons.location_on_outlined),
@@ -160,7 +173,23 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return UsuarioCreatePage();
+                        return EnderecoClientePage();
+                      },
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: Text("Endereço de loja"),
+                subtitle: Text("Altere seu endereço"),
+                leading: CircleAvatar(
+                  child: Icon(Icons.location_on_outlined),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return EnderecoLojaPage();
                       },
                     ),
                   );

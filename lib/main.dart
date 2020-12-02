@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.grey[100],
-      accentColor: Colors.purple[800],
+      accentColor: Colors.yellow[800],
       primarySwatch: Colors.indigo,
       appBarTheme: AppBarTheme(
         elevation: 1,
@@ -160,7 +160,7 @@ class MyApp extends StatelessWidget {
       ),
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.black,
-        backgroundColor: Colors.green[500],
+        backgroundColor: Colors.yellow[800],
       ),
       scaffoldBackgroundColor: Colors.grey[100],
       bottomSheetTheme: BottomSheetThemeData(
