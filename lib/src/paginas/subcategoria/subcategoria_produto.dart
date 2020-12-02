@@ -137,12 +137,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               ),
             ),
             Expanded(
-              child: Card(
-                child: Container(
-                  child: builderConteudoListProduto(),
-                ),
-              ),
-            )
+              child: builderConteudoListProduto(),
+            ),
           ],
         ),
       ),
@@ -251,7 +247,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 4),
+            padding: EdgeInsets.symmetric(vertical: 0),
             child: ContainerProduto(produtoController, p),
           ),
           onTap: () {

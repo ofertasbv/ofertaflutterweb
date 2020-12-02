@@ -120,14 +120,10 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     ),
                     SizedBox(height: 0),
                     Container(
-                        padding: EdgeInsets.all(2),
                         width: containerWidth,
                         color: Colors.transparent,
                         child: ListTile(
-                          title: Text(
-                            p.nome,
-                            style: TextStyle(fontSize: 18),
-                          ),
+                          title: Text(p.nome),
                           subtitle: Text(p.descricao),
                         )),
                   ],

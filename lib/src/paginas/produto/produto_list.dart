@@ -91,7 +91,7 @@ class _ProdutoListState extends State<ProdutoList>
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4),
+            padding: EdgeInsets.symmetric(vertical: 0),
             child: ContainerProduto(produtoController, p),
           ),
           onTap: () {

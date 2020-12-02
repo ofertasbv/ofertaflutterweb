@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
-import 'package:nosso/src/core/model/promocao.dart';
 
 class LojaDetalhesView extends StatefulWidget {
   Loja p;
@@ -42,36 +41,32 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
             fit: BoxFit.cover,
           ),
         ),
-        Card(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    p.nome,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: Text(
-                    "Cel. ${p.telefone}",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    ),
+        Container(
+          color: Theme.of(context).primaryColor.withOpacity(0.1),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  p.nome,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
+                subtitle: Text(
+                  "${p.telefone}",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        Divider(),
       ],
     );
   }

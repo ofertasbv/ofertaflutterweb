@@ -99,7 +99,7 @@ class _CatalogoHomeState extends State<CatalogoHome> {
             ),
             SizedBox(height: 10),
             Container(
-              height: 200,
+              height: 156,
               padding: EdgeInsets.all(0),
               child: ProdutoListHome(),
             ),

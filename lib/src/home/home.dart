@@ -30,8 +30,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin<HomePage> {
-
-
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var usuarioController = GetIt.I.get<UsuarioController>();
   var pageController = PageController();
@@ -51,7 +49,7 @@ class _HomePageState extends State<HomePage>
         onWillPop: onBackPressed,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 0.4,
+            elevation: 0,
             bottomOpacity: 0,
             title: Text("U-NOSSO"),
             actions: <Widget>[

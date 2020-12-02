@@ -110,62 +110,62 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   fit: BoxFit.cover,
                 ),
         ),
-        Card(
-          child: Container(
-            child: ListTile(
-              title: Text(
-                p.nome,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+        Container(
+          color: Theme.of(context).primaryColor.withOpacity(0.1),
+          child: ListTile(
+            title: Text(
+              p.nome,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
-              subtitle: Text(
-                "Código. ${p.id}",
-                style: TextStyle(fontSize: 16),
-              ),
-              trailing: CircleAvatar(
-                backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.redAccent,
-                radius: 15,
-                child: IconButton(
-                  splashColor: Colors.black,
-                  icon: (this.favorito == false
-                      ? Icon(
-                          Icons.favorite_border,
-                          color: Colors.redAccent,
-                          size: 15,
-                        )
-                      : Icon(
-                          Icons.favorite_outlined,
-                          color: Colors.redAccent,
-                          size: 15,
-                        )),
-                  onPressed: () {
-                    setState(() {
-                      print("Favoritar: ${p.nome}");
-                      favoritar(p);
-                    });
+            ),
+            subtitle: Text(
+              "Código. ${p.id}",
+              style: TextStyle(fontSize: 16),
+            ),
+            trailing: CircleAvatar(
+              backgroundColor: Colors.grey[300],
+              foregroundColor: Colors.redAccent,
+              radius: 15,
+              child: IconButton(
+                splashColor: Colors.black,
+                icon: (this.favorito == false
+                    ? Icon(
+                        Icons.favorite_border,
+                        color: Colors.redAccent,
+                        size: 15,
+                      )
+                    : Icon(
+                        Icons.favorite_outlined,
+                        color: Colors.redAccent,
+                        size: 15,
+                      )),
+                onPressed: () {
+                  setState(() {
+                    print("Favoritar: ${p.nome}");
+                    favoritar(p);
+                  });
 
-                    if (favorito.id == null) {
-                      favorito.produto = p;
-                      favorito.status = isFavorito;
-                      favoritoController.create(favorito);
-                      print("Adicionar: ${p.nome}");
-                    } else {
-                      favorito.produto = p;
-                      favorito.status = isFavorito;
-                      favoritoController.update(favorito.id, favorito);
-                      print("Alterar: ${p.nome}");
-                      showSnackbar(context, "favorito");
-                    }
-                  },
-                ),
+                  if (favorito.id == null) {
+                    favorito.produto = p;
+                    favorito.status = isFavorito;
+                    favoritoController.create(favorito);
+                    print("Adicionar: ${p.nome}");
+                  } else {
+                    favorito.produto = p;
+                    favorito.status = isFavorito;
+                    favoritoController.update(favorito.id, favorito);
+                    print("Alterar: ${p.nome}");
+                    showSnackbar(context, "favorito");
+                  }
+                },
               ),
             ),
           ),
         ),
-        Card(
+        Divider(),
+        Container(
           child: Column(
             children: [
               Container(
@@ -184,25 +184,23 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  trailing: Chip(
-                    label: p.status == true
-                        ? Text(
-                            "produto disponivel",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Text(
-                            "produto indisponivel",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  trailing: p.status == true
+                      ? Text(
+                          "produto disponivel",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
                           ),
-                  ),
+                        )
+                      : Text(
+                          "produto indisponivel",
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
               Container(
@@ -218,16 +216,14 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                   subtitle: Text(
                     "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
                     style: TextStyle(
-                      fontSize: 20,
                       color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: Chip(
                     label: Text(
-                      "- ${formatMoeda.format(p.promocao.desconto)}",
+                      "${formatMoeda.format(p.promocao.desconto)} OFF",
                       style: TextStyle(
-                        fontSize: 20,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),

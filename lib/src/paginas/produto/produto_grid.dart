@@ -231,15 +231,9 @@ class _ProdutoGridState extends State<ProdutoGrid>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      height: 60,
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        p.nome,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: ListTile(
+                        title: Text("${p.nome}"),
+                        subtitle: Text("Código. ${p.id}"),
                       ),
                     ),
                     Container(
@@ -247,7 +241,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                         title: Text(
                           "De ${formatMoeda.format(p.estoque.valor)}",
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 10,
                             decoration: TextDecoration.lineThrough,
                             decorationStyle: TextDecorationStyle.dashed,
                           ),
@@ -256,15 +250,15 @@ class _ProdutoGridState extends State<ProdutoGrid>
                           "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
                           style: TextStyle(
                             color: Colors.green,
-                            fontSize: 14,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         trailing: Chip(
                           label: Text(
-                            "- ${formatMoeda.format(p.promocao.desconto)}",
+                            "${formatMoeda.format(p.promocao.desconto)} OFF",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),

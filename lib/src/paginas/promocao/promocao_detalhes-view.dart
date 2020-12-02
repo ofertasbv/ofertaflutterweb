@@ -42,41 +42,39 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
             fit: BoxFit.cover,
           ),
         ),
-        Card(
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    p.nome,
+        Container(
+          color: Theme.of(context).primaryColor.withOpacity(0.1),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              ListTile(
+                title: Text(
+                  p.nome,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
+                ),
+                subtitle: Text(
+                  p.descricao,
+                ),
+                trailing: Chip(
+                  label: Text(
+                    "OFF ${formatMoeda.format(p.desconto)}",
                     style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
-                  subtitle: Text(
-                    p.descricao,
-                  ),
-                  trailing: Chip(
-                    label: Text(
-                      "OFF ${formatMoeda.format(p.desconto)}",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        Divider(),
       ],
     );
   }
