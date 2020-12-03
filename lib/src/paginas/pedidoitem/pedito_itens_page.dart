@@ -147,7 +147,6 @@ class _PedidoItensListState extends State<PedidoItensList> {
                               child: Text(
                                 p.produto.nome,
                                 style: TextStyle(
-                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -167,7 +166,6 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                     "R\$ ${formatMoeda.format(p.valorUnitario)}",
                                     style: TextStyle(
                                       color: Colors.green,
-                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -189,7 +187,6 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                     "R\$ ${formatMoeda.format(p.valorTotal)}",
                                     style: TextStyle(
                                       color: Colors.green,
-                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -206,7 +203,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: <Widget>[
                                   CircleAvatar(
-                                    backgroundColor: Colors.grey[300],
+                                    backgroundColor: Colors.grey[200],
                                     foregroundColor: Colors.redAccent,
                                     radius: 20,
                                     child: IconButton(
@@ -232,6 +229,8 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                       children: <Widget>[
                                         SizedBox(
                                           child: CircleAvatar(
+                                            backgroundColor: Colors.grey[200],
+                                            foregroundColor: Colors.black,
                                             child: IconButton(
                                               icon: Icon(Icons
                                                   .indeterminate_check_box_outlined),
@@ -242,8 +241,8 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                                   print("${p.quantidade}");
                                                   pedidoItemController
                                                       .decremento(p);
-                                                  pedidoItemController
-                                                      .calculateTotal();
+                                                  // pedidoItemController
+                                                  //     .calculateTotal();
                                                 });
                                               },
                                             ),
@@ -253,13 +252,15 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                         Container(
                                           width: 30,
                                           height: 30,
-                                          color: Colors.grey[200],
+                                          color: Colors.grey[100],
                                           child: Center(
                                             child: Text("${p.quantidade}"),
                                           ),
                                         ),
                                         SizedBox(
                                           child: CircleAvatar(
+                                            backgroundColor: Colors.grey[200],
+                                            foregroundColor: Colors.black,
                                             child: IconButton(
                                               icon: Icon(Icons.add),
                                               splashColor: Colors.black,
@@ -269,8 +270,8 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                                   print("${p.quantidade}");
                                                   pedidoItemController
                                                       .incremento(p);
-                                                  pedidoItemController
-                                                      .calculateTotal();
+                                                  // pedidoItemController
+                                                  //     .calculateTotal();
                                                 });
                                               },
                                             ),

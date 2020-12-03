@@ -77,6 +77,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: GlobalScaffold.instance.scaffkey,
         appBar: AppBar(
           title: Text(p.nome),
           actions: <Widget>[
@@ -220,11 +221,12 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                 side: BorderSide(color: Colors.transparent),
               ),
               onPressed: () {
-                if (pedidoItemController.isExiste(p)) {
-                  // showSnackbar(context, "Produto ${p.nome} já existe");
+                if (pedidoItemController
+                    .isExisteItem(new PedidoItem(produto: p))) {
+                  showSnackbar(context, "Produto ${p.nome} já existe");
                 } else {
                   pedidoItemController.adicionar(new PedidoItem(produto: p));
-                  // showSnackbar(context, "Produto ${p.nome} adicionado");
+                  showSnackbar(context, "Produto ${p.nome} adicionado");
                   setState(() {
                     animationController.forward();
                   });

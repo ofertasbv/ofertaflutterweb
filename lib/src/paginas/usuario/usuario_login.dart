@@ -215,8 +215,12 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                 if (u.id == null) {
                   dialogs.information(context, "verificando login...");
                   Timer(Duration(seconds: 3), () {
-                    usuarioController.getLogin(u.email, u.senha);
-                    Navigator.pop(context);
+                    usuarioController
+                        .getLogin(u.email, u.senha)
+                        .then((usuario) {
+                      Usuario us = usuario;
+                      print("US: ${us.id}");
+                    });
                     buildPush(context);
                   });
                 }
@@ -271,6 +275,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
   }
 
   buildPush(BuildContext context) {
+    Navigator.pop(context);
     return Navigator.push(
       context,
       MaterialPageRoute(

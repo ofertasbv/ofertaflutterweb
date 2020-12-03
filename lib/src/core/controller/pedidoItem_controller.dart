@@ -103,6 +103,17 @@ abstract class PedidoItemControllerBase with Store {
   }
 
   @action
+  isExisteItem(PedidoItem item){
+    var result = false;
+    for(PedidoItem p in itens){
+      if(item.produto.nome == p.produto.nome){
+        return result = true;
+      }
+    }
+    return result;
+  }
+
+  @action
   incremento(PedidoItem item) {
     if (item.quantidade < 10) {
       item.quantidade++;
@@ -126,7 +137,7 @@ abstract class PedidoItemControllerBase with Store {
 
   @action
   calculateTotal() {
-    total = 0;
+    this.total = 0.0;
     itens.forEach((p) {
       total += p.valorTotal;
     });

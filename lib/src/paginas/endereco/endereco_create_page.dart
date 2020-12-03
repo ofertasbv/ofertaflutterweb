@@ -241,6 +241,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
+    var focus = FocusScope.of(context);
     return ListView(
       children: <Widget>[
         Container(
@@ -274,11 +275,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -364,11 +366,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -390,11 +393,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 10,
                       ),
@@ -414,11 +418,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         inputFormatters: [
                           MaskedTextInputFormatter(
@@ -442,11 +447,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -465,13 +471,16 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           ),
                           labelStyle: TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        readOnly: true,
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.numberWithOptions(),
                         maxLength: 50,
                       ),
@@ -490,13 +499,16 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                           ),
                           labelStyle: TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        readOnly: true,
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.numberWithOptions(),
                         maxLength: 50,
                       ),
@@ -564,7 +576,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
 
                     endereco.cidade = cidadeSelecionada;
                     enderecoController.create(endereco);
-                    Navigator.of(context).pop();
                     buildPush(context);
                   });
                 } else {
@@ -576,7 +587,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
 
                     endereco.cidade = cidadeSelecionada;
                     enderecoController.update(endereco.id, endereco);
-                    Navigator.of(context).pop();
+
                     buildPush(context);
                   });
                 }
@@ -590,6 +601,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
   }
 
   buildPush(BuildContext context) {
+    Navigator.of(context).pop();
     return Navigator.push(
       context,
       MaterialPageRoute(

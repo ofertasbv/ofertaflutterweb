@@ -176,7 +176,6 @@ class _ProdutoListState extends State<ProdutoList>
       padding: EdgeInsets.zero,
       enabled: true,
       elevation: 1,
-      captureInheritedThemes: true,
       icon: Icon(Icons.more_vert),
       onSelected: (valor) {
         if (valor == "novo") {

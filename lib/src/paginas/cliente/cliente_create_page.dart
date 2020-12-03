@@ -574,9 +574,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      // clienteController.create(p);
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
+                      clienteController.create(p);
+                      buildPush(context);
                     });
                   }
                 } else {
@@ -598,9 +597,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      // clienteController.update(p.id, p);
-                      // Navigator.of(context).pop();
-                      // buildPush(context);
+                      clienteController.update(p.id, p);
+                      buildPush(context);
                     });
                   }
                 }
@@ -614,6 +612,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   }
 
   buildPush(BuildContext context) {
+    Navigator.of(context).pop();
     return Navigator.push(
       context,
       MaterialPageRoute(
