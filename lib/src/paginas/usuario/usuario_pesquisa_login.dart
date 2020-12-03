@@ -9,19 +9,20 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
-class UsuarioCreatePage extends StatefulWidget {
+class UsuarioPesquisaLogin extends StatefulWidget {
   Usuario usuario;
 
-  UsuarioCreatePage({Key key, this.usuario}) : super(key: key);
+  UsuarioPesquisaLogin({Key key, this.usuario}) : super(key: key);
 
   @override
-  _UsuarioCreatePageState createState() =>
-      _UsuarioCreatePageState(u: this.usuario);
+  _UsuarioPesquisaLoginState createState() =>
+      _UsuarioPesquisaLoginState(u: this.usuario);
 }
 
-class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
+class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -31,7 +32,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  _UsuarioCreatePageState({this.u});
+  _UsuarioPesquisaLoginState({this.u});
 
   var emailController = TextEditingController();
   var confirmaEmailController = TextEditingController();
@@ -80,7 +81,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Usuário cadastros"),
+        title: Text("Busca por login"),
       ),
       body: Observer(
         builder: (context) {
@@ -97,18 +98,13 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    var focus = FocusScope.of(context);
-
-    u = usuarioController.usuarioSelecionado;
-    emailController.text = usuarioController.usuarioSelecionado.email;
-
     return ListView(
       children: <Widget>[
         Container(
           color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("Alterar login"),
+            title: Text("Buscar login"),
           ),
         ),
         SizedBox(height: 20),
@@ -145,62 +141,6 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
-                        maxLength: 50,
-                        maxLines: 1,
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: emailController,
-                        onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
-                        decoration: InputDecoration(
-                          labelText: "Novo email",
-                          hintText: "email@gmail.com",
-                          prefixIcon: Icon(
-                            Icons.email_outlined,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: Icon(Icons.close),
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
-                        maxLength: 50,
-                        maxLines: 1,
-                      ),
-                      TextFormField(
-                        controller: confirmaEmailController,
-                        onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
-                        decoration: InputDecoration(
-                          labelText: "Comfirmar email",
-                          hintText: "email@gmail.com",
-                          prefixIcon: Icon(
-                            Icons.email_outlined,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: Icon(Icons.close),
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,
@@ -223,17 +163,12 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
             ),
             onPressed: () {
               if (controller.validate()) {
-                if (emailController.text != confirmaEmailController.text) {
-                  showSnackbar(context, "email diferentes");
-                  print("email diferentes");
-                } else {
-                  dialogs.information(context, "preparando para o alteração");
-                  Timer(Duration(seconds: 3), () {
-                    usuarioController.update(u.id, u);
-                    Navigator.of(context).pop();
-                    buildPush(context);
-                  });
-                }
+                dialogs.information(context, "verificando login");
+                Timer(Duration(seconds: 3), () {
+                  usuarioController.getEmail(u.email);
+                  Navigator.of(context).pop();
+                  buildPush(context);
+                });
               }
             },
           ),
@@ -246,7 +181,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UsuarioPage(),
+        builder: (context) => UsuarioRecuperarSenha(usuario: u),
       ),
     );
   }

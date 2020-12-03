@@ -55,6 +55,26 @@ abstract class LojaControllerBase with Store {
   String arquivo = ConstantApi.urlArquivoLoja;
 
   @action
+  Future<Loja> getById(int id) async {
+    try {
+      lojaSelecionada = await lojaRepository.getById(id);
+      return lojaSelecionada;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<List<Loja>> getAllById(int id) async {
+    try {
+      lojas = await lojaRepository.getAllById(id);
+      return lojas;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<List<Loja>> getAll() async {
     try {
       lojas = await lojaRepository.getAll();

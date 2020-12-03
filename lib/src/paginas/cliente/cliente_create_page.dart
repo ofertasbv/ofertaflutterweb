@@ -219,7 +219,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd-MM-yyyy');
+    var focus = FocusScope.of(context);
+    var dateFormat = DateFormat('dd-MM-yyyy');
 
     var maskFormatterCelular = new MaskTextInputFormatter(
         mask: '(##)#####-####', filter: {"#": RegExp(r'[0-9]')});
@@ -228,6 +229,8 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
         mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
 
     p.usuario = u;
+
+    print("Cliente form: ${p.nome}");
 
     return ListView(
       children: <Widget>[
@@ -355,6 +358,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Column(
@@ -365,7 +369,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
-                          labelText: "Nome",
+                          labelText: "Nome completo",
                           hintText: "nome",
                           prefixIcon: Icon(Icons.people, color: Colors.grey),
                           suffixIcon: Icon(Icons.close),
@@ -379,6 +383,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -403,6 +408,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         inputFormatters: [maskFormatterCPF],
                         keyboardType: TextInputType.number,
                         maxLength: 14,
@@ -427,6 +433,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.phone,
                         inputFormatters: [maskFormatterCelular],
                       ),
@@ -457,6 +464,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 10),
@@ -482,13 +490,15 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.lime[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !clienteController.senhaVisivel,
                         maxLength: 8,
@@ -522,6 +532,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !clienteController.senhaVisivel,
                         maxLength: 8,

@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
-import 'package:nosso/src/core/model/usuario.dart';
+import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
+import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class UsuarioEditPage extends StatefulWidget {
   @override
@@ -13,7 +16,16 @@ class UsuarioEditPage extends StatefulWidget {
 }
 
 class _UsuarioEditPageState extends State<UsuarioEditPage> {
+  var clienteController = GetIt.I.get<ClienteController>();
   var usuarioController = GetIt.I.get<UsuarioController>();
+  Dialogs dialogs = Dialogs();
+
+  Cliente p = Cliente();
+  buscarPessoa(int id) async {
+    p = await clienteController.getById(id);
+    print("Cliente: ${p.nome}");
+    return p;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +78,25 @@ class _UsuarioEditPageState extends State<UsuarioEditPage> {
                 ),
                 ListTile(
                   title: Text("Alterar dados pessoais"),
-                  subtitle:
-                      Text("Nome, CPF, RG"),
+                  subtitle: Text("Nome, CPF, RG"),
                   leading: CircleAvatar(
                     child: Icon(Icons.account_circle_outlined),
                   ),
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return ClienteCreatePage();
-                        },
-                      ),
-                    );
+                    buscarPessoa(usuarioController.usuarioSelecionado.pessoa.id);
+                    dialogs.information(context, "prepando para o cadastro...");
+                    Timer(Duration(seconds: 3), () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ClienteCreatePage(
+                              cliente: p,
+                            );
+                          },
+                        ),
+                      );
+                    });
                   },
                 ),
               ],

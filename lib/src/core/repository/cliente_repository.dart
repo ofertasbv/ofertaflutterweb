@@ -8,6 +8,17 @@ import 'package:nosso/src/core/model/cliente.dart';
 class ClienteRepository {
   CustonDio dio = CustonDio();
 
+  Future<Cliente> getById(int id) async {
+    try {
+      print("carregando cliente by id");
+      var response = await dio.client.get("/clientes/$id");
+      return Cliente.fromJson(response.data);
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<List<Cliente>> getAllById(int id) async {
     try {
       print("carregando clientes by id");

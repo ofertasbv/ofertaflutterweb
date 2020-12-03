@@ -220,7 +220,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+    var focus = FocusScope.of(context);
+    var dateFormat = DateFormat('dd-MM-yyyy');
 
     var maskFormatterCelular = new MaskTextInputFormatter(
         mask: '(##)#####-####', filter: {"#": RegExp(r'[0-9]')});
@@ -425,20 +426,22 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
-                          labelText: "Nome",
+                          labelText: "Nome fantazia",
                           hintText: "nome",
                           prefixIcon: Icon(Icons.people, color: Colors.grey),
                           suffixIcon: Icon(Icons.close),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.lime[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -462,6 +465,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
@@ -486,6 +490,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         inputFormatters: [maskFormatterCNPJ],
                         maxLength: 17,
@@ -510,41 +515,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.phone,
                         inputFormatters: [maskFormatterCelular],
-                      ),
-                      SizedBox(height: 20),
-                      DateTimeField(
-                        initialValue: p.dataRegistro,
-                        format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
-                        onSaved: (value) => p.dataRegistro = value,
-                        decoration: InputDecoration(
-                          labelText: "data registro",
-                          hintText: "99-09-9999",
-                          prefixIcon:
-                              Icon(Icons.calendar_today, color: Colors.grey),
-                          suffixIcon: Icon(Icons.close),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onShowPicker: (context, currentValue) {
-                          return showDatePicker(
-                            context: context,
-                            firstDate: DateTime(2000),
-                            initialDate: currentValue ?? DateTime.now(),
-                            locale: Locale('pt', 'BR'),
-                            lastDate: DateTime(2030),
-                          );
-                        },
                       ),
                     ],
                   ),
@@ -574,6 +547,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
                       ),
                       SizedBox(height: 20),
@@ -606,6 +580,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !lojaController.senhaVisivel,
                         maxLength: 8,
@@ -639,6 +614,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !lojaController.senhaVisivel,
                         maxLength: 8,
@@ -646,46 +622,46 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DropDownEndereco(e),
-                    Observer(
-                      builder: (context) {
-                        if (enderecoController.enderecoSelecionado == null) {
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: enderecoController.mensagem == null
-                                  ? Text(
-                                      "campo obrigatório *",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                      ),
-                                    )
-                                  : Text(
-                                      "${enderecoController.mensagem}",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                            ),
-                          );
-                        }
-                        return Container(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Container(
-                            child:
-                                Icon(Icons.check_outlined, color: Colors.green),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                // SizedBox(height: 0),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     DropDownEndereco(e),
+                //     Observer(
+                //       builder: (context) {
+                //         if (enderecoController.enderecoSelecionado == null) {
+                //           return Container(
+                //             padding: EdgeInsets.only(left: 25),
+                //             child: Container(
+                //               child: enderecoController.mensagem == null
+                //                   ? Text(
+                //                       "campo obrigatório *",
+                //                       style: TextStyle(
+                //                         color: Colors.red,
+                //                         fontSize: 12,
+                //                       ),
+                //                     )
+                //                   : Text(
+                //                       "${enderecoController.mensagem}",
+                //                       style: TextStyle(
+                //                         color: Colors.red,
+                //                         fontSize: 12,
+                //                       ),
+                //                     ),
+                //             ),
+                //           );
+                //         }
+                //         return Container(
+                //           padding: EdgeInsets.only(left: 25),
+                //           child: Container(
+                //             child:
+                //                 Icon(Icons.check_outlined, color: Colors.green),
+                //           ),
+                //         );
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -712,6 +688,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       dialogs.information(
                           context, "prepando para o cadastro...");
                       Timer(Duration(seconds: 3), () {
+                        DateTime agora = DateTime.now();
+                        p.dataRegistro = agora;
+
                         print("Pessoa: ${p.tipoPessoa}");
                         print("Nome: ${p.nome}");
                         print("Rasão social: ${p.razaoSocial}");
@@ -736,6 +715,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       dialogs.information(
                           context, "preparando para o alteração...");
                       Timer(Duration(seconds: 3), () {
+                        DateTime agora = DateTime.now();
+                        p.dataRegistro = agora;
+
                         print("Pessoa: ${p.tipoPessoa}");
                         print("Nome: ${p.nome}");
                         print("Rasão social: ${p.razaoSocial}");

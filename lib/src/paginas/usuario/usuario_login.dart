@@ -11,6 +11,8 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_pesquisa_login.dart';
+import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class UsuarioLogin extends StatefulWidget {
@@ -81,11 +83,12 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
   }
 
   buildListViewForm(BuildContext context) {
+    var focus = FocusScope.of(context);
     return ListView(
       children: <Widget>[
         Container(
           height: 150,
-          color: Colors.grey[200],
+          color: Theme.of(context).accentColor.withOpacity(0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -104,10 +107,10 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[100],
-                  radius: 40,
+                  radius: 30,
                   child: Icon(
                     Icons.person,
-                    size: 40,
+                    size: 30,
                   ),
                 ),
               ),
@@ -149,6 +152,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 50,
                         maxLines: 1,
@@ -164,7 +168,11 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                           hintText: "Senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.grey),
+                            icon: usuarioController.senhaVisivel == true
+                                ? Icon(Icons.visibility_outlined,
+                                    color: Colors.grey)
+                                : Icon(Icons.visibility_off_outlined,
+                                    color: Colors.grey),
                             onPressed: () {
                               usuarioController.visualizarSenha();
                             },
@@ -172,13 +180,15 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !usuarioController.senhaVisivel,
                         maxLength: 8,
@@ -247,7 +257,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return UsuarioCreatePage();
+                        return UsuarioPesquisaLogin();
                       },
                     ),
                   );

@@ -21,7 +21,7 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
     return ListView(
       children: [
         Container(
-          height: 240,
+          height: 150,
           color: Theme.of(context).accentColor.withOpacity(0.1),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,10 +41,10 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[100],
-                  radius: 40,
+                  radius: 30,
                   child: Icon(
                     Icons.person,
-                    size: 40,
+                    size: 30,
                   ),
                 ),
               ),
@@ -91,10 +91,7 @@ class _UsuarioPerfilState extends State<UsuarioPerfil> {
           ),
         ),
         Container(
-          height: 580,
-          color: Colors.grey[100],
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(2),
+          height: 570,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,

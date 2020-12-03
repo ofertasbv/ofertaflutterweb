@@ -98,8 +98,10 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
   }
 
   buildListViewForm(BuildContext context) {
+    var focus = FocusScope.of(context);
     u = usuarioController.usuarioSelecionado;
     emailController.text = usuarioController.usuarioSelecionado.email;
+
     return ListView(
       children: <Widget>[
         Container(
@@ -143,6 +145,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,
@@ -176,6 +179,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !usuarioController.senhaVisivel,
                         maxLength: 8,
@@ -209,6 +213,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         obscureText: !usuarioController.senhaVisivel,
                         maxLength: 8,

@@ -58,8 +58,8 @@ class _ConfigPageState extends State<ConfigPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white,
-              Colors.white,
+              Colors.grey[200],
+              Colors.grey[200],
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
