@@ -17,6 +17,8 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/componets/dropdown_endereco.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
@@ -251,123 +253,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Container(
-                  child: GestureDetector(
-                    onTap: () {
-                      openBottomSheet(context);
-                    },
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      color: Colors.grey[300],
-                      child: Container(
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            file != null
-                                ? Image.file(
-                                    file,
-                                    fit: BoxFit.fitWidth,
-                                    width: double.infinity,
-                                    height: 300,
-                                  )
-                                : p.foto != null
-                                    ? CircleAvatar(
-                                        radius: 50,
-                                        backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoLoja + p.foto,
-                                        ),
-                                      )
-                                    : CircleAvatar(
-                                        radius: 50,
-                                        child: Icon(
-                                          Icons.camera_alt_outlined,
-                                        ),
-                                      ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  color: Colors.grey[300],
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            RaisedButton(
-                              child: Icon(Icons.delete_forever),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledDelete
-                                  ? () => lojaController.deleteFoto(p.foto)
-                                  : null,
-                            ),
-                            RaisedButton(
-                              child: Icon(Icons.photo),
-                              shape: new CircleBorder(),
-                              onPressed: () {
-                                openBottomSheet(context);
-                              },
-                            ),
-                            RaisedButton(
-                              child: Icon(Icons.check),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledEnviar
-                                  ? () => onClickUpload()
-                                  : null,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ExpansionTile(
-                  leading: Icon(Icons.photo),
-                  title: Text("Descrição"),
-                  children: [
-                    Container(
-                      height: 400,
-                      padding: EdgeInsets.all(5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: ListTile(
-                              title: Text("fileName"),
-                              subtitle: Text("${uploadFileResponse.fileName}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("fileDownloadUri"),
-                              subtitle:
-                                  Text("${uploadFileResponse.fileDownloadUri}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("fileType"),
-                              subtitle: Text("${uploadFileResponse.fileType}"),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("size"),
-                              subtitle: Text("${uploadFileResponse.size}"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Container(
@@ -738,6 +623,32 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                 }
               }
             },
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Já tem uma conta ? "),
+              GestureDetector(
+                child: Text(
+                  "Entrar",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return UsuarioLoginPage();
+                      },
+                    ),
+                  );
+                },
+              )
+            ],
           ),
         ),
         SizedBox(height: 20),

@@ -20,7 +20,7 @@ abstract class LojaControllerBase with Store {
   }
 
   @observable
-  Completer<GoogleMapController> completer;
+  Completer<GoogleMapController> completer = Completer<GoogleMapController>();
 
   @observable
   List<Loja> lojas;

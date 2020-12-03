@@ -17,6 +17,8 @@ import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -604,6 +606,32 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                 }
               }
             },
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Já tem uma conta ? "),
+              GestureDetector(
+                child: Text(
+                  "Entrar",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return UsuarioLoginPage();
+                      },
+                    ),
+                  );
+                },
+              )
+            ],
           ),
         ),
         SizedBox(height: 20),
