@@ -1,23 +1,18 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_login.dart';
 import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
@@ -77,105 +72,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
   void didChangeDependencies() {
     controller = Controller();
     super.didChangeDependencies();
-  }
-
-  bool isEnabledEnviar = false;
-  bool isEnabledDelete = false;
-
-  enableButton() {
-    setState(() {
-      isEnabledEnviar = true;
-    });
-  }
-
-  disableButton() {
-    setState(() {
-      isEnabledDelete = true;
-    });
-  }
-
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  onClickUpload() async {
-    if (file != null) {
-      var url = await clienteController.upload(file, p.foto);
-
-      print("url: ${url}");
-
-      print("========= UPLOAD FILE RESPONSE ========= ");
-
-      uploadFileResponse = response.response(uploadFileResponse, url);
-
-      print("fileName: ${uploadFileResponse.fileName}");
-      print("fileDownloadUri: ${uploadFileResponse.fileDownloadUri}");
-      print("fileType: ${uploadFileResponse.fileType}");
-      print("size: ${uploadFileResponse.size}");
-
-      p.foto = uploadFileResponse.fileName;
-
-      setState(() {
-        uploadFileResponse;
-      });
-
-      showSnackbar(context, "Arquivo anexada com sucesso!");
-    }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {

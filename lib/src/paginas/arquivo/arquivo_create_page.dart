@@ -205,7 +205,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(0),
-          color: Colors.grey[300],
+          color: Theme.of(context).accentColor.withOpacity(0.1),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -234,7 +234,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                     ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoArquivo +
+                                          arquivoController.arquivoFoto +
                                               a.foto,
                                         ),
                                       )
@@ -259,26 +259,32 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            RaisedButton(
-                              child: Icon(Icons.delete_forever),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledDelete
-                                  ? () => arquivoController.deleteFoto(a.foto)
-                                  : null,
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.delete_forever),
+                                onPressed: isEnabledDelete
+                                    ? () => arquivoController.deleteFoto(a.foto)
+                                    : null,
+                              ),
                             ),
-                            RaisedButton(
-                              child: Icon(Icons.photo),
-                              shape: new CircleBorder(),
-                              onPressed: () {
-                                openBottomSheet(context);
-                              },
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.photo),
+                                onPressed: () {
+                                  openBottomSheet(context);
+                                },
+                              ),
                             ),
-                            RaisedButton(
-                              child: Icon(Icons.check),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledEnviar
-                                  ? () => onClickUpload()
-                                  : null,
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.check),
+                                onPressed: isEnabledEnviar
+                                    ? () => onClickUpload()
+                                    : null,
+                              ),
                             )
                           ],
                         ),

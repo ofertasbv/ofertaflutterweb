@@ -10,17 +10,18 @@ import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
-class UsuarioEditPage extends StatefulWidget {
+class UsuarioEditCliente extends StatefulWidget {
   @override
-  _UsuarioEditPageState createState() => _UsuarioEditPageState();
+  _UsuarioEditClienteState createState() => _UsuarioEditClienteState();
 }
 
-class _UsuarioEditPageState extends State<UsuarioEditPage> {
+class _UsuarioEditClienteState extends State<UsuarioEditCliente> {
   var clienteController = GetIt.I.get<ClienteController>();
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
   Cliente p = Cliente();
+
   buscarPessoa(int id) async {
     p = await clienteController.getById(id);
     print("Cliente: ${p.nome}");
@@ -31,7 +32,7 @@ class _UsuarioEditPageState extends State<UsuarioEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Perfil de usuário"),
+        title: Text("Perfil de cliente"),
       ),
       body: ListView(
         children: [
@@ -78,13 +79,14 @@ class _UsuarioEditPageState extends State<UsuarioEditPage> {
                 ),
                 ListTile(
                   title: Text("Alterar dados pessoais"),
-                  subtitle: Text("Nome, CPF, RG"),
+                  subtitle: Text("Nome, CPF, Telefone"),
                   leading: CircleAvatar(
                     child: Icon(Icons.account_circle_outlined),
                   ),
                   onTap: () {
-                    buscarPessoa(usuarioController.usuarioSelecionado.pessoa.id);
-                    dialogs.information(context, "prepando para o cadastro...");
+                    buscarPessoa(
+                        usuarioController.usuarioSelecionado.pessoa.id);
+                    dialogs.information(context, "carregando suas informações");
                     Timer(Duration(seconds: 3), () {
                       Navigator.of(context).pop();
                       Navigator.of(context).push(
