@@ -7,11 +7,10 @@ import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
-import 'package:nosso/src/paginas/endereco/endereco_cliente_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_loja_page.dart';
-import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/paginas/loja/loja_produto_page.dart';
+import 'package:nosso/src/paginas/loja/loja_promocao_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_edit_cliente.dart';
 import 'package:nosso/src/paginas/usuario/usuario_edit_loja.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -251,7 +250,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return UsuarioCreatePage();
+                        return LojaProdutoPage();
                       },
                     ),
                   );
@@ -267,7 +266,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
-                        return PromocaoPage();
+                        return LojaPromocaoPage();
                       },
                     ),
                   );

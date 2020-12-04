@@ -8,6 +8,7 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
+import 'package:nosso/src/util/container/container_categoria.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class CategoriaList extends StatefulWidget {
@@ -69,35 +70,9 @@ class _CategoriaListState extends State<CategoriaList>
         Categoria c = categorias[index];
 
         return GestureDetector(
-          child: ListTile(
-            isThreeLine: true,
-            leading: Container(
-              padding: EdgeInsets.all(1),
-              decoration: new BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.grey[900]],
-                ),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(35),
-              ),
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[100],
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  "${categoriaController.arquivo + c.foto}",
-                ),
-              ),
-            ),
-            title: Text(c.nome),
-            subtitle: Text("cod: ${c.id}"),
-            trailing: Container(
-              height: 80,
-              width: 50,
-              child: buildPopupMenuButton(context, c),
-            ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 0),
+            child: ContainerCategoria(categoriaController, c),
           ),
           onTap: () {
             Navigator.of(context).push(
@@ -112,58 +87,6 @@ class _CategoriaListState extends State<CategoriaList>
           },
         );
       },
-    );
-  }
-
-  PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Categoria c) {
-    return PopupMenuButton<String>(
-      padding: EdgeInsets.zero,
-      icon: Icon(Icons.more_vert),
-      onSelected: (valor) {
-        if (valor == "novo") {
-          print("novo");
-        }
-        if (valor == "editar") {
-          print("editar");
-          Navigator.of(context).pop();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return CategoriaCreatePage(
-                  categoria: c,
-                );
-              },
-            ),
-          );
-        }
-        if (valor == "delete") {
-          print("delete");
-        }
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        const PopupMenuItem<String>(
-          value: 'novo',
-          child: ListTile(
-            leading: Icon(Icons.add),
-            title: Text('novo'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'editar',
-          child: ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('editar'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'delete',
-          child: ListTile(
-            leading: Icon(Icons.delete),
-            title: Text('Delete'),
-          ),
-        )
-      ],
     );
   }
 

@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: WillPopScope(
         onWillPop: onBackPressed,
         child: Scaffold(
@@ -147,6 +147,13 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.local_convenience_store_outlined),
+                title: Text(
+                  'loja',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.add_alert_outlined),
                 title: Text(
                   'oferta',
@@ -231,6 +238,7 @@ class _HomePageState extends State<HomePage>
   List lista = [
     CatalogoHome(),
     CategoriaList(),
+    LojaList(),
     PromocaoList(),
     UsuarioPerfilPage(),
   ];

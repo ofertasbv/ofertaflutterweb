@@ -28,7 +28,7 @@ class _LojaLocationState extends State<LojaLocation> {
   Geolocator geolocator;
   Position position;
 
-  Completer<GoogleMapController> completer = Completer<GoogleMapController>();
+  // Completer<GoogleMapController> completer = Completer<GoogleMapController>();
 
   List<Marker> allMarkers = [];
 
@@ -88,7 +88,7 @@ class _LojaLocationState extends State<LojaLocation> {
   }
 
   criarMapa(GoogleMapController controller) {
-    completer.complete(controller);
+    lojaController.completer.complete(controller);
   }
 
   markers(Loja p) {
@@ -129,12 +129,14 @@ class _LojaLocationState extends State<LojaLocation> {
   }
 
   Future<void> goToPosition() async {
-    final GoogleMapController controller = await completer.future;
+    final GoogleMapController controller =
+        await lojaController.completer.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(posicaoCamera));
   }
 
   movimentarCamera(double latitude, double longitude) async {
-    GoogleMapController googleMapController = await completer.future;
+    GoogleMapController googleMapController =
+        await lojaController.completer.future;
     googleMapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -318,9 +320,7 @@ class _LojaLocationState extends State<LojaLocation> {
           child: AnimatedContainer(
             duration: Duration(seconds: 1),
             decoration: BoxDecoration(
-              color: p.nome == selectedCard
-                  ? Theme.of(context).accentColor.withOpacity(0.1)
-                  : Colors.white,
+              color: p.nome == selectedCard ? Colors.yellow[200] : Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 240,
@@ -341,16 +341,10 @@ class _LojaLocationState extends State<LojaLocation> {
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text(p.nome),
-                        ListTile(
-                          leading: Icon(Icons.directions_run),
-                          trailing: Text("0.0 km"),
-                        ),
-                      ],
+                    child: ListTile(
+                      title: Text(p.nome),
+                      subtitle: Icon(Icons.directions_run),
+                      trailing: Text("0.0 km"),
                     ),
                   ),
                 ),

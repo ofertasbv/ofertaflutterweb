@@ -54,6 +54,17 @@ class ProdutoRepository {
     return null;
   }
 
+  Future<List<Produto>> getAllByLojaById(int id) async {
+    try {
+      print("carregando produtos da loja");
+      var response = await dio.client.get("/produtos/loja/$id");
+      return (response.data as List).map((c) => Produto.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<Produto> getByCodBarra(String codigoBarra) async {
     try {
       print("carregando produtos by codigo de barra");

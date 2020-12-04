@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/produto/produto_create_page.dart';
+import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
 
-class ContainerProduto extends StatelessWidget {
-  ProdutoController produtoController;
-  Produto p;
+class ContainerPromocao extends StatelessWidget {
+  PromoCaoController promoCaoController;
+  Promocao p;
 
-  ContainerProduto(this.produtoController, this.p);
+  ContainerPromocao(this.promoCaoController, this.p);
 
   @override
   Widget build(BuildContext context) {
@@ -44,37 +47,10 @@ class ContainerProduto extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            produtoController.arquivo + p.foto,
+                            promoCaoController.arquivo + p.foto,
                             fit: BoxFit.cover,
                             width: 100,
                             height: 150,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: p.novo == true
-                                ? Chip(
-                                    label: Text(
-                                      "novo",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )
-                                : Chip(
-                                    label: Text(
-                                      "atual",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
                           ),
                         ),
                       ],
@@ -110,7 +86,7 @@ class ContainerProduto extends StatelessWidget {
                           Container(
                             child: ListTile(
                               title: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor)}",
+                                "R\$ ${formatMoeda.format(p.desconto)}",
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.grey,
@@ -120,7 +96,7 @@ class ContainerProduto extends StatelessWidget {
                                 ),
                               ),
                               subtitle: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                                "R\$ ${formatMoeda.format(p.desconto)} OFF",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.green,
@@ -144,11 +120,9 @@ class ContainerProduto extends StatelessWidget {
   }
 
   PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Produto p) {
+      BuildContext context, Promocao p) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
-      enabled: true,
-      elevation: 1,
       icon: Icon(Icons.more_vert),
       onSelected: (valor) {
         if (valor == "novo") {
@@ -156,18 +130,29 @@ class ContainerProduto extends StatelessWidget {
         }
         if (valor == "editar") {
           print("editar");
+          Navigator.of(context).pop();
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return ProdutoCreatePage(
-                  produto: p,
+                return PromocaoCreatePage(
+                  promocao: p,
                 );
               },
             ),
           );
         }
-        if (valor == "editar") {
-          print("editar");
+        if (valor == "delete") {
+          print("delete");
+        }
+        if (valor == "produtos") {
+          print("produtos");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return ProdutoTab();
+              },
+            ),
+          );
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -189,7 +174,14 @@ class ContainerProduto extends StatelessWidget {
           value: 'delete',
           child: ListTile(
             leading: Icon(Icons.delete),
-            title: Text('Delete'),
+            title: Text('delete'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'produtos',
+          child: ListTile(
+            leading: Icon(Icons.add),
+            title: Text('produtos'),
           ),
         )
       ],

@@ -10,6 +10,7 @@ import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_create_page.dart';
 import 'package:nosso/src/paginas/promocao/promocao_detalhes_tab.dart';
+import 'package:nosso/src/util/container/container_promocao.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PromocaoList extends StatefulWidget {
@@ -79,35 +80,9 @@ class _PromocaoListState extends State<PromocaoList>
         Promocao p = promocoes[index];
 
         return GestureDetector(
-          child: ListTile(
-            isThreeLine: true,
-            leading: Container(
-              padding: EdgeInsets.all(1),
-              decoration: new BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.grey[900]],
-                ),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(35),
-              ),
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[100],
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  "${promocaoController.arquivo + p.foto}",
-                ),
-              ),
-            ),
-            title: Text(p.nome),
-            subtitle: Text("${p.loja.nome}"),
-            trailing: Container(
-              height: 80,
-              width: 50,
-              child: buildPopupMenuButton(context, p),
-            ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 0),
+            child: ContainerPromocao(promocaoController, p),
           ),
           onTap: () {
             Navigator.of(context).push(
@@ -120,75 +95,6 @@ class _PromocaoListState extends State<PromocaoList>
           },
         );
       },
-    );
-  }
-
-  PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Promocao p) {
-    return PopupMenuButton<String>(
-      padding: EdgeInsets.zero,
-      icon: Icon(Icons.more_vert),
-      onSelected: (valor) {
-        if (valor == "novo") {
-          print("novo");
-        }
-        if (valor == "editar") {
-          print("editar");
-          Navigator.of(context).pop();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return PromocaoCreatePage(
-                  promocao: p,
-                );
-              },
-            ),
-          );
-        }
-        if (valor == "delete") {
-          print("delete");
-        }
-        if (valor == "produtos") {
-          print("produtos");
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return ProdutoTab();
-              },
-            ),
-          );
-        }
-      },
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        const PopupMenuItem<String>(
-          value: 'novo',
-          child: ListTile(
-            leading: Icon(Icons.add),
-            title: Text('novo'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'editar',
-          child: ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('editar'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'delete',
-          child: ListTile(
-            leading: Icon(Icons.delete),
-            title: Text('delete'),
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'produtos',
-          child: ListTile(
-            leading: Icon(Icons.add),
-            title: Text('produtos'),
-          ),
-        )
-      ],
     );
   }
 

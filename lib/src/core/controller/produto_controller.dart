@@ -24,6 +24,9 @@ abstract class ProdutoControllerBase with Store {
   List<Produto> produtos;
 
   @observable
+  List<Produto> produtosByLoja;
+
+  @observable
   int produto;
 
   @observable
@@ -83,6 +86,16 @@ abstract class ProdutoControllerBase with Store {
     try {
       produtos = await produtoRepository.getAllBySubCategoriaById(id);
       return produtos;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<List<Produto>> getAllByLojaById(int id) async {
+    try {
+      produtosByLoja = await produtoRepository.getAllByLojaById(id);
+      return produtosByLoja;
     } catch (e) {
       error = e;
     }

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
-import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/produto/produto_create_page.dart';
+import 'package:nosso/src/core/controller/loja_controller.dart';
+import 'package:nosso/src/core/model/loja.dart';
+import 'package:nosso/src/paginas/loja/loja_create_page.dart';
+import 'package:nosso/src/paginas/loja/loja_detalhes_tab.dart';
 
-class ContainerProduto extends StatelessWidget {
-  ProdutoController produtoController;
-  Produto p;
+class ContainerLoja extends StatelessWidget {
+  LojaController lojaController;
+  Loja p;
 
-  ContainerProduto(this.produtoController, this.p);
+  ContainerLoja(this.lojaController, this.p);
 
   @override
   Widget build(BuildContext context) {
-    var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
-
     return Card(
       child: AnimatedContainer(
         width: 350,
@@ -44,37 +42,10 @@ class ContainerProduto extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            produtoController.arquivo + p.foto,
+                            lojaController.arquivo + p.foto,
                             fit: BoxFit.cover,
                             width: 100,
                             height: 150,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: p.novo == true
-                                ? Chip(
-                                    label: Text(
-                                      "novo",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )
-                                : Chip(
-                                    label: Text(
-                                      "atual",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
                           ),
                         ),
                       ],
@@ -109,24 +80,8 @@ class ContainerProduto extends StatelessWidget {
                           ),
                           Container(
                             child: ListTile(
-                              title: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor)}",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationStyle: TextDecorationStyle.dashed,
-                                ),
-                              ),
-                              subtitle: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                              title: Text(" ${p.razaoSocial}"),
+                              subtitle: Text("${p.telefone}"),
                               trailing: buildPopupMenuButton(context, p),
                             ),
                           ),
@@ -143,31 +98,45 @@ class ContainerProduto extends StatelessWidget {
     );
   }
 
-  PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, Produto p) {
+  PopupMenuButton<String> buildPopupMenuButton(BuildContext context, Loja p) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
-      enabled: true,
-      elevation: 1,
       icon: Icon(Icons.more_vert),
       onSelected: (valor) {
         if (valor == "novo") {
           print("novo");
         }
+
         if (valor == "editar") {
           print("editar");
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return ProdutoCreatePage(
-                  produto: p,
+                return LojaCreatePage(
+                  loja: p,
                 );
               },
             ),
           );
         }
-        if (valor == "editar") {
-          print("editar");
+
+        if (valor == "detalhes") {
+          print("detalhes");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return LojaDetalhesTab(p);
+              },
+            ),
+          );
+        }
+
+        if (valor == "delete") {
+          print("delete");
+        }
+
+        if (valor == "local") {
+          print("local");
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -186,10 +155,24 @@ class ContainerProduto extends StatelessWidget {
           ),
         ),
         const PopupMenuItem<String>(
+          value: 'detalhes',
+          child: ListTile(
+            leading: Icon(Icons.search),
+            title: Text('detalhes'),
+          ),
+        ),
+        const PopupMenuItem<String>(
           value: 'delete',
           child: ListTile(
             leading: Icon(Icons.delete),
-            title: Text('Delete'),
+            title: Text('delete'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'local',
+          child: ListTile(
+            leading: Icon(Icons.location_on),
+            title: Text('local'),
           ),
         )
       ],

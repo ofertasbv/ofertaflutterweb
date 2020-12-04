@@ -52,27 +52,18 @@ class _PromocaoPageState extends State<PromocaoPage> {
         ],
       ),
       body: PromocaoList(p: p),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          SizedBox(
-            width: 8,
-            height: 8,
-          ),
-          FloatingActionButton(
-            elevation: 10,
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) {
-                  return PromocaoCreatePage();
-                }),
-              );
-            },
-          )
-        ],
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).pop();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return PromocaoCreatePage();
+            }),
+          );
+        },
       ),
     );
   }

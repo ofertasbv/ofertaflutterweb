@@ -30,6 +30,17 @@ class PromocaoRepository {
     return null;
   }
 
+  Future<List<Promocao>> getAllByLojaById(int id) async {
+    try {
+      print("carregando promocoes da loja");
+      var response = await dio.client.get("/promocoes/loja/$id");
+      return (response.data as List).map((c) => Promocao.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     var response = await dio.client.post("/promocoes/create", data: data);
     return response.statusCode;

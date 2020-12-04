@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/repository/promocao_repository.dart';
 
@@ -20,6 +19,9 @@ abstract class PromoCaoControllerBase with Store {
 
   @observable
   List<Promocao> promocoes;
+
+  @observable
+  List<Promocao> promocoesByLoja;
 
   @observable
   int promocao;
@@ -47,6 +49,16 @@ abstract class PromoCaoControllerBase with Store {
     try {
       promocoes = await promocaoRepository.getAll();
       return promocoes;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
+  Future<List<Promocao>> getAllByLoja(int id) async {
+    try {
+      promocoesByLoja = await promocaoRepository.getAllByLojaById(id);
+      return promocoesByLoja;
     } catch (e) {
       error = e;
     }

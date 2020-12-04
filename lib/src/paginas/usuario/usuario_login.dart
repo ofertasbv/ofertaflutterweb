@@ -87,7 +87,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
     return ListView(
       children: <Widget>[
         Container(
-          height: 150,
+          height: 130,
           color: Theme.of(context).accentColor.withOpacity(0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +205,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
         Container(
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
-            label: Text("confirmar login"),
+            label: Text("Entrar"),
             icon: Icon(
               Icons.check,
               color: Colors.white,
