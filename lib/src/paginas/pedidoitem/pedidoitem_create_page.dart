@@ -97,6 +97,7 @@ class _PedidoItemCreatePageState extends State<PedidoItemCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -138,7 +139,7 @@ class _PedidoItemCreatePageState extends State<PedidoItemCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(

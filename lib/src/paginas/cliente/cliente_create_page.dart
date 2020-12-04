@@ -245,7 +245,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
         ),
         SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -547,9 +547,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(

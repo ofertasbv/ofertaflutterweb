@@ -245,7 +245,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -255,7 +255,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                 Container(
                   color: Colors.grey[200],
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -520,11 +520,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5)),
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: ListTile(
               title: Text("Estado *"),
               subtitle: estadoSelecionado == null
@@ -539,11 +540,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(5)),
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: ListTile(
               title: Text("Cidade *"),
               subtitle: cidadeSelecionada == null
@@ -557,9 +559,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(
@@ -618,7 +620,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
@@ -692,7 +695,8 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          ),
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,

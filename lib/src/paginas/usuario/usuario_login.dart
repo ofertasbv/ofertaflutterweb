@@ -203,7 +203,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
         ),
         SizedBox(height: 10),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("confirmar login"),
             icon: Icon(
@@ -229,7 +229,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             color: Colors.grey[300],
             icon: Icon(Icons.account_circle_outlined),

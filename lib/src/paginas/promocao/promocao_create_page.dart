@@ -343,7 +343,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -580,9 +580,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(

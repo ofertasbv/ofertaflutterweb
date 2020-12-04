@@ -19,7 +19,7 @@ class DropDownCategoria extends StatelessWidget {
         Categoria categoria = categoriaController.categoriaSelecionada;
 
         return Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),

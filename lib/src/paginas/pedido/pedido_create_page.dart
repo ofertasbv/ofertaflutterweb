@@ -153,6 +153,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
         ),
         SizedBox(height: 10),
         Container(
+          padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -490,9 +491,9 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(

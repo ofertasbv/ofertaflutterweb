@@ -203,7 +203,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(0),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -326,7 +325,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -364,9 +363,9 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(

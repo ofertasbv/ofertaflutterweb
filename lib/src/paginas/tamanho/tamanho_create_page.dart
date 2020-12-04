@@ -97,7 +97,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.all(15),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -141,9 +141,9 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(

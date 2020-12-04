@@ -20,7 +20,7 @@ class DropDownLoja extends StatelessWidget {
         Loja loja = lojaController.lojaSelecionada;
 
         return Container(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(15),
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),

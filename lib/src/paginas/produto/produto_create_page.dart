@@ -447,7 +447,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                 ),
                 SizedBox(height: 20),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   width: double.maxFinite,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -497,7 +497,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                 /* ================ Cadastro produto ================ */
                 SizedBox(height: 0),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -799,12 +799,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                     DropDownCor(coreSelecionados),
                     SizedBox(height: 10),
                     DropDownTamanho(tamanhoSelecionados),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10),
                   ],
                 ),
                 SizedBox(height: 0),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Container(
                     child: Column(
                       children: <Widget>[
@@ -872,7 +872,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
@@ -952,7 +952,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Container(
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -1005,9 +1005,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(
