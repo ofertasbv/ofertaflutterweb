@@ -85,7 +85,7 @@ class _EnderecoListState extends State<EnderecoList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius:20,
                 child: Icon(Icons.location_on_outlined),
               ),
             ),

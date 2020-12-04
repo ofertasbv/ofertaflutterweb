@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,7 +8,6 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/endereco.dart';
@@ -17,9 +15,7 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_login.dart';
 import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
-import 'package:nosso/src/util/componets/dropdown_endereco.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 

@@ -84,7 +84,7 @@ class _MarcaListState extends State<MarcaList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 child: Text(
                   c.nome.substring(0, 1).toUpperCase(),
                   style: TextStyle(

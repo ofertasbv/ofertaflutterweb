@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/pedido_controller.dart';
-import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/model/pedido.dart';
-import 'package:nosso/src/core/model/permissao.dart';
 import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
-import 'package:nosso/src/paginas/permissao/permissao_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class PedidoList extends StatefulWidget {
@@ -77,7 +74,7 @@ class _PedidoListState extends State<PedidoList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 child: Icon(Icons.shopping_basket_outlined),
               ),
             ),

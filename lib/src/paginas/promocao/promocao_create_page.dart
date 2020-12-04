@@ -212,8 +212,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    NumberFormat numberFormat = NumberFormat("00.00");
+    var focus = FocusScope.of(context);
+    var dateFormat = DateFormat('dd/MM/yyyy');
+    var numberFormat = NumberFormat("00.00");
 
     return ListView(
       children: <Widget>[
@@ -363,11 +364,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 100,
                         maxLines: null,
@@ -391,13 +393,14 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                         maxLength: 100,
                         maxLines: null,
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                       ),
                       SizedBox(height: 10),
@@ -419,11 +422,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 2,
                       ),
@@ -447,11 +451,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,
@@ -482,11 +487,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,
@@ -517,11 +523,12 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,

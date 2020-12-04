@@ -84,7 +84,7 @@ class _TamanhoListState extends State<TamanhoList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 child: Text(
                   c.descricao.substring(0, 1).toUpperCase(),
                   style: TextStyle(

@@ -74,7 +74,7 @@ class _PedidoItemListState extends State<PedidoItemList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 child: Icon(Icons.shopping_basket_outlined),
               ),
             ),

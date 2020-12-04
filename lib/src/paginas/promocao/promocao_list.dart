@@ -95,7 +95,7 @@ class _PromocaoListState extends State<PromocaoList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 backgroundImage: NetworkImage(
                   "${promocaoController.arquivo + p.foto}",
                 ),

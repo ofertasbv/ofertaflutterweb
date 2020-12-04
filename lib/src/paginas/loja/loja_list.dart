@@ -87,7 +87,7 @@ class _LojaListState extends State<LojaList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 backgroundImage: NetworkImage(
                   "${lojaController.arquivo + p.foto}",
                 ),

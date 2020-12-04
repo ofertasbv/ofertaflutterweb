@@ -79,55 +79,57 @@ class ContainerProduto extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    width: 230,
-                    color: Colors.transparent,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          child: ListTile(
-                            title: Text("${p.nome}"),
-                            subtitle: Text("Código. ${p.id}"),
-                            trailing: CircleAvatar(
-                              backgroundColor: Colors.grey[300],
-                              foregroundColor: Colors.redAccent,
-                              child: IconButton(
-                                splashColor: Colors.black,
-                                icon: Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.redAccent,
-                                  size: 15,
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      color: Colors.transparent,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            child: ListTile(
+                              title: Text("${p.nome}"),
+                              subtitle: Text("Código. ${p.id}"),
+                              trailing: CircleAvatar(
+                                backgroundColor: Colors.grey[300],
+                                foregroundColor: Colors.redAccent,
+                                child: IconButton(
+                                  splashColor: Colors.black,
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.redAccent,
+                                    size: 15,
+                                  ),
+                                  onPressed: () {},
                                 ),
-                                onPressed: () {},
                               ),
                             ),
                           ),
-                        ),
-                        Container(
-                          child: ListTile(
-                            title: Text(
-                              "R\$ ${formatMoeda.format(p.estoque.valor)}",
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                decoration: TextDecoration.lineThrough,
-                                decorationStyle: TextDecorationStyle.dashed,
+                          Container(
+                            child: ListTile(
+                              title: Text(
+                                "R\$ ${formatMoeda.format(p.estoque.valor)}",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationStyle: TextDecorationStyle.dashed,
+                                ),
                               ),
-                            ),
-                            subtitle: Text(
-                              "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold,
+                              subtitle: Text(
+                                "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

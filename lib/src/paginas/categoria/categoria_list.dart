@@ -85,7 +85,7 @@ class _CategoriaListState extends State<CategoriaList>
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 backgroundImage: NetworkImage(
                   "${categoriaController.arquivo + c.foto}",
                 ),

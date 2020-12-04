@@ -304,9 +304,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    NumberFormat formatter = NumberFormat("00.00");
-    NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+    var focus = FocusScope.of(context);
+    var dateFormat = DateFormat('dd/MM/yyyy');
+    var formatter = NumberFormat("00.00");
+    var formata = new NumberFormat("#,##0.00", "pt_BR");
     p.estoque = e;
 
     p.loja = lojaController.lojaSelecionada;
@@ -473,11 +474,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 20,
                       ),
@@ -517,11 +519,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 100,
                         maxLines: null,
@@ -545,11 +548,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 100,
                         maxLines: null,
@@ -573,11 +577,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 100,
                         maxLines: 1,
@@ -603,11 +608,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                       ),
@@ -632,11 +638,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.purple[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                       ),

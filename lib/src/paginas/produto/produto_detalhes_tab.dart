@@ -223,10 +223,10 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
               onPressed: () {
                 if (pedidoItemController
                     .isExisteItem(new PedidoItem(produto: p))) {
-                  showSnackbar(context, "Produto ${p.nome} já existe");
+                  showSnackbar(context, "${p.nome} já existe");
                 } else {
                   pedidoItemController.adicionar(new PedidoItem(produto: p));
-                  showSnackbar(context, "Produto ${p.nome} adicionado");
+                  showSnackbar(context, "${p.nome} adicionado");
                   setState(() {
                     animationController.forward();
                   });
