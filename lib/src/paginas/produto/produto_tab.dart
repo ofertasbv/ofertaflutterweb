@@ -59,7 +59,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
 
                 return CircleAvatar(
                   backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.purple[800],
+                  foregroundColor: Colors.indigo[900],
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
                     style: TextStyle(color: Colors.yellow[900]),
@@ -70,7 +70,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
             SizedBox(width: 10),
             CircleAvatar(
               backgroundColor: Colors.grey[300],
-              foregroundColor: Colors.purple[800],
+              foregroundColor: Colors.indigo[900],
               child: IconButton(
                 icon: Icon(
                   Icons.tune,
@@ -83,7 +83,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
             SizedBox(width: 10),
             CircleAvatar(
               backgroundColor: Colors.grey[300],
-              foregroundColor: Colors.purple[800],
+              foregroundColor: Colors.indigo[900],
               child: IconButton(
                 icon: Icon(
                   CupertinoIcons.search,
@@ -200,11 +200,11 @@ class _ProdutoTabState extends State<ProdutoTab> {
                     color: Colors.white,
                   ),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.yellow[800]),
+                    side: BorderSide(color: Colors.yellow[900]),
                     borderRadius: BorderRadius.all(Radius.circular(35)),
                   ),
                   label: Text('APLICAR'),
-                  color: Colors.yellow[800],
+                  color: Colors.yellow[900],
                   elevation: 0,
                   onPressed: () {
                     produtoController.getFilter(filter);

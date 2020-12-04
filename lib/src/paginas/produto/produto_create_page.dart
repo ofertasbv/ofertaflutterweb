@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:barcode_scan/barcode_scan.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,8 +34,6 @@ import 'package:nosso/src/util/componets/dropdown_marca.dart';
 import 'package:nosso/src/util/componets/dropdown_promocao.dart';
 import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
 import 'package:nosso/src/util/componets/dropdown_tamanho.dart';
-import 'package:nosso/src/util/dialogs/dialog_cor.dart';
-import 'package:nosso/src/util/dialogs/dialog_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -1010,10 +1007,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (p.foto == null) {

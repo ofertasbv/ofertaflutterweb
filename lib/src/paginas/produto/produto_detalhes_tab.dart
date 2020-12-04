@@ -83,7 +83,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
           actions: <Widget>[
             CircleAvatar(
               backgroundColor: Colors.grey[300],
-              foregroundColor: Colors.purple[800],
+              foregroundColor: Colors.indigo[900],
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
                 onPressed: () {
@@ -98,7 +98,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             GestureDetector(
               child: CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.purple[800],
+                foregroundColor: Colors.indigo[900],
                 child: Stack(
                   alignment: Alignment.topRight,
                   children: <Widget>[
@@ -197,7 +197,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.purple[800],
+              color: Colors.indigo[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -232,7 +232,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
                   });
                 }
               },
-              color: Colors.yellow[800],
+              color: Colors.yellow[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

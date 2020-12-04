@@ -157,10 +157,7 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 dialogs.information(context, "verificando login");

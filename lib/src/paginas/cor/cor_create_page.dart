@@ -143,10 +143,7 @@ class _CorCreatePageState extends State<CorCreatePage> {
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (c.id == null) {
@@ -160,7 +157,8 @@ class _CorCreatePageState extends State<CorCreatePage> {
                     buildPush(context);
                   });
                 } else {
-                  dialogs.information(context, "preparando para o alteração...");
+                  dialogs.information(
+                      context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
                     corController.update(c.id, c);
                     Navigator.of(context).pop();

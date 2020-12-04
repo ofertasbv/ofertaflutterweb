@@ -206,10 +206,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Entrar"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (u.id == null) {

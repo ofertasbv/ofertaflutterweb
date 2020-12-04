@@ -159,7 +159,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
       children: [
         Container(
           height: 150,
-          color: Theme.of(context).accentColor.withOpacity(0.1),
+          color: Theme.of(context).primaryColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -168,9 +168,9 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.purple, Colors.grey[900]],
+                    colors: [Colors.indigo, Colors.grey[100]],
                   ),
-                  border: Border.all(color: Colors.black, width: 1),
+                  border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: GestureDetector(
@@ -211,7 +211,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                 child: Text(
                   "${p.nome}",
                   style: TextStyle(
-                    color: Colors.grey[900],
+                    color: Colors.grey[100],
                   ),
                 ),
               ),

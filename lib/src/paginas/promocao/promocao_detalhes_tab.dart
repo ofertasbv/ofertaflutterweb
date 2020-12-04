@@ -59,7 +59,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
           actions: <Widget>[
             CircleAvatar(
               backgroundColor: Colors.grey[200],
-              foregroundColor: Colors.purple[800],
+              foregroundColor: Colors.indigo[900],
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
                 onPressed: () {
@@ -123,7 +123,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.purple[800],
+              color: Colors.indigo[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -155,7 +155,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
                   ),
                 );
               },
-              color: Colors.yellow[800],
+              color: Colors.yellow[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

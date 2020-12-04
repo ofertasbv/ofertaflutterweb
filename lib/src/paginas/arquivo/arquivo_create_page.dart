@@ -340,10 +340,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (a.foto == null) {

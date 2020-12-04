@@ -94,7 +94,7 @@ class ItemPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
-              color: Colors.purple[800],
+              color: Colors.indigo[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class ItemPage extends StatelessWidget {
                   ),
                 );
               },
-              color: Colors.purple[800],
+              color: Colors.indigo[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +183,7 @@ class ItemPage extends StatelessWidget {
                   );
                 }
               },
-              color: Colors.yellow[800],
+              color: Colors.yellow[900],
               child: Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

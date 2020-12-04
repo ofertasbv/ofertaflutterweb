@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
-import 'package:nosso/src/paginas/marca/marca_list.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_list.dart';
 

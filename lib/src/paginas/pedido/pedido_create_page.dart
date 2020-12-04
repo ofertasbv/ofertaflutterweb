@@ -496,10 +496,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (p.id == null) {

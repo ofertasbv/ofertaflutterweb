@@ -231,10 +231,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
-            icon: Icon(
-              Icons.check,
-              color: Colors.white,
-            ),
+            icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
                 if (senhaController.text != confirmaSenhaController.text) {

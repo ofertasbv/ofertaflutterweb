@@ -8,10 +8,8 @@ import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/endereco/endereco_cliente_page.dart';
-import 'package:nosso/src/paginas/endereco/endereco_loja_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_edit_cliente.dart';
-import 'package:nosso/src/paginas/usuario/usuario_edit_loja.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
 class UsuarioPerfilCliente extends StatefulWidget {
@@ -169,9 +167,9 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.purple, Colors.grey[900]],
+                    colors: [Colors.indigo, Colors.grey[100]],
                   ),
-                  border: Border.all(color: Colors.black, width: 1),
+                  border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: GestureDetector(
@@ -212,7 +210,7 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
                 child: Text(
                   "${p.nome}",
                   style: TextStyle(
-                    color: Colors.grey[900],
+                    color: Colors.grey[100],
                   ),
                 ),
               ),

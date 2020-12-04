@@ -53,7 +53,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.black,
+      systemNavigationBarColor: Colors.indigo[900],
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.light,
       //
@@ -86,14 +86,14 @@ class MyApp extends StatelessWidget {
   buildThemeDataBlue(BuildContext context) {
     return ThemeData(
       brightness: Brightness.light,
-      primaryColor: Colors.grey[100],
-      accentColor: Colors.purple[800],
+      primaryColor: Colors.indigo[900],
+      accentColor: Colors.yellow[900],
       primarySwatch: Colors.indigo,
       appBarTheme: AppBarTheme(
         elevation: 0,
         textTheme: TextTheme(
           headline6: TextStyle(
-            color: Colors.brown[900],
+            color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
       ),
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: 'Reboto',
-            bodyColor: Colors.black,
+            bodyColor: Colors.indigo[900],
             displayColor: Colors.yellow[900],
           ),
       dialogTheme: DialogTheme(
@@ -118,7 +118,7 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.white),
         ),
       ),
-      primaryIconTheme: IconThemeData(color: Colors.purple[800]),
+      primaryIconTheme: IconThemeData(color: Colors.white),
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
@@ -131,12 +131,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       buttonTheme: ButtonThemeData(
-        splashColor: Colors.redAccent,
+        splashColor: Colors.black,
         textTheme: ButtonTextTheme.primary,
         height: 50,
         padding: EdgeInsets.all(10),
         alignedDropdown: true,
-        buttonColor: Colors.purple[800],
+        buttonColor: Colors.yellow[900],
         shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(35),
           side: BorderSide(color: Colors.transparent),
@@ -144,34 +144,34 @@ class MyApp extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.black),
-        prefixStyle: TextStyle(color: Colors.purple[800]),
-        hintStyle: TextStyle(color: Colors.purple[900]),
+        prefixStyle: TextStyle(color: Colors.indigo[900]),
+        hintStyle: TextStyle(color: Colors.indigo[900]),
         fillColor: Colors.grey[100],
         alignLabelWithHint: true,
         contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        focusColor: Colors.purple[800],
-        hoverColor: Colors.purple,
+        focusColor: Colors.indigo[900],
+        hoverColor: Colors.indigo,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
       ),
       hintColor: Colors.brown[500],
       iconTheme: IconThemeData(
-        color: Colors.purple[800],
+        color: Colors.indigo[800],
       ),
       snackBarTheme: SnackBarThemeData(
         actionTextColor: Colors.black,
-        backgroundColor: Colors.yellow[800],
+        backgroundColor: Colors.yellow[900],
       ),
       scaffoldBackgroundColor: Colors.grey[100],
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
-        backgroundColor: Colors.yellow[800],
+        backgroundColor: Colors.yellow[900],
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         elevation: 0,
-        selectedItemColor: Colors.purple[800],
+        selectedItemColor: Colors.indigo[900],
         unselectedItemColor: Colors.black,
-        unselectedLabelStyle: TextStyle(color: Colors.purple[800]),
+        unselectedLabelStyle: TextStyle(color: Colors.indigo[900]),
         backgroundColor: Colors.grey[100],
       ),
     );
