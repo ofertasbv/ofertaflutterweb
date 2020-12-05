@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
+import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class CategoriaListHome extends StatefulWidget {
@@ -112,7 +113,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                     end: Alignment.bottomCenter,
                   ),
                   border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(2),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -158,9 +159,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CategoriaSubCategoria(
-                    categoria: c,
-                  );
+                  return SubCategoriaProduto(c: c);
                 },
               ),
             );

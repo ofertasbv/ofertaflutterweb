@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
       ),
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: 'Reboto',
-            bodyColor: Colors.indigo[900],
+            bodyColor: Colors.black,
             displayColor: Colors.yellow[900],
           ),
       dialogTheme: DialogTheme(
@@ -122,11 +122,12 @@ class MyApp extends StatelessWidget {
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
-        elevation: 0.2,
+        elevation: 0,
         color: Colors.white,
         margin: EdgeInsets.all(2),
+        shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(10),
+          borderRadius: new BorderRadius.circular(2),
           side: BorderSide(color: Colors.white, width: 1),
         ),
       ),

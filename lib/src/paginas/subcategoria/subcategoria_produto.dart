@@ -14,14 +14,13 @@ import 'package:nosso/src/util/container/container_produto.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class SubCategoriaProduto extends StatefulWidget {
-  SubCategoria s;
   Categoria c;
 
-  SubCategoriaProduto({Key key, this.s, this.c}) : super(key: key);
+  SubCategoriaProduto({Key key,  this.c}) : super(key: key);
 
   @override
   _SubCategoriaProdutoState createState() =>
-      _SubCategoriaProdutoState(subCategoria: this.s, categoria: this.c);
+      _SubCategoriaProdutoState(categoria: this.c);
 }
 
 class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
@@ -49,13 +48,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     if (favorito == null) {
       favorito = Favorito();
       produto = Produto();
-    }
-
-    if (subCategoria.id == null) {
-      produtoController.getAll();
-    }
-    if (subCategoria.id != null) {
-      produtoController.getAllBySubCategoriaById(subCategoria.id);
     }
 
     animationController = AnimationController(
@@ -236,9 +228,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
   }
 
   builderListProduto(List<Produto> produtos) {
-    double containerWidth = 250;
-    double containerHeight = 20;
-
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: produtos.length,

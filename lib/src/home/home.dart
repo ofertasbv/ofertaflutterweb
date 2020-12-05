@@ -12,6 +12,7 @@ import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/drawer_list.dart';
 import 'package:nosso/src/paginas/categoria/categoria_list.dart';
+import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
 import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
@@ -237,7 +238,7 @@ class _HomePageState extends State<HomePage>
 
   List lista = [
     CatalogoHome(),
-    CategoriaList(),
+    CategoriaSubCategoria(),
     LojaList(),
     PromocaoList(),
     UsuarioPerfilPage(),

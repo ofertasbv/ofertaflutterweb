@@ -13,13 +13,10 @@ import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class CategoriaSubCategoria extends StatefulWidget {
-  Categoria categoria;
-
-  CategoriaSubCategoria({Key key, this.categoria}) : super(key: key);
+  CategoriaSubCategoria();
 
   @override
-  _CategoriaSubCategoriaState createState() =>
-      _CategoriaSubCategoriaState(categoria: this.categoria);
+  _CategoriaSubCategoriaState createState() => _CategoriaSubCategoriaState();
 }
 
 class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
@@ -28,16 +25,15 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
   Categoria categoria;
 
-  _CategoriaSubCategoriaState({this.categoria});
-
   String selectedCard = 'WEIGHT';
 
   @override
   void initState() {
-    if (categoria.id != null) {
-      subCategoriaController.getAllByCategoriaById(categoria.id);
-    } else {
+    if (categoria == null) {
+      categoria = Categoria();
       subCategoriaController.getAll();
+    } else {
+      subCategoriaController.getAllByCategoriaById(categoria.id);
     }
     categoriaController.getAll();
 
@@ -53,61 +49,108 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   @override
   Widget build(BuildContext context) {
     var text = "";
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Departamento"),
-        actions: <Widget>[
-          Observer(
-            builder: (context) {
-              if (subCategoriaController.error != null) {
-                return Text("Não foi possível carregar");
-              }
-
-              if (subCategoriaController.subCategorias == null) {
-                return Center(
-                  child: Icon(Icons.warning_amber_outlined),
-                );
-              }
-
-              return Chip(
-                label: Text(
-                  (subCategoriaController.subCategorias.length ?? 0).toString(),
-                ),
-              );
-            },
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 5),
+          Container(
+            width: 80,
+            color: Colors.grey[200],
+            padding: EdgeInsets.all(0),
+            child: builderConteudoListCategoria(),
           ),
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () {
-              subCategoriaController.getAll();
-              setState(() {
-                categoria = categoria;
-              });
-            },
-          ),
-        ],
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 5),
-            Container(
-              height: 155,
-              padding: EdgeInsets.all(0),
-              child: builderConteudoListCategoria(),
-            ),
-            Expanded(
-              child: Card(
-                child: Container(
-                  child: builderConteutoListSubCategoria(),
-                ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 1),
+              child: Column(
+                children: [
+                  Card(
+                    elevation: 1,
+                    child: Container(
+                        padding: EdgeInsets.all(6),
+                        color: Colors.transparent,
+                        height: 110,
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Departamentos"),
+                                IconButton(
+                                  icon: Icon(Icons.refresh),
+                                  onPressed: () {
+                                    subCategoriaController.getAll();
+                                    setState(() {
+                                      categoria = categoria;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                categoria.nome == null
+                                    ? Text(
+                                        "todos os departamentos",
+                                        style: TextStyle(
+                                          color: Colors.yellow[900],
+                                        ),
+                                      )
+                                    : Text(
+                                        categoria.nome,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.yellow[900],
+                                        ),
+                                      ),
+                                Observer(
+                                  builder: (context) {
+                                    if (subCategoriaController.error != null) {
+                                      return Text("Não foi possível carregar");
+                                    }
+
+                                    if (subCategoriaController.subCategorias ==
+                                        null) {
+                                      return Center(
+                                        child:
+                                            Icon(Icons.warning_amber_outlined),
+                                      );
+                                    }
+
+                                    return Chip(
+                                      label: Text(
+                                        (subCategoriaController
+                                                    .subCategorias.length ??
+                                                0)
+                                            .toString(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
+                  SizedBox(height: 0),
+                  Expanded(
+                    child: Container(
+                      color: Colors.transparent,
+                      child: builderConteutoListSubCategoria(),
+                    ),
+                  )
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -137,18 +180,23 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     double containerHeight = 15;
 
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
+      scrollDirection: Axis.vertical,
       itemCount: categorias.length,
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2),
+            padding: EdgeInsets.symmetric(vertical: 0),
             child: Card(
+              borderOnForeground: true,
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(2),
+                side: BorderSide(color: Colors.grey[200], width: 1),
+              ),
               child: AnimatedContainer(
-                width: 90,
-                height: 150,
+                width: 80,
+                height: 110,
                 duration: Duration(seconds: 1),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -163,7 +211,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(2),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,7 +231,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       ),
                       child: CircleAvatar(
                         backgroundColor: Colors.grey[100],
-                        radius: 30,
+                        radius: 20,
                         backgroundImage: NetworkImage(
                           "${categoriaController.arquivo + c.foto}",
                         ),
@@ -197,7 +245,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       width: containerWidth,
                       child: Text(
                         c.nome.toLowerCase(),
-                        style: TextStyle(color: Colors.grey[900]),
+                        style: TextStyle(
+                          color: Colors.grey[900],
+                          fontSize: 12,
+                        ),
                       ),
                     )
                   ],
@@ -231,7 +282,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
           if (subCategorias == null) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressorMini(),
             );
           }
 
@@ -264,50 +315,51 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   builderListSubCategoria(List<SubCategoria> subCategorias) {
     double containerWidth = 160;
     double containerHeight = 30;
+    var orientation = MediaQuery.of(context).orientation;
 
-    return ListView.builder(
+    return GridView.builder(
+      padding: EdgeInsets.only(top: 2),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: (orientation == Orientation.portrait) ? 3 : 4),
       scrollDirection: Axis.vertical,
       itemCount: subCategorias.length,
       itemBuilder: (context, index) {
         SubCategoria c = subCategorias[index];
 
         return GestureDetector(
-          child: ListTile(
-              isThreeLine: true,
-              leading: Container(
-                padding: EdgeInsets.all(1),
-                decoration: new BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.purple, Colors.grey[900]],
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(2),
+              side: BorderSide(color: Colors.grey[100], width: 1),
+            ),
+            child: Container(
+              height: 80,
+              width: 80,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    c.nome,
+                    style: TextStyle(fontSize: 12),
                   ),
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(35),
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  radius: 20,
-                  child: Text(
-                    c.nome.substring(0, 1).toUpperCase(),
+                  Text(
+                    c.categoria.nome,
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      color: Colors.yellow[900],
                     ),
                   ),
-                ),
+                ],
               ),
-              title: Text(c.nome),
-              subtitle: Text("Cód: ${c.id}"),
-              trailing: Icon(Icons.arrow_right)),
+            ),
+          ),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
                   return SubCategoriaProduto(
-                    s: c,
                     c: c.categoria,
                   );
                 },

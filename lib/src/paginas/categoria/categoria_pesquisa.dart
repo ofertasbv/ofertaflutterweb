@@ -90,9 +90,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CategoriaSubCategoria(
-                    categoria: c,
-                  );
+                  return CategoriaSubCategoria();
                 },
               ),
             );

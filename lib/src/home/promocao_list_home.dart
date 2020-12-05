@@ -95,7 +95,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                   ),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(2),
                   border: Border.all(color: Colors.white),
                 ),
                 child: Column(
@@ -105,8 +105,8 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       color: Colors.grey[200],
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5),
+                          topLeft: Radius.circular(2),
+                          topRight: Radius.circular(2),
                           bottomRight: Radius.circular(0),
                           bottomLeft: Radius.circular(0),
                         ),

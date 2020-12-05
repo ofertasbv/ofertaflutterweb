@@ -130,7 +130,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(2),
                           child: Image.network(
                             ConstantApi.urlArquivoProduto + p.produto.foto,
                             fit: BoxFit.cover,

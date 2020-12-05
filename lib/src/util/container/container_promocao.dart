@@ -20,18 +20,17 @@ class ContainerPromocao extends StatelessWidget {
     return Card(
       child: AnimatedContainer(
         width: 350,
-        height: 160,
+        height: 150,
         duration: Duration(seconds: 1),
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.white),
-        ),
         child: Column(
           children: [
             Container(
               height: 150,
-              color: Colors.transparent,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(2),
+                border: Border.all(color: Colors.transparent),
+              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,13 +38,13 @@ class ContainerPromocao extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(2),
                     ),
                     child: Stack(
                       alignment: Alignment.bottomRight,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(2),
                           child: Image.network(
                             promoCaoController.arquivo + p.foto,
                             fit: BoxFit.cover,
