@@ -42,27 +42,14 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
           ),
         ),
         Container(
-          color: Theme.of(context).primaryColor.withOpacity(0.1),
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ListTile(
-                title: Text(
-                  p.nome,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                subtitle: Text(
-                  "${p.telefone}",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                title: Text(p.nome),
+                subtitle: Text("${p.telefone}"),
               ),
             ],
           ),

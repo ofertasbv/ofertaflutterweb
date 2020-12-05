@@ -111,19 +111,9 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                 ),
         ),
         Container(
-          color: Theme.of(context).primaryColor.withOpacity(0.1),
           child: ListTile(
-            title: Text(
-              p.nome,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-              "Código. ${p.id}",
-              style: TextStyle(fontSize: 16),
-            ),
+            title: Text(p.nome),
+            subtitle: Text("Código. ${p.id}"),
             trailing: CircleAvatar(
               backgroundColor: Colors.grey[300],
               foregroundColor: Colors.redAccent,
@@ -170,20 +160,8 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
             children: [
               Container(
                 child: ListTile(
-                  title: Text(
-                    "Departamento",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  subtitle: Text(
-                    "${p.subCategoria.nome}",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  title: Text("Departamento"),
+                  subtitle: Text("${p.subCategoria.nome}"),
                   trailing: p.status == true
                       ? Text(
                           "produto disponivel",

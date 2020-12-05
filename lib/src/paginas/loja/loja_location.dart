@@ -343,8 +343,7 @@ class _LojaLocationState extends State<LojaLocation> {
                     padding: EdgeInsets.all(5),
                     child: ListTile(
                       title: Text(p.nome),
-                      subtitle: Icon(Icons.directions_run),
-                      trailing: Text("0.0 km"),
+                      subtitle: Text(p.telefone),
                     ),
                   ),
                 ),

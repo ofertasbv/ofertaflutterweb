@@ -58,8 +58,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
                 }
 
                 return CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  foregroundColor: Colors.indigo[900],
+                  backgroundColor: Colors.indigo[800],
+                  foregroundColor: Colors.white,
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
                     style: TextStyle(color: Colors.yellow[900]),
@@ -69,8 +69,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.grey[300],
-              foregroundColor: Colors.indigo[900],
+              backgroundColor: Colors.indigo[800],
+              foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(
                   Icons.tune,
@@ -82,8 +82,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.grey[300],
-              foregroundColor: Colors.indigo[900],
+              backgroundColor: Colors.indigo[800],
+              foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(
                   CupertinoIcons.search,

@@ -158,7 +158,7 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
       children: [
         Container(
           height: 150,
-          color: Theme.of(context).accentColor.withOpacity(0.1),
+          color: Theme.of(context).primaryColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -218,7 +218,7 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
           ),
         ),
         Container(
-          height: 650,
+          height: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,

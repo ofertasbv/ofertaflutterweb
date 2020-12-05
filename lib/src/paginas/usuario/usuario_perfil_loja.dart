@@ -219,7 +219,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
           ),
         ),
         Container(
-          height: 650,
+          height: 600,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
