@@ -10,9 +10,7 @@ import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_pesquisa_login.dart';
-import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 
 class UsuarioLogin extends StatefulWidget {
@@ -50,7 +48,8 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
     Fluttertoast.showToast(
       msg: "$cardTitle",
       gravity: ToastGravity.CENTER,
-      timeInSecForIos: 10,
+      backgroundColor: Colors.redAccent,
+      timeInSecForIos: 20,
       fontSize: 16.0,
     );
   }
@@ -215,10 +214,19 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                     usuarioController
                         .getLogin(u.email, u.senha)
                         .then((usuario) {
-                      Usuario us = usuario;
-                      print("US: ${us.id}");
+                      usuarioController.usuarioSelecionado = usuario;
+
+                      if (usuarioController.usuarioSelecionado != null) {
+                        print(
+                            "Usuário: ${usuarioController.usuarioSelecionado.pessoa.id}");
+                      } else {
+                        showToast("Erro: login/senha inválido");
+                        print("Erro: login/senha inválido");
+                      }
+                      // print("US: ${us.id}");
                     });
-                    buildPush(context);
+                    Navigator.pop(context);
+                    // buildPush(context);
                   });
                 }
               }

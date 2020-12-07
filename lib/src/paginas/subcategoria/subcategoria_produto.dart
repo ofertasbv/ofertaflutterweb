@@ -126,7 +126,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
               padding: EdgeInsets.all(4),
               child: builderConteudoListSubCategoria(),
             ),
-
             Expanded(
               child: builderConteudoListProduto(),
             ),

@@ -1,7 +1,10 @@
+import 'package:nosso/src/core/model/subcategoria.dart';
+
 class Categoria {
   int id;
   String nome;
   String foto;
+  List<SubCategoria> subCategorias;
 
   Categoria({this.id, this.nome, this.foto});
 
@@ -9,6 +12,13 @@ class Categoria {
     id = json['id'];
     nome = json['nome'];
     foto = json['foto'];
+
+    if (json['subCategorias'] != null) {
+      subCategorias = new List<SubCategoria>();
+      json['subCategorias'].forEach((v) {
+        subCategorias.add(new SubCategoria.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {

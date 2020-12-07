@@ -42,6 +42,7 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
     if (p == null) {
       p = Loja();
     }
+
     super.initState();
   }
 
@@ -187,11 +188,11 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                             width: double.infinity,
                             height: 300,
                           )
-                        : p.foto != null
+                        : usuarioController.usuarioSelecionado.pessoa.foto != null
                             ? CircleAvatar(
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                  lojaController.arquivo + p.foto,
+                                  lojaController.arquivo + usuarioController.usuarioSelecionado.pessoa.foto,
                                 ),
                               )
                             : CircleAvatar(
@@ -209,7 +210,18 @@ class _UsuarioPerfilLojaState extends State<UsuarioPerfilLoja> {
                 padding: EdgeInsets.all(2),
                 height: 30,
                 child: Text(
-                  "${p.nome}",
+                  "${usuarioController.usuarioSelecionado.pessoa.nome}",
+                  style: TextStyle(
+                    color: Colors.grey[100],
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(2),
+                height: 30,
+                child: Text(
+                  "${usuarioController.usuarioSelecionado.pessoa.tipoPessoa}",
                   style: TextStyle(
                     color: Colors.grey[100],
                   ),

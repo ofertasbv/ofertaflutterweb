@@ -1,12 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/favorito.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -25,6 +27,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var produtoController = GetIt.I.get<ProdutoController>();
   var favoritoController = GetIt.I.get<FavoritoController>();
+  var usuarioController = GetIt.I.get<UsuarioController>();
 
   AnimationController animationController;
   Animation<double> animation;
@@ -69,6 +72,24 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     animationController.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    produto = widget.p;
+    return buildContainer(produto);
+  }
+
+  favoritar(Favorito p) {
+    if (this.isFavorito == false) {
+      this.isFavorito = !this.isFavorito;
+      print("Teste 1: ${this.isFavorito}");
+      showToast("adicionado aos favoritos");
+    } else {
+      this.isFavorito = !this.isFavorito;
+      print("Teste 2: ${this.isFavorito}");
+      showToast("removendo aos favoritos");
+    }
+  }
+
   showSnackbar(BuildContext context, String content) {
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
@@ -81,15 +102,13 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    produto = widget.p;
-    return buildContainer(produto);
-  }
-
-  favoritar(Produto p) {
-    this.isFavorito = !this.isFavorito;
-    print("${isFavorito}");
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "$cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 20,
+      fontSize: 16.0,
+    );
   }
 
   buildContainer(Produto p) {
@@ -120,7 +139,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
               radius: 15,
               child: IconButton(
                 splashColor: Colors.black,
-                icon: (this.favorito == false
+                icon: (this.isFavorito == false
                     ? Icon(
                         Icons.favorite_border,
                         color: Colors.redAccent,
@@ -133,21 +152,33 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                       )),
                 onPressed: () {
                   setState(() {
+                    favoritar(favorito);
                     print("Favoritar: ${p.nome}");
-                    favoritar(p);
                   });
 
-                  if (favorito.id == null) {
-                    favorito.produto = p;
-                    favorito.status = isFavorito;
-                    favoritoController.create(favorito);
-                    print("Adicionar: ${p.nome}");
+                  if (usuarioController.usuarioSelecionado.pessoa == null) {
+                    showToast("faça login para favoritar");
                   } else {
-                    favorito.produto = p;
-                    favorito.status = isFavorito;
-                    favoritoController.update(favorito.id, favorito);
-                    print("Alterar: ${p.nome}");
-                    showSnackbar(context, "favorito");
+                    if (favorito.id == null) {
+                      favorito.produto = p;
+                      favorito.status = isFavorito;
+                      // favorito.cliente =
+                      //     usuarioController.usuarioSelecionado.pessoa;
+                      print(
+                          "Cliente: ${usuarioController.usuarioSelecionado.pessoa.nome}");
+                      // favoritoController.create(favorito);
+                      print("Adicionar: ${p.nome}");
+                    } else {
+                      favorito.produto = p;
+                      favorito.status = isFavorito;
+                      // favorito.cliente =
+                      //     usuarioController.usuarioSelecionado.pessoa;
+                      print(
+                          "Cliente: ${usuarioController.usuarioSelecionado.pessoa.id}");
+                      // favoritoController.update(favorito.id, favorito);
+                      print("Adicionar: ${p.nome}");
+                      showToast("alterando favoritos");
+                    }
                   }
                 },
               ),

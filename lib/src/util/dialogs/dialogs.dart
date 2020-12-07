@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class Dialogs {
   information(BuildContext context, String title) {
@@ -13,7 +14,7 @@ class Dialogs {
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                CircularProgressor(),
+                CircularProgressorMini(),
                 Divider(),
                 Center(
                   child: Text("aguarde um momento..."),

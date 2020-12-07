@@ -24,7 +24,6 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   Categoria categoria;
-
   String selectedCard = 'WEIGHT';
 
   @override
@@ -57,16 +56,20 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
         children: <Widget>[
           SizedBox(height: 5),
           Container(
-            height: 160,
+            height: 80,
             width: double.infinity,
             color: Colors.transparent,
-            padding: EdgeInsets.all(0),
-            child: builderConteudoListCategoria(),
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "Pesquisa por categorias",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.indigo[900]),
+            ),
           ),
           Expanded(
             child: Container(
               color: Colors.transparent,
-              child: builderConteutoListSubCategoria(),
+              child: builderConteudoListCategoria(),
             ),
           ),
         ],
@@ -88,9 +91,65 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             return CircularProgressorMini();
           }
 
-          return builderListCategoria(categorias);
+          return builderList(categorias);
         },
       ),
+    );
+  }
+
+  builderList(List<Categoria> categorias) {
+    double containerWidth = 160;
+    double containerHeight = 30;
+
+    return ListView.builder(
+      itemCount: categorias.length,
+      itemBuilder: (context, index) {
+        Categoria p = categorias[index];
+
+        return GestureDetector(
+          child: ListTile(
+            isThreeLine: true,
+            leading: Container(
+              padding: EdgeInsets.all(1),
+              decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.purple, Colors.grey[900]],
+                ),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  "${categoriaController.arquivo + p.foto}",
+                ),
+              ),
+            ),
+            title: Text(p.nome),
+            subtitle: Text("código ${p.id}"),
+            trailing: Container(
+              height: 80,
+              width: 50,
+              // child: buildPopupMenuButton(context, p),
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SubCategoriaProduto(
+                    c: p,
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
     );
   }
 
@@ -223,7 +282,6 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
               ),
             );
           }
-
           return builderListSubCategoria(subCategorias);
         },
       ),

@@ -14,6 +14,7 @@ import 'package:nosso/src/util/upload/upload_response.dart';
 
 class UsuarioPerfilCliente extends StatefulWidget {
   Cliente cliente;
+
   UsuarioPerfilCliente({Key key, this.cliente}) : super(key: key);
 
   @override
@@ -186,11 +187,14 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
                             width: double.infinity,
                             height: 300,
                           )
-                        : p.foto != null
+                        : usuarioController.usuarioSelecionado.pessoa.foto !=
+                                null
                             ? CircleAvatar(
                                 radius: 50,
                                 backgroundImage: NetworkImage(
-                                  clienteController.arquivo + p.foto,
+                                  clienteController.arquivo +
+                                      usuarioController
+                                          .usuarioSelecionado.pessoa.foto,
                                 ),
                               )
                             : CircleAvatar(
@@ -208,7 +212,18 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
                 padding: EdgeInsets.all(2),
                 height: 30,
                 child: Text(
-                  "${p.nome}",
+                  "${usuarioController.usuarioSelecionado.pessoa.nome}",
+                  style: TextStyle(
+                    color: Colors.grey[100],
+                  ),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(2),
+                height: 30,
+                child: Text(
+                  "${usuarioController.usuarioSelecionado.pessoa.tipoPessoa}",
                   style: TextStyle(
                     color: Colors.grey[100],
                   ),

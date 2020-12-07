@@ -42,6 +42,7 @@ class UsuarioRepository {
     try {
       print("carregando usuario by login");
       var response = await dio.client.get("/usuarios/login/$email/$senha");
+      print("Status login: ${response.statusCode}");
       return Usuario.fromJson(response.data);
     } on DioError catch (e) {
       print(e.message);
