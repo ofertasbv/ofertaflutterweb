@@ -99,6 +99,10 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10),
+                side: BorderSide(color: Colors.grey[200], width: 1),
+              ),
               child: AnimatedContainer(
                 width: 90,
                 height: 150,
@@ -106,14 +110,14 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white,
-                      Colors.white,
+                      Colors.grey[100].withOpacity(0.1),
+                      Colors.grey[400].withOpacity(0.4),
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
                   border: Border.all(color: Colors.transparent),
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,7 +127,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                       padding: EdgeInsets.all(1),
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.purple, Colors.grey[900]],
+                          colors: [Colors.indigo, Colors.grey[900]],
                         ),
                         border: Border.all(
                           color: Colors.black,

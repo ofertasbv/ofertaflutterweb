@@ -21,6 +21,7 @@ class DrawerList extends StatelessWidget {
       elevation: 0.0,
       child: Stack(
         children: <Widget>[
+          builderBodyBack(),
           menuLateral(context),
         ],
       ),
@@ -32,8 +33,8 @@ class DrawerList extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.white,
-            Colors.white,
+            Colors.grey[200].withOpacity(0.2),
+            Colors.grey[600].withOpacity(0.9)
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -48,13 +49,13 @@ class DrawerList extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(left: 10),
-          color: Colors.grey[100],
+          color: Colors.transparent,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
                 backgroundColor: Colors.grey[300],
-                foregroundColor: Colors.purple[900],
+                foregroundColor: Theme.of(context).primaryColor,
                 child: Icon(
                   Icons.account_circle,
                   size: 25,
@@ -62,8 +63,8 @@ class DrawerList extends StatelessWidget {
                 maxRadius: 15,
               ),
               Container(
-                padding: EdgeInsets.all(10),
-                height: 56,
+                padding: EdgeInsets.all(5),
+                height: 50,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,6 +89,7 @@ class DrawerList extends StatelessWidget {
             ],
           ),
         ),
+        Divider(),
         ListTile(
           selected: false,
           leading: Icon(Icons.home),

@@ -16,7 +16,7 @@ import 'package:nosso/src/util/load/circular_progresso.dart';
 class SubCategoriaProduto extends StatefulWidget {
   Categoria c;
 
-  SubCategoriaProduto({Key key,  this.c}) : super(key: key);
+  SubCategoriaProduto({Key key, this.c}) : super(key: key);
 
   @override
   _SubCategoriaProdutoState createState() =>
@@ -121,13 +121,12 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Card(
-              child: Container(
-                height: 60,
-                padding: EdgeInsets.all(4),
-                child: builderConteudoListSubCategoria(),
-              ),
+            Container(
+              height: 60,
+              padding: EdgeInsets.all(4),
+              child: builderConteudoListSubCategoria(),
             ),
+
             Expanded(
               child: builderConteudoListProduto(),
             ),
@@ -172,8 +171,8 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
             child: Chip(
               label: Text(c.nome.toLowerCase()),
               backgroundColor: c.nome == selectedCard
-                  ? Theme.of(context).accentColor.withOpacity(0.1)
-                  : Colors.grey[200],
+                  ? Theme.of(context).primaryColor.withOpacity(0.4)
+                  : Colors.grey[300],
             ),
           ),
           onTap: () {

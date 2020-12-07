@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
+import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
 
 class CategoriaPesquisa extends StatefulWidget {
   @override
@@ -90,7 +91,7 @@ class _CategoriaPesquisaState extends State<CategoriaPesquisa> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CategoriaSubCategoria();
+                  return SubCategoriaProduto(c: c);
                 },
               ),
             );

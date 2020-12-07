@@ -118,17 +118,18 @@ class MyApp extends StatelessWidget {
           side: BorderSide(color: Colors.white),
         ),
       ),
+      backgroundColor: Colors.transparent,
       primaryIconTheme: IconThemeData(color: Colors.white),
       fontFamily: 'Reboto',
       dialogBackgroundColor: Colors.grey[100],
       cardTheme: CardTheme(
         elevation: 0,
-        color: Colors.white,
+        color: Colors.transparent,
         margin: EdgeInsets.all(2),
         shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(2),
-          side: BorderSide(color: Colors.white, width: 1),
+          borderRadius: new BorderRadius.circular(10),
+          side: BorderSide(color: Colors.grey[100], width: 1),
         ),
       ),
       buttonTheme: ButtonThemeData(
@@ -163,7 +164,7 @@ class MyApp extends StatelessWidget {
         actionTextColor: Colors.black,
         backgroundColor: Colors.yellow[900],
       ),
-      scaffoldBackgroundColor: Colors.grey[100],
+      scaffoldBackgroundColor: Colors.grey[200],
       bottomSheetTheme: BottomSheetThemeData(
         modalElevation: 1,
         backgroundColor: Colors.yellow[900],

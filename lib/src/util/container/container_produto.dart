@@ -15,125 +15,129 @@ class ContainerProduto extends StatelessWidget {
     var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey[200], width: 1),
+      ),
       child: AnimatedContainer(
         width: 350,
         height: 150,
         duration: Duration(seconds: 1),
-        child: Column(
-          children: [
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.grey[100].withOpacity(0.1),
+              Colors.grey[100].withOpacity(0.4),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          border: Border.all(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
             Container(
-              height: 150,
               decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(2),
-                border: Border.all(color: Colors.transparent),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(2),
-                          child: Image.network(
-                            produtoController.arquivo + p.foto,
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 150,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.zero,
-                          child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: p.novo == true
-                                ? Chip(
-                                    label: Text(
-                                      "novo",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )
-                                : Chip(
-                                    label: Text(
-                                      "atual",
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.redAccent,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                          ),
-                        ),
-                      ],
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      produtoController.arquivo + p.foto,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 150,
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            child: ListTile(
-                              title: Text("${p.nome}"),
-                              subtitle: Text("Código. ${p.id}"),
-                              trailing: CircleAvatar(
-                                backgroundColor: Colors.grey[300],
-                                foregroundColor: Colors.redAccent,
-                                child: IconButton(
-                                  splashColor: Colors.black,
-                                  icon: Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.redAccent,
-                                    size: 15,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor)}",
+                  Padding(
+                    padding: EdgeInsets.zero,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: p.novo == true
+                          ? Chip(
+                              label: Text(
+                                "novo",
                                 style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.grey,
+                                  fontSize: 10,
+                                  color: Colors.redAccent,
                                   fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationStyle: TextDecorationStyle.dashed,
                                 ),
                               ),
-                              subtitle: Text(
-                                "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                            )
+                          : Chip(
+                              label: Text(
+                                "atual",
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  color: Colors.redAccent,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                              trailing: buildPopupMenuButton(context, p),
                             ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      child: ListTile(
+                        title: Text("${p.nome}"),
+                        subtitle: Text("Código. ${p.id}"),
+                        trailing: CircleAvatar(
+                          backgroundColor: Colors.grey[300],
+                          foregroundColor: Colors.redAccent,
+                          child: IconButton(
+                            splashColor: Colors.black,
+                            icon: Icon(
+                              Icons.favorite_border,
+                              color: Colors.redAccent,
+                              size: 15,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: ListTile(
+                        title: Text(
+                          "R\$ ${formatMoeda.format(p.estoque.valor)}",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.lineThrough,
+                            decorationStyle: TextDecorationStyle.dashed,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: buildPopupMenuButton(context, p),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

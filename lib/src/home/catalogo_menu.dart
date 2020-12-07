@@ -116,14 +116,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.qr_code,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "QR code",
+              Center(
+                child: Text("QR code", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -144,14 +150,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.aspect_ratio,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "Cod de barra",
+              Center(
+                child: Text("Código bar", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -172,14 +184,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.map,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.map_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "Locais",
+              Center(
+                child: Text("Locais", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -200,14 +218,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.qr_code,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "QR code",
+              Center(
+                child: Text("QR code", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -228,14 +252,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.aspect_ratio,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "Cod de barra",
+              Center(
+                child: Text("Código bar", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -256,14 +286,20 @@ class _CatalogoMenuState extends State<CatalogoMenu> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(
-                  Icons.map,
-                  size: 30,
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.map_outlined,
+                    size: 20,
+                  ),
                 ),
                 padding: EdgeInsets.all(20),
               ),
-              Text(
-                "Locais",
+              Center(
+                child: Text("Locais", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),

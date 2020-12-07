@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/home.dart';
@@ -6,6 +8,7 @@ import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
+import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
@@ -16,6 +19,8 @@ import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
+import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
+import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -48,7 +53,44 @@ class _ConfigPageState extends State<ConfigPage> {
       body: Stack(
         children: <Widget>[
           builderBodyBack(),
-          buildGridView(context),
+          Container(
+              child: Column(
+            children: [
+              Container(
+                height: 100,
+                width: double.infinity,
+                color: Colors.transparent,
+                padding: EdgeInsets.all(8),
+                child: Container(
+                  height: 100,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.transparent),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "FROM BY GDADOS 2020",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 100,
+                child: buildGridViewApp(context),
+              ),
+              Divider(),
+              Expanded(
+                child: Container(
+                  child: buildGridViewConfig(context),
+                ),
+              )
+            ],
+          )),
         ],
       ),
     );
@@ -58,23 +100,168 @@ class _ConfigPageState extends State<ConfigPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.grey[200],
-              Colors.grey[200],
+              Colors.grey[200].withOpacity(0.2),
+              Colors.grey[600].withOpacity(0.9)
             ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
         ),
       );
 
-  GridView buildGridView(BuildContext context) {
+  buildGridViewApp(BuildContext context) {
     return GridView.count(
       padding: EdgeInsets.only(top: 2),
-      crossAxisSpacing: 2,
-      mainAxisSpacing: 2,
-      crossAxisCount: 3,
+      crossAxisCount: 4,
+      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
+      scrollDirection: Axis.vertical,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorCodigoBarra();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Code bar", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LeitorQRCode();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[500],
+                  foregroundColor: Colors.white,
+                  radius: 20,
+                  child: Icon(
+                    Icons.qr_code_scanner_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Qr code", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaLocation();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.map_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Locais", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PedidoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[500],
+                  foregroundColor: Colors.white,
+                  radius: 20,
+                  child: Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Pedido", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
-      //childAspectRatio: MediaQuery.of(context).size.aspectRatio * 1.9,
+  buildGridViewConfig(BuildContext context) {
+    return GridView.count(
+      padding: EdgeInsets.only(top: 2),
+      // crossAxisSpacing: 1,
+      // mainAxisSpacing: 1,
+      crossAxisCount: 4,
+
+      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
       scrollDirection: Axis.vertical,
       children: <Widget>[
         GestureDetector(
@@ -96,18 +283,19 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.shopping_basket_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
               Center(
-                child: Text("Produto"),
+                child: Text("Produto", style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -131,19 +319,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.list_alt_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text(
-                "Categoria",
-              ),
+              Text("Categoria", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -166,19 +353,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.list_alt_sharp,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text(
-                "SubCategoria",
-              ),
+              Text("SubCategoria", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -201,19 +387,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.add_alert_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text(
-                "Oferta",
-              ),
+              Text("Oferta", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -236,19 +421,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.shopping_bag_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text(
-                "Loja",
-              ),
+              Text("Loja", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -271,17 +455,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.people_alt_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Cliente"),
+              Text("Cliente", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -304,17 +489,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.account_circle_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Usuário"),
+              Text("Usuário", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -337,17 +523,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.account_tree_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Permissão"),
+              Text("Permissão", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -370,17 +557,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.photo_album_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Arquivo"),
+              Text("Arquivo", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -403,17 +591,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.shopping_bag_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Marca"),
+              Text("Marca", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -436,17 +625,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.shopping_basket_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Items"),
+              Text("Items", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -469,17 +659,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.location_on_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Endereço"),
+              Text("Endereço", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -502,17 +693,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.color_lens_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Cor"),
+              Text("Cor", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -535,17 +727,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.format_size_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Tamanho"),
+              Text("Tamanho", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -568,17 +761,18 @@ class _ConfigPageState extends State<ConfigPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: CircleAvatar(
-                  backgroundColor: Colors.grey[100],
-                  foregroundColor: Colors.yellow[900],
-                  radius: 30,
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
                   child: Icon(
                     Icons.shopping_cart_outlined,
-                    size: 30,
+                    size: 20,
                   ),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
               ),
-              Text("Pedido"),
+              Text("Pedido", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

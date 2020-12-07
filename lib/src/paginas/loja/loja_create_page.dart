@@ -629,7 +629,10 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
               GestureDetector(
                 child: Text(
                   "Entrar",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
                 onTap: () {
                   Navigator.of(context).push(

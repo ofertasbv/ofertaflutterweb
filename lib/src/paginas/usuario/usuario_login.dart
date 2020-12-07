@@ -127,7 +127,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -201,9 +201,9 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(20),
           child: RaisedButton.icon(
             label: Text("Entrar"),
             icon: Icon(Icons.check),
@@ -226,7 +226,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
           ),
         ),
         Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(20),
           child: RaisedButton.icon(
             color: Colors.grey[300],
             icon: Icon(Icons.account_circle_outlined),
@@ -252,7 +252,10 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
               GestureDetector(
                 child: Text(
                   "Alterar senha",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(
+                    color: Colors.blue,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
                 onTap: () {
                   Navigator.of(context).push(

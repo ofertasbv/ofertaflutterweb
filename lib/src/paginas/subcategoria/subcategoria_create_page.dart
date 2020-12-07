@@ -112,7 +112,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(5),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -120,7 +120,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -153,44 +153,38 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   ),
                 ),
                 SizedBox(height: 0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    DropDownCategoria(categoriaSelecionada),
-                    Observer(
-                      builder: (context) {
-                        if (categoriaController.categoriaSelecionada == null) {
-                          return Container(
-                            padding: EdgeInsets.only(left: 25),
-                            child: Container(
-                              child: categoriaController.mensagem == null
-                                  ? Text(
-                                      "campo obrigatório *",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                      ),
-                                    )
-                                  : Text(
-                                      "${categoriaController.mensagem}",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                            ),
-                          );
-                        }
-                        return Container(
-                          padding: EdgeInsets.only(left: 25),
-                          child: Container(
-                            child:
-                                Icon(Icons.check_outlined, color: Colors.green),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                DropDownCategoria(categoriaSelecionada),
+                Observer(
+                  builder: (context) {
+                    if (categoriaController.categoriaSelecionada == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: categoriaController.mensagem == null
+                              ? Text(
+                                  "campo obrigatório *",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  "${categoriaController.mensagem}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

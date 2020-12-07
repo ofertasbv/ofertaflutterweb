@@ -52,102 +52,21 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 5),
           Container(
-            width: 80,
-            color: Colors.grey[200],
+            height: 160,
+            width: double.infinity,
+            color: Colors.transparent,
             padding: EdgeInsets.all(0),
             child: builderConteudoListCategoria(),
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(top: 1),
-              child: Column(
-                children: [
-                  Card(
-                    elevation: 1,
-                    child: Container(
-                        padding: EdgeInsets.all(6),
-                        color: Colors.transparent,
-                        height: 110,
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Departamentos"),
-                                IconButton(
-                                  icon: Icon(Icons.refresh),
-                                  onPressed: () {
-                                    subCategoriaController.getAll();
-                                    setState(() {
-                                      categoria = categoria;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                categoria.nome == null
-                                    ? Text(
-                                        "todos os departamentos",
-                                        style: TextStyle(
-                                          color: Colors.yellow[900],
-                                        ),
-                                      )
-                                    : Text(
-                                        categoria.nome,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.yellow[900],
-                                        ),
-                                      ),
-                                Observer(
-                                  builder: (context) {
-                                    if (subCategoriaController.error != null) {
-                                      return Text("Não foi possível carregar");
-                                    }
-
-                                    if (subCategoriaController.subCategorias ==
-                                        null) {
-                                      return Center(
-                                        child:
-                                            Icon(Icons.warning_amber_outlined),
-                                      );
-                                    }
-
-                                    return Chip(
-                                      label: Text(
-                                        (subCategoriaController
-                                                    .subCategorias.length ??
-                                                0)
-                                            .toString(),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        )),
-                  ),
-                  SizedBox(height: 0),
-                  Expanded(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: builderConteutoListSubCategoria(),
-                    ),
-                  )
-                ],
-              ),
+              color: Colors.transparent,
+              child: builderConteutoListSubCategoria(),
             ),
           ),
         ],
@@ -180,38 +99,37 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     double containerHeight = 15;
 
     return ListView.builder(
-      scrollDirection: Axis.vertical,
+      scrollDirection: Axis.horizontal,
       itemCount: categorias.length,
       itemBuilder: (context, index) {
         Categoria c = categorias[index];
 
         return GestureDetector(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 0),
+            padding: EdgeInsets.symmetric(horizontal: 2),
             child: Card(
-              borderOnForeground: true,
               shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(2),
+                borderRadius: new BorderRadius.circular(10),
                 side: BorderSide(color: Colors.grey[200], width: 1),
               ),
               child: AnimatedContainer(
-                width: 80,
-                height: 110,
+                width: 90,
+                height: 150,
                 duration: Duration(seconds: 1),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
                       c.nome == selectedCard
-                          ? Theme.of(context).accentColor.withOpacity(0.1)
-                          : Colors.white,
+                          ? Theme.of(context).primaryColor.withOpacity(0.1)
+                          : Colors.grey[100].withOpacity(0.1),
                       c.nome == selectedCard
-                          ? Theme.of(context).accentColor.withOpacity(0.1)
-                          : Colors.white,
+                          ? Theme.of(context).primaryColor.withOpacity(0.4)
+                          : Colors.grey[400].withOpacity(0.4),
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(2),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -221,7 +139,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       padding: EdgeInsets.all(1),
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.purple, Colors.grey[900]],
+                          colors: [Colors.indigo, Colors.grey[900]],
                         ),
                         border: Border.all(
                           color: Colors.black,
@@ -231,7 +149,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
                       ),
                       child: CircleAvatar(
                         backgroundColor: Colors.grey[100],
-                        radius: 20,
+                        radius: 30,
                         backgroundImage: NetworkImage(
                           "${categoriaController.arquivo + c.foto}",
                         ),
@@ -312,46 +230,47 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     );
   }
 
-  builderListSubCategoria(List<SubCategoria> subCategorias) {
+  builderListSubCategoria(List<SubCategoria> categorias) {
     double containerWidth = 160;
-    double containerHeight = 30;
-    var orientation = MediaQuery.of(context).orientation;
+    double containerHeight = 20;
 
-    return GridView.builder(
-      padding: EdgeInsets.only(top: 2),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: (orientation == Orientation.portrait) ? 3 : 4),
+    return ListView.builder(
       scrollDirection: Axis.vertical,
-      itemCount: subCategorias.length,
+      itemCount: categorias.length,
       itemBuilder: (context, index) {
-        SubCategoria c = subCategorias[index];
+        SubCategoria c = categorias[index];
 
         return GestureDetector(
           child: Card(
-            elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(2),
-              side: BorderSide(color: Colors.grey[100], width: 1),
+              borderRadius: new BorderRadius.circular(10),
+              side: BorderSide(color: Colors.grey[200], width: 1),
             ),
             child: Container(
-              height: 80,
-              width: 80,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    c.nome,
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    c.categoria.nome,
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.yellow[900],
+              child: ListTile(
+                isThreeLine: true,
+                leading: Container(
+                  padding: EdgeInsets.all(1),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[500].withOpacity(0.2),
+                    foregroundColor: Colors.indigo[900],
+                    radius: 20,
+                    child: Text(
+                      c.nome.substring(0, 1).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ],
+                ),
+                title: Text(c.nome),
+                subtitle: Text("${c.categoria.nome}"),
+                trailing: Container(
+                  height: 80,
+                  width: 50,
+                  child: Icon(Icons.arrow_right),
+                ),
               ),
             ),
           ),

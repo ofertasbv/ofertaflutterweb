@@ -149,11 +149,12 @@ class _ProdutoGridState extends State<ProdutoGrid>
   builderGrid(List<Produto> produtos) {
     return GridView.builder(
       padding: EdgeInsets.only(top: 5),
+
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        mainAxisSpacing: 2,
         crossAxisSpacing: 2,
-        childAspectRatio: 0.6,
+        mainAxisSpacing: 2,
+        childAspectRatio: MediaQuery.of(context).size.aspectRatio * 1.2,
       ),
       itemCount: produtos.length,
       itemBuilder: (context, index) {
@@ -161,8 +162,16 @@ class _ProdutoGridState extends State<ProdutoGrid>
         return GestureDetector(
           child: AnimatedContainer(
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(00),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.grey[100].withOpacity(0.1),
+                  Colors.grey[300].withOpacity(0.4),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              border: Border.all(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(20),
             ),
             duration: Duration(seconds: 2),
             curve: Curves.bounceIn,
@@ -170,13 +179,12 @@ class _ProdutoGridState extends State<ProdutoGrid>
               children: <Widget>[
                 Stack(
                   children: [
-                    Container(
-                      height: 150,
-                      width: double.infinity,
-                      color: Colors.white,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
                       child: Image.network(
                         produtoController.arquivo + p.foto,
                         fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
                     ),
                     Padding(
@@ -228,43 +236,81 @@ class _ProdutoGridState extends State<ProdutoGrid>
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      child: ListTile(
-                        title: Text("${p.nome}"),
-                        subtitle: Text("Código. ${p.id}"),
+                      height: 50,
+                      padding: EdgeInsets.all(6),
+                      child: Text(
+                        "${p.nome}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                     Container(
-                      child: ListTile(
-                        title: Text(
-                          "De ${formatMoeda.format(p.estoque.valor)}",
-                          style: TextStyle(
-                            fontSize: 10,
-                            decoration: TextDecoration.lineThrough,
-                            decorationStyle: TextDecorationStyle.dashed,
+                      height: 40,
+                      padding: EdgeInsets.all(6),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${formatMoeda.format(p.estoque.valor)}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              decoration: TextDecoration.lineThrough,
+                              decorationStyle: TextDecorationStyle.dashed,
+                            ),
                           ),
-                        ),
-                        subtitle: Text(
-                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                          Text(
+                            "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                            style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        trailing: Chip(
-                          label: Text(
+                          Text(
                             "${formatMoeda.format(p.promocao.desconto)} OFF",
                             style: TextStyle(
-                              fontSize: 10,
+                              fontSize: 12,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
+                        ],
                       ),
+                      // child: ListTile(
+                      //   minLeadingWidth: 1,
+                      //   minVerticalPadding: 1,
+                      //   title: Text(
+                      //     "${formatMoeda.format(p.estoque.valor)}",
+                      //     style: TextStyle(
+                      //       fontSize: 12,
+                      //       decoration: TextDecoration.lineThrough,
+                      //       decorationStyle: TextDecorationStyle.dashed,
+                      //     ),
+                      //   ),
+                      //   subtitle: Text(
+                      //     "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                      //     style: TextStyle(
+                      //       color: Colors.green,
+                      //       fontSize: 12,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      //   trailing: Text(
+                      //     "${formatMoeda.format(p.promocao.desconto)} OFF",
+                      //     style: TextStyle(
+                      //       fontSize: 10,
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   ],
                 ),

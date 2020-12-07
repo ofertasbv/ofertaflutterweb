@@ -116,7 +116,7 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: <Widget>[
                       TextFormField(
@@ -154,7 +154,7 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
         ),
         SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(20),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),

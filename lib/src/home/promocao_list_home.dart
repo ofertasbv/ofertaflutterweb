@@ -83,20 +83,24 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(10),
+                side: BorderSide(color: Colors.grey[200], width: 1),
+              ),
               child: AnimatedContainer(
                 width: containerWidth,
                 duration: Duration(seconds: 1),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white,
-                      Colors.white,
+                      Colors.grey[100].withOpacity(0.1),
+                      Colors.grey[400].withOpacity(0.4),
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  borderRadius: BorderRadius.circular(2),
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: Colors.transparent),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,8 +109,8 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                       color: Colors.grey[200],
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(2),
-                          topRight: Radius.circular(2),
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
                           bottomRight: Radius.circular(0),
                           bottomLeft: Radius.circular(0),
                         ),

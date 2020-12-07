@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
-import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/categoria/categoria_create_page.dart';
 
 class ContainerCategoria extends StatelessWidget {
@@ -13,64 +12,67 @@ class ContainerCategoria extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: new BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey[200], width: 1),
+      ),
       child: AnimatedContainer(
         width: 350,
         height: 150,
         duration: Duration(seconds: 1),
-
-        child: Column(
-          children: [
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.grey[100].withOpacity(0.1),
+              Colors.grey[100].withOpacity(0.4),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          border: Border.all(color: Colors.transparent),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
             Container(
-              height: 150,
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: Theme.of(context).primaryColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.transparent),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(2),
-                          child: Image.network(
-                            categoriaController.arquivo + p.foto,
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 150,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.transparent,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Container(
-                            child: ListTile(
-                              title: Text("${p.nome}"),
-                              subtitle: Text("Código. ${p.id}"),
-                              trailing: buildPopupMenuButton(context, p),
-                            ),
-                          ),
-                        ],
-                      ),
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      categoriaController.arquivo + p.foto,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 150,
                     ),
                   ),
                 ],
+              ),
+            ),
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      child: ListTile(
+                        title: Text("${p.nome}"),
+                        subtitle: Text("Código. ${p.id}"),
+                        trailing: buildPopupMenuButton(context, p),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
