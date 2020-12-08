@@ -1,8 +1,6 @@
 name: nosso
 description: sistema de e-commerce
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
@@ -19,11 +17,11 @@ dependencies:
     sdk: flutter
 
   dio: ^3.0.10
-  mobx: ^1.1.1
-  flutter_mobx: ^1.1.0
-  build_runner: ^1.6.5
+  mobx: ^1.2.1+4
+  flutter_mobx:
+  build_runner:
   mobx_codegen:
-  get_it: ^4.0.1
+  get_it:
 
   carousel_pro: ^1.0.0
   fluttertoast: ^3.1.0
@@ -37,13 +35,12 @@ dependencies:
 
   geolocator: ^5.3.2+2
   barcode_scan: ^1.0.0
-  webview_flutter: ^1.0.1
+  webview_flutter: ^1.0.7
 
   masked_text_input_formatter: ^0.0.1
   datetime_picker_formfield:
   flutter_masked_text: ^0.8.0
   mask_text_input_formatter: ^1.1.0
-#  intl: ^0.16.1
   intl: ^0.17.0-nullsafety.2
 #  brasil_fields: ^0.4.0
 
@@ -59,17 +56,7 @@ flutter_icons:
   ios: true
   image_path: "assets/logo/logo.png"
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/

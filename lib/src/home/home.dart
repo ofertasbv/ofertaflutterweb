@@ -143,21 +143,21 @@ class _HomePageState extends State<HomePage>
               BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt_outlined),
                 title: Text(
-                  'departamento',
+                  'categorias',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.local_convenience_store_outlined),
                 title: Text(
-                  'loja',
+                  'lojas',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.add_alert_outlined),
                 title: Text(
-                  'oferta',
+                  'ofertas',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
