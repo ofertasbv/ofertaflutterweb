@@ -4,10 +4,21 @@ import 'package:dio/dio.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/produtoprincipal.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
 class ProdutoRepository {
   CustonDio dio = CustonDio();
+
+  Future<List<ProdutoPrincipal>> nextPageProduto() async {
+    try {
+      var response = await dio.client.get("/produtos");
+      return (response.data).map((c) => Produto.fromJson(c)).toList();
+    } on Exception catch (error) {
+      print(error);
+      return null;
+    }
+  }
 
   Future<List<Produto>> getAllById(int id) async {
     try {
@@ -26,6 +37,17 @@ class ProdutoRepository {
       print("carregando produtos");
       var response = await dio.client.get("/produtos");
       return (response.data as List).map((c) => Produto.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
+  Future<List<Produto>> getAllPageable() async {
+    try {
+      print("carregando produtos");
+      var response = await dio.client.get("/produtos");
+      return (response.data as List).map((c) => Produto.fromJson(c));
     } on DioError catch (e) {
       print(e.message);
     }

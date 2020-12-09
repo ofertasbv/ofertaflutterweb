@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
@@ -20,8 +19,8 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
-import 'package:nosso/src/util/componets/dropdown_loja.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 

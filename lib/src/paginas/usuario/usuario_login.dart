@@ -130,8 +130,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        initialValue: u.email,
-                        onSaved: (value) => u.email = value,
+                        onSaved: (value) => u.email = value.trim(),
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
@@ -158,8 +157,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        initialValue: u.senha,
-                        onSaved: (value) => u.senha = value,
+                        onSaved: (value) => u.senha = value.trim(),
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(

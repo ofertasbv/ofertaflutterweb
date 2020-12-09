@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/produtopage.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/container/container_produto.dart';
@@ -31,7 +32,7 @@ class _ProdutoListState extends State<ProdutoList>
 
   @override
   void initState() {
-    produtoController.getFilter(filter);
+    produtoController.getAll();
     // if (filter != null) {
     //   produtoController.getFilter(filter);
     // } else {
@@ -42,7 +43,7 @@ class _ProdutoListState extends State<ProdutoList>
 
   Future<void> onRefresh() {
     if (filter != null) {
-      produtoController.getFilter(filter);
+      produtoController.getAll();
     } else {
       return produtoController.getAll();
     }
@@ -90,16 +91,16 @@ class _ProdutoListState extends State<ProdutoList>
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 0),
-            child: ContainerProduto(produtoController, p),
+            child: Text("sggsgsgsggs"),
           ),
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ProdutoDetalhesTab(p);
-                },
-              ),
-            );
+            // Navigator.of(context).push(
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) {
+            //       return ProdutoDetalhesTab(p);
+            //     },
+            //   ),
+            // );
           },
         );
       },

@@ -24,6 +24,7 @@ import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/home/home.dart';
+import 'package:nosso/src/util/Examples/testepaginacao.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -79,7 +80,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-      home: HomePage(),
+      home: MainFetchData(),
     );
   }
 

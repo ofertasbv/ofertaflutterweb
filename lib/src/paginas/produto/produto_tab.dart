@@ -36,7 +36,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
 
   @override
   Widget build(BuildContext context) {
-    filter.destaque = true;
+    // filter.destaque = true;
 
     return DefaultTabController(
       length: 2,
@@ -163,8 +163,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
                             onChanged: (bool value) {
                               setState(() {
                                 destaque = value;
-                                filter.destaque = destaque;
-                                print("Filter destaque: ${filter.destaque}");
+                                // filter.destaque = destaque;
+                                // print("Filter destaque: ${filter.destaque}");
                               });
                             },
                           ),

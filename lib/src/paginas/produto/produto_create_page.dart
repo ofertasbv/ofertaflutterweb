@@ -28,13 +28,13 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
-import 'package:nosso/src/util/componets/dropdown_cor.dart';
-import 'package:nosso/src/util/componets/dropdown_loja.dart';
-import 'package:nosso/src/util/componets/dropdown_marca.dart';
-import 'package:nosso/src/util/componets/dropdown_promocao.dart';
-import 'package:nosso/src/util/componets/dropdown_subcategoria.dart';
-import 'package:nosso/src/util/componets/dropdown_tamanho.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/dropdown/dropdown_cor.dart';
+import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
+import 'package:nosso/src/util/dropdown/dropdown_marca.dart';
+import 'package:nosso/src/util/dropdown/dropdown_promocao.dart';
+import 'package:nosso/src/util/dropdown/dropdown_subcategoria.dart';
+import 'package:nosso/src/util/dropdown/dropdown_tamanho.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
 class ProdutoCreatePage extends StatefulWidget {

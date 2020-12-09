@@ -12,6 +12,7 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/container/container_produto.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
+import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class SubCategoriaProduto extends StatefulWidget {
   Categoria c;
@@ -145,7 +146,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           }
 
           if (categorias == null) {
-            return CircularProgressor();
+            return CircularProgressorMini();
           }
 
           return builderListSubCategoria(categorias);
