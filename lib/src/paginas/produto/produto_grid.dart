@@ -50,17 +50,15 @@ class _ProdutoGridState extends State<ProdutoGrid>
       favorito = Favorito();
       produto = Produto();
     }
-
-    if (filter != null) {
-      produtoController.getFilter(filter, size, page);
-    } else {
-      produtoController.getFilter(filter, size, page);
-    }
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return produtoController.getFilter(filter, size, page);
+    if (filter != null) {
+      produtoController.getFilter(filter, size, page);
+    } else {
+      return produtoController.getFilter(filter, size, page);
+    }
   }
 
   favoritar() {
@@ -154,7 +152,6 @@ class _ProdutoGridState extends State<ProdutoGrid>
   builderGrid(List<Produto> produtos) {
     return GridView.builder(
       padding: EdgeInsets.only(top: 5),
-
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 2,
@@ -256,81 +253,52 @@ class _ProdutoGridState extends State<ProdutoGrid>
                       ),
                     ),
                     Container(
-                      height: 40,
-                      padding: EdgeInsets.all(6),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "${formatMoeda.format(p.estoque.valor)}",
-                            style: TextStyle(
-                              fontSize: 12,
-                              decoration: TextDecoration.lineThrough,
-                              decorationStyle: TextDecorationStyle.dashed,
+                        height: 40,
+                        padding: EdgeInsets.all(6),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "${formatMoeda.format(p.estoque.valor)}",
+                              style: TextStyle(
+                                fontSize: 12,
+                                decoration: TextDecoration.lineThrough,
+                                decorationStyle: TextDecorationStyle.dashed,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "${formatMoeda.format(p.promocao.desconto)} OFF",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                            Text(
+                              "${formatMoeda.format(p.promocao.desconto)} OFF",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      // child: ListTile(
-                      //   minLeadingWidth: 1,
-                      //   minVerticalPadding: 1,
-                      //   title: Text(
-                      //     "${formatMoeda.format(p.estoque.valor)}",
-                      //     style: TextStyle(
-                      //       fontSize: 12,
-                      //       decoration: TextDecoration.lineThrough,
-                      //       decorationStyle: TextDecorationStyle.dashed,
-                      //     ),
-                      //   ),
-                      //   subtitle: Text(
-                      //     "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
-                      //     style: TextStyle(
-                      //       color: Colors.green,
-                      //       fontSize: 12,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //   ),
-                      //   trailing: Text(
-                      //     "${formatMoeda.format(p.promocao.desconto)} OFF",
-                      //     style: TextStyle(
-                      //       fontSize: 10,
-                      //       color: Colors.black,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //   ),
-                      // ),
-                    ),
+                          ],
+                        )),
                   ],
                 ),
               ],
             ),
           ),
-          // onTap: () {
-          //   Navigator.of(context).push(
-          //     MaterialPageRoute(
-          //       builder: (BuildContext context) {
-          //         return ProdutoDetalhesTab(p);
-          //       },
-          //     ),
-          //   );
-          // },
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ProdutoDetalhesTab(p);
+                },
+              ),
+            );
+          },
         );
       },
     );

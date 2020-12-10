@@ -103,6 +103,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
   }
 
   ListView buildListViewForm(BuildContext context) {
+    var focus = FocusScope.of(context);
     categoriaController.categoriaSelecionada = s.categoria;
 
     return ListView(
@@ -141,6 +142,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,

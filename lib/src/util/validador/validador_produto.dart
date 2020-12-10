@@ -26,8 +26,11 @@ class ValidadorProduto {
 
   String validateQuantidade(String text) {
     int quantidade = int.tryParse(text);
-    if (quantidade > 0 && quantidade < 1000)
-      return "Preencha a quantidade do produto";
+    if (quantidade != null) {
+      if (quantidade <= 0) return "deve ter pelo peno 1 em estoque";
+    } else {
+      return "Preço inválido";
+    }
     return null;
   }
 

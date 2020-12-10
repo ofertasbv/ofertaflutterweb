@@ -578,7 +578,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.numberWithOptions(decimal: false),
                         maxLength: 6,
                       ),
                       SizedBox(height: 10),

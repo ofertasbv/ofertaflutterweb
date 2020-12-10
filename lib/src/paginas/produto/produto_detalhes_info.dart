@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/produto.dart';
 
 class ProdutoDetalhesInfo extends StatefulWidget {
@@ -127,6 +128,18 @@ class _ProdutoDetalhesInfoState extends State<ProdutoDetalhesInfo> {
                         title: Text("Loja"),
                         subtitle: Text("${p.loja.nome}"),
                         trailing: Icon(Icons.check_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Cores"),
+                        subtitle: Text("${p.cores.map((e) => e.descricao)}"),
+                        trailing: Icon(Icons.color_lens_outlined),
+                      ),
+                      Divider(),
+                      ListTile(
+                        title: Text("Tamanhos"),
+                        subtitle: Text("${p.tamanhos.map((e) => e.descricao)}"),
+                        trailing: Icon(Icons.format_size_outlined),
                       ),
                     ],
                   ),

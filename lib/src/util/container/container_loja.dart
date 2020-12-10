@@ -71,12 +71,11 @@ class ContainerLoja extends StatelessWidget {
                         subtitle: Text("Código. ${p.id}"),
                         trailing: CircleAvatar(
                           backgroundColor: Colors.grey[300],
-                          foregroundColor: Colors.redAccent,
+                          foregroundColor: Colors.yellow[900],
                           child: IconButton(
                             splashColor: Colors.black,
                             icon: Icon(
-                              Icons.favorite_border,
-                              color: Colors.redAccent,
+                              Icons.phone,
                               size: 15,
                             ),
                             onPressed: () {},

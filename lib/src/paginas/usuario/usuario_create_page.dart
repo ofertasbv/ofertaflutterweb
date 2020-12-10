@@ -99,8 +99,10 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
   buildListViewForm(BuildContext context) {
     var focus = FocusScope.of(context);
 
-    u = usuarioController.usuarioSelecionado;
-    emailController.text = usuarioController.usuarioSelecionado.email;
+    if (usuarioController.usuarioSelecionado != null) {
+      u = usuarioController.usuarioSelecionado;
+      emailController.text = usuarioController.usuarioSelecionado.email;
+    }
 
     return ListView(
       children: <Widget>[
@@ -113,7 +115,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
         ),
         SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(0),
+          padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(

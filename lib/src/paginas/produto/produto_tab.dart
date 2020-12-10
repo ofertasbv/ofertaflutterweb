@@ -30,9 +30,12 @@ class _ProdutoTabState extends State<ProdutoTab> {
 
   @override
   void initState() {
-    if (filter == null) {
-      filter = ProdutoFilter();
+    if (filter != null) {
+      produtoController.getFilter(filter, size, page);
+    } else {
+      produtoController.getFilter(filter, size, page);
     }
+
     super.initState();
   }
 

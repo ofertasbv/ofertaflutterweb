@@ -124,9 +124,10 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
   }
 
   buildListViewForm(BuildContext context) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
-    NumberFormat formatter = NumberFormat("00.00");
-    NumberFormat formata = new NumberFormat("#,##0.00", "pt_BR");
+    var focus = FocusScope.of(context);
+    var dateFormat = DateFormat('dd/MM/yyyy');
+    var formatter = NumberFormat("00.00");
+    var formata = new NumberFormat("#,##0.00", "pt_BR");
 
     return ListView(
       children: <Widget>[
@@ -183,6 +184,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,
@@ -213,6 +215,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                       ),
@@ -241,6 +244,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                       ),
@@ -269,6 +273,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
                         maxLength: 6,
                       ),
@@ -294,6 +299,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,
@@ -326,6 +332,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,
@@ -358,6 +365,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
                             context: context,

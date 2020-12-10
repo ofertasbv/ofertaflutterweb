@@ -93,7 +93,9 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
     );
   }
 
-  ListView buildListViewForm(BuildContext context) {
+   buildListViewForm(BuildContext context) {
+     var focus = FocusScope.of(context);
+
     return ListView(
       children: <Widget>[
         Container(
@@ -129,6 +131,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,

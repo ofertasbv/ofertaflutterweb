@@ -99,8 +99,11 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
 
   buildListViewForm(BuildContext context) {
     var focus = FocusScope.of(context);
-    u = usuarioController.usuarioSelecionado;
-    emailController.text = usuarioController.usuarioSelecionado.email;
+
+    if (usuarioController.usuarioSelecionado != null) {
+      u = usuarioController.usuarioSelecionado;
+      emailController.text = usuarioController.usuarioSelecionado.email;
+    }
 
     return ListView(
       children: <Widget>[

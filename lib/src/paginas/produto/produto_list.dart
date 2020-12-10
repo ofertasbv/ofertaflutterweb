@@ -34,11 +34,6 @@ class _ProdutoListState extends State<ProdutoList>
 
   @override
   void initState() {
-    if (filter != null) {
-      produtoController.getFilter(filter, size, page);
-    } else {
-      produtoController.getFilter(filter, size, page);
-    }
     super.initState();
   }
 
