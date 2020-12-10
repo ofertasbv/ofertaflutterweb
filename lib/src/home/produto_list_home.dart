@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/container/container_produto.dart';
+import 'package:nosso/src/util/filter/produto_filter.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class ProdutoListHome extends StatefulWidget {
@@ -22,14 +22,18 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
   var produtoController = GetIt.I.get<ProdutoController>();
   var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
+  var filter = ProdutoFilter();
+  int size = 0;
+  int page = 0;
+
   @override
   void initState() {
-    produtoController.getAll();
+    produtoController.getFilter(filter, size, page);
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return produtoController.getAll();
+    produtoController.getFilter(filter, size, page);
   }
 
   bool isLoading = true;
@@ -52,7 +56,6 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
           if (produtos == null) {
             return CircularProgressorMini();
           }
-
           return RefreshIndicator(
             onRefresh: onRefresh,
             child: builderList(produtos),
@@ -73,7 +76,7 @@ class _ProdutoListHomeState extends State<ProdutoListHome>
         Produto p = produtos[index];
 
         return GestureDetector(
-          child: Padding(
+          child: Container(
             padding: EdgeInsets.symmetric(horizontal: 2),
             child: ContainerProduto(produtoController, p),
           ),

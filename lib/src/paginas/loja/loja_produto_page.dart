@@ -105,7 +105,7 @@ class _LojaProdutoPageState extends State<LojaProdutoPage> {
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 0),
-            child: ContainerProduto(produtoController, p),
+            // child: ContainerProduto(produtoController, p),
           ),
           onTap: () {
             Navigator.of(context).push(

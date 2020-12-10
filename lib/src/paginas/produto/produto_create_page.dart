@@ -28,6 +28,7 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/util/componentes/image_source_sheet.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_cor.dart';
 import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
@@ -36,6 +37,7 @@ import 'package:nosso/src/util/dropdown/dropdown_promocao.dart';
 import 'package:nosso/src/util/dropdown/dropdown_subcategoria.dart';
 import 'package:nosso/src/util/dropdown/dropdown_tamanho.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
+import 'package:nosso/src/util/validador/validador_produto.dart';
 
 class ProdutoCreatePage extends StatefulWidget {
   Produto produto;
@@ -47,7 +49,8 @@ class ProdutoCreatePage extends StatefulWidget {
       _ProdutoCreatePageState(p: this.produto);
 }
 
-class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
+class _ProdutoCreatePageState extends State<ProdutoCreatePage>
+    with ValidadorProduto {
   _ProdutoCreatePageState({this.p});
 
   var produtoController = GetIt.I.get<ProdutoController>();
@@ -174,36 +177,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await promocaoController.upload(file, p.foto);
@@ -227,35 +200,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {
@@ -328,7 +272,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                 Container(
                   child: GestureDetector(
                     onTap: () {
-                      openBottomSheet(context);
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ImageSourceSheet(
+                          onImageSelected: (image) {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              file = image;
+                              String arquivo = file.path.split('/').last;
+                              print("Image: ${arquivo}");
+                              enableButton();
+                            });
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -386,7 +343,21 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                               child: Icon(Icons.photo),
                               shape: new CircleBorder(),
                               onPressed: () {
-                                openBottomSheet(context);
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ImageSourceSheet(
+                                    onImageSelected: (image) {
+                                      setState(() {
+                                        Navigator.of(context).pop();
+                                        file = image;
+                                        String arquivo =
+                                            file.path.split('/').last;
+                                        print("Image: ${arquivo}");
+                                        enableButton();
+                                      });
+                                    },
+                                  ),
+                                );
                               },
                             ),
                             RaisedButton(
@@ -455,8 +426,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                             ? controllerCodigoBarra
                             : null,
                         onSaved: (value) => p.codigoBarra = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateCodigoBarra,
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.camera_alt_outlined,
@@ -480,6 +450,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         keyboardType: TextInputType.text,
                         maxLength: 20,
                       ),
+                      SizedBox(height: 10),
                       RaisedButton.icon(
                         elevation: 0.0,
                         icon: Icon(Icons.photo_camera_outlined),
@@ -500,8 +471,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       TextFormField(
                         initialValue: p.nome,
                         onSaved: (value) => p.nome = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateNome,
                         decoration: InputDecoration(
                           labelText: "Nome",
                           hintText: "nome produto",
@@ -530,8 +500,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       TextFormField(
                         initialValue: p.descricao,
                         onSaved: (value) => p.descricao = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateDescricao,
                         decoration: InputDecoration(
                           labelText: "Descrição",
                           hintText: "descrição produto",
@@ -559,8 +528,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                       TextFormField(
                         initialValue: p.sku,
                         onSaved: (value) => p.sku = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSKU,
                         decoration: InputDecoration(
                           labelText: "SKU",
                           hintText: "sku produto",
@@ -590,8 +558,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         onSaved: (value) {
                           p.estoque.quantidade = int.tryParse(value);
                         },
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateQuantidade,
                         decoration: InputDecoration(
                           labelText: "Quantidade",
                           hintText: "quantidade",
@@ -620,8 +587,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                         onSaved: (value) {
                           p.estoque.valor = double.tryParse(value);
                         },
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validatePreco,
                         decoration: InputDecoration(
                           labelText: "Valor",
                           hintText: "valor",
@@ -641,8 +607,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 6,
+                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+                        maxLength: 10,
                       ),
                     ],
                   ),
@@ -1011,7 +977,20 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (p.foto == null) {
-                  openBottomSheet(context);
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ImageSourceSheet(
+                      onImageSelected: (image) {
+                        setState(() {
+                          Navigator.of(context).pop();
+                          file = image;
+                          String arquivo = file.path.split('/').last;
+                          print("Image: ${arquivo}");
+                          enableButton();
+                        });
+                      },
+                    ),
+                  );
                 } else {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");

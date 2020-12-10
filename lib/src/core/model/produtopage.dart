@@ -1,38 +1,38 @@
+import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/pageable.dart';
-import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/sort.dart';
 
 class ProdutoData {
-  List<Produto> produto;
+  List<Content> content;
   Pageable pageable;
   int totalPages;
   int totalElements;
   bool last;
   bool first;
   Sort sort;
-  int size;
   int number;
   int numberOfElements;
+  int size;
   bool empty;
 
   ProdutoData(
-      {this.produto,
+      {this.content,
       this.pageable,
       this.totalPages,
       this.totalElements,
       this.last,
       this.first,
       this.sort,
-      this.size,
       this.number,
       this.numberOfElements,
+      this.size,
       this.empty});
 
   ProdutoData.fromJson(Map<String, dynamic> json) {
-    if (json['produto'] != null) {
-      produto = new List<Produto>();
-      json['produto'].forEach((v) {
-        produto.add(new Produto.fromJson(v));
+    if (json['content'] != null) {
+      content = new List<Content>();
+      json['content'].forEach((v) {
+        content.add(new Content.fromJson(v));
       });
     }
     pageable = json['pageable'] != null
@@ -43,16 +43,16 @@ class ProdutoData {
     last = json['last'];
     first = json['first'];
     sort = json['sort'] != null ? new Sort.fromJson(json['sort']) : null;
-    size = json['size'];
     number = json['number'];
     numberOfElements = json['numberOfElements'];
+    size = json['size'];
     empty = json['empty'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.produto != null) {
-      data['produto'] = this.produto.map((v) => v.toJson()).toList();
+    if (this.content != null) {
+      data['content'] = this.content.map((v) => v.toJson()).toList();
     }
     if (this.pageable != null) {
       data['pageable'] = this.pageable.toJson();
@@ -64,9 +64,9 @@ class ProdutoData {
     if (this.sort != null) {
       data['sort'] = this.sort.toJson();
     }
-    data['size'] = this.size;
     data['number'] = this.number;
     data['numberOfElements'] = this.numberOfElements;
+    data['size'] = this.size;
     data['empty'] = this.empty;
     return data;
   }

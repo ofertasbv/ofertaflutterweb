@@ -21,7 +21,7 @@ class _ProdutoFilterPageState extends State<ProdutoFilterPage> {
   @override
   Widget build(BuildContext context) {
 
-    filter.nome = "Vestido";
+    filter.nomeProduto = "Vestido";
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,7 @@ class _ProdutoFilterPageState extends State<ProdutoFilterPage> {
       body: Container(
         child: Column(
           children: [
-            Text(filter.nome),
+            Text(filter.nomeProduto),
           ],
         ),
       ),

@@ -23,7 +23,9 @@ class _ProdutoTabState extends State<ProdutoTab> {
 
   var produtoController = GetIt.I.get<ProdutoController>();
 
-  ProdutoFilter filter;
+  var filter = ProdutoFilter();
+  int size = 0;
+  int page = 0;
   bool destaque = false;
 
   @override
@@ -207,7 +209,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
                   color: Colors.yellow[900],
                   elevation: 0,
                   onPressed: () {
-                    produtoController.getFilter(filter);
+                    produtoController.getFilter(filter, size, page);
                     Navigator.of(context).pop();
                   },
                 ),

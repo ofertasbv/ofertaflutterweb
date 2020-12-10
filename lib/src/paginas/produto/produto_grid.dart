@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:mobx/src/api/observable_collections.dart';
 import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/favorito.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_create_page.dart';
@@ -36,8 +38,11 @@ class _ProdutoGridState extends State<ProdutoGrid>
 
   Favorito favorito;
   Produto produto;
-  ProdutoFilter filter;
   bool isFavorito = false;
+
+  ProdutoFilter filter;
+  int size = 0;
+  int page = 0;
 
   @override
   void initState() {
@@ -47,15 +52,15 @@ class _ProdutoGridState extends State<ProdutoGrid>
     }
 
     if (filter != null) {
-      produtoController.getFilter(filter);
+      produtoController.getFilter(filter, size, page);
     } else {
-      produtoController.getAll();
+      produtoController.getFilter(filter, size, page);
     }
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return produtoController.getAll();
+    return produtoController.getFilter(filter, size, page);
   }
 
   favoritar() {
@@ -317,15 +322,15 @@ class _ProdutoGridState extends State<ProdutoGrid>
               ],
             ),
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return ProdutoDetalhesTab(p);
-                },
-              ),
-            );
-          },
+          // onTap: () {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (BuildContext context) {
+          //         return ProdutoDetalhesTab(p);
+          //       },
+          //     ),
+          //   );
+          // },
         );
       },
     );

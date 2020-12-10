@@ -79,7 +79,7 @@ class _DialogProdutoFilterState extends State<DialogProdutoFilter> {
               onTap: () {
                 setState(() {
                   // filter.categoria = c.nome;
-                  print("SubCategoria: ${filter.categoria}");
+                  print("SubCategoria: ${filter.subCategoria}");
                 });
               },
             ),

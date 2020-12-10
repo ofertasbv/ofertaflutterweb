@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
+import 'package:mobx/src/api/observable_collections.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/core/model/produtopage.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/container/container_produto.dart';
@@ -26,26 +26,27 @@ class _ProdutoListState extends State<ProdutoList>
   _ProdutoListState({this.filter});
 
   var produtoController = GetIt.I.get<ProdutoController>();
+  SubCategoria s;
 
   ProdutoFilter filter;
-  SubCategoria s;
+  int size = 0;
+  int page = 0;
 
   @override
   void initState() {
-    produtoController.getAll();
-    // if (filter != null) {
-    //   produtoController.getFilter(filter);
-    // } else {
-    //   produtoController.getAll();
-    // }
+    if (filter != null) {
+      produtoController.getFilter(filter, size, page);
+    } else {
+      produtoController.getFilter(filter, size, page);
+    }
     super.initState();
   }
 
   Future<void> onRefresh() {
     if (filter != null) {
-      produtoController.getAll();
+      produtoController.getFilter(filter, size, page);
     } else {
-      return produtoController.getAll();
+      return produtoController.getFilter(filter, size, page);
     }
     return null;
   }
@@ -91,16 +92,16 @@ class _ProdutoListState extends State<ProdutoList>
         return GestureDetector(
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 0),
-            child: Text("sggsgsgsggs"),
+            child: ContainerProduto(produtoController, p),
           ),
           onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return ProdutoDetalhesTab(p);
-            //     },
-            //   ),
-            // );
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return ProdutoDetalhesTab(p);
+                },
+              ),
+            );
           },
         );
       },

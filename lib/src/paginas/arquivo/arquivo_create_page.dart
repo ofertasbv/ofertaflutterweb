@@ -15,6 +15,8 @@ import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nosso/src/util/componentes/image_source_sheet.dart';
+import 'package:nosso/src/util/componentes/images_widget.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -76,34 +78,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await arquivoController.upload(file, a.foto);
@@ -127,35 +101,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {
@@ -214,7 +159,20 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                 Container(
                   child: GestureDetector(
                     onTap: () {
-                      openBottomSheet(context);
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ImageSourceSheet(
+                          onImageSelected: (image) {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              file = image;
+                              String arquivo = file.path.split('/').last;
+                              print("Image: ${arquivo}");
+                              enableButton();
+                            });
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -273,7 +231,21 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 splashColor: Colors.black,
                                 icon: Icon(Icons.photo),
                                 onPressed: () {
-                                  openBottomSheet(context);
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ImageSourceSheet(
+                                      onImageSelected: (image) {
+                                        setState(() {
+                                          Navigator.of(context).pop();
+                                          file = image;
+                                          String arquivo =
+                                              file.path.split('/').last;
+                                          print("Image: ${arquivo}");
+                                          enableButton();
+                                        });
+                                      },
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -344,7 +316,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (a.foto == null) {
-                  openBottomSheet(context);
+                  // openBottomSheet(context);
                 } else {
                   if (a.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
@@ -383,6 +355,8 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       ),
     );
   }
+
+  teste() {}
 }
 
 class Controller {

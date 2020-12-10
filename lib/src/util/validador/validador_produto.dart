@@ -14,6 +14,11 @@ class ValidadorProduto {
     return null;
   }
 
+  String validateSKU(String text) {
+    if (text.isEmpty) return "Preencha o SKU do produto";
+    return null;
+  }
+
   String validateDescricao(String text) {
     if (text.isEmpty) return "Preencha a descrição do produto";
     return null;
@@ -21,7 +26,8 @@ class ValidadorProduto {
 
   String validateQuantidade(String text) {
     int quantidade = int.tryParse(text);
-    if (quantidade != null) return "Preencha a quantidade do produto";
+    if (quantidade > 0 && quantidade < 1000)
+      return "Preencha a quantidade do produto";
     return null;
   }
 

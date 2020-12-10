@@ -12,13 +12,14 @@ import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/cliente/cliente_create_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_pesquisa_login.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/validador/validador_login.dart';
 
 class UsuarioLogin extends StatefulWidget {
   @override
   _UsuarioLoginState createState() => _UsuarioLoginState();
 }
 
-class _UsuarioLoginState extends State<UsuarioLogin> {
+class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -131,8 +132,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                     children: <Widget>[
                       TextFormField(
                         onSaved: (value) => u.email = value.trim(),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
                           labelText: "Email",
                           hintText: "email@gmail.com",
@@ -158,8 +158,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> {
                       SizedBox(height: 10),
                       TextFormField(
                         onSaved: (value) => u.senha = value.trim(),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
                           labelText: "Senha",
                           hintText: "Senha",

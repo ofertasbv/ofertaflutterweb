@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/produtopage.dart';
@@ -23,9 +24,6 @@ abstract class ProdutoControllerBase with Store {
 
   @observable
   List<Produto> produtos;
-
-  @observable
-  List<ProdutoData> produtoDatas;
 
   @observable
   List<Produto> produtosByLoja;
@@ -68,27 +66,17 @@ abstract class ProdutoControllerBase with Store {
   @action
   Future<List<Produto>> getAll() async {
     try {
-      // produtos = await produtoRepository.getFilter(filter);
+      produtos = await produtoRepository.getAll();
       return produtos;
     } catch (e) {
       error = e;
     }
   }
 
-  // @action
-  // Future<List<ProdutoData>> getAllPageable() async {
-  //   try {
-  //     produtoDatas = await produtoRepository.getAllPageable();
-  //     return produtoDatas;
-  //   } catch (e) {
-  //     error = e;
-  //   }
-  // }
-
   @action
-  Future<List<Produto>> getFilter(ProdutoFilter filter) async {
+  Future<List<Produto>> getFilter(ProdutoFilter filter, int size, int page) async {
     try {
-      produtos = await produtoRepository.getFilter(filter);
+      produtos = await produtoRepository.getFilter(filter, size, page);
       return produtos;
     } catch (e) {
       error = e;

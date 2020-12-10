@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:mobx/src/api/observable_collections.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
+import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/favorito.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
 import 'package:nosso/src/util/container/container_produto.dart';
+import 'package:nosso/src/util/filter/produto_filter.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
@@ -35,6 +38,10 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
   Categoria categoria;
   Favorito favorito;
   Produto produto;
+
+  ProdutoFilter filter;
+  int size = 0;
+  int page = 0;
 
   AnimationController animationController;
   Animation<double> animation;
@@ -111,7 +118,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           IconButton(
             icon: Icon(Icons.refresh_outlined),
             onPressed: () {
-              produtoController.getAll();
+              produtoController.getFilter(filter, size, page);
             },
           ),
         ],

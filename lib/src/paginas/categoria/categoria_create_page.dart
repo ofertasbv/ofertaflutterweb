@@ -15,6 +15,7 @@ import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nosso/src/util/componentes/image_source_sheet.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -77,36 +78,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        c.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        c.foto = arquivo;
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await categoriaController.upload(file, c.foto);
@@ -126,35 +97,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {
@@ -212,7 +154,20 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   color: Colors.grey[300],
                   child: GestureDetector(
                     onTap: () {
-                      openBottomSheet(context);
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ImageSourceSheet(
+                          onImageSelected: (image) {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              file = image;
+                              String arquivo = file.path.split('/').last;
+                              print("Image: ${arquivo}");
+                              enableButton();
+                            });
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -267,7 +222,21 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                               child: Icon(Icons.photo),
                               shape: new CircleBorder(),
                               onPressed: () {
-                                openBottomSheet(context);
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ImageSourceSheet(
+                                    onImageSelected: (image) {
+                                      setState(() {
+                                        Navigator.of(context).pop();
+                                        file = image;
+                                        String arquivo =
+                                            file.path.split('/').last;
+                                        print("Image: ${arquivo}");
+                                        enableButton();
+                                      });
+                                    },
+                                  ),
+                                );
                               },
                             ),
                             RaisedButton(
@@ -372,7 +341,20 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (c.foto == null) {
-                  openBottomSheet(context);
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ImageSourceSheet(
+                      onImageSelected: (image) {
+                        setState(() {
+                          Navigator.of(context).pop();
+                          file = image;
+                          String arquivo = file.path.split('/').last;
+                          print("Image: ${arquivo}");
+                          enableButton();
+                        });
+                      },
+                    ),
+                  );
                 } else {
                   if (c.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");

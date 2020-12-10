@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: [const Locale('pt', 'BR')],
-      home: MainFetchData(),
+      home: HomePage(),
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/produto.dart';
+import 'package:nosso/src/core/model/produtopage.dart';
 import 'package:nosso/src/core/model/produtoprincipal.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
 
@@ -43,21 +44,24 @@ class ProdutoRepository {
     return null;
   }
 
-  Future<List<Produto>> getAllPageable() async {
+  Future<ProdutoData> getAllPageable(
+      ProdutoFilter filter, int size, int page) async {
     try {
-      print("carregando produtos");
-      var response = await dio.client.get("/produtos");
-      return (response.data as List).map((c) => Produto.fromJson(c));
+      return dio.client
+          .get(
+              "/produtos?nomeProduto=${filter.nomeProduto}&size=${size}&page=${page}")
+          .then((p) => ProdutoData.fromJson(p.data));
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<List<Produto>> getFilter(ProdutoFilter filter) async {
+  Future<List<Produto>> getFilter(
+      ProdutoFilter filter, int size, int page) async {
     try {
       print("carregando produtos filtrados");
-      var response = await dio.client.get("/produtos/filter?${filter}");
+      var response = await dio.client.get("/produtos");
       return (response.data as List).map((c) => Produto.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);

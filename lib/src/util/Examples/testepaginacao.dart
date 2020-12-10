@@ -3,13 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:nosso/src/core/model/pageable.dart';
+import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/produtopage.dart';
-import 'package:nosso/src/core/model/produtoprincipal.dart';
-import 'package:nosso/src/core/model/testepagina.dart';
 import 'package:nosso/src/core/repository/produto_repository.dart';
-import 'package:nosso/src/util/Examples/photo.dart';
 
 class MainFetchData extends StatefulWidget {
   @override
@@ -18,8 +15,7 @@ class MainFetchData extends StatefulWidget {
 
 class _MainFetchDataState extends State<MainFetchData> {
   ProdutoRepository produtoRepository = ProdutoRepository();
-  List<ProdutoPrincipal> list = List();
-  List<ProdutoData> produtos = List();
+  var produtos = List();
   var isLoading = false;
 
   // _fetchData() async {
@@ -55,21 +51,21 @@ class _MainFetchDataState extends State<MainFetchData> {
     }
   }
 
-  fetchData1() async {
-    setState(() {
-      isLoading = true;
-    });
-    final response = await http.get("http://10.0.0.107:8081/produtos");
-    if (response.statusCode == 200) {
-      produtos =
-          (json.decode(response.body)).map((p) => new ProdutoData.fromJson(p));
-      setState(() {
-        isLoading = false;
-      });
-    } else {
-      throw Exception('Failed to load photos');
-    }
-  }
+  // fetchData1() async {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //   final response = await http.get("http://10.0.0.107:8081/produtos");
+  //   if (response.statusCode == 200) {
+  //     produtos =
+  //         (json.decode(response.body)).map((p) => new ProdutoData.fromJson(p));
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   } else {
+  //     throw Exception('Failed to load photos');
+  //   }
+  // }
 
   parsePosts() async {
     final response = await http.get("http://10.0.0.107:8081/produtos");
@@ -77,21 +73,20 @@ class _MainFetchDataState extends State<MainFetchData> {
     return parsed.map<Produto>((json) => Produto.fromJson(json)).toList();
   }
 
-  fetchPosts() async {
-    http.Response response = await http.get("http://10.0.0.107:8081/produtos");
-    // print("${response.body}");
-    var responseJson = json.decode(response.body);
-    print("${responseJson}");
-    list = responseJson.map((m) => new ProdutoPrincipal.fromJson(m)).toList();
-    return list;
-  }
+  // fetchPosts() async {
+  //   http.Response response = await http.get("http://10.0.0.107:8081/produtos");
+  //   // print("${response.body}");
+  //   var responseJson = json.decode(response.body);
+  //   print("${responseJson}");
+  //   list = responseJson.map((m) => new ProdutoPrincipal.fromJson(m)).toList();
+  //   return list;
+  // }
 
-  Future<ProdutoPrincipal> fetchInfo() async {
-    http.Response response = await http.get("http://10.0.0.107:8081/produtos");
-    var jsonresponse = json.decode(response.body);
-    print("${jsonresponse}");
-
-    return ProdutoPrincipal.fromJson(jsonresponse);
+  Future<ProdutoData> fetchInfo() async {
+    CustonDio dio = CustonDio();
+    return dio.client
+        .get("http://10.0.0.107:8081/produtos")
+        .then((p) => ProdutoData.fromJson(p.data));
   }
 
   // Future<List<ProdutoPrincipal>> getProductList() async {
@@ -109,7 +104,7 @@ class _MainFetchDataState extends State<MainFetchData> {
         padding: const EdgeInsets.all(8.0),
         child: RaisedButton(
           child: Text("Fetch Data"),
-          onPressed: fetchPosts,
+          onPressed: fetchInfo,
         ),
       ),
       // body: isLoading

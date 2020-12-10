@@ -19,10 +19,12 @@ import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/util/componentes/image_source_sheet.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
+import 'package:nosso/src/util/validador/validador_promocao.dart';
 
 class PromocaoCreatePage extends StatefulWidget {
   Promocao promocao;
@@ -34,7 +36,8 @@ class PromocaoCreatePage extends StatefulWidget {
       _PromocaoCreatePageState(p: promocao);
 }
 
-class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
+class _PromocaoCreatePageState extends State<PromocaoCreatePage>
+    with ValidadorPromocao {
   _PromocaoCreatePageState({this.p});
 
   var promocaoController = GetIt.I.get<PromoCaoController>();
@@ -88,36 +91,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await promocaoController.upload(file, p.foto);
@@ -137,35 +110,6 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {
@@ -228,7 +172,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                 Container(
                   child: GestureDetector(
                     onTap: () {
-                      openBottomSheet(context);
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ImageSourceSheet(
+                          onImageSelected: (image) {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              file = image;
+                              String arquivo = file.path.split('/').last;
+                              print("Image: ${arquivo}");
+                              enableButton();
+                            });
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -284,7 +241,21 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                               child: Icon(Icons.photo),
                               shape: new CircleBorder(),
                               onPressed: () {
-                                openBottomSheet(context);
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => ImageSourceSheet(
+                                    onImageSelected: (image) {
+                                      setState(() {
+                                        Navigator.of(context).pop();
+                                        file = image;
+                                        String arquivo =
+                                            file.path.split('/').last;
+                                        print("Image: ${arquivo}");
+                                        enableButton();
+                                      });
+                                    },
+                                  ),
+                                );
                               },
                             ),
                             RaisedButton(
@@ -348,8 +319,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       TextFormField(
                         initialValue: p.nome,
                         onSaved: (value) => p.nome = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateNome,
                         decoration: InputDecoration(
                           labelText: "Título",
                           hintText: "título promoção",
@@ -377,8 +347,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       TextFormField(
                         initialValue: p.descricao,
                         onSaved: (value) => p.descricao = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateDescricao,
                         decoration: InputDecoration(
                           labelText: "Descrição",
                           hintText: "descrição promoção",
@@ -406,11 +375,10 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       TextFormField(
                         controller: descontoController,
                         onSaved: (value) => p.desconto = double.tryParse(value),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateDesconto,
                         decoration: InputDecoration(
                           labelText: "Desconto",
-                          hintText: "% ",
+                          hintText: "deconto",
                           prefixIcon: Icon(
                             Icons.monetization_on,
                             color: Colors.grey,
@@ -427,15 +395,14 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 2,
+                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+                        maxLength: 10,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
                         initialValue: p.dataRegistro,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateDateRegsitro,
                         onSaved: (value) => p.dataRegistro = value,
                         decoration: InputDecoration(
                           labelText: "data registro",
@@ -470,8 +437,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       DateTimeField(
                         initialValue: p.dataInicio,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateDateInicio,
                         onSaved: (value) => p.dataInicio = value,
                         decoration: InputDecoration(
                           labelText: "data inicio",
@@ -506,8 +472,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
                       DateTimeField(
                         initialValue: p.dataFinal,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateDateFinal,
                         onSaved: (value) => p.dataFinal = value,
                         decoration: InputDecoration(
                           labelText: "data encerramento",
@@ -588,7 +553,20 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (p.foto == null) {
-                  openBottomSheet(context);
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ImageSourceSheet(
+                      onImageSelected: (image) {
+                        setState(() {
+                          Navigator.of(context).pop();
+                          file = image;
+                          String arquivo = file.path.split('/').last;
+                          print("Image: ${arquivo}");
+                          enableButton();
+                        });
+                      },
+                    ),
+                  );
                 } else {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
