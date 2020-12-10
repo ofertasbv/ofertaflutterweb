@@ -18,6 +18,7 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/validador/validador_pedido.dart';
 
 class PedidoCreatePage extends StatefulWidget {
   Pedido pedido;
@@ -29,7 +30,8 @@ class PedidoCreatePage extends StatefulWidget {
       _PedidoCreatePageState(p: this.pedido);
 }
 
-class _PedidoCreatePageState extends State<PedidoCreatePage> {
+class _PedidoCreatePageState extends State<PedidoCreatePage>
+    with ValidadorPedido {
   _PedidoCreatePageState({this.p});
 
   var pedidoController = GetIt.I.get<PedidoController>();
@@ -167,8 +169,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                       TextFormField(
                         initialValue: p.descricao,
                         onSaved: (value) => p.descricao = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateDescricao,
                         decoration: InputDecoration(
                           labelText: "Descrição",
                           hintText: "Descrição",
@@ -186,8 +187,8 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                         ),
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
-                        maxLength: 50,
-                        maxLines: 1,
+                        maxLength: 200,
+                        maxLines: null,
                         //initialValue: c.nome,
                       ),
                       SizedBox(height: 10),
@@ -195,8 +196,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                         onSaved: (value) {
                           p.valorDesconto = double.tryParse(value);
                         },
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateDesconto,
                         decoration: InputDecoration(
                           labelText: "Desconto",
                           hintText: "Desconto",
@@ -224,8 +224,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                         onSaved: (value) {
                           p.valorFrete = double.tryParse(value);
                         },
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateValorFrete,
                         decoration: InputDecoration(
                           labelText: "Frete",
                           hintText: "frete",
@@ -253,8 +252,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                         onSaved: (value) {
                           p.valorTotal = double.tryParse(value);
                         },
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateValorTotal,
                         decoration: InputDecoration(
                           labelText: "Valor Total",
                           hintText: "Valor total",
@@ -281,8 +279,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                       DateTimeField(
                         initialValue: p.dataEntrega,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateDateEntrega,
                         onSaved: (value) => p.dataEntrega = value,
                         decoration: InputDecoration(
                           labelText: "data da entrega",
@@ -314,8 +311,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                       DateTimeField(
                         initialValue: p.dataHoraEntrega,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateDateHoraEntrega,
                         onSaved: (value) => p.dataHoraEntrega = value,
                         decoration: InputDecoration(
                           labelText: "data e hora da entrega",
@@ -347,8 +343,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage> {
                       DateTimeField(
                         initialValue: p.horarioEntrega,
                         format: dateFormat,
-                        validator: (value) =>
-                            value == null ? "campo obrigário" : null,
+                        validator: validateHoraEntrega,
                         onSaved: (value) => p.horarioEntrega = value,
                         decoration: InputDecoration(
                           labelText: "hora da entrega",
