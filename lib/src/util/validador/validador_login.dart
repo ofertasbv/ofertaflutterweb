@@ -12,7 +12,7 @@ class LoginValidators {
 
   String validateSenha(String text) {
     if (text.isEmpty) {
-      return "preencha o valor da senha";
+      return "preencha o valor com senha";
     }
     if (text.length < 8) {
       return "a senha deve ter 8 caracteres";

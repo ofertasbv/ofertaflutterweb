@@ -210,13 +210,14 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.indigo[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
                         maxLength: 6,
                       ),
                       SizedBox(height: 10),
@@ -238,13 +239,14 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.indigo[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
                         maxLength: 6,
                       ),
                       SizedBox(height: 10),
@@ -266,23 +268,24 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.indigo[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
                         maxLength: 6,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
-                        initialValue: p.dataEntrega,
+                        initialValue: p.dataRegistro,
                         format: dateFormat,
                         validator: validateDateEntrega,
-                        onSaved: (value) => p.dataEntrega = value,
+                        onSaved: (value) => p.dataRegistro = value,
                         decoration: InputDecoration(
-                          labelText: "data da entrega",
+                          labelText: "data de resgistro",
                           hintText: "99-09-9999",
                           prefixIcon: Icon(Icons.calendar_today),
                           suffixIcon: Icon(Icons.close),
@@ -291,7 +294,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.indigo[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -323,7 +326,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
+                            borderSide: BorderSide(color: Colors.indigo[900]),
                             gapPadding: 1,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -340,37 +343,6 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                         },
                       ),
                       SizedBox(height: 20),
-                      DateTimeField(
-                        initialValue: p.horarioEntrega,
-                        format: dateFormat,
-                        validator: validateHoraEntrega,
-                        onSaved: (value) => p.horarioEntrega = value,
-                        decoration: InputDecoration(
-                          labelText: "hora da entrega",
-                          hintText: "99-09-9999",
-                          prefixIcon: Icon(Icons.calendar_today),
-                          suffixIcon: Icon(Icons.close),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        onShowPicker: (context, currentValue) {
-                          return showDatePicker(
-                            context: context,
-                            firstDate: DateTime(2000),
-                            initialDate: currentValue ?? DateTime.now(),
-                            locale: Locale('pt', 'BR'),
-                            lastDate: DateTime(2030),
-                          );
-                        },
-                      ),
                     ],
                   ),
                 ),
@@ -508,19 +480,21 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                     buscarClienteByEmail("projetogdados@gmail.com");
                     buscarLojaByEmail("lojadauris@gmail.com");
 
+                    p.valorTotal =  (pedidoItemController.total - ((pedidoItemController.total * p.valorDesconto) / 100) + p.valorFrete);
+
                     print("Cliente: ${c.nome}");
                     // print("Loja: ${loja.email}");
 
                     print("Descrição: ${p.descricao}");
                     print("Desconto: ${p.valorDesconto}");
                     print("Frete: ${p.valorFrete}");
+                    print("Valor total: ${p.valorTotal}");
 
                     print("Pagamento: ${p.formaPagamento}");
                     print("Status: ${p.statusPedido}");
 
-                    print("Data da entrega: ${p.dataEntrega}");
+                    print("Data de regsitro: ${p.dataRegistro}");
                     print("Data e hora da entrega: ${p.dataHoraEntrega}");
-                    print("Hora entrega: ${p.horarioEntrega}");
 
                     for (PedidoItem item in pedidoItemController.itens) {
                       print("Produto: ${item.produto.nome}");
@@ -534,16 +508,18 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
+                    p.valorTotal =  (pedidoItemController.total - ((pedidoItemController.total * p.valorDesconto) / 100) + p.valorFrete);
+
                     print("Descrição: ${p.descricao}");
                     print("Desconto: ${p.valorDesconto}");
                     print("Frete: ${p.valorFrete}");
+                    print("Valor total: ${p.valorTotal}");
 
                     print("Pagamento: ${p.formaPagamento}");
                     print("Status: ${p.statusPedido}");
 
-                    print("Data da entrega: ${p.dataEntrega}");
+                    print("Data de resgistro: ${p.dataRegistro}");
                     print("Data e hora da entrega: ${p.dataHoraEntrega}");
-                    print("Hora entrega: ${p.horarioEntrega}");
 
                     // pedidoController.update(p.id, p);
                     // Navigator.of(context).pop();

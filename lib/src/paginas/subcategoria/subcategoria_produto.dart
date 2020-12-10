@@ -2,19 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
-import 'package:mobx/src/api/observable_collections.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
-import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
-import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/favorito.dart';
-import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/core/model/subcategoria.dart';
-import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
-import 'package:nosso/src/util/container/container_produto.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/filter/produto_filter.dart';
-import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class SubCategoriaProduto extends StatefulWidget {
@@ -32,60 +25,19 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
   _SubCategoriaProdutoState({this.subCategoria, this.categoria});
 
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
-  var produtoController = GetIt.I.get<ProdutoController>();
 
   SubCategoria subCategoria;
   Categoria categoria;
   Favorito favorito;
-  Produto produto;
 
   ProdutoFilter filter;
   int size = 0;
   int page = 0;
 
-  AnimationController animationController;
-  Animation<double> animation;
-  static final _scaleTween = Tween<double>(begin: 1.0, end: 1.5);
-  var selectedCard = 'WEIGHT';
-
-  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
-
   @override
   void initState() {
     subCategoriaController.getAllByCategoriaById(categoria.id);
-    if (favorito == null) {
-      favorito = Favorito();
-      produto = Produto();
-    }
-
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-    );
-
-    animation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.bounceInOut,
-    );
-
-    animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        animationController.reverse();
-      }
-    });
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    animationController.dispose();
-  }
-
-  favoritar() {
-    this.favorito.status = !this.favorito.status;
-    print("${this.favorito.status}");
   }
 
   @override
@@ -94,15 +46,15 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Produtos por departamento"),
+        title: Text(categoria.nome),
         actions: <Widget>[
           Observer(
             builder: (context) {
-              if (produtoController.error != null) {
+              if (subCategoriaController.error != null) {
                 return Text("Não foi possível carregar");
               }
 
-              if (produtoController.produtos == null) {
+              if (subCategoriaController.subCategorias == null) {
                 return Center(
                   child: Icon(Icons.warning_amber_outlined),
                 );
@@ -110,7 +62,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
 
               return Chip(
                 label: Text(
-                  (produtoController.produtos.length ?? 0).toString(),
+                  (subCategoriaController.subCategorias.length ?? 0).toString(),
                 ),
               );
             },
@@ -118,7 +70,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           IconButton(
             icon: Icon(Icons.refresh_outlined),
             onPressed: () {
-              produtoController.getFilter(filter, size, page);
+              subCategoriaController.getAll();
             },
           ),
         ],
@@ -130,12 +82,23 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: 60,
-              padding: EdgeInsets.all(4),
-              child: builderConteudoListSubCategoria(),
+              height: 80,
+              width: double.infinity,
+              color: Colors.transparent,
+              padding: EdgeInsets.all(10),
+              child: ListTile(
+                title: Text(
+                  "Pesquisa por categorias",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo[900],
+                  ),
+                ),
+                subtitle: Text(categoria.nome),
+              ),
             ),
             Expanded(
-              child: builderConteudoListProduto(),
+              child: builderConteutoListSubCategoria(),
             ),
           ],
         ),
@@ -143,76 +106,29 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
     );
   }
 
-  builderConteudoListSubCategoria() {
-    return Container(
-      child: Observer(
-        builder: (context) {
-          List<SubCategoria> categorias = subCategoriaController.subCategorias;
-          if (subCategoriaController.error != null) {
-            return Text("Não foi possível carregados dados");
-          }
 
-          if (categorias == null) {
-            return CircularProgressorMini();
-          }
 
-          return builderListSubCategoria(categorias);
-        },
-      ),
-    );
-  }
-
-  builderListSubCategoria(List<SubCategoria> categorias) {
-    double containerWidth = 110;
-    double containerHeight = 15;
-
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: categorias.length,
-      itemBuilder: (context, index) {
-        SubCategoria c = categorias[index];
-
-        return GestureDetector(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            child: Chip(
-              label: Text(c.nome.toLowerCase()),
-              backgroundColor: c.nome == selectedCard
-                  ? Theme.of(context).primaryColor.withOpacity(0.4)
-                  : Colors.grey[300],
-            ),
-          ),
-          onTap: () {
-            selectCard(c.nome);
-            print("id catgeoria ${c.id}");
-            produtoController.getAllBySubCategoriaById(c.id);
-            setState(() {
-              subCategoria = c;
-            });
-          },
-        );
-      },
-    );
-  }
-
-  builderConteudoListProduto() {
+  builderConteutoListSubCategoria() {
     return Container(
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<Produto> produtos = produtoController.produtos;
-          if (produtoController.error != null) {
-            return Text("Não foi possível buscar produtos");
+          List<SubCategoria> subCategorias =
+              subCategoriaController.subCategorias;
+          if (subCategoriaController.error != null) {
+            return Text("Não foi possível carregados dados");
           }
 
-          if (produtos == null) {
+          if (subCategorias == null) {
             return Center(
-              child: CircularProgressor(),
+              child: CircularProgressorMini(),
             );
           }
-          if (produtos.length == 0) {
+
+          if (subCategorias.length == 0) {
             return Center(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Center(
@@ -221,35 +137,68 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
                       size: 100,
                     ),
                   ),
-                  Text("Ops! sem produtos pra esse departamento"),
+                  Text(
+                    "Ops! sem departamento",
+                  ),
                 ],
               ),
             );
           }
-
-          return builderListProduto(produtos);
+          return builderListSubCategoria(subCategorias);
         },
       ),
     );
   }
 
-  builderListProduto(List<Produto> produtos) {
+  builderListSubCategoria(List<SubCategoria> categorias) {
+    double containerWidth = 160;
+    double containerHeight = 20;
+
     return ListView.builder(
       scrollDirection: Axis.vertical,
-      itemCount: produtos.length,
+      itemCount: categorias.length,
       itemBuilder: (context, index) {
-        Produto p = produtos[index];
+        SubCategoria c = categorias[index];
 
         return GestureDetector(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 0),
-            child: ContainerProduto(produtoController, p),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: new BorderRadius.circular(10),
+              side: BorderSide(color: Colors.grey[200], width: 1),
+            ),
+            child: Container(
+              child: ListTile(
+                isThreeLine: true,
+                leading: Container(
+                  padding: EdgeInsets.all(1),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[500].withOpacity(0.2),
+                    foregroundColor: Colors.indigo[900],
+                    radius: 20,
+                    child: Text(
+                      c.nome.substring(0, 1).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                title: Text(c.nome),
+                subtitle: Text("${c.categoria.nome}"),
+                trailing: Container(
+                  height: 80,
+                  width: 50,
+                  child: Icon(Icons.arrow_right),
+                ),
+              ),
+            ),
           ),
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return ProdutoDetalhesTab(p);
+                  return ProdutoTab(s: c);
                 },
               ),
             );
@@ -257,11 +206,5 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         );
       },
     );
-  }
-
-  selectCard(cardTitle) {
-    setState(() {
-      selectedCard = cardTitle;
-    });
   }
 }

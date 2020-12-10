@@ -15,8 +15,7 @@ class Pedido {
   String statusPedido;
   String formaPagamento;
   DateTime dataHoraEntrega;
-  DateTime dataEntrega;
-  DateTime horarioEntrega;
+  DateTime dataRegistro;
 
   Pedido({
     this.id,
@@ -30,8 +29,7 @@ class Pedido {
     this.statusPedido,
     this.formaPagamento,
     this.dataHoraEntrega,
-    this.dataEntrega,
-    this.horarioEntrega,
+    this.dataRegistro
   });
 
   Pedido.fromJson(Map<String, dynamic> json) {
@@ -56,8 +54,7 @@ class Pedido {
     formaPagamento = json['formaPagamento'];
 
     dataHoraEntrega = DateTime.tryParse(json['dataHoraEntrega'].toString());
-    dataEntrega = DateTime.tryParse(json['dataEntrega'].toString());
-    horarioEntrega = DateTime.tryParse(json['horarioEntrega'].toString());
+    dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -83,8 +80,7 @@ class Pedido {
     data['formaPagamento'] = this.formaPagamento;
 
     data['dataHoraEntrega'] = this.dataHoraEntrega.toIso8601String();
-    data['dataEntrega'] = this.dataEntrega.toIso8601String();
-    data['horarioEntrega'] = this.horarioEntrega.toIso8601String();
+    data['dataRegistro'] = this.dataRegistro.toIso8601String();
     return data;
   }
 }
