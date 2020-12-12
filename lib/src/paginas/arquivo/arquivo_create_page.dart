@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
@@ -9,14 +8,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/componentes/image_source_sheet.dart';
-import 'package:nosso/src/util/componentes/images_widget.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 
@@ -159,20 +155,20 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                 Container(
                   child: GestureDetector(
                     onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => ImageSourceSheet(
-                          onImageSelected: (image) {
-                            setState(() {
-                              Navigator.of(context).pop();
-                              file = image;
-                              String arquivo = file.path.split('/').last;
-                              print("Image: ${arquivo}");
-                              enableButton();
-                            });
-                          },
-                        ),
-                      );
+                      // showModalBottomSheet(
+                      //   context: context,
+                      //   builder: (context) => ImageSourceSheet(
+                      //     onImageSelected: (image) {
+                      //       setState(() {
+                      //         Navigator.of(context).pop();
+                      //         file = image;
+                      //         String arquivo = file.path.split('/').last;
+                      //         print("Image: ${arquivo}");
+                      //         enableButton();
+                      //       });
+                      //     },
+                      //   ),
+                      // );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -231,21 +227,21 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 splashColor: Colors.black,
                                 icon: Icon(Icons.photo),
                                 onPressed: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (context) => ImageSourceSheet(
-                                      onImageSelected: (image) {
-                                        setState(() {
-                                          Navigator.of(context).pop();
-                                          file = image;
-                                          String arquivo =
-                                              file.path.split('/').last;
-                                          print("Image: ${arquivo}");
-                                          enableButton();
-                                        });
-                                      },
-                                    ),
-                                  );
+                                  // showModalBottomSheet(
+                                  //   context: context,
+                                  //   builder: (context) => ImageSourceSheet(
+                                  //     onImageSelected: (image) {
+                                  //       setState(() {
+                                  //         Navigator.of(context).pop();
+                                  //         file = image;
+                                  //         String arquivo =
+                                  //             file.path.split('/').last;
+                                  //         print("Image: ${arquivo}");
+                                  //         enableButton();
+                                  //       });
+                                  //     },
+                                  //   ),
+                                  // );
                                 },
                               ),
                             ),

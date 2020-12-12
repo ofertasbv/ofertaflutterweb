@@ -8,10 +8,13 @@ import 'package:nosso/src/core/model/subcategoria.dart';
 class SubCategoriaRepository {
   CustonDio dio = CustonDio();
 
-  Future<List<SubCategoria>> getAllById(int id) async {
+
+
+
+  Future<List<SubCategoria>> getAll() async {
     try {
-      print("carregando subcategorias by id");
-      var response = await dio.client.get("/produtos/${id}");
+      print("carregando subcategorias");
+      var response = await dio.client.get("/subcategorias");
       return (response.data as List)
           .map((c) => SubCategoria.fromJson(c))
           .toList();
@@ -21,10 +24,23 @@ class SubCategoriaRepository {
     return null;
   }
 
-  Future<List<SubCategoria>> getAll() async {
+  Future<List<SubCategoria>> getAllById(int id) async {
     try {
-      print("carregando subcategorias");
-      var response = await dio.client.get("/subcategorias");
+      print("carregando subcategorias by id");
+      var response = await dio.client.get("/subcategorias/${id}");
+      return (response.data as List)
+          .map((c) => SubCategoria.fromJson(c))
+          .toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
+  Future<List<SubCategoria>> getAllByNome(String nome) async {
+    try {
+      print("carregando subcategorias by nome");
+      var response = await dio.client.get("/subcategorias/nome/${nome}");
       return (response.data as List)
           .map((c) => SubCategoria.fromJson(c))
           .toList();

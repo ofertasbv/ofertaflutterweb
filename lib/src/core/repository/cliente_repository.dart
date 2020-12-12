@@ -30,6 +30,17 @@ class ClienteRepository {
     return null;
   }
 
+  Future<List<Cliente>> getAllByNome(String nome) async {
+    try {
+      print("carregando clientes by nome");
+      var response = await dio.client.get("/clientes/nome/${nome}");
+      return (response.data as List).map((c) => Cliente.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<List<Cliente>> getAll() async {
     try {
       print("carregando clientes");

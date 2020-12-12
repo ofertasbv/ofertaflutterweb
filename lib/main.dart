@@ -24,7 +24,6 @@ import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/home/home.dart';
-import 'package:nosso/src/util/Examples/testepaginacao.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -54,7 +53,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.light,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.indigo[900],
+      systemNavigationBarColor: Colors.blueAccent,
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.light,
       //
@@ -74,7 +73,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: buildThemeDataBlue(context),
+      theme: ThemeData(
+        buttonTheme: ButtonThemeData(
+          splashColor: Colors.black,
+          textTheme: ButtonTextTheme.primary,
+          height: 50,
+          padding: EdgeInsets.all(10),
+          alignedDropdown: true,
+          buttonColor: Colors.green,
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(0),
+            side: BorderSide(color: Colors.transparent),
+          ),
+        ),
+      ),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
@@ -146,16 +158,29 @@ class MyApp extends StatelessWidget {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
+        // labelStyle: TextStyle(color: Colors.black),
+        // prefixStyle: TextStyle(color: Colors.indigo[900]),
+        // hintStyle: TextStyle(color: Colors.indigo[900]),
+        // fillColor: Colors.grey[100],
+        // alignLabelWithHint: true,
+        // contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+        // focusColor: Colors.indigo[900],
+        // hoverColor: Colors.indigo,
+        // suffixStyle: TextStyle(color: Colors.green),
+        // errorStyle: TextStyle(color: Colors.red),
+
         labelStyle: TextStyle(color: Colors.black),
-        prefixStyle: TextStyle(color: Colors.indigo[900]),
-        hintStyle: TextStyle(color: Colors.indigo[900]),
-        fillColor: Colors.grey[100],
+        prefixStyle: TextStyle(color: Colors.green[900]),
+        hintStyle: TextStyle(color: Colors.yellow[900]),
+        fillColor: Colors.grey[200],
         alignLabelWithHint: true,
-        contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        focusColor: Colors.indigo[900],
-        hoverColor: Colors.indigo,
+        focusColor: Colors.red[900],
+        hoverColor: Colors.yellow,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
+
+        isDense: true,
+        filled: true,
       ),
       hintColor: Colors.brown[500],
       iconTheme: IconThemeData(

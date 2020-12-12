@@ -1,14 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/cor_controller.dart';
@@ -149,7 +147,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
 
   barcodeScanning() async {
     try {
-      String barcode = await BarcodeScanner.scan();
+      // String barcode = await BarcodeScanner.scan();
       setState(() {
         executar("beep-07");
         this.barcode = barcode;
@@ -432,11 +430,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             Icons.camera_alt_outlined,
                             color: Colors.grey,
                           ),
+                          suffixIcon: IconButton(
+                            onPressed: () => controllerCodigoBarra.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           labelText:
                               "Entre com código de barra ou clique (scanner)",
                           hintText: "Código de barra",
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -578,7 +579,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.numberWithOptions(decimal: false),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: false),
                         maxLength: 6,
                       ),
                       SizedBox(height: 10),
@@ -607,7 +609,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
                         maxLength: 10,
                       ),
                     ],

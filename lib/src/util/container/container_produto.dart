@@ -97,7 +97,10 @@ class ContainerProduto extends StatelessWidget {
                   children: [
                     Container(
                       child: ListTile(
-                        title: Text("${p.nome}"),
+                        title: Text(
+                          "${p.nome}",
+                          overflow: TextOverflow.ellipsis,
+                        ),
                         subtitle: Text("Código. ${p.id}"),
                         trailing: CircleAvatar(
                           backgroundColor: Colors.grey[300],

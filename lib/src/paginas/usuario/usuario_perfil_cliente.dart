@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/cliente.dart';
@@ -57,36 +56,6 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await clienteController.upload(file, p.foto);
@@ -110,35 +79,6 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showSnackbar(BuildContext context, String content) {
@@ -168,14 +108,17 @@ class _UsuarioPerfilClienteState extends State<UsuarioPerfilCliente> {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.indigo, Colors.grey[100]],
+                    colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                   ),
-                  border: Border.all(color: Colors.white, width: 1),
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 1,
+                  ),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    openBottomSheet(context);
+                    // openBottomSheet(context);
                   },
                   child: CircleAvatar(
                     backgroundColor: Colors.grey[100],

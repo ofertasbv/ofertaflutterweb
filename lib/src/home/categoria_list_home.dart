@@ -127,7 +127,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
                       padding: EdgeInsets.all(1),
                       decoration: new BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.indigo, Colors.grey[900]],
+                          colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                         ),
                         border: Border.all(
                           color: Colors.black,

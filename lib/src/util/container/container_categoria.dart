@@ -11,72 +11,34 @@ class ContainerCategoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(10),
-        side: BorderSide(color: Colors.grey[200], width: 1),
-      ),
-      child: AnimatedContainer(
-        width: 350,
-        height: 150,
-        duration: Duration(seconds: 1),
-        decoration: BoxDecoration(
+    return ListTile(
+      isThreeLine: false,
+      leading: Container(
+        padding: EdgeInsets.all(1),
+        decoration: new BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.grey[100].withOpacity(0.1),
-              Colors.grey[100].withOpacity(0.4),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
           ),
-          border: Border.all(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.black,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(35),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      categoriaController.arquivo + p.foto,
-                      fit: BoxFit.cover,
-                      width: 100,
-                      height: 150,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      child: ListTile(
-                        title: Text("${p.nome}"),
-                        subtitle: Text("Código. ${p.id}"),
-                        trailing: buildPopupMenuButton(context, p),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+        child: CircleAvatar(
+          backgroundColor: Colors.grey[100],
+          radius: 20,
+          backgroundImage: NetworkImage(
+            "${categoriaController.arquivo + p.foto}",
+          ),
         ),
+      ),
+      title: Text(p.nome),
+      subtitle: Text("código ${p.id}"),
+      trailing: Container(
+        height: 80,
+        width: 50,
+        child: buildPopupMenuButton(context, p),
       ),
     );
   }

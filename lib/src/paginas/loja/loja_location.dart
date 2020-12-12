@@ -381,12 +381,26 @@ class _LojaLocationState extends State<LojaLocation> {
           ),
           actions: <Widget>[
             FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+                side: BorderSide(color: Colors.grey),
+              ),
+              color: Colors.white,
+              textColor: Colors.grey,
+              padding: EdgeInsets.all(10),
               child: const Text('CANCELAR'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+                side: BorderSide(color: Colors.blue),
+              ),
+              color: Colors.white,
+              textColor: Colors.blue,
+              padding: EdgeInsets.all(10),
               child: const Text('DETALHES'),
               onPressed: () {
                 Navigator.of(context).push(
@@ -491,6 +505,13 @@ class _LojaLocationState extends State<LojaLocation> {
           ),
           actions: <Widget>[
             FlatButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+                side: BorderSide(color: Colors.grey),
+              ),
+              color: Colors.white,
+              textColor: Colors.grey,
+              padding: EdgeInsets.all(10),
               child: const Text('CANCELAR'),
               onPressed: () {
                 Navigator.of(context).pop();

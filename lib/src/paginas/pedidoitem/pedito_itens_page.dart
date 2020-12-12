@@ -61,7 +61,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                   Center(
                     child: Icon(
                       Icons.shopping_basket,
-                      color: Colors.indigo[900],
+                      color: Colors.green,
                       size: 100,
                     ),
                   ),
@@ -78,19 +78,20 @@ class _PedidoItensListState extends State<PedidoItensList> {
                       );
                     },
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.yellow[800]),
-                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderRadius: BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.blue),
                     ),
+                    color: Colors.white,
+                    textColor: Colors.green,
+                    padding: EdgeInsets.all(10),
                     icon: Icon(
                       Icons.home,
-                      color: Colors.indigo[900],
+                      color: Colors.blue,
                     ),
-                    color: Colors.yellow[900],
                     label: Text(
-                      "escolher produto",
+                      "ESCOLHER PRODUTOS",
                       style: TextStyle(
-                        color: Colors.indigo[900],
-                        fontWeight: FontWeight.w900,
+                        color: Colors.blue,
                       ),
                     ),
                     elevation: 0,
@@ -124,7 +125,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                 padding: EdgeInsets.symmetric(vertical: 2),
                 child: Card(
                   child: Container(
-                    color: Colors.grey[300],
+                    color: Colors.grey[100],
                     padding: EdgeInsets.all(5),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,13 +144,11 @@ class _PedidoItensListState extends State<PedidoItensList> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              height: 40,
+                              height: 30,
                               width: containerWidth,
                               child: Text(
                                 p.produto.nome,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             SizedBox(height: 5),
@@ -219,7 +218,7 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                     width: 110,
                                     height: 30,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
+                                      borderRadius: BorderRadius.circular(10),
                                       color: Colors.grey[200],
                                     ),
                                     child: Row(
@@ -337,14 +336,16 @@ class _PedidoItensListState extends State<PedidoItensList> {
             RaisedButton.icon(
               icon: Icon(
                 Icons.cancel,
-                color: Colors.white,
+                color: Colors.grey,
               ),
               shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.grey),
-                borderRadius: BorderRadius.all(Radius.circular(35)),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
               ),
               label: Text('CANCELAR'),
-              color: Colors.grey,
+              color: Colors.white,
               elevation: 0,
               onPressed: () {
                 Navigator.of(context).pop();
@@ -353,14 +354,16 @@ class _PedidoItensListState extends State<PedidoItensList> {
             RaisedButton.icon(
               icon: Icon(
                 Icons.restore_from_trash,
-                color: Colors.white,
+                color: Colors.green,
               ),
               shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.yellow[800]),
-                borderRadius: BorderRadius.all(Radius.circular(35)),
+                side: BorderSide(color: Colors.green),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
               ),
               label: Text('EXCLUIR'),
-              color: Colors.yellow[800],
+              color: Colors.white,
               elevation: 0,
               onPressed: () {
                 setState(() {

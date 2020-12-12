@@ -4,13 +4,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
-import 'package:nosso/src/home/catalogo_menu.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
-import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
+import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 import 'package:nosso/src/util/sobre/sobre_page.dart';
 
@@ -92,29 +92,29 @@ class DrawerList extends StatelessWidget {
         Divider(),
         ListTile(
           selected: false,
-          leading: Icon(Icons.home),
-          title: Text("Home"),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return HomePage();
-                },
-              ),
-            );
-          },
-        ),
-        ListTile(
-          selected: false,
-          leading: Icon(Icons.search),
+          leading: Icon(Icons.search_outlined),
           title: Text("Buscar"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             showSearch(
               context: context,
               delegate: ProdutoSearchDelegate(),
+            );
+          },
+        ),
+        ListTile(
+          selected: false,
+          leading: Icon(Icons.account_circle_outlined),
+          title: Text("Minha conta"),
+          trailing: Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return UsuarioLoginPage();
+                },
+              ),
             );
           },
         ),
@@ -136,23 +136,7 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: false,
-          leading: Icon(Icons.shop_two),
-          title: Text("Ofertas"),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return PromocaoPage();
-                },
-              ),
-            );
-          },
-        ),
-        ListTile(
-          selected: false,
-          leading: Icon(Icons.list),
+          leading: Icon(Icons.list_alt_outlined),
           title: Text("Departamentos"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
@@ -168,29 +152,15 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: false,
-          leading: Icon(Icons.apps),
-          title: Text("Apps"),
-          trailing: Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CatalogoMenu(),
-              ),
-            );
-          },
-        ),
-        ListTile(
-          selected: false,
-          leading: Icon(Icons.settings),
-          title: Text("Configurações"),
+          leading: Icon(Icons.shop_two),
+          title: Text("Promoções"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return ConfigPage();
+                  return PromocaoPage();
                 },
               ),
             );
@@ -198,7 +168,37 @@ class DrawerList extends StatelessWidget {
         ),
         ListTile(
           selected: false,
-          leading: Icon(Icons.ios_share),
+          leading: Icon(Icons.local_convenience_store_outlined),
+          title: Text("Lojas"),
+          trailing: Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return LojaPage();
+                },
+              ),
+            );
+          },
+        ),
+        ListTile(
+          selected: false,
+          leading: Icon(Icons.apps),
+          title: Text("Apps"),
+          trailing: Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ConfigPage(),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          selected: false,
+          leading: Icon(Icons.info_outline),
           title: Text("Sobre"),
           trailing: Icon(Icons.arrow_forward),
           onTap: () {

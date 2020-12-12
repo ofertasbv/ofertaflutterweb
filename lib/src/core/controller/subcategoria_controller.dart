@@ -48,6 +48,16 @@ abstract class SubCategoriaControllerBase with Store {
   }
 
   @action
+  Future<List<SubCategoria>> getAllByNome(String nome) async {
+    try {
+      subCategorias = await subCategoriaRepository.getAllByNome(nome);
+      return subCategorias;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<List<SubCategoria>> getAllByCategoriaById(int id) async {
     try {
       subCategorias = await subCategoriaRepository.getAllByCategoriaById(id);
@@ -82,5 +92,4 @@ abstract class SubCategoriaControllerBase with Store {
       dioError = e;
     }
   }
-
 }

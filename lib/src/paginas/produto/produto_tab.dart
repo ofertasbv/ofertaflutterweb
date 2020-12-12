@@ -70,18 +70,18 @@ class _ProdutoTabState extends State<ProdutoTab> {
                 }
 
                 return CircleAvatar(
-                  backgroundColor: Colors.indigo[800],
+                  backgroundColor: Colors.blue[400],
                   foregroundColor: Colors.white,
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
-                    style: TextStyle(color: Colors.yellow[900]),
+                    style: TextStyle(color: Colors.white),
                   ),
                 );
               },
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.indigo[800],
+              backgroundColor: Colors.blue[400],
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(
@@ -94,7 +94,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.indigo[800],
+              backgroundColor: Colors.blue[400],
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(

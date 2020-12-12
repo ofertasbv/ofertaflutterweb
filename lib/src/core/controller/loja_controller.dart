@@ -75,6 +75,16 @@ abstract class LojaControllerBase with Store {
   }
 
   @action
+  Future<List<Loja>> getAllByNome(String nome) async {
+    try {
+      lojas = await lojaRepository.getAllNome(nome);
+      return lojas;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<List<Loja>> getAll() async {
     try {
       lojas = await lojaRepository.getAll();

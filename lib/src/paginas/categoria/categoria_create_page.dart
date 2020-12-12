@@ -14,7 +14,6 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nosso/src/util/componentes/image_source_sheet.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';

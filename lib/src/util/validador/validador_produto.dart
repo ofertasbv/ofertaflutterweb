@@ -5,31 +5,31 @@ class ValidadorProduto {
   }
 
   String validateNome(String text) {
-    if (text.isEmpty) return "Preencha o nome do produto";
+    if (text.isEmpty) return "Preencha o nome";
     return null;
   }
 
   String validateCodigoBarra(String text) {
-    if (text.isEmpty) return "Preencha o código de barra do produto";
+    if (text.isEmpty) return "Preencha o código de barra";
     return null;
   }
 
   String validateSKU(String text) {
-    if (text.isEmpty) return "Preencha o SKU do produto";
+    if (text.isEmpty) return "Preencha o SKU";
     return null;
   }
 
   String validateDescricao(String text) {
-    if (text.isEmpty) return "Preencha a descrição do produto";
+    if (text.isEmpty) return "Preencha a descrição";
     return null;
   }
 
   String validateQuantidade(String text) {
     int quantidade = int.tryParse(text);
     if (quantidade != null) {
-      if (quantidade <= 0) return "deve ter pelo peno 1 em estoque";
+      if (quantidade <= 0) return "Deve ter pelo menos 1 estoque";
     } else {
-      return "Preço inválido";
+      return "Quantidade inválida";
     }
     return null;
   }
@@ -40,7 +40,7 @@ class ValidadorProduto {
       if (!text.contains(".") || text.split(".")[1].length != 2)
         return "Utilize 2 casas decimais";
     } else {
-      return "Preço inválido";
+      return "Valor inválido";
     }
     return null;
   }

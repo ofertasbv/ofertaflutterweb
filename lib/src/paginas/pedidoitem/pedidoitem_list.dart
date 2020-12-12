@@ -64,7 +64,7 @@ class _PedidoItemListState extends State<PedidoItemList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.grey[900]],
+                  colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                 ),
                 border: Border.all(
                   color: Colors.black,

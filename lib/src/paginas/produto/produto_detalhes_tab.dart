@@ -82,7 +82,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
           title: Text(p.nome),
           actions: <Widget>[
             CircleAvatar(
-              backgroundColor: Colors.indigo[800],
+              backgroundColor: Colors.blue[400],
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
@@ -97,7 +97,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             SizedBox(width: 10),
             GestureDetector(
               child: CircleAvatar(
-                backgroundColor: Colors.indigo[800],
+                backgroundColor: Colors.blue[400],
                 foregroundColor: Colors.white,
                 child: Stack(
                   alignment: Alignment.topRight,
@@ -173,81 +173,78 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
 
   buildBottomNavigationBar(BuildContext context) {
     return Container(
+      color: Colors.grey[100],
       width: MediaQuery.of(context).size.width,
-      height: 50.0,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 2,
-            child: RaisedButton(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(0),
-                side: BorderSide(color: Colors.transparent),
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return ProdutoTab();
-                    },
+      height: 60,
+      child: Container(
+        padding: EdgeInsets.all(5),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 2,
+              child: FlatButton.icon(
+                icon: Icon(Icons.list_alt),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                  side: BorderSide(color: Colors.blue),
+                ),
+                color: Colors.white,
+                textColor: Colors.blue,
+                padding: EdgeInsets.all(10),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return ProdutoTab();
+                      },
+                    ),
+                  );
+                },
+                label: Text(
+                  "VER MAIS".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 14.0,
                   ),
-                );
-              },
-              color: Colors.indigo[900],
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.list),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text("MAIS"),
-                  ],
                 ),
               ),
             ),
-          ),
-          Flexible(
-            flex: 2,
-            child: RaisedButton(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(0),
-                side: BorderSide(color: Colors.transparent),
-              ),
-              onPressed: () {
-                if (pedidoItemController
-                    .isExisteItem(new PedidoItem(produto: p))) {
-                  showSnackbar(context, "${p.nome} já existe");
-                } else {
-                  pedidoItemController.adicionar(new PedidoItem(produto: p));
-                  showSnackbar(context, "${p.nome} adicionado");
-                  setState(() {
-                    animationController.forward();
-                  });
-                }
-              },
-              color: Colors.yellow[900],
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.shopping_basket),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                    Text("LISTA DE DESEJO"),
-                  ],
+            SizedBox(width: 10),
+            Flexible(
+              flex: 2,
+              child: FlatButton.icon(
+                icon: Icon(Icons.shopping_basket),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0),
+                  side: BorderSide(color: Colors.green),
+                ),
+                color: Colors.white,
+                textColor: Colors.green,
+                padding: EdgeInsets.all(10),
+                onPressed: () {
+                  if (pedidoItemController
+                      .isExisteItem(new PedidoItem(produto: p))) {
+                    showSnackbar(context, "${p.nome} já existe");
+                  } else {
+                    pedidoItemController.adicionar(new PedidoItem(produto: p));
+                    showSnackbar(context, "${p.nome} adicionado");
+                    setState(() {
+                      animationController.forward();
+                    });
+                  }
+                },
+                label: Text(
+                  "LISTA DE DESEJO".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

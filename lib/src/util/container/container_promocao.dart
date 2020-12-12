@@ -17,107 +17,34 @@ class ContainerPromocao extends StatelessWidget {
   Widget build(BuildContext context) {
     var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(10),
-        side: BorderSide(color: Colors.grey[200], width: 1),
-      ),
-      child: AnimatedContainer(
-        width: 350,
-        height: 150,
-        duration: Duration(seconds: 1),
-        decoration: BoxDecoration(
+    return ListTile(
+      isThreeLine: false,
+      leading: Container(
+        padding: EdgeInsets.all(1),
+        decoration: new BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.grey[100].withOpacity(0.1),
-              Colors.grey[100].withOpacity(0.4),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
           ),
-          border: Border.all(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.black,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(35),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      promoCaoController.arquivo + p.foto,
-                      fit: BoxFit.cover,
-                      width: 100,
-                      height: 150,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      child: ListTile(
-                        title: Text("${p.nome}"),
-                        subtitle: Text("Código. ${p.id}"),
-                        trailing: CircleAvatar(
-                          backgroundColor: Colors.grey[300],
-                          foregroundColor: Colors.redAccent,
-                          child: IconButton(
-                            splashColor: Colors.black,
-                            icon: Icon(
-                              Icons.favorite_border,
-                              color: Colors.redAccent,
-                              size: 15,
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: ListTile(
-                        title: Text(
-                          "R\$ ${formatMoeda.format(p.desconto)}",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500,
-                            decoration: TextDecoration.lineThrough,
-                            decorationStyle: TextDecorationStyle.dashed,
-                          ),
-                        ),
-                        subtitle: Text(
-                          "R\$ ${formatMoeda.format(p.desconto)} OFF",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        trailing: buildPopupMenuButton(context, p),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+        child: CircleAvatar(
+          backgroundColor: Colors.grey[100],
+          radius: 20,
+          backgroundImage: NetworkImage(
+            "${promoCaoController.arquivo + p.foto}",
+          ),
         ),
+      ),
+      title: Text(p.nome),
+      subtitle: Text("R\$ ${formatMoeda.format(p.desconto)} OFF"),
+      trailing: Container(
+        height: 80,
+        width: 50,
+        child: buildPopupMenuButton(context, p),
       ),
     );
   }

@@ -17,6 +17,7 @@ class LojaList extends StatefulWidget {
 class _LojaListState extends State<LojaList>
     with AutomaticKeepAliveClientMixin<LojaList> {
   var lojaController = GetIt.I.get<LojaController>();
+  var nomeController = TextEditingController();
 
   @override
   void initState() {
@@ -28,11 +29,55 @@ class _LojaListState extends State<LojaList>
     return lojaController.getAll();
   }
 
+  filterByNome(String nome) {
+    if (nome.trim().isEmpty) {
+      lojaController.getAll();
+    } else {
+      nome = nomeController.text;
+      lojaController.getAllByNome(nome);
+    }
+  }
+
   bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
-    return builderConteudoList();
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(height: 0),
+          Container(
+            height: 80,
+            width: double.infinity,
+            color: Colors.grey[100],
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              subtitle: TextFormField(
+                controller: nomeController,
+                decoration: InputDecoration(
+                  labelText: "busca por lojas",
+                  prefixIcon: Icon(Icons.search_outlined),
+                  suffixIcon: IconButton(
+                    onPressed: () => nomeController.clear(),
+                    icon: Icon(Icons.clear),
+                  ),
+                ),
+                onChanged: filterByNome,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.transparent,
+              child: builderConteudoList(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   builderConteudoList() {
@@ -85,7 +130,6 @@ class _LojaListState extends State<LojaList>
       },
     );
   }
-
 
   @override
   // TODO: implement wantKeepAlive

@@ -121,7 +121,7 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
                     children: <Widget>[
                       TextFormField(
                         controller: emailController,
-                        onSaved: (value) => u.email = value,
+                        onSaved: (value) => u.email = value.trim(),
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(

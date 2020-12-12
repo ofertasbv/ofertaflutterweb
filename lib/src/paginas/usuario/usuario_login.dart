@@ -21,6 +21,8 @@ class UsuarioLogin extends StatefulWidget {
 
 class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
   var usuarioController = GetIt.I.get<UsuarioController>();
+  var emailController = TextEditingController();
+  var senhaController = TextEditingController();
   Dialogs dialogs = Dialogs();
 
   Usuario u;
@@ -97,7 +99,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Colors.purple, Colors.grey[900]],
+                    colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                   ),
                   border: Border.all(
                     color: Colors.black,
@@ -107,14 +109,15 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey[100],
-                  radius: 30,
+                  radius: 25,
                   child: Icon(
                     Icons.person,
-                    size: 30,
+                    size: 25,
                   ),
                 ),
               ),
-              SizedBox(height: 0),
+              SizedBox(height: 10),
+              Text("Olá :) acesse sua conta"),
             ],
           ),
         ),
@@ -132,15 +135,19 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                     children: <Widget>[
                       TextFormField(
                         onSaved: (value) => u.email = value.trim(),
+                        controller: emailController,
                         validator: validateEmail,
                         decoration: InputDecoration(
-                          labelText: "Email",
+                          labelText: "Insira seu e-mail",
                           hintText: "email@gmail.com",
                           prefixIcon: Icon(
                             Icons.email_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => emailController.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           labelStyle: TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -150,6 +157,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 50,
@@ -157,10 +165,12 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        autofocus: false,
+                        controller: senhaController,
                         onSaved: (value) => u.senha = value.trim(),
                         validator: validateSenha,
                         decoration: InputDecoration(
-                          labelText: "Senha",
+                          labelText: "Digite sua senha",
                           hintText: "Senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
@@ -217,8 +227,10 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                         print(
                             "Usuário: ${usuarioController.usuarioSelecionado.pessoa.id}");
                       } else {
-                        showToast("Erro: login/senha inválido");
+                        showToast("Login/Senha inválido");
                         print("Erro: login/senha inválido");
+                        emailController.clear();
+                        senhaController.clear();
                       }
                       // print("US: ${us.id}");
                     });

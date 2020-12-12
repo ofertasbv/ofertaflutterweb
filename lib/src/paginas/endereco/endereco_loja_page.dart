@@ -114,7 +114,7 @@ class _EnderecoLojaPageState extends State<EnderecoLojaPage> {
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.grey[900]],
+                  colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                 ),
                 border: Border.all(
                   color: Colors.black,
@@ -124,7 +124,7 @@ class _EnderecoLojaPageState extends State<EnderecoLojaPage> {
               ),
               child: CircleAvatar(
                 backgroundColor: Colors.grey[100],
-                radius: 25,
+                radius: 20,
                 child: Icon(Icons.location_on_outlined),
               ),
             ),

@@ -23,6 +23,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
 
   Categoria categoria;
+  var nomeController = TextEditingController();
 
   @override
   void initState() {
@@ -37,6 +38,15 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
     super.initState();
   }
 
+  filterByNome(String nome) {
+    if (nome.trim().isEmpty) {
+      categoriaController.getAll();
+    } else {
+      nome = nomeController.text;
+      categoriaController.getAllByNome(nome);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,17 +55,24 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 5),
+          SizedBox(height: 0),
           Container(
             height: 80,
             width: double.infinity,
-            color: Colors.transparent,
-            padding: EdgeInsets.all(20),
-            child: Text(
-              "Pesquisa por categorias",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.indigo[900],
+            color: Colors.grey[100],
+            padding: EdgeInsets.all(5),
+            child: ListTile(
+              subtitle: TextFormField(
+                controller: nomeController,
+                decoration: InputDecoration(
+                  labelText: "busca por categorias",
+                  prefixIcon: Icon(Icons.search_outlined),
+                  suffixIcon: IconButton(
+                    onPressed: () => nomeController.clear(),
+                    icon: Icon(Icons.clear),
+                  ),
+                ),
+                onChanged: filterByNome,
               ),
             ),
           ),
@@ -84,6 +101,26 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             return CircularProgressorMini();
           }
 
+          if (categorias.length == 0) {
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: Icon(
+                      Icons.mood_outlined,
+                      size: 100,
+                    ),
+                  ),
+                  Text(
+                    "Ops! sem categorias",
+                  ),
+                ],
+              ),
+            );
+          }
+
           return builderList(categorias);
         },
       ),
@@ -101,12 +138,12 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
 
         return GestureDetector(
           child: ListTile(
-            isThreeLine: true,
+            isThreeLine: false,
             leading: Container(
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.purple, Colors.grey[900]],
+                  colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
                 ),
                 border: Border.all(
                   color: Colors.black,
@@ -127,7 +164,6 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
             trailing: Container(
               height: 80,
               width: 50,
-              // child: buildPopupMenuButton(context, p),
             ),
           ),
           onTap: () {

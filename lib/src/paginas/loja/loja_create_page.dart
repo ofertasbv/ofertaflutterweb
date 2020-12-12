@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/core/controller/endereco_controller.dart';
@@ -91,36 +90,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     });
   }
 
-  getFromGallery() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
-  getFromCamera() async {
-    File f = await ImagePicker.pickImage(source: ImageSource.camera);
-
-    if (f == null) {
-      return;
-    } else {
-      setState(() {
-        this.file = f;
-        String arquivo = file.path.split('/').last;
-        print("filePath: $arquivo");
-        p.foto = arquivo;
-      });
-    }
-  }
-
   onClickUpload() async {
     if (file != null) {
       var url = await lojaController.upload(file, p.foto);
@@ -144,35 +113,6 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
 
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
-  }
-
-  openBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.photo),
-              title: Text("Galeria"),
-              onTap: () {
-                enableButton();
-                getFromGallery();
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt_outlined),
-              title: Text("Camera"),
-              onTap: () {
-                enableButton();
-                getFromCamera();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
   showToast(String cardTitle) {
@@ -556,7 +496,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (p.foto == null) {
-                  openBottomSheet(context);
+                  // openBottomSheet(context);
                 } else {
                   if (p.id == null) {
                     if (senhaController.text != confirmaSenhaController.text) {

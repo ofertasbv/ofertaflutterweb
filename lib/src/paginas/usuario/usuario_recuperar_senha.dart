@@ -128,7 +128,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                     children: <Widget>[
                       TextFormField(
                         controller: emailController,
-                        onSaved: (value) => u.email = value,
+                        onSaved: (value) => u.email = value.trim(),
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
@@ -155,7 +155,7 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                       ),
                       TextFormField(
                         controller: senhaController,
-                        onSaved: (value) => u.senha = value,
+                        onSaved: (value) => u.senha = value.trim(),
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(

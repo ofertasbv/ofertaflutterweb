@@ -31,7 +31,7 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
   }
 
   buildContainer(Loja p) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+    var dateFormat = DateFormat('dd/MM/yyyy');
     return ListView(
       children: <Widget>[
         AspectRatio(
@@ -50,6 +50,14 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
               ListTile(
                 title: Text(p.nome),
                 subtitle: Text("${p.telefone}"),
+                trailing: CircleAvatar(
+                  backgroundColor: Colors.blue[400],
+                  foregroundColor: Colors.white,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.phone),
+                  ),
+                ),
               ),
             ],
           ),

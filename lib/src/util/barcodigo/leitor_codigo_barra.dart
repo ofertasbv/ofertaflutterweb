@@ -131,7 +131,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
 
   Future barcodeScanning() async {
     try {
-      String barcode = await BarcodeScanner.scan();
+      // String barcode = await BarcodeScanner.scan();
       setState(() {
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;

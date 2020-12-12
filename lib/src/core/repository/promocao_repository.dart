@@ -30,6 +30,17 @@ class PromocaoRepository {
     return null;
   }
 
+  Future<List<Promocao>> getAllByNome(String nome) async {
+    try {
+      print("carregando promoções by nome");
+      var response = await dio.client.get("/promocoes/nome/${nome}");
+      return (response.data as List).map((c) => Promocao.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<List<Promocao>> getAllByLojaById(int id) async {
     try {
       print("carregando promocoes da loja");

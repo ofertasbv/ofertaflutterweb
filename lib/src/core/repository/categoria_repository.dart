@@ -8,6 +8,17 @@ import 'package:nosso/src/core/model/categoria.dart';
 class CategoriaRepository {
   CustonDio dio = CustonDio();
 
+  Future<List<Categoria>> getAll() async {
+    try {
+      print("carregando categorias");
+      var response = await dio.client.get("/categorias");
+      return (response.data as List).map((c) => Categoria.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<List<Categoria>> getAllById(int id) async {
     try {
       print("carregando categorias by id");
@@ -19,10 +30,10 @@ class CategoriaRepository {
     return null;
   }
 
-  Future<List<Categoria>> getAll() async {
+  Future<List<Categoria>> getAllByNome(String nome) async {
     try {
-      print("carregando categorias");
-      var response = await dio.client.get("/categorias");
+      print("carregando categorias by nome");
+      var response = await dio.client.get("/categorias/nome/${nome}");
       return (response.data as List).map((c) => Categoria.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);

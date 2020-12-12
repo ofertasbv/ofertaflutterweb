@@ -37,15 +37,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "Ofertas em destaque",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  Text("Ofertas em destaque"),
                   GestureDetector(
-                    child: Text(
-                      "veja mais",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: Text("veja mais"),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
@@ -75,15 +69,9 @@ class _CatalogoHomeState extends State<CatalogoHome> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "Prouduto em destaque",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  Text("Prouduto em destaque"),
                   GestureDetector(
-                    child: Text(
-                      "veja mais",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: Text("veja mais"),
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(

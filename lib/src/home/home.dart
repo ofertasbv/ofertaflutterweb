@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage>
             title: Text("U-NOSSO"),
             actions: <Widget>[
               CircleAvatar(
-                backgroundColor: Colors.indigo[800],
+                backgroundColor: Colors.blue[400],
                 foregroundColor: Colors.white,
                 child: IconButton(
                   icon: Icon(Icons.location_on_outlined),
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage>
               ),
               SizedBox(width: 10),
               CircleAvatar(
-                backgroundColor: Colors.indigo[800],
+                backgroundColor: Colors.blue[400],
                 foregroundColor: Colors.white,
                 child: IconButton(
                   icon: Icon(Icons.search_outlined),
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               GestureDetector(
                 child: CircleAvatar(
-                  backgroundColor: Colors.indigo[800],
+                  backgroundColor: Colors.blue[400],
                   foregroundColor: Colors.white,
                   child: Stack(
                     alignment: Alignment.topRight,
@@ -127,38 +127,23 @@ class _HomePageState extends State<HomePage>
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined),
-                title: Text(
-                  'home',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text('home'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt_outlined),
-                title: Text(
-                  'categorias',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text('categorias'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.local_convenience_store_outlined),
-                title: Text(
-                  'lojas',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text('lojas'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.add_alert_outlined),
-                title: Text(
-                  'ofertas',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text('ofertas'),
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle_outlined),
-                title: Text(
-                  'conta',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text('conta'),
               ),
             ],
             currentIndex: elementIndex,

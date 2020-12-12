@@ -10,7 +10,6 @@ import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
-import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 
 class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
@@ -55,149 +54,114 @@ class ItemPage extends StatelessWidget {
       ),
       body: PedidoItensList(),
       bottomNavigationBar: buildBottomNavigationBar(context),
-      floatingActionButton: FloatingActionButton(
-        elevation: 10,
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProdutoTab(),
-            ),
-          );
-        },
-      ),
     );
   }
 
   buildBottomNavigationBar(BuildContext context) {
     return Container(
+      color: Colors.grey[100],
       width: MediaQuery.of(context).size.width,
-      height: 50.0,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 1,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(0),
-                side: BorderSide(color: Colors.transparent),
+      height: 120,
+      child: Column(
+        children: [
+          Container(
+            color: Colors.grey[100],
+            width: MediaQuery.of(context).size.width,
+            height: 60,
+            child: ListTile(
+              title: Text(
+                "TOTAL ",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
               ),
-              elevation: 0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-              color: Colors.indigo[900],
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.home),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                  ],
+              subtitle: Text(
+                "R\$ ${formatMoeda.format(pedidoItemController.total)}",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Text(
+                "No boleto ou dinheiro",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
                 ),
               ),
             ),
           ),
-          Flexible(
-            fit: FlexFit.tight,
-            flex: 2,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(0),
-                side: BorderSide(color: Colors.transparent),
-              ),
-              elevation: 0,
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return PedidoPage();
+          Container(
+            padding: EdgeInsets.all(5),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Flexible(
+                  fit: FlexFit.tight,
+                  flex: 2,
+                  child: FlatButton.icon(
+                    icon: Icon(Icons.list_alt),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.blue),
+                    ),
+                    color: Colors.white,
+                    textColor: Colors.blue,
+                    padding: EdgeInsets.all(10),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ProdutoTab();
+                          },
+                        ),
+                      );
                     },
+                    label: Text(
+                      "VER MAIS".toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                    ),
                   ),
-                );
-              },
-              color: Colors.indigo[900],
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 4.0,
+                ),
+                SizedBox(width: 10),
+                Flexible(
+                  flex: 3,
+                  child: FlatButton.icon(
+                    icon: Icon(Icons.shopping_basket),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.green),
                     ),
-                    Observer(
-                      builder: (context) {
-                        return Row(
-                          children: <Widget>[
-                            Text(
-                              "TOTAL ",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              "R\$ ${formatMoeda.format(pedidoItemController.total)}",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
+                    color: Colors.white,
+                    textColor: Colors.green,
+                    padding: EdgeInsets.all(10),
+                    onPressed: () {
+                      if (pedidoItemController.itens.isEmpty) {
+                        showToast("seu carrinho está vazio!");
+                        print("seu carrinho está vazio!");
+                      } else {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return PedidoCreatePage();
+                            },
+                          ),
                         );
-                      },
+                      }
+                    },
+                    label: Text(
+                      "CONTINUAR PEDIDO".toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(0),
-                side: BorderSide(color: Colors.transparent),
-              ),
-              elevation: 0,
-              onPressed: () {
-                if (pedidoItemController.itens.isEmpty) {
-                  showToast("seu carrinho está vazio!");
-                  print("seu carrinho está vazio!");
-                } else {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return PedidoCreatePage();
-                      },
-                    ),
-                  );
-                }
-              },
-              color: Colors.yellow[900],
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 4.0,
-                    ),
-                  ],
-                ),
-              ),
+              ],
             ),
           ),
         ],

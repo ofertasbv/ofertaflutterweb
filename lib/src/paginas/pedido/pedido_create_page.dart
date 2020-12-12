@@ -138,12 +138,12 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
           child: ExpansionTile(
             leading: Icon(
               Icons.shopping_basket_outlined,
-              color: Colors.purple[800],
+              color: Colors.blue,
             ),
             title: Text(
               "Meus itens",
               style: TextStyle(
-                color: Colors.purple[800],
+                color: Colors.blue,
               ),
             ),
             children: [

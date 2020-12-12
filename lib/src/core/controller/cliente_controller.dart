@@ -60,6 +60,16 @@ abstract class ClienteControllerBase with Store {
   }
 
   @action
+  Future<List<Cliente>> getAllByNome(String nome) async {
+    try {
+      clientes = await clienteRepository.getAllByNome(nome);
+      return clientes;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<Cliente> getById(int id) async {
     try {
       clienteSelecionado = await clienteRepository.getById(id);

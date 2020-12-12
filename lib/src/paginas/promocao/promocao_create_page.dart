@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
@@ -395,7 +394,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.numberWithOptions(decimal: true),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
                         maxLength: 10,
                       ),
                       SizedBox(height: 10),

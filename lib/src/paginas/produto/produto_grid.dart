@@ -165,13 +165,13 @@ class _ProdutoGridState extends State<ProdutoGrid>
               gradient: LinearGradient(
                 colors: [
                   Colors.grey[100].withOpacity(0.1),
-                  Colors.grey[300].withOpacity(0.4),
+                  Colors.grey[300].withOpacity(0.3),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               border: Border.all(color: Colors.transparent),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
             ),
             duration: Duration(seconds: 2),
             curve: Curves.bounceIn,
@@ -180,7 +180,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                 Stack(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(10),
                       child: Image.network(
                         produtoController.arquivo + p.foto,
                         fit: BoxFit.cover,
@@ -239,50 +239,41 @@ class _ProdutoGridState extends State<ProdutoGrid>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      height: 50,
+                      height: 30,
                       padding: EdgeInsets.all(6),
-                      child: Text(
-                        "${p.nome}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      child: Text("${p.nome}", overflow: TextOverflow.ellipsis),
+                    ),
+                    Container(
+                      height: 60,
+                      child: ListTile(
+                        title: Text(
+                          "${formatMoeda.format(p.estoque.valor)}",
+                          style: TextStyle(
+                            fontSize: 12,
+                            decoration: TextDecoration.lineThrough,
+                            decorationStyle: TextDecorationStyle.dashed,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                          style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: Chip(
+                          label: Text(
+                            "${formatMoeda.format(p.promocao.desconto)} OFF",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                        height: 40,
-                        padding: EdgeInsets.all(6),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "${formatMoeda.format(p.estoque.valor)}",
-                              style: TextStyle(
-                                fontSize: 12,
-                                decoration: TextDecoration.lineThrough,
-                                decorationStyle: TextDecorationStyle.dashed,
-                              ),
-                            ),
-                            Text(
-                              "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
-                              style: TextStyle(
-                                color: Colors.green,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              "${formatMoeda.format(p.promocao.desconto)} OFF",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        )),
                   ],
                 ),
               ],

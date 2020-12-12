@@ -25,6 +25,7 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
   _SubCategoriaProdutoState({this.subCategoria, this.categoria});
 
   var subCategoriaController = GetIt.I.get<SubCategoriaController>();
+  var nomeController = TextEditingController();
 
   SubCategoria subCategoria;
   Categoria categoria;
@@ -38,6 +39,15 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
   void initState() {
     subCategoriaController.getAllByCategoriaById(categoria.id);
     super.initState();
+  }
+
+  filterByNome(String nome) {
+    if (nome.trim().isEmpty) {
+      subCategoriaController.getAll();
+    } else {
+      nome = nomeController.text;
+      subCategoriaController.getAllByNome(nome);
+    }
   }
 
   @override
@@ -81,20 +91,25 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 0),
             Container(
               height: 80,
               width: double.infinity,
-              color: Colors.transparent,
-              padding: EdgeInsets.all(10),
+              color: Colors.grey[100],
+              padding: EdgeInsets.all(5),
               child: ListTile(
-                title: Text(
-                  "Pesquisa por categorias",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo[900],
+                subtitle: TextFormField(
+                  controller: nomeController,
+                  decoration: InputDecoration(
+                    labelText: "busca por departamentos",
+                    prefixIcon: Icon(Icons.search_outlined),
+                    suffixIcon: IconButton(
+                      onPressed: () => nomeController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
                   ),
+                  onChanged: filterByNome,
                 ),
-                subtitle: Text(categoria.nome),
               ),
             ),
             Expanded(
@@ -105,8 +120,6 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
       ),
     );
   }
-
-
 
   builderConteutoListSubCategoria() {
     return Container(
@@ -161,36 +174,29 @@ class _SubCategoriaProdutoState extends State<SubCategoriaProduto>
         SubCategoria c = categorias[index];
 
         return GestureDetector(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(10),
-              side: BorderSide(color: Colors.grey[200], width: 1),
-            ),
-            child: Container(
-              child: ListTile(
-                isThreeLine: true,
-                leading: Container(
-                  padding: EdgeInsets.all(1),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[500].withOpacity(0.2),
-                    foregroundColor: Colors.indigo[900],
-                    radius: 20,
-                    child: Text(
-                      c.nome.substring(0, 1).toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+          child: Container(
+            child: ListTile(
+              isThreeLine: false,
+              leading: Container(
+                padding: EdgeInsets.all(1),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[500].withOpacity(0.2),
+                  foregroundColor: Theme.of(context).primaryColor,
+                  radius: 20,
+                  child: Text(
+                    c.nome.substring(0, 1).toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                title: Text(c.nome),
-                subtitle: Text("${c.categoria.nome}"),
-                trailing: Container(
-                  height: 80,
-                  width: 50,
-                  child: Icon(Icons.arrow_right),
-                ),
+              ),
+              title: Text(c.nome),
+              subtitle: Text("${c.categoria.nome}"),
+              trailing: Container(
+                height: 80,
+                width: 50,
               ),
             ),
           ),

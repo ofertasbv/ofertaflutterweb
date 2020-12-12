@@ -8,6 +8,17 @@ import 'package:nosso/src/core/model/loja.dart';
 class LojaRepository {
   CustonDio dio = CustonDio();
 
+  Future<List<Loja>> getAll() async {
+    try {
+      print("carregando lojas");
+      var response = await dio.client.get("/lojas");
+      return (response.data as List).map((c) => Loja.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
   Future<Loja> getById(int id) async {
     try {
       print("carregando loja by id");
@@ -22,7 +33,7 @@ class LojaRepository {
   Future<List<Loja>> getAllById(int id) async {
     try {
       print("carregando lojas by id");
-      var response = await dio.client.get("/clientes/${id}");
+      var response = await dio.client.get("/lojas/${id}");
       return (response.data as List).map((c) => Loja.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
@@ -30,10 +41,10 @@ class LojaRepository {
     return null;
   }
 
-  Future<List<Loja>> getAll() async {
+  Future<List<Loja>> getAllNome(String nome) async {
     try {
-      print("carregando lojas");
-      var response = await dio.client.get("/lojas");
+      print("carregando lojas by nome");
+      var response = await dio.client.get("/lojas/nome/${nome}");
       return (response.data as List).map((c) => Loja.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
