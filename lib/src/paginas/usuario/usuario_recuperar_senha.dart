@@ -11,6 +11,7 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/validador/validador_login.dart';
 
 class UsuarioRecuperarSenha extends StatefulWidget {
   Usuario usuario;
@@ -22,7 +23,7 @@ class UsuarioRecuperarSenha extends StatefulWidget {
       _UsuarioRecuperarSenhaState(u: this.usuario);
 }
 
-class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
+class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> with LoginValidators {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -129,11 +130,10 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                       TextFormField(
                         controller: emailController,
                         onSaved: (value) => u.email = value.trim(),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
-                          labelText: "Email",
-                          hintText: "email@gmail.com",
+                          labelText: "Entre com e-mail",
+                          hintText: "example@email.com",
                           prefixIcon: Icon(
                             Icons.email_outlined,
                             color: Colors.grey,
@@ -156,11 +156,10 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                       TextFormField(
                         controller: senhaController,
                         onSaved: (value) => u.senha = value.trim(),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
-                          labelText: "Senha",
-                          hintText: "Senha",
+                          labelText: "Digite nova senha",
+                          hintText: "Nova senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(
                             icon: usuarioController.senhaVisivel == true
@@ -190,10 +189,9 @@ class _UsuarioRecuperarSenhaState extends State<UsuarioRecuperarSenha> {
                       SizedBox(height: 10),
                       TextFormField(
                         controller: confirmaSenhaController,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
-                          labelText: "Confirma senha",
+                          labelText: "Confirma a senha",
                           hintText: "Confirma senha",
                           prefixIcon: Icon(Icons.security, color: Colors.grey),
                           suffixIcon: IconButton(

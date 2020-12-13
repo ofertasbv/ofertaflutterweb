@@ -51,16 +51,17 @@ void main() async {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       // cor da barra superior
-      statusBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.blueAccent,
+      systemNavigationBarColor: Colors.green,
       // cor da barra inferior
-      systemNavigationBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.dark,
       //
       systemNavigationBarDividerColor: Colors.white,
       // ícones da barra inferior
 
-      statusBarBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+
     ),
   );
 
@@ -74,6 +75,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.green,
+        accentColor: Colors.green[600],
+        primarySwatch: Colors.blue,
+
+        cardTheme: CardTheme(
+          elevation: 0,
+          color: Colors.transparent,
+          margin: EdgeInsets.all(0),
+          shadowColor: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(10),
+            side: BorderSide(color: Colors.grey[100], width: 1),
+          ),
+        ),
+
         buttonTheme: ButtonThemeData(
           splashColor: Colors.black,
           textTheme: ButtonTextTheme.primary,

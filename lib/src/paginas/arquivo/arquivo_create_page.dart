@@ -155,20 +155,20 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                 Container(
                   child: GestureDetector(
                     onTap: () {
-                      // showModalBottomSheet(
-                      //   context: context,
-                      //   builder: (context) => ImageSourceSheet(
-                      //     onImageSelected: (image) {
-                      //       setState(() {
-                      //         Navigator.of(context).pop();
-                      //         file = image;
-                      //         String arquivo = file.path.split('/').last;
-                      //         print("Image: ${arquivo}");
-                      //         enableButton();
-                      //       });
-                      //     },
-                      //   ),
-                      // );
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => ImageSourceSheet(
+                          onImageSelected: (image) {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              file = image;
+                              String arquivo = file.path.split('/').last;
+                              print("Image: ${arquivo}");
+                              enableButton();
+                            });
+                          },
+                        ),
+                      );
                     },
                     child: Container(
                       padding: EdgeInsets.all(5),
@@ -227,21 +227,21 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                 splashColor: Colors.black,
                                 icon: Icon(Icons.photo),
                                 onPressed: () {
-                                  // showModalBottomSheet(
-                                  //   context: context,
-                                  //   builder: (context) => ImageSourceSheet(
-                                  //     onImageSelected: (image) {
-                                  //       setState(() {
-                                  //         Navigator.of(context).pop();
-                                  //         file = image;
-                                  //         String arquivo =
-                                  //             file.path.split('/').last;
-                                  //         print("Image: ${arquivo}");
-                                  //         enableButton();
-                                  //       });
-                                  //     },
-                                  //   ),
-                                  // );
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ImageSourceSheet(
+                                      onImageSelected: (image) {
+                                        setState(() {
+                                          Navigator.of(context).pop();
+                                          file = image;
+                                          String arquivo =
+                                              file.path.split('/').last;
+                                          print("Image: ${arquivo}");
+                                          enableButton();
+                                        });
+                                      },
+                                    ),
+                                  );
                                 },
                               ),
                             ),
@@ -312,7 +312,20 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             onPressed: () {
               if (controller.validate()) {
                 if (a.foto == null) {
-                  // openBottomSheet(context);
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => ImageSourceSheet(
+                      onImageSelected: (image) {
+                        setState(() {
+                          Navigator.of(context).pop();
+                          file = image;
+                          String arquivo = file.path.split('/').last;
+                          print("Image: ${arquivo}");
+                          enableButton();
+                        });
+                      },
+                    ),
+                  );
                 } else {
                   if (a.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
@@ -351,8 +364,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       ),
     );
   }
-
-  teste() {}
 }
 
 class Controller {

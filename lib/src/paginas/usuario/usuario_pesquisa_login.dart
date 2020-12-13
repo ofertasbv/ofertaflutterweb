@@ -11,6 +11,7 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_recuperar_senha.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/validador/validador_login.dart';
 
 class UsuarioPesquisaLogin extends StatefulWidget {
   Usuario usuario;
@@ -22,7 +23,8 @@ class UsuarioPesquisaLogin extends StatefulWidget {
       _UsuarioPesquisaLoginState(u: this.usuario);
 }
 
-class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
+class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin>
+    with LoginValidators {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -122,11 +124,10 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
                       TextFormField(
                         controller: emailController,
                         onSaved: (value) => u.email = value.trim(),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
-                          labelText: "Email",
-                          hintText: "email@gmail.com",
+                          labelText: "Entre com e-mail",
+                          hintText: "example@email.com",
                           prefixIcon: Icon(
                             Icons.email_outlined,
                             color: Colors.grey,
@@ -134,7 +135,8 @@ class _UsuarioPesquisaLoginState extends State<UsuarioPesquisaLogin> {
                           suffixIcon: Icon(Icons.close),
                           labelStyle: TextStyle(color: Colors.black),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.lime[900]),
                             gapPadding: 1,

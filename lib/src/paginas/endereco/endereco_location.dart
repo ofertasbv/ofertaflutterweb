@@ -42,7 +42,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
   void initState() {
     super.initState();
     getLocation();
-    getCurrentLocation();
     enderecoController.getAll();
   }
 
@@ -104,20 +103,12 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
       geolocator = Geolocator();
       LocationOptions locationOptions =
           LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);
-      geolocator.getPositionStream(locationOptions).listen((Position position) {
-        position = position;
+      Geolocator.getPositionStream().listen((Position position) {
+        this.position = position;
       });
     } catch (e) {
       print('ERROR:$e');
     }
-  }
-
-  getCurrentLocation() async {
-    Position res = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      position = res;
-    });
   }
 
   Future<void> goToPosition() async {
@@ -139,7 +130,7 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
   }
 
   calcularDistancia(double latMercado, double longMercado) async {
-    return await geolocator.distanceBetween(
+    return await Geolocator.distanceBetween(
       position.latitude,
       position.longitude,
       latMercado,
@@ -148,8 +139,8 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
   }
 
   testeDistancia() async {
-    double distanceInMeters = await Geolocator()
-        .distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
+    double distanceInMeters = await Geolocator.distanceBetween(
+        52.2165157, 6.9437819, 52.3546274, 4.8285838);
   }
 
   @override
@@ -416,7 +407,6 @@ class _EnderecoLocationState extends State<EnderecoLocation> {
       },
     );
   }
-
 
   void showToast(String cardTitle, String unit) {
     Fluttertoast.showToast(

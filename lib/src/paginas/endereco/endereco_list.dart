@@ -128,13 +128,13 @@ class _EnderecoListState extends State<EnderecoList>
         if (valor == "detalhes") {
           print("detalhes");
           Navigator.of(context).pop();
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return EnderecoLocation(endereco: e);
-              },
-            ),
-          );
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (BuildContext context) {
+          //       return EnderecoLocation(endereco: e);
+          //     },
+          //   ),
+          // );
         }
         if (valor == "delete") {
           print("delete");

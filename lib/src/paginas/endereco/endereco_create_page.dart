@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:masked_text_input_formatter/masked_text_input_formatter.dart';
@@ -149,76 +148,6 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     );
   }
 
-  chamarEndereco() async {
-    String enderecoDestino = controllerDestino.text;
-
-    if (enderecoDestino.isNotEmpty) {
-      List<Placemark> listaEnderecos =
-          await Geolocator().placemarkFromAddress(enderecoDestino);
-
-      if (listaEnderecos != null && listaEnderecos.length > 0) {
-        Placemark e = listaEnderecos[0];
-        endereco = Endereco();
-        // cidadeSelecionada.nome = e.subAdministrativeArea;
-        endereco.cep = e.postalCode;
-        endereco.bairro = e.subLocality;
-        endereco.logradouro = e.thoroughfare;
-        endereco.numero = e.subThoroughfare;
-
-        endereco.latitude = e.position.latitude;
-        endereco.longitude = e.position.longitude;
-
-        String enderecoConfirmacao;
-        // enderecoConfirmacao = "\n Cidade: " + cidadeSelecionada.nome;
-        enderecoConfirmacao =
-            "\n Rua: " + endereco.logradouro + ", " + endereco.numero;
-        enderecoConfirmacao += "\n Bairro: " + endereco.bairro;
-        enderecoConfirmacao += "\n Cep: " + endereco.cep;
-        enderecoConfirmacao += "\n Latitude: " + endereco.latitude.toString();
-        enderecoConfirmacao += "\n Longitude: " + endereco.longitude.toString();
-
-        showDialog(
-          context: context,
-          builder: (contex) {
-            return AlertDialog(
-              title: Text("Confirmação do endereço"),
-              content: Text(enderecoConfirmacao),
-              contentPadding: EdgeInsets.all(16),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text(
-                    "Cancelar",
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  onPressed: () {
-                    Navigator.of(contex).pop();
-                  },
-                ),
-                FlatButton(
-                  child: Text(
-                    "Confirmar",
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  onPressed: () {
-                    controllerLogradouro.text = endereco.logradouro;
-                    controllerNumero.text = endereco.numero;
-                    controllerBairro.text = endereco.bairro;
-                    // controllerCidade.text = cidadeSelecionada.nome;
-                    controllerCep.text = endereco.cep;
-                    controllerLatitude.text = endereco.latitude.toString();
-                    controllerLongitude.text = endereco.longitude.toString();
-                    //p.enderecos.add(e);
-                    Navigator.of(contex).pop();
-                  },
-                )
-              ],
-            );
-          },
-        );
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -251,49 +180,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                SizedBox(height: 20),
-                Container(
-                  color: Colors.grey[200],
-                  width: double.infinity,
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      TextFormField(
-                        controller: controllerDestino,
-                        onSaved: (value) => endereco.logradouro = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
-                        decoration: InputDecoration(
-                          labelText: "Pesquisa endereço",
-                          hintText: "Rua/Avenida, número",
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          ),
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
-                        maxLength: 50,
-                      ),
-                      RaisedButton.icon(
-                        icon: Icon(Icons.search),
-                        label: Text("Pesquisar"),
-                        onPressed: () {
-                          chamarEndereco();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Container(

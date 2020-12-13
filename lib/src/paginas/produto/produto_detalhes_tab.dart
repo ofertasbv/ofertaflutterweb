@@ -82,7 +82,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
           title: Text(p.nome),
           actions: <Widget>[
             CircleAvatar(
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
@@ -97,7 +97,7 @@ class _ProdutoDetalhesTabState extends State<ProdutoDetalhesTab>
             SizedBox(width: 10),
             GestureDetector(
               child: CircleAvatar(
-                backgroundColor: Colors.blue[400],
+                backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
                 foregroundColor: Colors.white,
                 child: Stack(
                   alignment: Alignment.topRight,

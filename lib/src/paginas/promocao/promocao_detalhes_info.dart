@@ -23,7 +23,7 @@ class _PromocaoDetalhesInfoState extends State<PromocaoDetalhesInfo> {
   }
 
   buildContainer(Promocao p) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+    var dateFormat = DateFormat('dd/MM/yyyy HH:mm');
 
     return ListView(
       children: [

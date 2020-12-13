@@ -455,6 +455,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       RaisedButton.icon(
                         elevation: 0.0,
                         icon: Icon(Icons.photo_camera_outlined),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30),
+                          side: BorderSide(color: Colors.transparent),
+                        ),
                         label: Text("Scanner"),
                         onPressed: () {
                           barcodeScanning();

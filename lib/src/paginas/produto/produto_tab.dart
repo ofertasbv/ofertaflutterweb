@@ -70,7 +70,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
                 }
 
                 return CircleAvatar(
-                  backgroundColor: Colors.blue[400],
+                  backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
                   foregroundColor: Colors.white,
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
@@ -81,7 +81,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(
@@ -94,7 +94,7 @@ class _ProdutoTabState extends State<ProdutoTab> {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(
@@ -143,15 +143,6 @@ class _ProdutoTabState extends State<ProdutoTab> {
           currentIndex: elementIndex,
           onTap: changeIndex,
           elevation: 4,
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ProdutoCreatePage()),
-            );
-          },
         ),
       ),
     );

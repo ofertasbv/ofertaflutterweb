@@ -149,6 +149,10 @@ class _PedidoItensListState extends State<PedidoItensList> {
                               child: Text(
                                 p.produto.nome,
                                 overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             SizedBox(height: 5),
@@ -161,12 +165,17 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Text("Valor unitário "),
+                                  Text(
+                                    "Valor unitário ",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   Text(
                                     "R\$ ${formatMoeda.format(p.valorUnitario)}",
                                     style: TextStyle(
                                       color: Colors.green,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
@@ -182,12 +191,16 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  Text("SubTotal "),
+                                  Text(
+                                    "SubTotal ",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   Text(
                                     "R\$ ${formatMoeda.format(p.valorTotal)}",
                                     style: TextStyle(
                                       color: Colors.green,
-                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
@@ -254,7 +267,13 @@ class _PedidoItensListState extends State<PedidoItensList> {
                                           height: 30,
                                           color: Colors.grey[100],
                                           child: Center(
-                                            child: Text("${p.quantidade}"),
+                                            child: Text(
+                                              "${p.quantidade}",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(

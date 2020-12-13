@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
@@ -22,6 +23,7 @@ class PromocaoListHome extends StatefulWidget {
 class _PromocaoListHomeState extends State<PromocaoListHome>
     with AutomaticKeepAliveClientMixin<PromocaoListHome> {
   var promocaoController = GetIt.I.get<PromoCaoController>();
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   Loja p;
 
@@ -84,7 +86,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(10),
-                side: BorderSide(color: Colors.grey[200], width: 1),
+                side: BorderSide(color: Colors.grey[100], width: 1),
               ),
               child: AnimatedContainer(
                 width: containerWidth,
@@ -93,7 +95,7 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                   gradient: LinearGradient(
                     colors: [
                       Colors.grey[100].withOpacity(0.1),
-                      Colors.grey[400].withOpacity(0.4),
+                      Colors.grey[300].withOpacity(0.5),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -105,7 +107,10 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Container(
-                      color: Colors.grey[200],
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
@@ -123,12 +128,16 @@ class _PromocaoListHomeState extends State<PromocaoListHome>
                     ),
                     SizedBox(height: 0),
                     Container(
-                        width: containerWidth,
-                        color: Colors.transparent,
-                        child: ListTile(
-                          title: Text(p.nome),
-                          subtitle: Text(p.descricao),
-                        )),
+                      width: containerWidth,
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: Text(p.nome),
+                        subtitle: Text(p.descricao),
+                        trailing: Chip(
+                          label: Text("OFF ${formatMoeda.format(p.desconto)}"),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

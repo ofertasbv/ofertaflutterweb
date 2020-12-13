@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nosso/src/api/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/paginas/loja/loja_detalhes_tab.dart';
+import 'package:nosso/src/paginas/loja/loja_page.dart';
 
 class LojaLocation extends StatefulWidget {
   @override
@@ -20,23 +20,16 @@ class LojaLocation extends StatefulWidget {
 
 class _LojaLocationState extends State<LojaLocation> {
   var lojaController = GetIt.I.get<LojaController>();
-  final loja = Loja();
+  var loja = Loja();
 
   var selectedCard = 'WEIGHT';
-  double distanciaKilomentros = 0;
-
-  Geolocator geolocator;
-  Position position;
-
-  // Completer<GoogleMapController> completer = Completer<GoogleMapController>();
+  Completer<GoogleMapController> completer = Completer<GoogleMapController>();
 
   List<Marker> allMarkers = [];
 
   @override
   void initState() {
     super.initState();
-    getLocation();
-    getCurrentLocation();
     lojaController.getAll();
   }
 
@@ -88,7 +81,7 @@ class _LojaLocationState extends State<LojaLocation> {
   }
 
   criarMapa(GoogleMapController controller) {
-    lojaController.completer.complete(controller);
+    completer.complete(controller);
   }
 
   markers(Loja p) {
@@ -107,36 +100,8 @@ class _LojaLocationState extends State<LojaLocation> {
     zoom: 14.0,
   );
 
-  getLocation() async {
-    try {
-      geolocator = Geolocator();
-      LocationOptions locationOptions =
-          LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 1);
-      geolocator.getPositionStream(locationOptions).listen((Position position) {
-        position = position;
-      });
-    } catch (e) {
-      print('ERROR:$e');
-    }
-  }
-
-  getCurrentLocation() async {
-    Position res = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      position = res;
-    });
-  }
-
-  Future<void> goToPosition() async {
-    final GoogleMapController controller =
-        await lojaController.completer.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(posicaoCamera));
-  }
-
   movimentarCamera(double latitude, double longitude) async {
-    GoogleMapController googleMapController =
-        await lojaController.completer.future;
+    GoogleMapController googleMapController = await completer.future;
     googleMapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -146,20 +111,6 @@ class _LojaLocationState extends State<LojaLocation> {
         ),
       ),
     );
-  }
-
-  calcularDistancia(double latMercado, double longMercado) async {
-    return await geolocator.distanceBetween(
-      position.latitude,
-      position.longitude,
-      latMercado,
-      longMercado,
-    );
-  }
-
-  testeDistancia() async {
-    double distanceInMeters = await Geolocator()
-        .distanceBetween(52.2165157, 6.9437819, 52.3546274, 4.8285838);
   }
 
   @override
@@ -201,11 +152,7 @@ class _LojaLocationState extends State<LojaLocation> {
                     mapType: mapType,
                     onMapCreated: criarMapa,
                     initialCameraPosition: CameraPosition(
-                        target: position != null
-                            ? LatLng(position.latitude, position.longitude)
-                            : lastMapPosition,
-                        zoom: 13,
-                        tilt: 54),
+                        target: lastMapPosition, zoom: 13, tilt: 54),
                   );
                 }
 
@@ -245,11 +192,7 @@ class _LojaLocationState extends State<LojaLocation> {
                   mapType: mapType,
                   onMapCreated: criarMapa,
                   initialCameraPosition: CameraPosition(
-                      target: position != null
-                          ? LatLng(position.latitude, position.longitude)
-                          : lastMapPosition,
-                      zoom: 16.0,
-                      tilt: 54),
+                      target: lastMapPosition, zoom: 16.0, tilt: 54),
                   markers: Set.of(allMarkers),
                 );
               },
@@ -523,13 +466,12 @@ class _LojaLocationState extends State<LojaLocation> {
     );
   }
 
-  showToast(String cardTitle, String unit) {
-    Fluttertoast.showToast(
-      msg:
-          "Loja: $cardTitle - $unit - ${distanciaKilomentros.toStringAsPrecision(2)} km",
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      fontSize: 16.0,
+  buildPush(BuildContext context) {
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LojaPage(),
+      ),
     );
   }
 }

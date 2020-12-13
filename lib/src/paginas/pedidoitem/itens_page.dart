@@ -74,6 +74,7 @@ class ItemPage extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
+                  color: Colors.black,
                 ),
               ),
               subtitle: Text(
@@ -81,6 +82,7 @@ class ItemPage extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
+                  color: Colors.black,
                 ),
               ),
               trailing: Text(
@@ -88,6 +90,7 @@ class ItemPage extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
+                  color: Colors.black,
                 ),
               ),
             ),

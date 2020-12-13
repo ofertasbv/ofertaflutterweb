@@ -160,6 +160,13 @@ class ContainerProduto extends StatelessWidget {
       onSelected: (valor) {
         if (valor == "novo") {
           print("novo");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return ProdutoCreatePage();
+              },
+            ),
+          );
         }
         if (valor == "editar") {
           print("editar");
@@ -173,8 +180,8 @@ class ContainerProduto extends StatelessWidget {
             ),
           );
         }
-        if (valor == "editar") {
-          print("editar");
+        if (valor == "delete") {
+          print("delete");
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[

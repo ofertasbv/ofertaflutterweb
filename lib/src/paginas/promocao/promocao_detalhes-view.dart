@@ -18,6 +18,7 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
   var selectedCard = 'WEIGHT';
   var promocaoController = GetIt.I.get<PromoCaoController>();
   var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+  var dateFormat = DateFormat('dd/MM/yyyy');
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _PromocaoDetalhesViewState extends State<PromocaoDetalhesView> {
   }
 
   buildContainer(Promocao p) {
-    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+
     return ListView(
       children: <Widget>[
         AspectRatio(

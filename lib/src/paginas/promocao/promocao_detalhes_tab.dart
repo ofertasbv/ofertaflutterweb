@@ -58,7 +58,7 @@ class _PromocaoDetalhesTabState extends State<PromocaoDetalhesTab>
           title: Text(promocao.nome),
           actions: <Widget>[
             CircleAvatar(
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
               foregroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(Icons.search_outlined),
