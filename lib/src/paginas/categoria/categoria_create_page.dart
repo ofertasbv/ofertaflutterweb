@@ -124,7 +124,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Categoria cadastros"),
+        title: c.nome == null ? Text("Cadastro de categoria") : Text(c.nome),
       ),
       body: Observer(
         builder: (context) {

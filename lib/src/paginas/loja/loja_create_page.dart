@@ -17,6 +17,7 @@ import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
+import 'package:nosso/src/util/validador/validador_loja.dart';
 
 class LojaCreatePage extends StatefulWidget {
   Loja loja;
@@ -27,7 +28,7 @@ class LojaCreatePage extends StatefulWidget {
   _LojaCreatePageState createState() => _LojaCreatePageState(p: this.loja);
 }
 
-class _LojaCreatePageState extends State<LojaCreatePage> {
+class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja{
   _LojaCreatePageState({this.p});
 
   var lojaController = GetIt.I.get<LojaController>();
@@ -141,7 +142,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Cadastro de loja"),
+        title: p.nome == null ? Text("Cadastro de loja") : Text(p.nome),
       ),
       body: Observer(
         builder: (context) {
@@ -351,8 +352,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
                           labelText: "Email",
                           hintText: "Email",
@@ -375,8 +375,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       TextFormField(
                         controller: senhaController,
                         onSaved: (value) => p.usuario.senha = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
                           labelText: "Senha",
                           hintText: "Senha",
@@ -409,8 +408,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> {
                       SizedBox(height: 10),
                       TextFormField(
                         controller: confirmaSenhaController,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
                           labelText: "Confirma senha",
                           hintText: "Confirma senha",

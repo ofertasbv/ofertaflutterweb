@@ -76,7 +76,7 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Marcas cadastros"),
+        title: c.nome == null ? Text("Cadastro de marca") : Text(c.nome),
       ),
       body: Observer(
         builder: (context) {

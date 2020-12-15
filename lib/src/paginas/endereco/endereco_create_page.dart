@@ -153,7 +153,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Cadastro endereços"),
+        title: endereco.logradouro == null
+            ? Text("Cadastro de endereço")
+            : Text(endereco.logradouro),
       ),
       body: Observer(
         builder: (context) {

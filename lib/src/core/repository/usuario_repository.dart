@@ -55,6 +55,18 @@ class UsuarioRepository {
     return response.statusCode;
   }
 
+  Future<int> loginToken(Map<String, dynamic> data) async {
+    var response = await dio.client.post("/oauth/token",
+        data: data, options: Options(headers: {}));
+
+    print(response.data);
+    print(response.headers);
+    print(response.request);
+    print(response.statusCode);
+
+    return response.statusCode;
+  }
+
   Future<int> update(int id, Map<String, dynamic> data) async {
     var response = await dio.client.put("/usuarios/update/$id", data: data);
     return response.statusCode;

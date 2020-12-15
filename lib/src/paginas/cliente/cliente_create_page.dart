@@ -16,6 +16,7 @@ import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
+import 'package:nosso/src/util/validador/validador_cliente.dart';
 
 class ClienteCreatePage extends StatefulWidget {
   Cliente cliente;
@@ -27,7 +28,8 @@ class ClienteCreatePage extends StatefulWidget {
       _ClienteCreatePageState(p: this.cliente);
 }
 
-class _ClienteCreatePageState extends State<ClienteCreatePage> {
+class _ClienteCreatePageState extends State<ClienteCreatePage>
+    with ValidadorCliente {
   var clienteController = GetIt.I.get<ClienteController>();
   Dialogs dialogs = Dialogs();
 
@@ -100,7 +102,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: p == null ? Text("Cadastro de cliente") : Text(p.nome),
+        title: p.nome == null ? Text("Cadastro de cliente") : Text(p.nome),
       ),
       body: Observer(
         builder: (context) {
@@ -345,8 +347,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
                           labelText: "Email",
                           hintText: "Email",
@@ -369,8 +370,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       TextFormField(
                         controller: senhaController,
                         onSaved: (value) => p.usuario.senha = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
                           labelText: "Senha",
                           hintText: "Senha",
@@ -404,8 +404,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
                       SizedBox(height: 10),
                       TextFormField(
                         controller: confirmaSenhaController,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateSenha,
                         decoration: InputDecoration(
                           labelText: "Confirma senha",
                           hintText: "Confirma senha",

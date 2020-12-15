@@ -226,7 +226,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Produto cadastros"),
+        title: p.nome == null ? Text("Cadastro de produtos") : Text(p.nome),
       ),
       body: Observer(
         builder: (context) {

@@ -76,7 +76,7 @@ class _CorCreatePageState extends State<CorCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cores cadastros"),
+        title: c.descricao == null ? Text("Cadastro de cor") : Text(c.descricao),
       ),
       body: Observer(
         builder: (context) {

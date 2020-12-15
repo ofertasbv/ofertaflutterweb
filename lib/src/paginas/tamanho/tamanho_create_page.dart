@@ -77,7 +77,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tamanhos cadastros"),
+        title: c.descricao == null ? Text("Cadastro de tamanho") : Text(c.descricao),
       ),
       body: Observer(
         builder: (context) {
@@ -93,8 +93,8 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
     );
   }
 
-   buildListViewForm(BuildContext context) {
-     var focus = FocusScope.of(context);
+  buildListViewForm(BuildContext context) {
+    var focus = FocusScope.of(context);
 
     return ListView(
       children: <Widget>[
