@@ -20,6 +20,7 @@ import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
+import 'package:nosso/src/util/Examples/teste_mapa.dart';
 import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
 import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
 
@@ -223,7 +224,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return PedidoPage();
+                  return TesteMapa(androidFusedLocation: true,);
                 },
               ),
             );
@@ -241,13 +242,13 @@ class _ConfigPageState extends State<ConfigPage> {
                   foregroundColor: Colors.white,
                   radius: 20,
                   child: Icon(
-                    Icons.shopping_cart_outlined,
+                    Icons.map_outlined,
                     size: 20,
                   ),
                 ),
                 padding: EdgeInsets.all(10),
               ),
-              Text("Pedido", style: TextStyle(fontSize: 12)),
+              Text("Mapa", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

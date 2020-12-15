@@ -53,11 +53,11 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.green,
+      systemNavigationBarColor: Colors.blue,
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.dark,
       //
-      systemNavigationBarDividerColor: Colors.white,
+      systemNavigationBarDividerColor: Colors.black,
       // ícones da barra inferior
 
       statusBarBrightness: Brightness.dark,
@@ -76,9 +76,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.green,
-        accentColor: Colors.green[600],
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        accentColor: Colors.blue[200],
+        primarySwatch: Colors.green,
 
         cardTheme: CardTheme(
           elevation: 0,

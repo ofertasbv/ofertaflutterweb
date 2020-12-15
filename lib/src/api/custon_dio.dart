@@ -1,8 +1,8 @@
 
 
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/constant_api.dart';
-import 'package:nosso/src/api/interceptions.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
+import 'package:nosso/src/api/interceptors/interceptions.dart';
 
 class CustonDio {
   Dio client = Dio();

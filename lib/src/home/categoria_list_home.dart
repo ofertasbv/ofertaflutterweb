@@ -106,6 +106,7 @@ class _CategoriaListHomeState extends State<CategoriaListHome>
               child: AnimatedContainer(
                 width: 90,
                 height: 150,
+                alignment: Alignment.center,
                 duration: Duration(seconds: 1),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
 
 class SobrePage extends StatelessWidget {
   @override

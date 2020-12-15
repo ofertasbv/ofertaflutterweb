@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:launchers/launchers.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LojaDetalhesView extends StatefulWidget {
   Loja p;
@@ -26,9 +28,21 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
   @override
   Widget build(BuildContext context) {
     Loja p = widget.p;
-
     return buildContainer(p);
   }
+
+  final Uri emailLaunchUri = Uri(
+    scheme: 'u-nosso',
+    path: 'ofertasbv@gmail.com',
+    queryParameters: {'subject': 'Receba ofertas todos os dias!'},
+  );
+
+  final Email email = Email(
+    body: "Hello, world",
+    subject: "My first message",
+    recipients: ["projetogdados@gmail.com"],
+    attachmentPath: "ofertasbv@gmail.com",
+  );
 
   buildContainer(Loja p) {
     var dateFormat = DateFormat('dd/MM/yyyy');
@@ -54,7 +68,9 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
                   backgroundColor: Colors.blue[400],
                   foregroundColor: Colors.white,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      launch("tel: ${p.telefone}");
+                    },
                     icon: Icon(Icons.phone),
                   ),
                 ),

@@ -38,29 +38,20 @@ class CorPage extends StatelessWidget {
         ],
       ),
       body: CorList(),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          SizedBox(
-            width: 8,
-            height: 8,
-          ),
-          FloatingActionButton(
-            elevation: 10,
-            child: Icon(Icons.add),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return CorCreatePage();
-                  },
-                ),
-              );
-            },
-          )
-        ],
+      floatingActionButton: FloatingActionButton(
+        elevation: 10,
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return CorCreatePage();
+              },
+            ),
+          );
+        },
       ),
     );
   }

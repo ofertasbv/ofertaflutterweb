@@ -70,7 +70,8 @@ class _ProdutoTabState extends State<ProdutoTab> {
                 }
 
                 return CircleAvatar(
-                  backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
+                  backgroundColor:
+                      Theme.of(context).accentColor.withOpacity(0.4),
                   foregroundColor: Colors.white,
                   child: Text(
                     (produtoController.produtos.length ?? 0).toString(),
@@ -127,6 +128,21 @@ class _ProdutoTabState extends State<ProdutoTab> {
               ),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          elevation: 10,
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return ProdutoCreatePage();
+                },
+              ),
+            );
+          },
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

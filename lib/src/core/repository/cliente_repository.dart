@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/api/custon_dio.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 

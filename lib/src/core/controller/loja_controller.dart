@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/repository/loja_repository.dart';
 

@@ -73,7 +73,10 @@ class _ClienteListState extends State<ClienteList>
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).primaryColor
+                  ],
                 ),
                 border: Border.all(
                   color: Colors.black,
@@ -81,13 +84,19 @@ class _ClienteListState extends State<ClienteList>
                 ),
                 borderRadius: BorderRadius.circular(35),
               ),
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[100],
-                radius: 20,
-                backgroundImage: NetworkImage(
-                  "${clienteController.arquivo + p.foto}",
-                ),
-              ),
+              child: p.foto == null
+                  ? CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 20,
+                      child: Icon(Icons.photo)
+                    )
+                  : CircleAvatar(
+                      backgroundColor: Colors.grey[100],
+                      radius: 20,
+                      backgroundImage: NetworkImage(
+                        "${clienteController.arquivo + p.foto}",
+                      ),
+                    ),
             ),
             title: Text(p.nome),
             subtitle: Text("${p.telefone}"),

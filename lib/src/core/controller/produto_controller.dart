@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:mobx/mobx.dart';
-import 'package:nosso/src/api/constant_api.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/model/content.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/produto.dart';

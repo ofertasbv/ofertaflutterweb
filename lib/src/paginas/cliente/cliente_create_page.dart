@@ -100,7 +100,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Cadastro de cliente"),
+        title: p == null ? Text("Cadastro de cliente") : Text(p.nome),
       ),
       body: Observer(
         builder: (context) {
