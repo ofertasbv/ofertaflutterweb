@@ -1,6 +1,6 @@
 
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/custon_dio.dart';
+import 'package:nosso/src/api/dio/custon_dio.dart';
 import 'package:nosso/src/core/model/pedido.dart';
 
 class PedidoRepository {

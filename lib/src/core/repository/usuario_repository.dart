@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/custon_dio.dart';
+import 'package:nosso/src/api/dio/custom_dio.dart';
+import 'package:nosso/src/api/dio/custon_dio.dart';
 import 'package:nosso/src/core/model/usuario.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsuarioRepository {
   CustonDio dio = CustonDio();
@@ -56,8 +58,8 @@ class UsuarioRepository {
   }
 
   Future<int> loginToken(Map<String, dynamic> data) async {
-    var response = await dio.client.post("/oauth/token",
-        data: data, options: Options(headers: {}));
+    var response = await dio.client
+        .post("/oauth/token", data: data, options: Options(headers: {}));
 
     print(response.data);
     print(response.headers);
@@ -65,6 +67,19 @@ class UsuarioRepository {
     print(response.statusCode);
 
     return response.statusCode;
+  }
+
+  login() {
+    var dio = CustomDio().instance;
+    dio.post('http://localhost:8081/oauth/token', data: {
+      'username': 'projetogdados@gmail.com',
+      'password': 'frctads'
+    }).then((res) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', res.data['token']);
+    }).catchError((err) {
+      throw Exception('Login ou senha inválidos');
+    });
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {

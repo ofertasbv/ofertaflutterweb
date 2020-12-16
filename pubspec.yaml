@@ -13,8 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
+#  flutter_localizations:
+#    sdk: flutter
 
   dio: ^3.0.10
   mobx: ^1.2.1+4

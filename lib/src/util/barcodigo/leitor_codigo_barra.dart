@@ -115,7 +115,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
     );
   }
 
-  pesquisarCodigo(String codBarra) async {
+  buscarByCodigoDeBarra(String codBarra) async {
     p = await produtoController.getCodigoBarra(codBarra);
     print(p.descricao);
   }
@@ -135,7 +135,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
       setState(() {
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;
-        pesquisarCodigo(this.barcode);
+        buscarByCodigoDeBarra(this.barcode);
       });
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {

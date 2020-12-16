@@ -15,6 +15,7 @@ import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
 import 'package:nosso/src/paginas/usuario/usuario_perfil_page.dart';
+import 'package:nosso/src/util/Examples/teste_mapa.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -55,7 +56,9 @@ class _HomePageState extends State<HomePage>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LojaLocation(),
+                        builder: (context) => TesteMapa(
+                          androidFusedLocation: true,
+                        ),
                       ),
                     );
                   },
@@ -78,7 +81,8 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               GestureDetector(
                 child: CircleAvatar(
-                  backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
+                  backgroundColor:
+                      Theme.of(context).accentColor.withOpacity(0.4),
                   foregroundColor: Colors.white,
                   child: Stack(
                     alignment: Alignment.topRight,

@@ -3,49 +3,49 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/api/dio/custon_dio.dart';
-import 'package:nosso/src/core/model/cliente.dart';
+import 'package:nosso/src/core/model/vendedor.dart';
 
-class ClienteRepository {
+class VendedorRepository {
   CustonDio dio = CustonDio();
 
-  Future<Cliente> getById(int id) async {
+  Future<Vendedor> getById(int id) async {
     try {
-      print("carregando cliente by id");
-      var response = await dio.client.get("/clientes/$id");
-      return Cliente.fromJson(response.data);
+      print("carregando vendedores by id");
+      var response = await dio.client.get("/vendedores/$id");
+      return Vendedor.fromJson(response.data);
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<List<Cliente>> getAllById(int id) async {
+  Future<List<Vendedor>> getAllById(int id) async {
     try {
-      print("carregando clientes by id");
-      var response = await dio.client.get("/clientes/${id}");
-      return (response.data as List).map((c) => Cliente.fromJson(c)).toList();
+      print("carregando vendedores by id");
+      var response = await dio.client.get("/vendedores/${id}");
+      return (response.data as List).map((c) => Vendedor.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<List<Cliente>> getAllByNome(String nome) async {
+  Future<List<Vendedor>> getAllByNome(String nome) async {
     try {
-      print("carregando clientes by nome");
-      var response = await dio.client.get("/clientes/nome/${nome}");
-      return (response.data as List).map((c) => Cliente.fromJson(c)).toList();
+      print("carregando vendedores by nome");
+      var response = await dio.client.get("/vendedores/nome/${nome}");
+      return (response.data as List).map((c) => Vendedor.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
     return null;
   }
 
-  Future<List<Cliente>> getAll() async {
+  Future<List<Vendedor>> getAll() async {
     try {
-      print("carregando clientes");
-      var response = await dio.client.get("/clientes");
-      return (response.data as List).map((c) => Cliente.fromJson(c)).toList();
+      print("carregando vendedores");
+      var response = await dio.client.get("/vendedores");
+      return (response.data as List).map((c) => Vendedor.fromJson(c)).toList();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -53,18 +53,18 @@ class ClienteRepository {
   }
 
   Future<int> create(Map<String, dynamic> data) async {
-    var response = await dio.client.post("/clientes/create", data: data);
+    var response = await dio.client.post("/vendedores/create", data: data);
     return response.statusCode;
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {
-    var response = await dio.client.put("/clientes/update/$id", data: data);
+    var response = await dio.client.put("/vendedores/update/$id", data: data);
     return response.statusCode;
   }
 
   Future<void> deleteFoto(String foto) async {
     try {
-      var response = await dio.client.delete("/clientes/delete/foto/$foto");
+      var response = await dio.client.delete("/vendedores/delete/foto/$foto");
       return response.statusCode;
     } on DioError catch (e) {
       throw (e.message);

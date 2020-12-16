@@ -9,7 +9,6 @@ import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/favorito/favorito_page.dart';
-import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
@@ -20,6 +19,8 @@ import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
+import 'package:nosso/src/paginas/vendedor/vendedor_page.dart';
+import 'package:nosso/src/pdv/caixa_page.dart';
 import 'package:nosso/src/util/Examples/teste_mapa.dart';
 import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
 import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
@@ -37,7 +38,7 @@ class _ConfigPageState extends State<ConfigPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Configurações"),
+        title: Text("PAINEL DE CONTROLE"),
         actions: <Widget>[
           IconButton(
             icon: new Icon(
@@ -190,7 +191,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return LojaLocation();
+                  return CaixaPageHome();
                 },
               ),
             );
@@ -209,13 +210,13 @@ class _ConfigPageState extends State<ConfigPage> {
                   foregroundColor: Colors.grey[100],
                   radius: 20,
                   child: Icon(
-                    Icons.map_outlined,
+                    Icons.shopping_cart_outlined,
                     size: 20,
                   ),
                 ),
                 padding: EdgeInsets.all(10),
               ),
-              Text("Locais", style: TextStyle(fontSize: 12)),
+              Text("PDV", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -224,7 +225,9 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return TesteMapa(androidFusedLocation: true,);
+                  return TesteMapa(
+                    androidFusedLocation: true,
+                  );
                 },
               ),
             );
@@ -266,6 +269,42 @@ class _ConfigPageState extends State<ConfigPage> {
       childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
       scrollDirection: Axis.vertical,
       children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return HomePage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.home_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Center(
+                child: Text("Home", style: TextStyle(fontSize: 12)),
+              ),
+            ],
+          ),
+        ),
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(
@@ -466,6 +505,40 @@ class _ConfigPageState extends State<ConfigPage> {
                 padding: EdgeInsets.all(10),
               ),
               Text("Cliente", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return VendedorPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.people_alt_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Vendedor", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

@@ -18,12 +18,12 @@ import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/home/home.dart';
+import 'package:nosso/src/util/config/config_page.dart';
 
 void main() async {
   GetIt getIt = GetIt.I;
@@ -104,12 +104,12 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: [const Locale('pt', 'BR')],
-      home: HomePage(),
+      // localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate
+      // ],
+      // supportedLocales: [const Locale('pt', 'BR')],
+      home: ConfigPage(),
     );
   }
 
