@@ -20,6 +20,9 @@ abstract class PedidoItemControllerBase with Store {
   double total = 0;
 
   @observable
+  int quantidade = 0;
+
+  @observable
   List<PedidoItem> pedidoItens;
 
   @observable
@@ -84,11 +87,14 @@ abstract class PedidoItemControllerBase with Store {
 
   @action
   adicionar(PedidoItem item) {
-    item.quantidade = 1;
-    item.valorUnitario = item.produto.estoque.valor;
-    item.valorTotal = item.quantidade * item.valorUnitario;
-    itens.add(item);
-    calculateTotal();
+    item.quantidade = quantidade;
+    print("Qunatidade: ${item.quantidade}");
+    if (item.quantidade > 0) {
+      item.valorUnitario = item.produto.estoque.valor;
+      item.valorTotal = item.quantidade * item.valorUnitario;
+      itens.add(item);
+      calculateTotal();
+    }
   }
 
   @action
@@ -103,10 +109,10 @@ abstract class PedidoItemControllerBase with Store {
   }
 
   @action
-  isExisteItem(PedidoItem item){
+  isExisteItem(PedidoItem item) {
     var result = false;
-    for(PedidoItem p in itens){
-      if(item.produto.nome == p.produto.nome){
+    for (PedidoItem p in itens) {
+      if (item.produto.nome == p.produto.nome) {
         return result = true;
       }
     }
