@@ -31,12 +31,14 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
   var valorTotalController = TextEditingController();
   var descontoController = TextEditingController();
   var valorPedidoController = TextEditingController();
+  var totalVolumesController = TextEditingController();
   var foto;
 
   Controller controller;
 
   @override
   void initState() {
+    pedidoItemController.pedidosItens();
     if (p == null) {
       p = Produto();
       pedidoItem = PedidoItem();
@@ -84,18 +86,96 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
         print("Valor total: ${pedidoItem.valorTotal}");
         print("Valor total: ${valorTotalController.text}");
         print("Descrição: ${p.descricao}");
+
+        if (pedidoItemController.isExisteItem(new PedidoItem(produto: p))) {
+          showSnackbar(context, "${p.nome} já existe");
+          pedidoItemController.calculateTotal();
+        } else {
+          pedidoItemController.adicionar(new PedidoItem(produto: p));
+          showSnackbar(context, "${p.nome} adicionado");
+          double total = pedidoItemController.total;
+          valorPedidoController.text = total.toStringAsFixed(2);
+          pedidoItemController.calculateTotal();
+          PedidoItensListPDV();
+        }
       });
     }
+  }
+
+  atualizaQuantidade(int valor) {
+    setState(() {
+      pedidoItemController.quantidade = valor;
+
+      pedidoItem.valorUnitario = p.estoque.valor;
+      pedidoItem.quantidade = int.tryParse(quantidadeController.text);
+      pedidoItem.valorTotal =
+          (pedidoItem.quantidade * pedidoItem.valorUnitario);
+
+      valorUnitarioController.text =
+          pedidoItem.valorUnitario.toStringAsFixed(2);
+      valorTotalController.text = pedidoItem.valorTotal.toStringAsFixed(2);
+
+      pedidoItemController.calculateTotal();
+
+      pedidoItemController.quantidade = pedidoItem.quantidade;
+
+      print("Quantidade: ${pedidoItem.quantidade}");
+      print("Valor unitário: ${pedidoItem.valorUnitario}");
+      print("Valor total: ${pedidoItem.valorTotal}");
+      print("Valor total: ${valorTotalController.text}");
+      print("Descrição: ${p.descricao}");
+
+      PedidoItensList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var dateFormat = DateFormat('dd-MM-yyyy HH:mm');
 
+    valorPedidoController.text = pedidoItemController.total.toStringAsFixed(2);
+    totalVolumesController.text = pedidoItemController.itens.length.toString();
+
     return Scaffold(
       key: GlobalScaffold.instance.scaffkey,
       appBar: AppBar(
-        title: Text("Caixa Home"),
+        title: Text("GDADOS - PDV 2020"),
+        actions: <Widget>[
+          Observer(
+            builder: (context) {
+              if (pedidoItemController.error != null) {
+                return Text("Não foi possível carregar");
+              }
+
+              if (pedidoItemController.itens == null) {
+                return Center(
+                  child: Icon(Icons.warning_amber_outlined),
+                );
+              }
+
+              return Chip(
+                label: Text(
+                  (pedidoItemController.itens.length ?? 0).toString(),
+                ),
+              );
+            },
+          ),
+          SizedBox(width: 20),
+          IconButton(
+            icon: Icon(Icons.refresh_rounded),
+            onPressed: () {
+              pedidoItemController.pedidosItens();
+            },
+          ),
+          SizedBox(width: 20),
+          IconButton(
+            icon: Icon(Icons.shopping_cart_outlined),
+            onPressed: () {
+              pedidoItemController.pedidosItens();
+            },
+          ),
+          SizedBox(width: 20),
+        ],
       ),
       body: Observer(
         builder: (context) {
@@ -129,7 +209,10 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                     child: Center(
                       child: Text(
                         "CAIXA ABERTO",
-                        style: TextStyle(fontSize: 30),
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
                   ),
@@ -198,165 +281,224 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                 Container(
                                   width: 300,
                                   color: Colors.grey[300],
-                                  child: Icon(Icons.photo, size: 100),
+                                  child: p.foto == null
+                                      ? Icon(Icons.photo, size: 100)
+                                      : Image.network(
+                                          produtoController.arquivo + p.foto,
+                                        ),
                                   alignment: Alignment.center,
                                 ),
                                 Container(
                                   width: 380,
                                   color: Colors.grey[300],
+                                  padding: EdgeInsets.all(10),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      TextFormField(
-                                        initialValue: p.codigoBarra,
-                                        controller: p.codigoBarra == null
-                                            ? codigoBarraController
-                                            : null,
-                                        onSaved: (value) =>
-                                            p.codigoBarra = value,
-                                        onFieldSubmitted: (valor) {
-                                          setState(() {
-                                            codigoBarraController.text = valor;
-                                            buscarByCodigoDeBarra(
-                                                codigoBarraController.text);
-                                          });
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText:
-                                              "Entre com código de barra ou clique (scanner)",
-                                          hintText: "Código de barra",
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 30.0, horizontal: 10.0),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Código de Barra",
+                                            style: TextStyle(fontSize: 20),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.purple[900]),
-                                            gapPadding: 1,
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                          TextFormField(
+                                            controller: codigoBarraController,
+                                            onSaved: (value) =>
+                                                p.codigoBarra = value,
+                                            onFieldSubmitted: (valor) {
+                                              setState(() {
+                                                codigoBarraController.text =
+                                                    valor;
+                                                buscarByCodigoDeBarra(
+                                                    codigoBarraController.text);
+                                              });
+                                            },
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 30.0,
+                                                      horizontal: 10.0),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.purple[900]),
+                                                gapPadding: 1,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            maxLength: 20,
                                           ),
-                                        ),
-                                        keyboardType: TextInputType.text,
-                                        maxLength: 20,
+                                        ],
                                       ),
-                                      TextFormField(
-                                        controller: quantidadeController,
-                                        onSaved: (value) => p.estoque
-                                            .quantidade = int.tryParse(value),
-                                        decoration: InputDecoration(
-                                          suffixIcon: IconButton(
-                                            onPressed: () =>
-                                                quantidadeController.clear(),
-                                            icon: Icon(Icons.clear),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Quantidade",
+                                            style: TextStyle(fontSize: 20),
                                           ),
-                                          labelText:
-                                              "Entre com código de barra ou clique (scanner)",
-                                          hintText: "Código de barra",
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 30.0, horizontal: 10.0),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                          TextFormField(
+                                            controller: quantidadeController,
+                                            onFieldSubmitted: (valor) {
+                                              quantidadeController.text = valor;
+                                              atualizaQuantidade(
+                                                  int.tryParse(valor));
+                                            },
+                                            onSaved: (value) =>
+                                                p.estoque.quantidade =
+                                                    int.tryParse(value),
+                                            decoration: InputDecoration(
+                                              suffixIcon: IconButton(
+                                                onPressed: () =>
+                                                    quantidadeController
+                                                        .clear(),
+                                                icon: Icon(Icons.clear),
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 30.0,
+                                                      horizontal: 10.0),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.purple[900]),
+                                                gapPadding: 1,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            maxLength: 20,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.purple[900]),
-                                            gapPadding: 1,
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                        ),
-                                        keyboardType: TextInputType.text,
-                                        maxLength: 20,
+                                        ],
                                       ),
-                                      TextFormField(
-                                        controller: valorUnitarioController,
-                                        onSaved: (value) => p.estoque.valor =
-                                            double.tryParse(value),
-                                        decoration: InputDecoration(
-                                          suffixIcon: IconButton(
-                                            onPressed: () =>
-                                                valorUnitarioController.clear(),
-                                            icon: Icon(Icons.clear),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Valor Unitário",
+                                            style: TextStyle(fontSize: 20),
                                           ),
-                                          labelText:
-                                              "Entre com código de barra ou clique (scanner)",
-                                          hintText: "Código de barra",
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 30.0, horizontal: 10.0),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                          TextFormField(
+                                            controller: valorUnitarioController,
+                                            onSaved: (value) => p.estoque
+                                                .valor = double.tryParse(value),
+                                            decoration: InputDecoration(
+                                              suffixIcon: IconButton(
+                                                onPressed: () =>
+                                                    valorUnitarioController
+                                                        .clear(),
+                                                icon: Icon(Icons.clear),
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 30.0,
+                                                      horizontal: 10.0),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.purple[900]),
+                                                gapPadding: 1,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            maxLength: 20,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.purple[900]),
-                                            gapPadding: 1,
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                        ),
-                                        keyboardType: TextInputType.text,
-                                        maxLength: 20,
+                                        ],
                                       ),
-                                      TextFormField(
-                                        controller: valorTotalController,
-                                        onFieldSubmitted: (valor) {
-                                          setState(() {
-                                            if (pedidoItemController
-                                                .isExisteItem(new PedidoItem(
-                                                    produto: p))) {
-                                              showSnackbar(context,
-                                                  "${p.nome} já existe");
-                                              pedidoItemController
-                                                  .calculateTotal();
-                                            } else {
-                                              pedidoItemController.adicionar(
-                                                  new PedidoItem(produto: p));
-                                              showSnackbar(context,
-                                                  "${p.nome} adicionado");
-                                              double total =
-                                                  pedidoItemController.total;
-                                              valorPedidoController.text =
-                                                  total.toStringAsFixed(2);
-                                              pedidoItemController
-                                                  .calculateTotal();
-                                              PedidoItensListPDV();
-                                            }
-                                          });
-                                        },
-                                        decoration: InputDecoration(
-                                          suffixIcon: IconButton(
-                                            onPressed: () =>
-                                                valorTotalController.clear(),
-                                            icon: Icon(Icons.clear),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Valor Total",
+                                            style: TextStyle(fontSize: 20),
                                           ),
-                                          labelText:
-                                              "Entre com código de barra ou clique (scanner)",
-                                          hintText: "Código de barra",
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 30.0, horizontal: 10.0),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                          TextFormField(
+                                            controller: valorTotalController,
+                                            onFieldSubmitted: (valor) {
+                                              setState(() {
+                                                if (pedidoItemController
+                                                    .isExisteItem(
+                                                        new PedidoItem(
+                                                            produto: p))) {
+                                                  showSnackbar(context,
+                                                      "${p.nome} já existe");
+                                                  pedidoItemController
+                                                      .calculateTotal();
+                                                } else {
+                                                  pedidoItemController
+                                                      .adicionar(new PedidoItem(
+                                                          produto: p));
+                                                  showSnackbar(context,
+                                                      "${p.nome} adicionado");
+                                                  double total =
+                                                      pedidoItemController
+                                                          .total;
+                                                  valorPedidoController.text =
+                                                      total.toStringAsFixed(2);
+                                                  pedidoItemController
+                                                      .calculateTotal();
+                                                  PedidoItensListPDV();
+                                                }
+                                              });
+                                            },
+                                            decoration: InputDecoration(
+                                              suffixIcon: IconButton(
+                                                onPressed: () =>
+                                                    valorTotalController
+                                                        .clear(),
+                                                icon: Icon(Icons.clear),
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 30.0,
+                                                      horizontal: 10.0),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.purple[900]),
+                                                gapPadding: 1,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                            ),
+                                            keyboardType: TextInputType.text,
+                                            maxLength: 20,
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.purple[900]),
-                                            gapPadding: 1,
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                        ),
-                                        keyboardType: TextInputType.text,
-                                        maxLength: 20,
-                                      ),
+                                        ],
+                                      )
                                     ],
                                   ),
                                 )
@@ -369,8 +511,8 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                               height: double.infinity,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                border: Border.all(color: Colors.blueAccent),
+                                color: Colors.grey[200],
+                                border: Border.all(color: Colors.white),
                               ),
                               child: Column(
                                 children: [
@@ -378,7 +520,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                     height: 100,
                                     decoration: BoxDecoration(
                                       color: Colors.grey[200],
-                                      border: Border.all(color: Colors.green),
+                                      border: Border.all(color: Colors.white),
                                     ),
                                     child: ListTile(
                                       title: Text("descrição"),
@@ -397,19 +539,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                     height: 100,
                                     decoration: BoxDecoration(
                                       color: Colors.grey[200],
-                                      border: Border.all(color: Colors.green),
-                                    ),
-                                    child: ListTile(
-                                      title: Text("descrição"),
-                                      subtitle: p.nome == null
-                                          ? Text(
-                                              "Produto",
-                                              style: TextStyle(fontSize: 40),
-                                            )
-                                          : Text(
-                                              "${p.nome.toUpperCase()}",
-                                              style: TextStyle(fontSize: 40),
-                                            ),
+                                      border: Border.all(color: Colors.white),
                                     ),
                                   ),
                                 ],
@@ -424,25 +554,32 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                         height: double.infinity,
                         width: 300,
                         decoration: BoxDecoration(
-                          color: Colors.green[200],
-                          border: Border.all(color: Colors.yellow),
+                          color: Colors.grey[100],
+                          border: Border.all(color: Colors.white),
                         ),
                         child: Column(
                           children: [
                             Container(
+                              height: 50,
+                              child: Text(
+                                  " ===================================== CUPOM FISCAL ===================================== "),
+                              alignment: Alignment.center,
+                            ),
+                            Divider(),
+                            Container(
                               decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                border: Border.all(color: Colors.indigo),
+                                color: Colors.grey[100],
+                                border: Border.all(color: Colors.white),
                               ),
-                              height: 500,
+                              height: 435,
                               width: double.infinity,
-                              child: PedidoItensList(),
+                              child: PedidoItensListPDV(),
                             ),
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[500],
-                                  border: Border.all(color: Colors.red),
+                                  color: Colors.grey[200],
+                                  border: Border.all(color: Colors.white),
                                 ),
                                 height: double.infinity,
                                 width: double.infinity,
@@ -450,7 +587,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                   children: [
                                     Container(
                                       height: 100,
-                                      color: Colors.white,
+                                      color: Colors.grey[200],
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -458,10 +595,10 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           Container(
                                             height: 100,
                                             width: 300,
-                                            color: Colors.green,
                                             child: ListTile(
                                               title: Text("Volumes"),
                                               subtitle: TextFormField(
+                                                controller: totalVolumesController,
                                                 decoration: InputDecoration(
                                                   contentPadding:
                                                       EdgeInsets.symmetric(
@@ -493,7 +630,41 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           Container(
                                             height: 100,
                                             width: 300,
-                                            color: Colors.green,
+                                            child: ListTile(
+                                              title: Text("Desconto"),
+                                              subtitle: TextFormField(
+                                                controller: descontoController,
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.symmetric(
+                                                          vertical: 25.0,
+                                                          horizontal: 10.0),
+                                                  filled: true,
+                                                  suffixIcon: Icon(Icons.close),
+                                                  labelStyle: TextStyle(
+                                                      color: Colors.black),
+                                                  border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color:
+                                                            Colors.lime[900]),
+                                                    gapPadding: 1,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 100,
+                                            width: 300,
                                             child: ListTile(
                                               title: Text("Valor em Vendas"),
                                               subtitle: TextFormField(
@@ -526,13 +697,16 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                                 ),
                                               ),
                                             ),
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                     Container(
                                       height: 100,
-                                      color: Colors.white,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(color: Colors.white),
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -540,72 +714,12 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           Container(
                                             height: 100,
                                             width: 300,
-                                            color: Colors.green,
-                                            child: ListTile(
-                                              title: Text("Volumes"),
-                                              subtitle: TextFormField(
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 25.0,
-                                                          horizontal: 10.0),
-                                                  filled: true,
-                                                  suffixIcon: Icon(Icons.close),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.lime[900]),
-                                                    gapPadding: 1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
+                                            color: Colors.transparent,
                                           ),
                                           Container(
                                             height: 100,
                                             width: 300,
-                                            color: Colors.green,
-                                            child: ListTile(
-                                              title: Text("Valor em Vendas"),
-                                              subtitle: TextFormField(
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 25.0,
-                                                          horizontal: 10.0),
-                                                  filled: true,
-                                                  suffixIcon: Icon(Icons.close),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.lime[900]),
-                                                    gapPadding: 1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
+                                            color: Colors.transparent,
                                           )
                                         ],
                                       ),

@@ -14,6 +14,7 @@ import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 
 class PedidoItensListPDV extends StatefulWidget {
+
   @override
   _PedidoItensListPDVState createState() => _PedidoItensListPDVState();
 }
@@ -101,207 +102,72 @@ class _PedidoItensListPDVState extends State<PedidoItensListPDV> {
             );
           }
 
-          return builderList(itens);
+          return builderTable(itens);
         },
       ),
     );
   }
 
-  ListView builderList(List<PedidoItem> itens) {
-    double containerWidth = 200;
-    double containerHeight = 20;
-
-    return ListView.builder(
-      itemCount: itens.length,
-      itemBuilder: (context, index) {
-        PedidoItem p = itens[index];
-        return GestureDetector(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2),
-                child: Card(
-                  child: Container(
-                    color: Colors.grey[100],
-                    padding: EdgeInsets.all(5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              height: 30,
-                              width: containerWidth,
-                              child: Text(
-                                p.produto.nome,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    "Valor unitário ",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    "R\$ ${formatMoeda.format(p.valorUnitario)}",
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              height: containerHeight,
-                              width: containerWidth,
-                              //color: Colors.grey[300],
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    "SubTotal ",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Text(
-                                    "R\$ ${formatMoeda.format(p.valorTotal)}",
-                                    style: TextStyle(
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 5),
-                            Container(
-                              width: containerWidth,
-                              height: 40,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: Colors.grey[200],
-                                    foregroundColor: Colors.redAccent,
-                                    radius: 20,
-                                    child: IconButton(
-                                      icon: Icon(Icons.delete_forever),
-                                      splashColor: Colors.black,
-                                      onPressed: () {
-                                        showDialogAlert(context, p);
-                                      },
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 110,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.grey[200],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: <Widget>[
-                                        SizedBox(
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.grey[200],
-                                            foregroundColor: Colors.black,
-                                            child: IconButton(
-                                              icon: Icon(Icons
-                                                  .indeterminate_check_box_outlined),
-                                              splashColor: Colors.black,
-                                              onPressed: () {
-                                                setState(() {
-                                                  print("removendo - ");
-                                                  print("${p.quantidade}");
-                                                  pedidoItemController
-                                                      .decremento(p);
-                                                  // pedidoItemController
-                                                  //     .calculateTotal();
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          width: 38,
-                                        ),
-                                        Container(
-                                          width: 30,
-                                          height: 30,
-                                          color: Colors.grey[100],
-                                          child: Center(
-                                            child: Text(
-                                              "${p.quantidade}",
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.grey[200],
-                                            foregroundColor: Colors.black,
-                                            child: IconButton(
-                                              icon: Icon(Icons.add),
-                                              splashColor: Colors.black,
-                                              onPressed: () {
-                                                setState(() {
-                                                  print("adicionando + ");
-                                                  print("${p.quantidade}");
-                                                  pedidoItemController
-                                                      .incremento(p);
-                                                  // pedidoItemController
-                                                  //     .calculateTotal();
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                          width: 38,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+  builderTable(List<PedidoItem> itens) {
+    return DataTable(
+      sortAscending: true,
+      showCheckboxColumn: true,
+      columns: [
+        DataColumn(label: Text("Código")),
+        DataColumn(label: Text("Quantidade")),
+        DataColumn(label: Text("Valor Unit.")),
+        DataColumn(label: Text("Descrição")),
+        DataColumn(label: Text("Valor Total")),
+        DataColumn(label: Text("Editar")),
+        DataColumn(label: Text("Excluir"))
+      ],
+      rows: itens
+          .map(
+            (p) => DataRow(
+              cells: [
+                DataCell(
+                  Text("${p.produto.id}"),
+                ),
+                DataCell(
+                  Text("${p.quantidade}"),
+                ),
+                DataCell(
+                  Text(
+                    "R\$ ${formatMoeda.format(p.valorUnitario)}",
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+                DataCell(Text(p.produto.nome)),
+                DataCell(
+                  Text(
+                    "R\$ ${formatMoeda.format(p.valorTotal)}",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                DataCell(
+                  IconButton(
+                    icon: Icon(Icons.edit_rounded),
+                    onPressed: () {
+                      print("Código de barra: ${p.produto.codigoBarra}");
+                      print("Descrição: ${p.produto.descricao}");
+                      print("Quantidade: ${p.quantidade}");
+                      print("Valor unitário: ${p.valorUnitario}");
+                      print("Valor total: ${p.valorTotal}");
+                    },
+                  ),
+                ),
+                DataCell(
+                  IconButton(
+                    icon: Icon(Icons.delete_outline),
+                    onPressed: () {
+                      showDialogAlert(context, p);
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
+          .toList(),
     );
   }
 
