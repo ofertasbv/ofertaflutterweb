@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
@@ -8,20 +9,24 @@ import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/pedidoitem/pedidoitem_list.dart';
-import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
-import 'package:nosso/src/paginas/pedidoitem/pedito_itens_pdv.dart';
+import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
+import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
+import 'package:nosso/src/paginas/produto/produto_tab.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/snackbar/snackbar_global.dart';
+import 'package:nosso/src/util/validador/validador_pedido_item.dart';
 
 class CaixaPageHome extends StatefulWidget {
   @override
   _CaixaPageHomeState createState() => _CaixaPageHomeState();
 }
 
-class _CaixaPageHomeState extends State<CaixaPageHome> {
+class _CaixaPageHomeState extends State<CaixaPageHome>
+    with ValidadorPedidoItem {
   var produtoController = GetIt.I.get<ProdutoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var focusScopeNode = FocusScopeNode();
+  var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
 
   Produto p;
   PedidoItem pedidoItem;
@@ -86,47 +91,51 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
         print("Valor total: ${pedidoItem.valorTotal}");
         print("Valor total: ${valorTotalController.text}");
         print("Descrição: ${p.descricao}");
-
-        if (pedidoItemController.isExisteItem(new PedidoItem(produto: p))) {
-          showSnackbar(context, "${p.nome} já existe");
-          pedidoItemController.calculateTotal();
-        } else {
-          pedidoItemController.adicionar(new PedidoItem(produto: p));
-          showSnackbar(context, "${p.nome} adicionado");
-          double total = pedidoItemController.total;
-          valorPedidoController.text = total.toStringAsFixed(2);
-          pedidoItemController.calculateTotal();
-          PedidoItensListPDV();
-        }
       });
     }
   }
 
-  atualizaQuantidade(int valor) {
+  adicionaItem(PedidoItem pedidoItem) {
     setState(() {
-      pedidoItemController.quantidade = valor;
+      if (pedidoItemController.isExisteItem(new PedidoItem(produto: p))) {
+        pedidoItemController.remove(pedidoItem);
+        pedidoItemController.itens;
+        // pedidoItemController.adicionar(new PedidoItem(produto: p));
 
-      pedidoItem.valorUnitario = p.estoque.valor;
-      pedidoItem.quantidade = int.tryParse(quantidadeController.text);
-      pedidoItem.valorTotal =
-          (pedidoItem.quantidade * pedidoItem.valorUnitario);
-
-      valorUnitarioController.text =
-          pedidoItem.valorUnitario.toStringAsFixed(2);
-      valorTotalController.text = pedidoItem.valorTotal.toStringAsFixed(2);
-
-      pedidoItemController.calculateTotal();
-
-      pedidoItemController.quantidade = pedidoItem.quantidade;
-
-      print("Quantidade: ${pedidoItem.quantidade}");
-      print("Valor unitário: ${pedidoItem.valorUnitario}");
-      print("Valor total: ${pedidoItem.valorTotal}");
-      print("Valor total: ${valorTotalController.text}");
-      print("Descrição: ${p.descricao}");
-
-      PedidoItensList();
+        showSnackbar(context, " removido");
+        pedidoItemController.calculateTotal();
+      } else {
+        pedidoItemController.adicionar(new PedidoItem(produto: p));
+        showSnackbar(context, "${p.nome} adicionado");
+        double total = pedidoItemController.total;
+        valorPedidoController.text = total.toStringAsFixed(2);
+        pedidoItemController.calculateTotal();
+      }
     });
+  }
+
+  removeItem(PedidoItem pedidoItem) {
+    setState(() {
+      pedidoItemController.remove(pedidoItem);
+      pedidoItemController.itens;
+      showSnackbar(context, "item removido");
+      pedidoItemController.calculateTotal();
+    });
+  }
+
+  selecionaItem(PedidoItem p) {
+    codigoBarraController.text = p.produto.codigoBarra;
+    quantidadeController.text = p.quantidade.toStringAsFixed(0);
+    valorUnitarioController.text = p.valorUnitario.toStringAsFixed(2);
+    valorTotalController.text = p.valorTotal.toStringAsFixed(2);
+
+    print("Código de barra: ${p.produto.codigoBarra}");
+    print("Descrição: ${p.produto.descricao}");
+    print("Quantidade: ${p.quantidade}");
+    print("Valor unitário: ${p.valorUnitario}");
+    print("Valor total: ${p.valorTotal}");
+
+    print("Foto: ${p.produto.foto}");
   }
 
   @override
@@ -164,14 +173,23 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
           IconButton(
             icon: Icon(Icons.refresh_rounded),
             onPressed: () {
-              pedidoItemController.pedidosItens();
+              setState(() {
+                print("itens: ${pedidoItemController.itens.length}");
+                pedidoItemController.pedidosItens();
+              });
             },
           ),
           SizedBox(width: 20),
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined),
             onPressed: () {
-              pedidoItemController.pedidosItens();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return ItemPage();
+                  },
+                ),
+              );
             },
           ),
           SizedBox(width: 20),
@@ -310,15 +328,16 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           ),
                                           TextFormField(
                                             controller: codigoBarraController,
-                                            onSaved: (value) =>
-                                                p.codigoBarra = value,
                                             onFieldSubmitted: (valor) {
-                                              setState(() {
-                                                codigoBarraController.text =
-                                                    valor;
-                                                buscarByCodigoDeBarra(
-                                                    codigoBarraController.text);
-                                              });
+                                              if (controller.validate()) {
+                                                setState(() {
+                                                  codigoBarraController.text =
+                                                      valor;
+                                                  buscarByCodigoDeBarra(
+                                                      codigoBarraController
+                                                          .text);
+                                                });
+                                              }
                                             },
                                             decoration: InputDecoration(
                                               contentPadding:
@@ -354,14 +373,6 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           ),
                                           TextFormField(
                                             controller: quantidadeController,
-                                            onFieldSubmitted: (valor) {
-                                              quantidadeController.text = valor;
-                                              atualizaQuantidade(
-                                                  int.tryParse(valor));
-                                            },
-                                            onSaved: (value) =>
-                                                p.estoque.quantidade =
-                                                    int.tryParse(value),
                                             decoration: InputDecoration(
                                               suffixIcon: IconButton(
                                                 onPressed: () =>
@@ -402,8 +413,6 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           ),
                                           TextFormField(
                                             controller: valorUnitarioController,
-                                            onSaved: (value) => p.estoque
-                                                .valor = double.tryParse(value),
                                             decoration: InputDecoration(
                                               suffixIcon: IconButton(
                                                 onPressed: () =>
@@ -444,33 +453,6 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                           ),
                                           TextFormField(
                                             controller: valorTotalController,
-                                            onFieldSubmitted: (valor) {
-                                              setState(() {
-                                                if (pedidoItemController
-                                                    .isExisteItem(
-                                                        new PedidoItem(
-                                                            produto: p))) {
-                                                  showSnackbar(context,
-                                                      "${p.nome} já existe");
-                                                  pedidoItemController
-                                                      .calculateTotal();
-                                                } else {
-                                                  pedidoItemController
-                                                      .adicionar(new PedidoItem(
-                                                          produto: p));
-                                                  showSnackbar(context,
-                                                      "${p.nome} adicionado");
-                                                  double total =
-                                                      pedidoItemController
-                                                          .total;
-                                                  valorPedidoController.text =
-                                                      total.toStringAsFixed(2);
-                                                  pedidoItemController
-                                                      .calculateTotal();
-                                                  PedidoItensListPDV();
-                                                }
-                                              });
-                                            },
                                             decoration: InputDecoration(
                                               suffixIcon: IconButton(
                                                 onPressed: () =>
@@ -526,7 +508,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                       title: Text("descrição"),
                                       subtitle: p.nome == null
                                           ? Text(
-                                              "Produto",
+                                              "CAIXA VAZIO",
                                               style: TextStyle(fontSize: 40),
                                             )
                                           : Text(
@@ -540,6 +522,66 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                     decoration: BoxDecoration(
                                       color: Colors.grey[200],
                                       border: Border.all(color: Colors.white),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        FlatButton.icon(
+                                          minWidth: 320,
+                                          height: 60,
+                                          icon: Icon(Icons.delete_outline),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(0),
+                                            side:
+                                                BorderSide(color: Colors.grey),
+                                          ),
+                                          color: Colors.white,
+                                          textColor: Colors.grey,
+                                          padding: EdgeInsets.all(10),
+                                          onPressed: () {
+                                            showDialogAlertCancelar(context);
+                                          },
+                                          label: Text(
+                                            "CANCELAR".toUpperCase(),
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                            ),
+                                          ),
+                                        ),
+                                        FlatButton.icon(
+                                          minWidth: 320,
+                                          height: 60,
+                                          icon: Icon(
+                                              Icons.shopping_cart_outlined),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(0),
+                                            side:
+                                                BorderSide(color: Colors.green),
+                                          ),
+                                          color: Colors.white,
+                                          textColor: Colors.green,
+                                          padding: EdgeInsets.all(10),
+                                          onPressed: () {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return PedidoCreatePage();
+                                                },
+                                              ),
+                                            );
+                                          },
+                                          label: Text(
+                                            "FECHAR VENDA".toUpperCase(),
+                                            style: TextStyle(
+                                              fontSize: 14.0,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
@@ -571,9 +613,9 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                 color: Colors.grey[100],
                                 border: Border.all(color: Colors.white),
                               ),
-                              height: 435,
+                              height: 535,
                               width: double.infinity,
-                              child: PedidoItensListPDV(),
+                              child: builderConteudoList(),
                             ),
                             Expanded(
                               child: Container(
@@ -587,7 +629,10 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                   children: [
                                     Container(
                                       height: 100,
-                                      color: Colors.grey[200],
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(color: Colors.white),
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceAround,
@@ -598,7 +643,8 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                             child: ListTile(
                                               title: Text("Volumes"),
                                               subtitle: TextFormField(
-                                                controller: totalVolumesController,
+                                                controller:
+                                                    totalVolumesController,
                                                 decoration: InputDecoration(
                                                   contentPadding:
                                                       EdgeInsets.symmetric(
@@ -701,29 +747,6 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
                                         ],
                                       ),
                                     ),
-                                    Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Container(
-                                            height: 100,
-                                            width: 300,
-                                            color: Colors.transparent,
-                                          ),
-                                          Container(
-                                            height: 100,
-                                            width: 300,
-                                            color: Colors.transparent,
-                                          )
-                                        ],
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -739,6 +762,289 @@ class _CaixaPageHomeState extends State<CaixaPageHome> {
           ],
         ),
       ),
+    );
+  }
+
+  builderConteudoList() {
+    return Container(
+      padding: EdgeInsets.only(top: 0),
+      child: Observer(
+        builder: (context) {
+          List<PedidoItem> itens = pedidoItemController.itens;
+          if (pedidoItemController.error != null) {
+            return Text("Não foi possível carregados dados");
+          }
+
+          if (itens == null) {
+            return CircularProgressor();
+          }
+
+          if (itens.length == 0) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: Icon(
+                      Icons.shopping_basket,
+                      color: Colors.green,
+                      size: 100,
+                    ),
+                  ),
+                  Text("Sua cesta está vazia"),
+                  SizedBox(height: 20),
+                  RaisedButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ProdutoTab();
+                          },
+                        ),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                      side: BorderSide(color: Colors.blue),
+                    ),
+                    color: Colors.white,
+                    textColor: Colors.green,
+                    padding: EdgeInsets.all(10),
+                    icon: Icon(
+                      Icons.home,
+                      color: Colors.blue,
+                    ),
+                    label: Text(
+                      "ESCOLHER PRODUTOS",
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    elevation: 0,
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return builderTable(itens);
+        },
+      ),
+    );
+  }
+
+  builderTable(List<PedidoItem> itens) {
+    return DataTable(
+      sortAscending: true,
+      showCheckboxColumn: true,
+      showBottomBorder: true,
+      columns: [
+        DataColumn(label: Text("Código")),
+        DataColumn(label: Text("Quantidade")),
+        DataColumn(label: Text("Valor Unit.")),
+        DataColumn(label: Text("Descrição")),
+        DataColumn(label: Text("Valor Total")),
+        DataColumn(label: Text("Excluir"))
+      ],
+      rows: itens
+          .map(
+            (p) => DataRow(
+              onSelectChanged: (i) {
+                setState(() {
+                  selecionaItem(p);
+                });
+              },
+              cells: [
+                DataCell(
+                  Text("${p.produto.id}"),
+                ),
+                DataCell(
+                  Text("${p.quantidade}"),
+                ),
+                DataCell(
+                  Text(
+                    "R\$ ${formatMoeda.format(p.valorUnitario)}",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                DataCell(Text(p.produto.nome)),
+                DataCell(
+                  Text(
+                    "R\$ ${formatMoeda.format(p.valorTotal)}",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+                DataCell(
+                  IconButton(
+                    icon: Icon(Icons.delete_outline),
+                    onPressed: () {
+                      showDialogAlertExcluir(context, p);
+                    },
+                  ),
+                )
+              ],
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  showDialogAlertExcluir(BuildContext context, PedidoItem p) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button for close dialog!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "Deseja remover este item?",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Container(
+            height: 200,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("${p.produto.nome}"),
+                Text("Cod: ${p.produto.id}"),
+                SizedBox(
+                  height: 20,
+                ),
+                Center(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      ConstantApi.urlArquivoProduto + p.produto.foto,
+                      fit: BoxFit.cover,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            RaisedButton.icon(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.grey,
+              ),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
+              ),
+              label: Text('CANCELAR'),
+              color: Colors.white,
+              elevation: 0,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            RaisedButton.icon(
+              icon: Icon(
+                Icons.restore_from_trash,
+                color: Colors.green,
+              ),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.green),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
+              ),
+              label: Text('EXCLUIR'),
+              color: Colors.white,
+              elevation: 0,
+              onPressed: () {
+                setState(() {
+                  pedidoItemController.remove(p);
+                  pedidoItemController.itens;
+                });
+
+                // showSnackbar(context, "Produto ${p.produto.nome} removido");
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  showDialogAlertCancelar(BuildContext context) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button for close dialog!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actionsPadding: EdgeInsets.all(10),
+          title: Text(
+            "Deseja cancelar esta venda?",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Container(
+            height: 150,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Center(
+                  child: Icon(
+                    Icons.mood_bad_outlined,
+                    size: 100,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            RaisedButton.icon(
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.grey,
+              ),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
+              ),
+              label: Text('NÃO'),
+              color: Colors.white,
+              elevation: 0,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            RaisedButton.icon(
+              icon: Icon(
+                Icons.restore_from_trash,
+                color: Colors.green,
+              ),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.green),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
+                ),
+              ),
+              label: Text('SIM'),
+              color: Colors.white,
+              elevation: 0,
+              onPressed: () {
+                setState(() {
+                  pedidoItemController.itens.clear();
+                  pedidoItemController.itens;
+                  valorPedidoController.clear();
+                  pedidoItem = new PedidoItem(produto: new Produto());
+                });
+
+                // showSnackbar(context, "Produto ${p.produto.nome} removido");
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
