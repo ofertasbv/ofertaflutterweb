@@ -102,7 +102,7 @@ abstract class PedidoItemControllerBase with Store {
     item.quantidade = quantidade;
     print("Qunatidade: ${item.quantidade}");
     if (item.quantidade > 0) {
-      item.valorUnitario = item.produto.estoque.valor;
+      item.valorUnitario = item.produto.estoque.valorUnitario;
       item.valorTotal = item.quantidade * item.valorUnitario;
       itens.add(item);
       calculateTotal();

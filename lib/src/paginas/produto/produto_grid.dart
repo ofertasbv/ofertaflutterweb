@@ -247,7 +247,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                       height: 60,
                       child: ListTile(
                         title: Text(
-                          "${formatMoeda.format(p.estoque.valor)}",
+                          "${formatMoeda.format(p.estoque.valorUnitario)}",
                           style: TextStyle(
                             fontSize: 12,
                             decoration: TextDecoration.lineThrough,
@@ -255,7 +255,7 @@ class _ProdutoGridState extends State<ProdutoGrid>
                           ),
                         ),
                         subtitle: Text(
-                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+                          "R\$ ${formatMoeda.format(p.estoque.valorUnitario - ((p.estoque.valorUnitario * p.promocao.desconto) / 100))}",
                           style: TextStyle(
                             color: Colors.green,
                             fontSize: 12,

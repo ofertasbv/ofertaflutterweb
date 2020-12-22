@@ -76,13 +76,15 @@ class _DialogLojaState extends State<DialogLoja> {
                     ),
                     borderRadius: BorderRadius.circular(35),
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    radius: 15,
-                    backgroundImage: NetworkImage(
-                      "${lojaController.arquivo + c.foto}",
-                    ),
-                  ),
+                  child: c.foto != null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.grey[100],
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                            "${lojaController.arquivo + c.foto}",
+                          ),
+                        )
+                      : CircleAvatar(),
                 ),
                 title: Text(c.nome),
               ),

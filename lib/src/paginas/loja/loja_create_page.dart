@@ -28,7 +28,7 @@ class LojaCreatePage extends StatefulWidget {
   _LojaCreatePageState createState() => _LojaCreatePageState(p: this.loja);
 }
 
-class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja{
+class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
   _LojaCreatePageState({this.p});
 
   var lojaController = GetIt.I.get<LojaController>();
@@ -489,13 +489,13 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja{
         Container(
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(Icons.check),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  // openBottomSheet(context);
-                } else {
+              label: Text("Enviar formulário"),
+              icon: Icon(Icons.check),
+              onPressed: () {
+                if (controller.validate()) {
+                  // if (p.foto == null) {
+                  //   // openBottomSheet(context);
+                  // } else {
                   if (p.id == null) {
                     if (senhaController.text != confirmaSenhaController.text) {
                       showSnackbar(context, "senha diferentes");
@@ -553,8 +553,8 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja{
                   }
                 }
               }
-            },
-          ),
+              // },
+              ),
         ),
         SizedBox(height: 10),
         Container(

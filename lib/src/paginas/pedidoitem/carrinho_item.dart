@@ -47,7 +47,7 @@ class CarrinhoItem {
   calculateTotal() {
     total = 0;
     itens.forEach((x) {
-      total += (x.quantidade * x.produto.estoque.valor);
+      total += (x.quantidade * x.produto.estoque.valorUnitario);
     });
   }
 }

@@ -157,7 +157,7 @@ class _LojaProdutoPageState extends State<LojaProdutoPage> {
             ),
             title: Text(p.nome),
             subtitle: Text(
-              "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))}",
+              "R\$ ${formatMoeda.format(p.estoque.valorUnitario - ((p.estoque.valorUnitario * p.promocao.desconto) / 100))}",
               style: TextStyle(
                   color: Colors.green,
                   fontSize: 14,

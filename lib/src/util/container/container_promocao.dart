@@ -23,7 +23,10 @@ class ContainerPromocao extends StatelessWidget {
         padding: EdgeInsets.all(1),
         decoration: new BoxDecoration(
           gradient: LinearGradient(
-            colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
+            colors: [
+              Theme.of(context).primaryColor,
+              Theme.of(context).primaryColor
+            ],
           ),
           border: Border.all(
             color: Colors.black,
@@ -31,13 +34,15 @@ class ContainerPromocao extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(35),
         ),
-        child: CircleAvatar(
-          backgroundColor: Colors.grey[100],
-          radius: 20,
-          backgroundImage: NetworkImage(
-            "${promoCaoController.arquivo + p.foto}",
-          ),
-        ),
+        child: p.foto != null
+            ? CircleAvatar(
+                backgroundColor: Colors.grey[100],
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  "${promoCaoController.arquivo + p.foto}",
+                ),
+              )
+            : CircleAvatar(),
       ),
       title: Text(p.nome),
       subtitle: Text("R\$ ${formatMoeda.format(p.desconto)} OFF"),

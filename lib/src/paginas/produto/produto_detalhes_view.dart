@@ -215,7 +215,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
               Container(
                 child: ListTile(
                   title: Text(
-                    "De ${formatMoeda.format(p.estoque.valor)}",
+                    "De ${formatMoeda.format(p.estoque.valorUnitario)}",
                     style: TextStyle(
                       fontSize: 14,
                       decoration: TextDecoration.lineThrough,
@@ -223,7 +223,7 @@ class _ProdutoDetalhesViewState extends State<ProdutoDetalhesView>
                     ),
                   ),
                   subtitle: Text(
-                    "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                    "R\$ ${formatMoeda.format(p.estoque.valorUnitario - ((p.estoque.valorUnitario * p.promocao.desconto) / 100))} a vista",
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.bold,

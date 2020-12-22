@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -81,8 +82,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
   Controller controller;
   var controllerCodigoBarra = TextEditingController();
   var controllerQuantidade = TextEditingController();
-  var controllerValor = TextEditingController();
+  var controllerValorUnitario = TextEditingController();
   var controllerDesconto = TextEditingController();
+  var controllerPecentual = TextEditingController();
+  var controllerValorVenda = TextEditingController();
 
   var uploadFileResponse = UploadFileResponse();
   var response = UploadRespnse();
@@ -129,7 +132,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
       // produtoController.tamanhoSelecionados = p.tamanhos;
 
       controllerQuantidade.text = p.estoque.quantidade.toStringAsFixed(0);
-      controllerValor.text = p.estoque.valor.toStringAsFixed(2);
+      controllerValorUnitario.text = p.estoque.valorUnitario.toStringAsFixed(2);
+      controllerValorVenda.text = p.estoque.valorVenda.toStringAsFixed(2);
+      controllerPecentual.text = p.estoque.percentual.toStringAsFixed(2);
     }
 
     produtoController.getAll();
@@ -437,7 +442,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           labelText:
                               "Entre com código de barra ou clique (scanner)",
                           hintText: "Código de barra",
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -589,14 +595,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        controller: controllerValor,
+                        controller: controllerValorUnitario,
                         onSaved: (value) {
-                          p.estoque.valor = double.tryParse(value);
+                          p.estoque.valorUnitario = double.tryParse(value);
                         },
-                        validator: validatePreco,
+                        validator: validateValorUnitario,
                         decoration: InputDecoration(
-                          labelText: "Valor",
-                          hintText: "valor",
+                          labelText: "Valor unitário",
+                          hintText: "Valor unitário",
                           prefixIcon: Icon(
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
@@ -616,6 +622,136 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         maxLength: 10,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: controllerPecentual,
+                        onSaved: (value) {
+                          p.estoque.percentual = double.tryParse(value);
+                        },
+                        validator: validatePercentual,
+                        decoration: InputDecoration(
+                          labelText: "Percentual de ganho",
+                          hintText: "Percentual de ganho",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        maxLength: 10,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: controllerValorVenda,
+                        onSaved: (value) {
+                          p.estoque.valorVenda = double.tryParse(value);
+                        },
+                        validator: validateValorVenda,
+                        decoration: InputDecoration(
+                          labelText: "Valor de venda",
+                          hintText: "Valor de venda",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        maxLength: 10,
+                      ),
+                      SizedBox(height: 10),
+                      DateTimeField(
+                        initialValue: p.estoque.dataRegistro,
+                        format: dateFormat,
+                        validator: validateDateRegistro,
+                        onSaved: (value) => p.dataRegistro = value,
+                        decoration: InputDecoration(
+                          labelText: "Data registro",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(
+                            Icons.calendar_today,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
+                      ),
+                      SizedBox(height: 20),
+                      DateTimeField(
+                        initialValue: p.estoque.dataVencimento,
+                        format: dateFormat,
+                        validator: validateDateVencimento,
+                        onSaved: (value) => p.dataRegistro = value,
+                        decoration: InputDecoration(
+                          labelText: "Data vencimento",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(
+                            Icons.calendar_today,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -1013,7 +1149,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       print("Código de Barra: ${p.codigoBarra}");
                       print("Produto: ${p.nome}");
                       print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
+                      print("Valor: ${p.estoque.valorUnitario}");
 
                       print("Novo: ${p.novo}");
                       print("Status: ${p.status}");
@@ -1055,7 +1191,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       print("Código de Barra: ${p.codigoBarra}");
                       print("Produto: ${p.nome}");
                       print("Quantidade: ${p.estoque.quantidade}");
-                      print("Valor: ${p.estoque.valor}");
+                      print("Valor: ${p.estoque.valorUnitario}");
 
                       print("Novo: ${p.novo}");
                       print("Status: ${p.status}");
@@ -1077,7 +1213,12 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
 
                       p.estoque.quantidade =
                           int.tryParse(controllerQuantidade.text);
-                      p.estoque.valor = double.tryParse(controllerValor.text);
+                      p.estoque.valorUnitario =
+                          double.tryParse(controllerValorUnitario.text);
+                      p.estoque.valorVenda =
+                          double.tryParse(controllerValorVenda.text);
+                      p.estoque.percentual =
+                          double.tryParse(controllerPecentual.text);
 
                       produtoController.update(p.id, p);
                       Navigator.of(context).pop();

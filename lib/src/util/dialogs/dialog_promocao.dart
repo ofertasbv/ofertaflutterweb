@@ -78,13 +78,15 @@ class _DialogPromocaoState extends State<DialogPromocao> {
                     ),
                     borderRadius: BorderRadius.circular(35),
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    radius: 15,
-                    backgroundImage: NetworkImage(
-                      "${promocaoController.arquivo + c.foto}",
-                    ),
-                  ),
+                  child: c.foto != null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.grey[100],
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                            "${promocaoController.arquivo + c.foto}",
+                          ),
+                        )
+                      : CircleAvatar(),
                 ),
                 title: Text(c.nome),
               ),

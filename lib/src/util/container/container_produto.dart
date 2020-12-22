@@ -120,7 +120,7 @@ class ContainerProduto extends StatelessWidget {
                     Container(
                       child: ListTile(
                         title: Text(
-                          "R\$ ${formatMoeda.format(p.estoque.valor)}",
+                          "R\$ ${formatMoeda.format(p.estoque.valorUnitario)}",
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.grey,
@@ -130,7 +130,7 @@ class ContainerProduto extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "R\$ ${formatMoeda.format(p.estoque.valor - ((p.estoque.valor * p.promocao.desconto) / 100))} a vista",
+                          "R\$ ${formatMoeda.format(p.estoque.valorUnitario - ((p.estoque.valorUnitario * p.promocao.desconto) / 100))} a vista",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.green,

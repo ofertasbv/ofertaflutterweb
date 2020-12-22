@@ -73,7 +73,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
 
     if (p != null) {
       setState(() {
-        pedidoItem.valorUnitario = p.estoque.valor;
+        pedidoItem.valorUnitario = p.estoque.valorUnitario;
         pedidoItem.quantidade = int.tryParse(quantidadeController.text);
         pedidoItem.valorTotal =
             (pedidoItem.quantidade * pedidoItem.valorUnitario);

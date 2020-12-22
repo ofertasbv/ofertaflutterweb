@@ -76,13 +76,15 @@ class _DialogCategoriaState extends State<DialogCategoria> {
                     ),
                     borderRadius: BorderRadius.circular(35),
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[100],
-                    radius: 15,
-                    backgroundImage: NetworkImage(
-                      "${categoriaController.arquivo + c.foto}",
-                    ),
-                  ),
+                  child: c.foto != null
+                      ? CircleAvatar(
+                          backgroundColor: Colors.grey[100],
+                          radius: 20,
+                          backgroundImage: NetworkImage(
+                            "${categoriaController.arquivo + c.foto}",
+                          ),
+                        )
+                      : CircleAvatar(),
                 ),
                 title: Text(c.nome),
               ),

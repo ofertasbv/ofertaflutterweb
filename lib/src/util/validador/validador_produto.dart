@@ -34,13 +34,49 @@ class ValidadorProduto {
     return null;
   }
 
-  String validatePreco(String text) {
+  String validateValorUnitario(String text) {
     double price = double.tryParse(text);
     if (price != null) {
       if (!text.contains(".") || text.split(".")[1].length != 2)
         return "Utilize 2 casas decimais";
     } else {
       return "Valor inválido";
+    }
+    return null;
+  }
+
+  String validateValorVenda(String text) {
+    double price = double.tryParse(text);
+    if (price != null) {
+      if (!text.contains(".") || text.split(".")[1].length != 2)
+        return "Utilize 2 casas decimais";
+    } else {
+      return "Valor inválido";
+    }
+    return null;
+  }
+
+  String validatePercentual(String text) {
+    double price = double.tryParse(text);
+    if (price != null) {
+      if (!text.contains(".") || text.split(".")[1].length != 2)
+        return "Utilize 2 casas decimais";
+    } else {
+      return "Valor inválido";
+    }
+    return null;
+  }
+
+  String validateDateRegistro(DateTime dataRegistro) {
+    if (dataRegistro == null) {
+      return "Preencha a data registro";
+    }
+    return null;
+  }
+
+  String validateDateVencimento(DateTime dataRegistro) {
+    if (dataRegistro == null) {
+      return "Preencha a data de vencimento";
     }
     return null;
   }
