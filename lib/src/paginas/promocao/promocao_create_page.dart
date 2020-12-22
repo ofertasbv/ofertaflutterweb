@@ -14,13 +14,16 @@ import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
+import 'package:nosso/src/core/controller/promocaotipo_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/promocao.dart';
+import 'package:nosso/src/core/model/promocaotipo.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
 import 'package:nosso/src/util/componentes/image_source_sheet.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
+import 'package:nosso/src/util/dropdown/dropdown_promocaotipo.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
 import 'package:nosso/src/util/validador/validador_promocao.dart';
@@ -40,6 +43,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
   _PromocaoCreatePageState({this.p});
 
   var promocaoController = GetIt.I.get<PromoCaoController>();
+  var promocaoTipoController = GetIt.I.get<PromocaoTipoController>();
   var lojaController = GetIt.I.get<LojaController>();
   var uploadFileResponse = UploadFileResponse();
   var response = UploadRespnse();
@@ -47,6 +51,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
   Dialogs dialogs = Dialogs();
 
   Promocao p;
+  PromocaoTipo promocaoTipo;
   Loja lojaSelecionada;
   File file;
 
@@ -376,7 +381,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                         onSaved: (value) => p.desconto = double.tryParse(value),
                         validator: validateDesconto,
                         decoration: InputDecoration(
-                          labelText: "Desconto",
+                          labelText: "Percentual de desconto",
                           hintText: "deconto",
                           prefixIcon: Icon(
                             Icons.monetization_on,
@@ -507,6 +512,40 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                   ),
                 ),
                 SizedBox(height: 0),
+                DropDownPromocaoTipo(promocaoTipo),
+                Observer(
+                  builder: (context) {
+                    if (promocaoTipoController.promocaoTipoSelecionada ==
+                        null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: promocaoTipoController.mensagem == null
+                              ? Text(
+                                  "campo obrigatório *",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  "${lojaController.mensagem}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
                 DropDownLoja(lojaSelecionada),
                 Observer(
                   builder: (context) {

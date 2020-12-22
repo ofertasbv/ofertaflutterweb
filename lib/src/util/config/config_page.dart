@@ -16,6 +16,7 @@ import 'package:nosso/src/paginas/pedidoitem/pedidoitem_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/paginas/promocao/promocao_page.dart';
+import 'package:nosso/src/paginas/promocaotipo/promocaotipo_page.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
@@ -437,7 +438,40 @@ class _ConfigPageState extends State<ConfigPage> {
                 ),
                 padding: EdgeInsets.all(10),
               ),
-              Text("Oferta", style: TextStyle(fontSize: 12)),
+              Text("Promoção", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PromocaoTipoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.grey[500],
+                  foregroundColor: Colors.white,
+                  radius: 20,
+                  child: Icon(
+                    Icons.add_alert_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Promoção tipo", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

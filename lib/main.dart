@@ -17,6 +17,7 @@ import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/pedido_controller.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
+import 'package:nosso/src/core/controller/promocaotipo_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 
@@ -32,6 +33,7 @@ void main() async {
   getIt.registerSingleton<CategoriaController>(CategoriaController());
   getIt.registerSingleton<SubCategoriaController>(SubCategoriaController());
   getIt.registerSingleton<PromoCaoController>(PromoCaoController());
+  getIt.registerSingleton<PromocaoTipoController>(PromocaoTipoController());
   getIt.registerSingleton<ProdutoController>(ProdutoController());
   getIt.registerSingleton<EnderecoController>(EnderecoController());
   getIt.registerSingleton<PedidoController>(PedidoController());
@@ -62,7 +64,6 @@ void main() async {
       // ícones da barra inferior
 
       statusBarBrightness: Brightness.dark,
-
     ),
   );
 
@@ -80,7 +81,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
         accentColor: Colors.blue[200],
         primarySwatch: Colors.green,
-
         cardTheme: CardTheme(
           elevation: 0,
           color: Colors.transparent,
@@ -91,7 +91,6 @@ class MyApp extends StatelessWidget {
             side: BorderSide(color: Colors.grey[100], width: 1),
           ),
         ),
-
         buttonTheme: ButtonThemeData(
           splashColor: Colors.black,
           textTheme: ButtonTextTheme.primary,
