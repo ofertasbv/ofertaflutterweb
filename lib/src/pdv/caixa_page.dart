@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -323,8 +325,11 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Código de Barra",
-                                            style: TextStyle(fontSize: 20),
+                                            "CÓDIGO DE BARRA",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           TextFormField(
                                             controller: codigoBarraController,
@@ -342,7 +347,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             decoration: InputDecoration(
                                               contentPadding:
                                                   EdgeInsets.symmetric(
-                                                      vertical: 30.0,
+                                                      vertical: 25.0,
                                                       horizontal: 10.0),
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -368,8 +373,11 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Quantidade",
-                                            style: TextStyle(fontSize: 20),
+                                            "QUANTIDADE",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           TextFormField(
                                             controller: quantidadeController,
@@ -382,7 +390,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                               ),
                                               contentPadding:
                                                   EdgeInsets.symmetric(
-                                                      vertical: 30.0,
+                                                      vertical: 25.0,
                                                       horizontal: 10.0),
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -408,8 +416,11 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Valor Unitário",
-                                            style: TextStyle(fontSize: 20),
+                                            "VALOR UNITÁRIO",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           TextFormField(
                                             controller: valorUnitarioController,
@@ -422,7 +433,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                               ),
                                               contentPadding:
                                                   EdgeInsets.symmetric(
-                                                      vertical: 30.0,
+                                                      vertical: 25.0,
                                                       horizontal: 10.0),
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -448,8 +459,11 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Valor Total",
-                                            style: TextStyle(fontSize: 20),
+                                            "TOTAL DO ITEM",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                           TextFormField(
                                             controller: valorTotalController,
@@ -462,7 +476,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                               ),
                                               contentPadding:
                                                   EdgeInsets.symmetric(
-                                                      vertical: 30.0,
+                                                      vertical: 25.0,
                                                       horizontal: 10.0),
                                               border: OutlineInputBorder(
                                                 borderRadius:
@@ -604,7 +618,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                             Container(
                               height: 50,
                               child: Text(
-                                  " ===================================== CUPOM FISCAL ===================================== "),
+                                  " ------------- CUPOM FISCAL ------------- "),
                               alignment: Alignment.center,
                             ),
                             Divider(),
@@ -629,55 +643,70 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                   children: [
                                     Container(
                                       height: 100,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        border: Border.all(color: Colors.white),
+                                      ),
+                                      child: Container(
+                                        height: 100,
+                                        width: 300,
+                                        child: ListTile(
+                                          title: Text(
+                                            "SUBTOTAL",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          subtitle: TextFormField(
+                                            controller: valorPedidoController,
+                                            decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 25.0,
+                                                      horizontal: 10.0),
+                                              filled: true,
+                                              suffixIcon: Icon(Icons.close),
+                                              labelStyle: TextStyle(
+                                                  color: Colors.black),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.lime[900]),
+                                                gapPadding: 1,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 100,
                                       decoration: BoxDecoration(
                                         color: Colors.grey[200],
                                         border: Border.all(color: Colors.white),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             height: 100,
                                             width: 300,
                                             child: ListTile(
-                                              title: Text("Volumes"),
-                                              subtitle: TextFormField(
-                                                controller:
-                                                    totalVolumesController,
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 25.0,
-                                                          horizontal: 10.0),
-                                                  filled: true,
-                                                  suffixIcon: Icon(Icons.close),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.lime[900]),
-                                                    gapPadding: 1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
+                                              title: Text(
+                                                "TOTAL RECEBIDO",
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 100,
-                                            width: 300,
-                                            child: ListTile(
-                                              title: Text("Desconto"),
                                               subtitle: TextFormField(
                                                 controller: descontoController,
                                                 decoration: InputDecoration(
@@ -712,7 +741,13 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                                             height: 100,
                                             width: 300,
                                             child: ListTile(
-                                              title: Text("Valor em Vendas"),
+                                              title: Text(
+                                                "TROCO",
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
                                               subtitle: TextFormField(
                                                 controller:
                                                     valorPedidoController,
@@ -792,36 +827,6 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                     ),
                   ),
                   Text("Sua cesta está vazia"),
-                  SizedBox(height: 20),
-                  RaisedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ProdutoTab();
-                          },
-                        ),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                      side: BorderSide(color: Colors.blue),
-                    ),
-                    color: Colors.white,
-                    textColor: Colors.green,
-                    padding: EdgeInsets.all(10),
-                    icon: Icon(
-                      Icons.home,
-                      color: Colors.blue,
-                    ),
-                    label: Text(
-                      "ESCOLHER PRODUTOS",
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    elevation: 0,
-                  ),
                 ],
               ),
             );
