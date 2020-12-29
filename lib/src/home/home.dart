@@ -3,14 +3,12 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/main.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/home/catalogo_home.dart';
 import 'package:nosso/src/home/drawer_list.dart';
 import 'package:nosso/src/paginas/categoria/categoria_subcategoria.dart';
 import 'package:nosso/src/paginas/loja/loja_list.dart';
-import 'package:nosso/src/paginas/loja/loja_location.dart';
 import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/paginas/promocao/promocao_list.dart';
@@ -203,12 +201,12 @@ class _HomePageState extends State<HomePage>
                 child: new Text('Não'),
               ),
               FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyApp()),
-                  );
-                },
+                // onPressed: () {
+                //   Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => MyApp()),
+                //   );
+                // },
                 child: new Text('Sim'),
               ),
             ],

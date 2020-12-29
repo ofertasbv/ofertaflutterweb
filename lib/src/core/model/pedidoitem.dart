@@ -4,35 +4,27 @@ class PedidoItem {
   int id;
   double valorUnitario;
   int quantidade;
-  String dataRegistro;
+  DateTime dataRegistro;
   Produto produto;
   double valorTotal;
-  bool estoqueSuficiente;
-  bool produtoAssociado;
-  bool estoqueInsuficiente;
 
-  PedidoItem(
-      {this.id,
-      this.valorUnitario,
-      this.quantidade,
-      this.dataRegistro,
-      this.produto,
-      this.valorTotal,
-      this.estoqueSuficiente,
-      this.produtoAssociado,
-      this.estoqueInsuficiente});
+  PedidoItem({
+    this.id,
+    this.valorUnitario,
+    this.quantidade,
+    this.dataRegistro,
+    this.produto,
+    this.valorTotal,
+  });
 
   PedidoItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     valorUnitario = json['valorUnitario'];
     quantidade = json['quantidade'];
-    dataRegistro = json['dataRegistro'];
+    dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     produto =
         json['produto'] != null ? new Produto.fromJson(json['produto']) : null;
     valorTotal = json['valorTotal'];
-    estoqueSuficiente = json['estoqueSuficiente'];
-    produtoAssociado = json['produtoAssociado'];
-    estoqueInsuficiente = json['estoqueInsuficiente'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,14 +32,11 @@ class PedidoItem {
     data['id'] = this.id;
     data['valorUnitario'] = this.valorUnitario;
     data['quantidade'] = this.quantidade;
-    data['dataRegistro'] = this.dataRegistro;
+    data['dataRegistro'] = this.dataRegistro.toIso8601String();
     if (this.produto != null) {
       data['produto'] = this.produto.toJson();
     }
     data['valorTotal'] = this.valorTotal;
-    data['estoqueSuficiente'] = this.estoqueSuficiente;
-    data['produtoAssociado'] = this.produtoAssociado;
-    data['estoqueInsuficiente'] = this.estoqueInsuficiente;
     return data;
   }
 }

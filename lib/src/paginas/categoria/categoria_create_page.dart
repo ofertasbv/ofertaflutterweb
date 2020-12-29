@@ -335,26 +335,26 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
         Container(
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(Icons.check),
-            onPressed: () {
-              if (controller.validate()) {
-                if (c.foto == null) {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => ImageSourceSheet(
-                      onImageSelected: (image) {
-                        setState(() {
-                          Navigator.of(context).pop();
-                          file = image;
-                          String arquivo = file.path.split('/').last;
-                          print("Image: ${arquivo}");
-                          enableButton();
-                        });
-                      },
-                    ),
-                  );
-                } else {
+              label: Text("Enviar formulário"),
+              icon: Icon(Icons.check),
+              onPressed: () {
+                if (controller.validate()) {
+                  // if (c.foto == null) {
+                  //   showModalBottomSheet(
+                  //     context: context,
+                  //     builder: (context) => ImageSourceSheet(
+                  //       onImageSelected: (image) {
+                  //         setState(() {
+                  //           Navigator.of(context).pop();
+                  //           file = image;
+                  //           String arquivo = file.path.split('/').last;
+                  //           print("Image: ${arquivo}");
+                  //           enableButton();
+                  //         });
+                  //       },
+                  //     ),
+                  //   );
+                  // } else {
                   if (c.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
@@ -376,8 +376,8 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   }
                 }
               }
-            },
-          ),
+              // },
+              ),
         ),
       ],
     );

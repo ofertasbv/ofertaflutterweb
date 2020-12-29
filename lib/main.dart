@@ -24,6 +24,7 @@ import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
+import 'package:nosso/src/core/controller/vendedor_controller.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 
@@ -49,6 +50,7 @@ void main() async {
   getIt.registerSingleton<CorController>(CorController());
   getIt.registerSingleton<FavoritoController>(FavoritoController());
   getIt.registerSingleton<UsuarioController>(UsuarioController());
+  getIt.registerSingleton<VendedorController>(VendedorController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -222,3 +224,51 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter_web_image_picker/flutter_web_image_picker.dart';
+//
+// void main() {
+//   runApp(App());
+// }
+//
+// class App extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: ImagePickerPage(),
+//     );
+//   }
+// }
+//
+// class ImagePickerPage extends StatefulWidget {
+//   @override
+//   _ImagePickerPageState createState() => _ImagePickerPageState();
+// }
+//
+// class _ImagePickerPageState extends State<ImagePickerPage> {
+//   Image image;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(image?.semanticLabel ?? ""),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         child: Icon(Icons.open_in_browser),
+//         onPressed: () async {
+//           final _image = await FlutterWebImagePicker.getImage;
+//           setState(() {
+//             image = _image;
+//             print("Arquivos: $image");
+//           });
+//         },
+//       ),
+//       body: Center(child: image != null ? image : Text('No data...')),
+//     );
+//   }
+// }
