@@ -71,17 +71,25 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        if (usuarioController.dioError == null) {
-          return buildListViewForm(context);
-        } else {
-          print("Erro: ${usuarioController.mensagem}");
-          showToast("${usuarioController.mensagem}");
-          return buildListViewForm(context);
-        }
-      },
-    );
+     return Center(
+       child: RaisedButton(
+         child: Text("enviar"),
+         onPressed: (){
+           usuarioController.login();
+         },
+       ),
+     );
+    // return Observer(
+    //   builder: (context) {
+    //     if (usuarioController.dioError == null) {
+    //       return buildListViewForm(context);
+    //     } else {
+    //       print("Erro: ${usuarioController.mensagem}");
+    //       showToast("${usuarioController.mensagem}");
+    //       return buildListViewForm(context);
+    //     }
+    //   },
+    // );
   }
 
   buildListViewForm(BuildContext context) {

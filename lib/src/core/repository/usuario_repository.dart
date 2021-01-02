@@ -69,17 +69,34 @@ class UsuarioRepository {
     return response.statusCode;
   }
 
-  login() {
-    var dio = CustomDio().instance;
-    dio.post('http://localhost:8081/oauth/token', data: {
-      'username': 'projetogdados@gmail.com',
-      'password': 'frctads'
-    }).then((res) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', res.data['token']);
-    }).catchError((err) {
-      throw Exception('Login ou senha inválidos');
-    });
+  Future<int> login() async {
+    // Dio dio = Dio();
+    Map<String, String> headers = {
+      "Content-type": "application/x-www-form-urlencoded",
+      // "Accept": "application/json",
+      "Authorization": "Basic bW9iaWxlOm0wYjFsMzA=",
+    };
+
+    var data = {
+      // "client" : "mobile",
+      "username": "projetogdados@gmail.com",
+      "password": "frctads",
+      "grant_type" : "password"
+    };
+
+    var response  =  await dio.client.post(
+      "/oauth/token",
+      data: data,
+      options: Options(headers: headers),
+    );
+
+    return response.statusCode;
+    //     .then((res) async {
+    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    //   await prefs.setString('token', res.data['token']);
+    // }).catchError((err) {
+    //   throw Exception('Login ou senha inválidos');
+    // });
   }
 
   Future<int> update(int id, Map<String, dynamic> data) async {

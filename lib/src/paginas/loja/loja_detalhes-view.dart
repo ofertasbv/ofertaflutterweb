@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:launchers/launchers.dart';
+import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,10 +51,15 @@ class _LojaDetalhesViewState extends State<LojaDetalhesView> {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: Image.network(
-            lojaController.arquivo + p.foto,
-            fit: BoxFit.cover,
-          ),
+          child: p.foto != null
+              ? Image.network(
+                  lojaController.arquivo + p.foto,
+                  fit: BoxFit.cover,
+                )
+              : Image.asset(
+                  ConstantApi.urlLogo,
+                  fit: BoxFit.cover,
+                ),
         ),
         Container(
           padding: EdgeInsets.all(10),

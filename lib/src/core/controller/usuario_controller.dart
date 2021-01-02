@@ -60,6 +60,10 @@ abstract class UsuarioControllerBase with Store {
     }
   }
 
+  void login() {
+    usuarioRepository.login();
+  }
+
   @action
   Future<Usuario> getLogin(String email, String senha) async {
     try {

@@ -69,12 +69,18 @@ class _LojaDetalhesInfoState extends State<LojaDetalhesInfo> {
                         leading: Icon(Icons.calendar_today_outlined),
                       ),
                       Divider(),
-                      ListTile(
-                        title: Text("Endereço"),
-                        subtitle: Text("${p.enderecos[0].logradouro}"),
-                        trailing: Icon(Icons.check_outlined),
-                        leading: Icon(Icons.location_on_outlined),
-                      ),
+                      p.enderecos.isNotEmpty
+                          ? ListTile(
+                              title: Text("Endereço"),
+                              subtitle: Text("${p.enderecos[0].logradouro}"),
+                              trailing: Icon(Icons.check_outlined),
+                              leading: Icon(Icons.location_on_outlined),
+                            )
+                          : ListTile(
+                              title: Text("sem endereços"),
+                              trailing: Icon(Icons.add_location_outlined),
+                              leading: Icon(Icons.location_disabled_outlined),
+                            ),
                     ],
                   ),
                 ),
