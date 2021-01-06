@@ -21,10 +21,10 @@ import 'package:nosso/src/paginas/subcategoria/subcategoria_page.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 import 'package:nosso/src/paginas/vendedor/vendedor_page.dart';
-import 'package:nosso/src/pdv/caixa_page.dart';
 import 'package:nosso/src/util/Examples/teste_mapa.dart';
 import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
 import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
+import 'package:nosso/src/util/pdv/caixa_page.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    "FROM BY GDADOS 2020",
+                    "FROM BY GDADOS 2021",
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: 28,
@@ -267,8 +267,8 @@ class _ConfigPageState extends State<ConfigPage> {
       // mainAxisSpacing: 1,
       crossAxisCount: 4,
 
-      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
-      scrollDirection: Axis.vertical,
+      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2.1,
+      scrollDirection: Axis.horizontal,
       children: <Widget>[
         GestureDetector(
           onTap: () {

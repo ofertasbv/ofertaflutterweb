@@ -150,7 +150,6 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
           child: Form(
             key: controller.formKey,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
                   child: GestureDetector(

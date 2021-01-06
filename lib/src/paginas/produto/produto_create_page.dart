@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
 
   barcodeScanning() async {
     try {
-      // String barcode = await BarcodeScanner.scan();
+      String barcode = await BarcodeScanner.scan();
       setState(() {
         executar("beep-07");
         this.barcode = barcode;
