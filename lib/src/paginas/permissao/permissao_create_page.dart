@@ -9,6 +9,7 @@ import 'package:nosso/src/core/controller/permissao_controller.dart';
 import 'package:nosso/src/core/model/permissao.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/format/uppercasetext.dart';
 
 class PermissaoCreatePage extends StatefulWidget {
   Permissao permissao;
@@ -77,7 +78,9 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        title: p.descricao == null ? Text("Cadastro de permissão") : Text(p.descricao),
+        title: p.descricao == null
+            ? Text("Cadastro de permissão")
+            : Text(p.descricao),
       ),
       body: Observer(
         builder: (context) {
@@ -127,6 +130,7 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        inputFormatters: [UpperCaeseText()],
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                         maxLines: 1,

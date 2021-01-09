@@ -1,6 +1,6 @@
 class ValidadorPedido {
   String validateDescricao(String text) {
-    if (text.isEmpty) return "Preencha a descrição do produto";
+    if (text.isEmpty) return "Preencha a descrição do pedido";
     return null;
   }
 
@@ -49,21 +49,21 @@ class ValidadorPedido {
 
   String validateDateEntrega(DateTime dataEntrega) {
     if (dataEntrega == null) {
-      return "Preencha a data entrega da promoção";
+      return "Preencha a data entrega do pedido";
     }
     return null;
   }
 
   String validateDateHoraEntrega(DateTime dataHoraEntrega) {
     if (dataHoraEntrega == null) {
-      return "Preencha a data e hora da promoção";
+      return "Preencha a data e hora do pedido";
     }
     return null;
   }
 
   String validateHoraEntrega(DateTime horaEntrega) {
     if (horaEntrega == null) {
-      return "Preencha hora da promoção";
+      return "Preencha hora do pedido";
     }
     return null;
   }

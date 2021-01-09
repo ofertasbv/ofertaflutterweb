@@ -513,6 +513,14 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             width: 300.0,
             child: builderConteudoListEstados(),
           ),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("ok"),
+            )
+          ],
         );
       },
     );
@@ -588,6 +596,14 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
             width: 300.0,
             child: builderConteudoListCidades(),
           ),
+          actions: [
+            FlatButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("ok"),
+            )
+          ],
         );
       },
     );

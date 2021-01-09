@@ -71,25 +71,17 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
 
   @override
   Widget build(BuildContext context) {
-     return Center(
-       child: RaisedButton(
-         child: Text("enviar"),
-         onPressed: (){
-           usuarioController.login();
-         },
-       ),
-     );
-    // return Observer(
-    //   builder: (context) {
-    //     if (usuarioController.dioError == null) {
-    //       return buildListViewForm(context);
-    //     } else {
-    //       print("Erro: ${usuarioController.mensagem}");
-    //       showToast("${usuarioController.mensagem}");
-    //       return buildListViewForm(context);
-    //     }
-    //   },
-    // );
+    return Observer(
+      builder: (context) {
+        if (usuarioController.dioError == null) {
+          return buildListViewForm(context);
+        } else {
+          print("Erro: ${usuarioController.mensagem}");
+          showToast("${usuarioController.mensagem}");
+          return buildListViewForm(context);
+        }
+      },
+    );
   }
 
   buildListViewForm(BuildContext context) {
@@ -107,7 +99,10 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                 padding: EdgeInsets.all(1),
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
+                    colors: [
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).primaryColor
+                    ],
                   ),
                   border: Border.all(
                     color: Colors.black,
@@ -165,7 +160,6 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
-
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
                         maxLength: 50,

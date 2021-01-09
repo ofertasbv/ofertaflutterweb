@@ -264,42 +264,48 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
           ),
         ),
         ExpansionTile(
-          leading: Icon(Icons.photo),
           title: Text("Descrição"),
           children: [
-            Container(
-              height: 400,
-              padding: EdgeInsets.all(5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: ListTile(
-                      title: Text("fileName"),
-                      subtitle: Text("${uploadFileResponse.fileName}"),
+            uploadFileResponse.fileName != null
+                ? Container(
+                    height: 400,
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: ListTile(
+                            title: Text("fileName"),
+                            subtitle: Text("${uploadFileResponse.fileName}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("fileDownloadUri"),
+                            subtitle:
+                                Text("${uploadFileResponse.fileDownloadUri}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("fileType"),
+                            subtitle: Text("${uploadFileResponse.fileType}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("size"),
+                            subtitle: Text("${uploadFileResponse.size}"),
+                          ),
+                        ),
+                      ],
                     ),
+                  )
+                : Container(
+                    padding: EdgeInsets.all(15),
+                    child: Text("Deve anexar uma foto"),
+                    alignment: Alignment.bottomLeft,
                   ),
-                  Container(
-                    child: ListTile(
-                      title: Text("fileDownloadUri"),
-                      subtitle: Text("${uploadFileResponse.fileDownloadUri}"),
-                    ),
-                  ),
-                  Container(
-                    child: ListTile(
-                      title: Text("fileType"),
-                      subtitle: Text("${uploadFileResponse.fileType}"),
-                    ),
-                  ),
-                  Container(
-                    child: ListTile(
-                      title: Text("size"),
-                      subtitle: Text("${uploadFileResponse.size}"),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
         SizedBox(height: 20),

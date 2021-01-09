@@ -52,6 +52,11 @@ class UsuarioRepository {
     return null;
   }
 
+  Future<int> update(int id, Map<String, dynamic> data) async {
+    var response = await dio.client.put("/usuarios/update/$id", data: data);
+    return response.statusCode;
+  }
+
   Future<int> create(Map<String, dynamic> data) async {
     var response = await dio.client.post("/usuarios/create", data: data);
     return response.statusCode;
@@ -69,7 +74,7 @@ class UsuarioRepository {
     return response.statusCode;
   }
 
-  Future<int> login() async {
+  Future<int> login(Map<String, dynamic> data) async {
     // Dio dio = Dio();
     Map<String, String> headers = {
       "Content-type": "application/x-www-form-urlencoded",
@@ -81,10 +86,10 @@ class UsuarioRepository {
       // "client" : "mobile",
       "username": "projetogdados@gmail.com",
       "password": "frctads",
-      "grant_type" : "password"
+      "grant_type": "password"
     };
 
-    var response  =  await dio.client.post(
+    var response = await dio.client.post(
       "/oauth/token",
       data: data,
       options: Options(headers: headers),
@@ -97,10 +102,5 @@ class UsuarioRepository {
     // }).catchError((err) {
     //   throw Exception('Login ou senha inválidos');
     // });
-  }
-
-  Future<int> update(int id, Map<String, dynamic> data) async {
-    var response = await dio.client.put("/usuarios/update/$id", data: data);
-    return response.statusCode;
   }
 }

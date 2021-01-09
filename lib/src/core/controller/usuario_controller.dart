@@ -60,10 +60,6 @@ abstract class UsuarioControllerBase with Store {
     }
   }
 
-  void login() {
-    usuarioRepository.login();
-  }
-
   @action
   Future<Usuario> getLogin(String email, String senha) async {
     try {
@@ -72,6 +68,21 @@ abstract class UsuarioControllerBase with Store {
         mensagem = "usuário vazio";
       } else {
         return usuarioSelecionado;
+      }
+    } on DioError catch (e) {
+      mensagem = e.message;
+      dioError = e;
+    }
+  }
+
+  @action
+  Future<int> loginToken(Usuario p) async {
+    try {
+      usuario = await usuarioRepository.login(p.toJson());
+      if (usuario == null) {
+        mensagem = "usuário vazio";
+      } else {
+        return usuario;
       }
     } on DioError catch (e) {
       mensagem = e.message;

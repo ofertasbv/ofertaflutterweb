@@ -21,6 +21,9 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   var codigoBarraController = TextEditingController();
   var descricaoController = TextEditingController();
 
+  // AudioPlayer audioPlayer = AudioPlayer();
+  // AudioCache audioCache = AudioCache();
+
   @override
   initState() {
     super.initState();
@@ -75,29 +78,53 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(20),
-            child: Form(
-              autovalidateMode: AutovalidateMode.always,
-              key: formkey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    autofocus: false,
-                    controller: codigoBarraController,
-                    validator: (value) =>
-                        value.isEmpty ? "campo obrigário" : null,
-                    decoration: InputDecoration(
-                      labelText: "Codigo de barra",
-                      hintText: "Digite o código de barra",
-                      prefixIcon: Icon(Icons.camera_alt),
-                      contentPadding:
-                          EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                    ),
-                    maxLength: 20,
+            child: Container(
+              padding: EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xff676B76), Color(0xffA0A4AE)],
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xff676B76).withOpacity(0.4),
+                    blurRadius: 40,
+                    offset: Offset(0, 20),
                   ),
                 ],
+              ),
+              child: Form(
+                autovalidateMode: AutovalidateMode.always,
+                key: formkey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextFormField(
+                      autofocus: false,
+                      controller: codigoBarraController,
+                      validator: (value) =>
+                          value.isEmpty ? "campo obrigário" : null,
+                      decoration: InputDecoration(
+                        labelText: "use scanner ou digite aquí",
+                        hintText: "Digite o código de barra",
+                        prefixIcon: Icon(Icons.camera_alt),
+                        filled: true,
+                        fillColor: Colors.grey[600],
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(10),
+                          borderSide: new BorderSide(),
+                        ),
+                      ),
+                      maxLength: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -132,10 +159,12 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   Future barcodeScanning() async {
     try {
       String barcode = await BarcodeScanner.scan();
+      // audioPlayer.play("beep-07.mp3");
+      // audioCache.play("beep-07.mp3");
       setState(() {
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;
-        buscarByCodigoDeBarra(this.barcode);
+        // buscarByCodigoDeBarra(this.barcode);
       });
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {

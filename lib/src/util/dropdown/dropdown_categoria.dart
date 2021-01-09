@@ -32,9 +32,7 @@ class DropDownCategoria extends StatelessWidget {
                   : Text(categoria.nome),
               leading: Icon(Icons.list_alt_outlined),
               trailing: Icon(Icons.arrow_drop_down_sharp),
-              onTap: (
-
-                  ) {
+              onTap: () {
                 alertCateria.alert(context, categoria);
               },
             ),

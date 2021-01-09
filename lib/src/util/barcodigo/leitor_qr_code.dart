@@ -79,12 +79,21 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 1.0,
+              gradient: LinearGradient(
+                colors: [Color(0xff676B76), Color(0xffA0A4AE)],
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
               ),
+              borderRadius: BorderRadius.circular(25),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xff676B76).withOpacity(0.4),
+                  blurRadius: 40,
+                  offset: Offset(0, 20),
+                ),
+              ],
             ),
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

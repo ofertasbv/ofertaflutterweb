@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage>
             actions: <Widget>[
               CircleAvatar(
                 backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
-                foregroundColor: Colors.white,
+                foregroundColor: Colors.black,
                 child: IconButton(
                   icon: Icon(Icons.location_on_outlined),
                   onPressed: () {
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage>
               SizedBox(width: 10),
               CircleAvatar(
                 backgroundColor: Theme.of(context).accentColor.withOpacity(0.4),
-                foregroundColor: Colors.white,
+                foregroundColor: Colors.black,
                 child: IconButton(
                   icon: Icon(Icons.search_outlined),
                   onPressed: () {
@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage>
                 child: CircleAvatar(
                   backgroundColor:
                       Theme.of(context).accentColor.withOpacity(0.4),
-                  foregroundColor: Colors.white,
+                  foregroundColor: Colors.black,
                   child: Stack(
                     alignment: Alignment.topRight,
                     children: <Widget>[

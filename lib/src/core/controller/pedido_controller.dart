@@ -15,6 +15,18 @@ abstract class PedidoControllerBase with Store {
   }
 
   @observable
+  double valorTotal = 0;
+
+  @observable
+  double desconto = 0;
+
+  @observable
+  double total = 0;
+
+  @observable
+  double totalDesconto = 0;
+
+  @observable
   List<Pedido> pedidos;
 
   @observable
@@ -63,5 +75,11 @@ abstract class PedidoControllerBase with Store {
       mensagem = e.message;
       dioError = e;
     }
+  }
+
+  @action
+  double calculateDesconto() {
+    this.totalDesconto = total - desconto;
+    return totalDesconto;
   }
 }

@@ -58,7 +58,7 @@ void main() async {
       // cor da barra superior
       statusBarIconBrightness: Brightness.dark,
       // ícones da barra superior
-      systemNavigationBarColor: Colors.blue,
+      systemNavigationBarColor: Colors.orangeAccent,
       // cor da barra inferior
       systemNavigationBarIconBrightness: Brightness.dark,
       //
@@ -80,9 +80,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: Colors.blue,
-        accentColor: Colors.blue[200],
-        primarySwatch: Colors.green,
+        primaryColor: Colors.orangeAccent,
+        accentColor: Colors.orangeAccent[400],
+        primarySwatch: Colors.grey,
         cardTheme: CardTheme(
           elevation: 0,
           color: Colors.transparent,
@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
           height: 50,
           padding: EdgeInsets.all(10),
           alignedDropdown: true,
-          buttonColor: Colors.green,
+          buttonColor: Colors.grey[700],
           shape: RoundedRectangleBorder(
             borderRadius: new BorderRadius.circular(0),
             side: BorderSide(color: Colors.transparent),
