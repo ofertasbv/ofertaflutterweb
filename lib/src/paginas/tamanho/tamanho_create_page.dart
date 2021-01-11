@@ -10,6 +10,7 @@ import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/paginas/tamanho/tamanho_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/format/uppercasetext.dart';
 
 class TamanhoCreatePage extends StatefulWidget {
   Tamanho tamanho;
@@ -77,7 +78,9 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: c.descricao == null ? Text("Cadastro de tamanho") : Text(c.descricao),
+        title: c.descricao == null
+            ? Text("Cadastro de tamanho")
+            : Text(c.descricao),
       ),
       body: Observer(
         builder: (context) {
@@ -115,7 +118,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
-                          labelText: "Descrição",
+                          labelText: "Descrição do tamanho",
                           hintText: "descrição do tamanho",
                           prefixIcon: Icon(
                             Icons.edit,
@@ -131,6 +134,7 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        inputFormatters: [UpperCaeseText()],
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,

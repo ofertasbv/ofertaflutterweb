@@ -268,7 +268,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
           children: [
             uploadFileResponse.fileName != null
                 ? Container(
-                    height: 400,
+                    height: 300,
                     padding: EdgeInsets.all(5),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -6,9 +6,6 @@ import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/util/dialogs/dialog_categoria.dart';
 
 class DropDownCategoria extends StatelessWidget {
-  Categoria categoria;
-  DropDownCategoria(this.categoria);
-
   @override
   Widget build(BuildContext context) {
     var categoriaController = GetIt.I.get<CategoriaController>();
@@ -26,10 +23,10 @@ class DropDownCategoria extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
             ),
             child: ListTile(
-              title: Text("SubCategoria *"),
+              title: Text("Categoria *"),
               subtitle: categoria == null
-                  ? Text("Selecione uma SubCategoria")
-                  : Text(categoria.nome),
+                  ? Text("Selecione uma categoria")
+                  : Text(categoriaController.categoriaSelecionada.nome),
               leading: Icon(Icons.list_alt_outlined),
               trailing: Icon(Icons.arrow_drop_down_sharp),
               onTap: () {

@@ -91,7 +91,7 @@ class _DialogCategoriaState extends State<DialogCategoria> {
               onTap: () {
                 categoriaController.categoriaSelecionada = c;
                 print(
-                    "SubCategoria: ${categoriaController.categoriaSelecionada.nome}");
+                    "Categoria: ${categoriaController.categoriaSelecionada.nome}");
                 Navigator.of(context).pop();
               },
             ),

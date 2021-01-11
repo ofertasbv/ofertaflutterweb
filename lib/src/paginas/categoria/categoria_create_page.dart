@@ -94,6 +94,10 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
 
       c.foto = uploadFileResponse.fileName;
 
+      setState(() {
+        uploadFileResponse;
+      });
+
       showSnackbar(context, "Arquivo anexada com sucesso!");
     }
   }
@@ -178,7 +182,9 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                             file != null
                                 ? Image.file(
                                     file,
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.cover,
+                                    height: 300,
+                                    width: double.infinity,
                                   )
                                 : c.foto != null
                                     ? CircleAvatar(
@@ -256,7 +262,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   children: [
                     uploadFileResponse.fileName != null
                         ? Container(
-                            height: 400,
+                            height: 300,
                             padding: EdgeInsets.all(5),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -61,12 +61,12 @@ class _ConfigPageState extends State<ConfigPage> {
               child: Column(
             children: [
               Container(
-                height: 100,
+                height: 80,
                 width: double.infinity,
                 color: Colors.transparent,
                 padding: EdgeInsets.all(8),
                 child: Container(
-                  height: 100,
+                  height: 80,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.transparent),
@@ -77,15 +77,11 @@ class _ConfigPageState extends State<ConfigPage> {
                     "FROM BY GDADOS 2021",
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 28,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: 100,
-                child: buildGridViewApp(context),
               ),
               Divider(),
               Expanded(
@@ -113,11 +109,14 @@ class _ConfigPageState extends State<ConfigPage> {
         ),
       );
 
-  buildGridViewApp(BuildContext context) {
+  buildGridViewConfig(BuildContext context) {
     return GridView.count(
       padding: EdgeInsets.only(top: 2),
+      // crossAxisSpacing: 1,
+      // mainAxisSpacing: 1,
       crossAxisCount: 4,
-      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2,
+
+      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2.1,
       scrollDirection: Axis.vertical,
       children: <Widget>[
         GestureDetector(
@@ -252,24 +251,10 @@ class _ConfigPageState extends State<ConfigPage> {
                 ),
                 padding: EdgeInsets.all(10),
               ),
-              Text("Mapa", style: TextStyle(fontSize: 12)),
+              Text("Locais", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  buildGridViewConfig(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.only(top: 2),
-      // crossAxisSpacing: 1,
-      // mainAxisSpacing: 1,
-      crossAxisCount: 4,
-
-      childAspectRatio: MediaQuery.of(context).size.aspectRatio * 2.1,
-      scrollDirection: Axis.horizontal,
-      children: <Widget>[
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(

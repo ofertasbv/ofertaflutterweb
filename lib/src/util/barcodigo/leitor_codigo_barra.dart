@@ -108,8 +108,18 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                           value.isEmpty ? "campo obrigário" : null,
                       decoration: InputDecoration(
                         labelText: "use scanner ou digite aquí",
-                        hintText: "Digite o código de barra",
-                        prefixIcon: Icon(Icons.camera_alt),
+                        hintText: "entre com o código de barra",
+                        prefixIcon: IconButton(
+                          onPressed: () => barcodeScanning,
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () => codigoBarraController.clear(),
+                          icon: Icon(Icons.clear),
+                        ),
                         filled: true,
                         fillColor: Colors.grey[600],
                         hintStyle: TextStyle(color: Colors.white),
@@ -122,6 +132,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                         ),
                       ),
                       maxLength: 20,
+                      keyboardType: TextInputType.number,
                     ),
                   ],
                 ),

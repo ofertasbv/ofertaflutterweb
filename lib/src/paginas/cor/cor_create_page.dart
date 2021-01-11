@@ -10,6 +10,8 @@ import 'package:nosso/src/core/controller/cor_controller.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/format/lowercasetext.dart';
+import 'package:nosso/src/util/format/uppercasetext.dart';
 
 class CorCreatePage extends StatefulWidget {
   Cor cor;
@@ -76,7 +78,8 @@ class _CorCreatePageState extends State<CorCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: c.descricao == null ? Text("Cadastro de cor") : Text(c.descricao),
+        title:
+            c.descricao == null ? Text("Cadastro de cor") : Text(c.descricao),
       ),
       body: Observer(
         builder: (context) {
@@ -114,8 +117,8 @@ class _CorCreatePageState extends State<CorCreatePage> {
                         validator: (value) =>
                             value.isEmpty ? "campo obrigário" : null,
                         decoration: InputDecoration(
-                          labelText: "Descrição",
-                          hintText: "descrição do tamanho",
+                          labelText: "Descrição da cor",
+                          hintText: "descrição da cor",
                           prefixIcon: Icon(Icons.edit, color: Colors.grey),
                           suffixIcon: Icon(Icons.close),
                           contentPadding:
@@ -128,6 +131,7 @@ class _CorCreatePageState extends State<CorCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        inputFormatters: [LowerCaseText()],
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,

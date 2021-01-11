@@ -102,7 +102,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
 
   ListView buildListViewForm(BuildContext context) {
     var focus = FocusScope.of(context);
-    categoriaController.categoriaSelecionada = s.categoria;
+    s.categoria = categoriaController.categoriaSelecionada;
 
     return ListView(
       children: <Widget>[
@@ -149,7 +149,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   ),
                 ),
                 SizedBox(height: 0),
-                DropDownCategoria(categoriaSelecionada),
+                DropDownCategoria(),
                 Observer(
                   builder: (context) {
                     if (categoriaController.categoriaSelecionada == null) {
@@ -158,7 +158,7 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                         child: Container(
                           child: categoriaController.mensagem == null
                               ? Text(
-                                  "campo obrigatório *",
+                                  "Campo obrigatório *",
                                   style: TextStyle(
                                     color: Colors.red,
                                     fontSize: 12,

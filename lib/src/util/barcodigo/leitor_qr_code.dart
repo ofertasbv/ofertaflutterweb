@@ -84,7 +84,7 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
               ),
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
                   color: Color(0xff676B76).withOpacity(0.4),
@@ -97,7 +97,21 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                urlSite != null ? Text(urlSite) : Text("deve ligar o scanner"),
+                urlSite != null
+                    ? Text(urlSite)
+                    : ListTile(
+                        title: Text(
+                          "USE O SCANNER PARA LER O QR CODE",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        leading: Icon(
+                          Icons.camera_alt_outlined,
+                          color: Colors.white,
+                        ),
+                        onTap: () {
+                          barcodeScanning();
+                        },
+                      ),
               ],
             ),
           ),

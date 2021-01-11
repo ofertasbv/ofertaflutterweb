@@ -227,6 +227,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
     );
   }
 
+  calcularValorVenda() {
+    double valor = (double.tryParse(controllerValorUnitario.text) *
+            double.tryParse(controllerPecentual.text)) /
+        100;
+    controllerValorVenda.text = valor.toStringAsFixed(2);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -616,7 +623,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => controllerValorUnitario.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -639,6 +649,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           p.estoque.percentual = double.tryParse(value);
                         },
                         validator: validatePercentual,
+                        onChanged: (percentual) {
+                          valor = (double.tryParse(
+                                  controllerValorUnitario.text) +
+                              (double.tryParse(controllerValorUnitario.text) *
+                                      double.tryParse(
+                                          controllerPecentual.text)) /
+                                  100);
+                          controllerValorVenda.text = valor.toStringAsFixed(2);
+                        },
                         decoration: InputDecoration(
                           labelText: "Percentual de ganho",
                           hintText: "Percentual de ganho",
@@ -646,7 +665,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => controllerPecentual.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -676,7 +698,10 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => controllerValorVenda.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -691,6 +716,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
                         maxLength: 10,
+                        enabled: false,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
@@ -1180,6 +1206,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
 
                       p.cores.addAll(produtoController.corSelecionadas);
                       p.tamanhos.addAll(produtoController.tamanhoSelecionados);
+
+                      p.estoque.quantidade =
+                          int.tryParse(controllerQuantidade.text);
+                      p.estoque.valorUnitario =
+                          double.tryParse(controllerValorUnitario.text);
+                      p.estoque.valorVenda =
+                          double.tryParse(controllerValorVenda.text);
+                      p.estoque.percentual =
+                          double.tryParse(controllerPecentual.text);
 
                       produtoController.create(p);
                       Navigator.of(context).pop();

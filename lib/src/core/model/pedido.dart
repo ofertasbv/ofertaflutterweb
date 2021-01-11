@@ -8,6 +8,7 @@ class Pedido {
 
   double valorFrete;
   double valorDesconto;
+  double valorInicial;
   double valorTotal;
   List<PedidoItem> pedidoItems;
   Cliente cliente;
@@ -17,20 +18,20 @@ class Pedido {
   DateTime dataHoraEntrega;
   DateTime dataRegistro;
 
-  Pedido({
-    this.id,
-    this.descricao,
-    this.valorFrete,
-    this.valorDesconto,
-    this.valorTotal,
-    this.pedidoItems,
-    this.cliente,
-    this.loja,
-    this.statusPedido,
-    this.formaPagamento,
-    this.dataHoraEntrega,
-    this.dataRegistro
-  });
+  Pedido(
+      {this.id,
+      this.descricao,
+      this.valorFrete,
+      this.valorDesconto,
+      this.valorInicial,
+      this.valorTotal,
+      this.pedidoItems,
+      this.cliente,
+      this.loja,
+      this.statusPedido,
+      this.formaPagamento,
+      this.dataHoraEntrega,
+      this.dataRegistro});
 
   Pedido.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -38,6 +39,7 @@ class Pedido {
 
     valorFrete = json['valorFrete'];
     valorDesconto = json['valorDesconto'];
+    valorTotal = json['valorInicial'];
     valorTotal = json['valorTotal'];
 
     if (json['pedidoItems'] != null) {
@@ -64,6 +66,7 @@ class Pedido {
 
     data['valorFrete'] = this.valorFrete;
     data['valorDesconto'] = this.valorDesconto;
+    data['valorInicial'] = this.valorInicial;
     data['valorTotal'] = this.valorTotal;
 
     if (this.pedidoItems != null) {

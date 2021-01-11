@@ -12,6 +12,7 @@ import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/promocaotipo.dart';
 import 'package:nosso/src/paginas/cor/cor_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/format/uppercasetext.dart';
 
 class PromocaoTipoCreatePage extends StatefulWidget {
   PromocaoTipo promocaoTipo;
@@ -130,6 +131,7 @@ class _PromocaoTipoCreatePageState extends State<PromocaoTipoCreatePage> {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                         ),
+                        inputFormatters: [UpperCaeseText()],
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.text,
                         maxLength: 50,

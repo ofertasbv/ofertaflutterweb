@@ -51,7 +51,11 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  var controllerNome = TextEditingController();
+  var nomeCotroller = TextEditingController();
+  var valorInicialCotroller = TextEditingController();
+  var descontoCotroller = TextEditingController();
+  var valorFreteCotroller = TextEditingController();
+  var valorTotalCotroller = TextEditingController();
 
   @override
   void initState() {
@@ -193,18 +197,22 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        controller: valorInicialCotroller,
                         onSaved: (value) {
-                          p.valorDesconto = double.tryParse(value);
+                          p.valorInicial = double.tryParse(value);
                         },
                         validator: validateDesconto,
                         decoration: InputDecoration(
-                          labelText: "Desconto",
-                          hintText: "Desconto",
+                          labelText: "Valor inicial",
+                          hintText: "Valor inicial",
                           prefixIcon: Icon(
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorInicialCotroller.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -220,20 +228,23 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             TextInputType.numberWithOptions(decimal: true),
                         maxLength: 6,
                       ),
-                      SizedBox(height: 10),
                       TextFormField(
+                        controller: valorFreteCotroller,
                         onSaved: (value) {
                           p.valorFrete = double.tryParse(value);
                         },
                         validator: validateValorFrete,
                         decoration: InputDecoration(
-                          labelText: "Frete",
-                          hintText: "frete",
+                          labelText: "Valor de entrega",
+                          hintText: "Valor de entrega",
                           prefixIcon: Icon(
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorFreteCotroller.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -251,6 +262,52 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
+                        controller: descontoCotroller,
+                        onSaved: (value) {
+                          p.valorDesconto = double.tryParse(value);
+                        },
+                        validator: validateDesconto,
+                        onChanged: (percentual) {
+                          setState(() {
+                            double valor = (double.tryParse(
+                                    valorInicialCotroller.text) -
+                                ((double.tryParse(valorInicialCotroller.text) *
+                                        double.tryParse(
+                                            descontoCotroller.text)) /
+                                    100) +
+                                double.tryParse(valorFreteCotroller.text));
+                            valorTotalCotroller.text = valor.toStringAsFixed(2);
+                          });
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Percentual de desconto",
+                          hintText: "Percentual de desconto",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () => descontoCotroller.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: true),
+                        maxLength: 10,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: valorTotalCotroller,
                         onSaved: (value) {
                           p.valorTotal = double.tryParse(value);
                         },
@@ -262,7 +319,10 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             Icons.monetization_on_outlined,
                             color: Colors.grey,
                           ),
-                          suffixIcon: Icon(Icons.close),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorTotalCotroller.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                           contentPadding:
                               EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                           border: OutlineInputBorder(
@@ -480,7 +540,9 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                     buscarClienteByEmail("projetogdados@gmail.com");
                     buscarLojaByEmail("lojadauris@gmail.com");
 
-                    p.valorTotal =  (pedidoItemController.total - ((pedidoItemController.total * p.valorDesconto) / 100) + p.valorFrete);
+                    p.valorTotal = (pedidoItemController.total -
+                        ((pedidoItemController.total * p.valorDesconto) / 100) +
+                        p.valorFrete);
 
                     print("Cliente: ${c.nome}");
                     // print("Loja: ${loja.email}");
@@ -508,7 +570,9 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    p.valorTotal =  (pedidoItemController.total - ((pedidoItemController.total * p.valorDesconto) / 100) + p.valorFrete);
+                    p.valorTotal = (pedidoItemController.total -
+                        ((pedidoItemController.total * p.valorDesconto) / 100) +
+                        p.valorFrete);
 
                     print("Descrição: ${p.descricao}");
                     print("Desconto: ${p.valorDesconto}");
