@@ -422,7 +422,22 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             Text("Forma de pagamento"),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("BOLETO BANCARIO"),
+                              title: Text("DINHEIRO/ESPÉCIE"),
+                              value: "DINHEIRO",
+                              groupValue: p.formaPagamento == null
+                                  ? p.formaPagamento = formaPagamento
+                                  : p.formaPagamento,
+                              secondary: const Icon(Icons.local_atm),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.formaPagamento = valor;
+                                  print("Pagamento: " + p.formaPagamento);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("BOLETO BANCÁRIO"),
                               value: "BOLETO_BANCARIO",
                               groupValue: p.formaPagamento == null
                                   ? p.formaPagamento = formaPagamento
@@ -438,8 +453,23 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             ),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("TRANSFERENCIA BANCARIA"),
+                              title: Text("TRANSFERÊNCIA BANCÁRIA"),
                               value: "TRANSFERENCIA_BANCARIA",
+                              groupValue: p.formaPagamento == null
+                                  ? p.formaPagamento = formaPagamento
+                                  : p.formaPagamento,
+                              secondary: const Icon(Icons.local_atm),
+                              onChanged: (String valor) {
+                                setState(() {
+                                  p.formaPagamento = valor;
+                                  print("Pagamento: " + p.formaPagamento);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("CARTÃO DE CRÉDIDO"),
+                              value: "CARTAO_CREDITO",
                               groupValue: p.formaPagamento == null
                                   ? p.formaPagamento = formaPagamento
                                   : p.formaPagamento,

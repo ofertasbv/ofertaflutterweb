@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/produto/produto_detalhes_tab.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 class LeitorCodigoBarra extends StatefulWidget {
   @override
@@ -17,20 +18,22 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   ProdutoController produtoController = GetIt.I.get<ProdutoController>();
 
   String barcode = "";
-  var p = Produto();
-  var codigoBarraController = TextEditingController();
-  var descricaoController = TextEditingController();
+  Produto p;
 
-  // AudioPlayer audioPlayer = AudioPlayer();
-  // AudioCache audioCache = AudioCache();
+  var codigoBarraController = TextEditingController();
+
+  AudioCache audioCache = AudioCache(prefix: "audios/");
 
   @override
   initState() {
+    p = Produto();
+    audioCache.loadAll(["beep-07.mp3"]);
     super.initState();
   }
 
   Controller controller;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void didChangeDependencies() {
@@ -38,19 +41,35 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
     super.didChangeDependencies();
   }
 
-  void showErrorSnackBar() {
-    Scaffold.of(context).showSnackBar(
+  executar(String nomeAudio) {
+    audioCache.play(nomeAudio + ".mp3");
+  }
+
+  showToast(String cardTitle) {
+    Fluttertoast.showToast(
+      msg: "Atenção: $cardTitle",
+      gravity: ToastGravity.CENTER,
+      timeInSecForIos: 1,
+      fontSize: 16.0,
+    );
+  }
+
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
       SnackBar(
-        content: Text('Oops... the URL couldn\'t be opened!'),
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    p.codigoBarra = barcode;
-    print("construindo tela: " + p.codigoBarra);
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text('Leitor código de barra'),
         elevation: 0.0,
@@ -58,7 +77,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
           IconButton(
             icon: Icon(Icons.check),
             onPressed: () {
-              if (codigoBarraController.text.isNotEmpty && p != null) {
+              if (this.p.codigoBarra != null) {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
@@ -67,8 +86,7 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                   ),
                 );
               } else {
-                showToast("Insira o código de barra!");
-                print("nada");
+                showSnackbar(context, "Insira o código válido!");
               }
             },
           ),
@@ -126,12 +144,12 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                         labelStyle: TextStyle(color: Colors.white),
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                        border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(10),
-                          borderSide: new BorderSide(),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.transparent),
                         ),
                       ),
-                      maxLength: 20,
+                      maxLength: 13,
                       keyboardType: TextInputType.number,
                     ),
                   ],
@@ -154,28 +172,23 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
   }
 
   buscarByCodigoDeBarra(String codBarra) async {
-    p = await produtoController.getCodigoBarra(codBarra);
-    print(p.descricao);
-  }
-
-  showToast(String cardTitle) {
-    Fluttertoast.showToast(
-      msg: "Atenção: $cardTitle",
-      gravity: ToastGravity.CENTER,
-      timeInSecForIos: 1,
-      fontSize: 16.0,
-    );
+    p = await produtoController.getCodigoBarra(codBarra).then((value) {
+      p = value;
+      if (p == null) {
+        showSnackbar(context, "Nenhum produto encontrado!");
+      }
+      return p;
+    });
   }
 
   Future barcodeScanning() async {
     try {
       String barcode = await BarcodeScanner.scan();
-      // audioPlayer.play("beep-07.mp3");
-      // audioCache.play("beep-07.mp3");
       setState(() {
+        executar("beep-07");
         this.barcode = barcode;
         codigoBarraController.text = this.barcode;
-        // buscarByCodigoDeBarra(this.barcode);
+        buscarByCodigoDeBarra(this.barcode);
       });
     } on PlatformException catch (e) {
       if (e.code == BarcodeScanner.CameraAccessDenied) {

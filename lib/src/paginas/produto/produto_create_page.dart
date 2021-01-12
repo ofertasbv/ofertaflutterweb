@@ -18,6 +18,7 @@ import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
+import 'package:nosso/src/core/model/arquivo.dart';
 import 'package:nosso/src/core/model/cor.dart';
 import 'package:nosso/src/core/model/estoque.dart';
 import 'package:nosso/src/core/model/loja.dart';
@@ -29,6 +30,7 @@ import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/componentes/image_source_sheet.dart';
+import 'package:nosso/src/util/componentes/images_widget.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_cor.dart';
 import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
@@ -69,6 +71,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
   Future<List<Marca>> marcas;
   Future<List<Promocao>> promocoes;
   Future<List<Loja>> lojas;
+  List<Arquivo> arquivoSelecionados = List();
 
   Produto p;
   Estoque e;
@@ -1150,26 +1153,26 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
         Container(
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
-            label: Text("Enviar formulário"),
-            icon: Icon(Icons.check),
-            onPressed: () {
-              if (controller.validate()) {
-                if (p.foto == null) {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => ImageSourceSheet(
-                      onImageSelected: (image) {
-                        setState(() {
-                          Navigator.of(context).pop();
-                          file = image;
-                          String arquivo = file.path.split('/').last;
-                          print("Image: ${arquivo}");
-                          enableButton();
-                        });
-                      },
-                    ),
-                  );
-                } else {
+              label: Text("Enviar formulário"),
+              icon: Icon(Icons.check),
+              onPressed: () {
+                if (controller.validate()) {
+                  // if (p.foto == null) {
+                  //   showModalBottomSheet(
+                  //     context: context,
+                  //     builder: (context) => ImageSourceSheet(
+                  //       onImageSelected: (image) {
+                  //         setState(() {
+                  //           Navigator.of(context).pop();
+                  //           file = image;
+                  //           String arquivo = file.path.split('/').last;
+                  //           print("Image: ${arquivo}");
+                  //           enableButton();
+                  //         });
+                  //       },
+                  //     ),
+                  //   );
+                  // } else {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
@@ -1216,9 +1219,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       p.estoque.percentual =
                           double.tryParse(controllerPecentual.text);
 
-                      produtoController.create(p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // produtoController.create(p);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
                     });
                   } else {
                     dialogs.information(
@@ -1264,15 +1267,15 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       p.estoque.percentual =
                           double.tryParse(controllerPecentual.text);
 
-                      produtoController.update(p.id, p);
-                      Navigator.of(context).pop();
-                      buildPush(context);
+                      // produtoController.update(p.id, p);
+                      // Navigator.of(context).pop();
+                      // buildPush(context);
                     });
                   }
                 }
               }
-            },
-          ),
+              // },
+              ),
         ),
         SizedBox(height: 20),
       ],

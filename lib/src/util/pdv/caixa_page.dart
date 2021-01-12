@@ -1,7 +1,10 @@
 import 'dart:ui';
 
+import 'package:audioplayers/audio_cache.dart';
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -29,7 +32,9 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var focusScopeNode = FocusScopeNode();
   var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+  var audioCache = AudioCache(prefix: "audios/");
 
+  String barcode = "";
   Produto p;
   PedidoItem pedidoItem;
   var codigoBarraController = TextEditingController();
@@ -45,6 +50,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
 
   @override
   void initState() {
+    audioCache.loadAll(["beep-07.mp3"]);
     pedidoItemController.pedidosItens();
     if (p == null) {
       p = Produto();
@@ -63,6 +69,44 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
   @override
   void dispose() {
     super.dispose();
+  }
+
+  executar(String nomeAudio) {
+    audioCache.play(nomeAudio + ".mp3");
+  }
+
+  buscarByCodigoDeBarraTeste(String codBarra) async {
+    p = await produtoController.getCodigoBarra(codBarra).then((value) {
+      p = value;
+      if (p == null) {
+        showSnackbar(context, "Nenhum produto encontrado!");
+      }
+      return p;
+    });
+  }
+
+  Future barcodeScanning() async {
+    try {
+      String barcode = await BarcodeScanner.scan();
+      setState(() {
+        executar("beep-07");
+        this.barcode = barcode;
+        codigoBarraController.text = this.barcode;
+        buscarByCodigoDeBarra(this.barcode);
+      });
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          this.barcode = 'Permissão negada!';
+        });
+      } else {
+        setState(() => this.barcode = 'Ops! erro: $e');
+      }
+    } on FormatException {
+      setState(() => this.barcode = 'Nada capturado.');
+    } catch (e) {
+      setState(() => this.barcode = 'Erros: $e');
+    }
   }
 
   showSnackbar(BuildContext context, String texto) {
@@ -150,7 +194,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
     return Scaffold(
       key: GlobalScaffold.instance.scaffkey,
       appBar: AppBar(
-        title: Text("GDADOS - PDV 2020"),
+        title: Text("PDV2020"),
         actions: <Widget>[
           Observer(
             builder: (context) {
@@ -171,7 +215,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               );
             },
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 5),
           IconButton(
             icon: Icon(Icons.refresh_rounded),
             onPressed: () {
@@ -181,7 +225,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               });
             },
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 5),
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined),
             onPressed: () {
@@ -194,7 +238,14 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               );
             },
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 5),
+          IconButton(
+            icon: Icon(Icons.camera_alt_outlined),
+            onPressed: () {
+              barcodeScanning();
+            },
+          ),
+          SizedBox(width: 5),
         ],
       ),
       body: Observer(
@@ -213,589 +264,179 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
   Form buildForm(DateFormat dateFormat, BuildContext context) {
     return Form(
       key: controller.formKey,
-      child: Container(
-        color: Colors.grey[200],
-        child: Column(
-          children: [
-            Container(
-              color: Colors.transparent,
-              height: 100,
-              child: Row(
-                children: [
-                  Container(
-                    width: 300,
-                    height: double.infinity,
-                    color: Colors.transparent,
-                    child: Center(
-                      child: Text(
-                        "CAIXA ABERTO",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.green,
-                        ),
-                      ),
+      child: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "CÓDIGO DE BARRA",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: codigoBarraController,
+                  onFieldSubmitted: (valor) {
+                    if (controller.validate()) {
+                      setState(() {
+                        codigoBarraController.text = valor;
+                        buscarByCodigoDeBarra(codigoBarraController.text);
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () => codigoBarraController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      color: Colors.transparent,
-                      padding: EdgeInsets.all(20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            child: ListTile(
-                              title: Text("Cliente"),
-                              subtitle: Text("Fabio Resplandes"),
-                            ),
-                            height: 100,
-                            width: 250,
-                            color: Colors.transparent,
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("Vendedor"),
-                              subtitle: Text("José da Costa"),
-                            ),
-                            height: 100,
-                            width: 250,
-                            color: Colors.transparent,
-                          ),
-                          Container(
-                            child: ListTile(
-                              title: Text("Horário"),
-                              subtitle:
-                                  Text("${dateFormat.format(DateTime.now())}"),
-                            ),
-                            height: 100,
-                            width: 250,
-                            color: Colors.transparent,
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.grey[100],
-                height: 100,
-                child: Row(
-                  children: [
-                    Container(
-                      color: Colors.transparent,
-                      height: double.infinity,
-                      width: 700,
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Colors.grey[200],
-                            height: 500,
-                            width: double.infinity,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 300,
-                                  color: Colors.grey[300],
-                                  child: p.foto == null
-                                      ? Icon(Icons.photo, size: 100)
-                                      : Image.network(
-                                          produtoController.arquivo + p.foto,
-                                        ),
-                                  alignment: Alignment.center,
-                                ),
-                                Container(
-                                  width: 380,
-                                  color: Colors.grey[300],
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "CÓDIGO DE BARRA",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            controller: codigoBarraController,
-                                            onFieldSubmitted: (valor) {
-                                              if (controller.validate()) {
-                                                setState(() {
-                                                  codigoBarraController.text =
-                                                      valor;
-                                                  buscarByCodigoDeBarra(
-                                                      codigoBarraController
-                                                          .text);
-                                                });
-                                              }
-                                            },
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 25.0,
-                                                      horizontal: 10.0),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.purple[900]),
-                                                gapPadding: 1,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            keyboardType: TextInputType.text,
-                                            maxLength: 20,
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "QUANTIDADE",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            controller: quantidadeController,
-                                            decoration: InputDecoration(
-                                              suffixIcon: IconButton(
-                                                onPressed: () =>
-                                                    quantidadeController
-                                                        .clear(),
-                                                icon: Icon(Icons.clear),
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 25.0,
-                                                      horizontal: 10.0),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.purple[900]),
-                                                gapPadding: 1,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            keyboardType: TextInputType.text,
-                                            maxLength: 20,
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "VALOR UNITÁRIO",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            controller: valorUnitarioController,
-                                            decoration: InputDecoration(
-                                              suffixIcon: IconButton(
-                                                onPressed: () =>
-                                                    valorUnitarioController
-                                                        .clear(),
-                                                icon: Icon(Icons.clear),
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 25.0,
-                                                      horizontal: 10.0),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.purple[900]),
-                                                gapPadding: 1,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            keyboardType: TextInputType.text,
-                                            maxLength: 20,
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "TOTAL DO ITEM",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextFormField(
-                                            controller: valorTotalController,
-                                            decoration: InputDecoration(
-                                              suffixIcon: IconButton(
-                                                onPressed: () =>
-                                                    valorTotalController
-                                                        .clear(),
-                                                icon: Icon(Icons.clear),
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 25.0,
-                                                      horizontal: 10.0),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.purple[900]),
-                                                gapPadding: 1,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                            keyboardType: TextInputType.text,
-                                            maxLength: 20,
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.all(0),
-                              height: double.infinity,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                border: Border.all(color: Colors.white),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      border: Border.all(color: Colors.white),
-                                    ),
-                                    child: ListTile(
-                                      title: Text("descrição"),
-                                      subtitle: p.nome == null
-                                          ? Text(
-                                              "CAIXA VAZIO",
-                                              style: TextStyle(fontSize: 40),
-                                            )
-                                          : Text(
-                                              "${p.nome.toUpperCase()}",
-                                              style: TextStyle(fontSize: 40),
-                                            ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[200],
-                                      border: Border.all(color: Colors.white),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        FlatButton.icon(
-                                          minWidth: 320,
-                                          height: 60,
-                                          icon: Icon(Icons.delete_outline),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            side:
-                                                BorderSide(color: Colors.grey),
-                                          ),
-                                          color: Colors.white,
-                                          textColor: Colors.grey,
-                                          padding: EdgeInsets.all(10),
-                                          onPressed: () {
-                                            showDialogAlertCancelar(context);
-                                          },
-                                          label: Text(
-                                            "CANCELAR".toUpperCase(),
-                                            style: TextStyle(
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                        ),
-                                        FlatButton.icon(
-                                          minWidth: 320,
-                                          height: 60,
-                                          icon: Icon(
-                                              Icons.shopping_cart_outlined),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                            side:
-                                                BorderSide(color: Colors.green),
-                                          ),
-                                          color: Colors.white,
-                                          textColor: Colors.green,
-                                          padding: EdgeInsets.all(10),
-                                          onPressed: () {
-                                            Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return PedidoCreatePage();
-                                                },
-                                              ),
-                                            );
-                                          },
-                                          label: Text(
-                                            "FECHAR VENDA".toUpperCase(),
-                                            style: TextStyle(
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: double.infinity,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          border: Border.all(color: Colors.white),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 50,
-                              child: Text(
-                                  " ------------- CUPOM FISCAL ------------- "),
-                              alignment: Alignment.center,
-                            ),
-                            Divider(),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[100],
-                                border: Border.all(color: Colors.white),
-                              ),
-                              height: 535,
-                              width: double.infinity,
-                              child: builderConteudoList(),
-                            ),
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  border: Border.all(color: Colors.white),
-                                ),
-                                height: double.infinity,
-                                width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: 100,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Container(
-                                        height: 100,
-                                        width: 300,
-                                        child: ListTile(
-                                          title: Text(
-                                            "SUBTOTAL",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          subtitle: TextFormField(
-                                            controller: valorPedidoController,
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 25.0,
-                                                      horizontal: 10.0),
-                                              filled: true,
-                                              suffixIcon: Icon(Icons.close),
-                                              labelStyle: TextStyle(
-                                                  color: Colors.black),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.lime[900]),
-                                                gapPadding: 1,
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        border: Border.all(color: Colors.white),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: 100,
-                                            width: 300,
-                                            child: ListTile(
-                                              title: Text(
-                                                "TOTAL RECEBIDO",
-                                                style: TextStyle(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              subtitle: TextFormField(
-                                                controller: descontoController,
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 25.0,
-                                                          horizontal: 10.0),
-                                                  filled: true,
-                                                  suffixIcon: Icon(Icons.close),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.lime[900]),
-                                                    gapPadding: 1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 100,
-                                            width: 300,
-                                            child: ListTile(
-                                              title: Text(
-                                                "TROCO",
-                                                style: TextStyle(
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              subtitle: TextFormField(
-                                                controller:
-                                                    valorPedidoController,
-                                                decoration: InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                          vertical: 25.0,
-                                                          horizontal: 10.0),
-                                                  filled: true,
-                                                  suffixIcon: Icon(Icons.close),
-                                                  labelStyle: TextStyle(
-                                                      color: Colors.black),
-                                                  border: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color:
-                                                            Colors.lime[900]),
-                                                    gapPadding: 1,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                  keyboardType: TextInputType.number,
+                  maxLength: 20,
                 ),
-              ),
+                Text(
+                  "QUANTIDADE",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: quantidadeController,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () => quantidadeController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 20,
+                ),
+                Text(
+                  "VALOR UNITÁRIO",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: valorUnitarioController,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () => valorUnitarioController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 13,
+                ),
+                Text(
+                  "SUBTOTAL",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: valorTotalController,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () => valorTotalController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.purple[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 20,
+                ),
+                Text(
+                  "DESCONTO",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: descontoController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: Icon(Icons.close),
+                    labelStyle: TextStyle(color: Colors.black),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.lime[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                SizedBox(height: 20),
+                Text(
+                  "VALOR TOTAL",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TextFormField(
+                  controller: valorPedidoController,
+                  decoration: InputDecoration(
+                    filled: true,
+                    suffixIcon: Icon(Icons.close),
+                    labelStyle: TextStyle(color: Colors.black),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.lime[900]),
+                      gapPadding: 1,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

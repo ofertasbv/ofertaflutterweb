@@ -102,9 +102,9 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     }
   }
 
-  showToast(String cardTitle) {
+  showToast(String descricao) {
     Fluttertoast.showToast(
-      msg: "$cardTitle",
+      msg: descricao,
       gravity: ToastGravity.CENTER,
       timeInSecForIos: 10,
       fontSize: 16.0,
