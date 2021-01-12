@@ -14,20 +14,17 @@ import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/core/model/produto.dart';
-import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
-import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/snackbar/snackbar_global.dart';
-import 'package:nosso/src/util/validador/validador_pedido_item.dart';
+import 'package:nosso/src/util/validador/validador_pdv.dart';
 
 class CaixaPageHome extends StatefulWidget {
   @override
   _CaixaPageHomeState createState() => _CaixaPageHomeState();
 }
 
-class _CaixaPageHomeState extends State<CaixaPageHome>
-    with ValidadorPedidoItem {
+class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
   var produtoController = GetIt.I.get<ProdutoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var focusScopeNode = FocusScopeNode();
@@ -215,7 +212,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               );
             },
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 2),
           IconButton(
             icon: Icon(Icons.refresh_rounded),
             onPressed: () {
@@ -225,7 +222,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               });
             },
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 2),
           IconButton(
             icon: Icon(Icons.shopping_cart_outlined),
             onPressed: () {
@@ -238,7 +235,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
               );
             },
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 2),
           IconButton(
             icon: Icon(Icons.camera_alt_outlined),
             onPressed: () {
@@ -281,6 +278,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: codigoBarraController,
+                  validator: validateCodigoBarra,
                   onFieldSubmitted: (valor) {
                     if (controller.validate()) {
                       setState(() {
@@ -306,6 +304,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
+                SizedBox(height: 10),
                 Text(
                   "QUANTIDADE",
                   style: TextStyle(
@@ -315,6 +314,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: quantidadeController,
+                  validator: validateQuantidade,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () => quantidadeController.clear(),
@@ -332,6 +332,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
+                SizedBox(height: 10),
                 Text(
                   "VALOR UNITÁRIO",
                   style: TextStyle(
@@ -341,6 +342,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: valorUnitarioController,
+                  validator: validateValorUnitario,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () => valorUnitarioController.clear(),
@@ -358,6 +360,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                   keyboardType: TextInputType.number,
                   maxLength: 13,
                 ),
+                SizedBox(height: 10),
                 Text(
                   "SUBTOTAL",
                   style: TextStyle(
@@ -367,6 +370,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: valorTotalController,
+                  validator: validateValorTotal,
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () => valorTotalController.clear(),
@@ -384,6 +388,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
+                SizedBox(height: 10),
                 Text(
                   "DESCONTO",
                   style: TextStyle(
@@ -393,9 +398,13 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: descontoController,
+                  validator: validateDesconto,
                   decoration: InputDecoration(
                     filled: true,
-                    suffixIcon: Icon(Icons.close),
+                    suffixIcon: IconButton(
+                      onPressed: () => descontoController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
                     labelStyle: TextStyle(color: Colors.black),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -418,9 +427,13 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                 ),
                 TextFormField(
                   controller: valorPedidoController,
+                  validator: validateValorTotal,
                   decoration: InputDecoration(
                     filled: true,
-                    suffixIcon: Icon(Icons.close),
+                    suffixIcon: IconButton(
+                      onPressed: () => valorPedidoController.clear(),
+                      icon: Icon(Icons.clear),
+                    ),
                     labelStyle: TextStyle(color: Colors.black),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -434,6 +447,16 @@ class _CaixaPageHomeState extends State<CaixaPageHome>
                   keyboardType: TextInputType.number,
                 ),
               ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(15),
+            child: RaisedButton.icon(
+              label: Text("Enviar formulário"),
+              icon: Icon(Icons.check),
+              onPressed: () {
+                if (controller.validate()) {}
+              },
             ),
           ),
         ],

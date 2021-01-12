@@ -159,9 +159,8 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    tamanhoController.create(c).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
+                    tamanhoController.create(c).then((value) {
+                      print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
                     buildPush(context);

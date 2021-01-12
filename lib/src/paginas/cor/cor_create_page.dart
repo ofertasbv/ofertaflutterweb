@@ -156,9 +156,8 @@ class _CorCreatePageState extends State<CorCreatePage> {
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    corController.create(c).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
+                    corController.create(c).then((value) {
+                      print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
                     buildPush(context);

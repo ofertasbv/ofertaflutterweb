@@ -154,9 +154,8 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    marcaController.create(c).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
+                    marcaController.create(c).then((value) {
+                      print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
                     buildPush(context);

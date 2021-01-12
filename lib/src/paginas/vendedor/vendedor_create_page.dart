@@ -468,7 +468,9 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      vendedorController.create(p);
+                      vendedorController.create(p).then((value) {
+                        print("resultado : ${value}");
+                      });
                       buildPush(context);
                     });
                   }

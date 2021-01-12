@@ -518,7 +518,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
 
                         // p.enderecos.add(enderecoController.enderecoSelecionado);
 
-                        lojaController.create(p);
+                        lojaController.create(p).then((value) {
+                          print("resultado : ${value}");
+                        });
                         Navigator.of(context).pop();
                         buildPush(context);
                       });

@@ -468,7 +468,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                       print("Email: ${p.usuario.email}");
                       print("Senha: ${p.usuario.senha}");
 
-                      clienteController.create(p);
+                      clienteController.create(p).then((value) {
+                        print("resultado : ${value}");
+                      });
                       buildPush(context);
                     });
                   }

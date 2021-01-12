@@ -337,7 +337,9 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                     Timer(Duration(seconds: 3), () {
                       print("Foto : ${a.foto}");
 
-                      arquivoController.create(a);
+                      arquivoController.create(a).then((value) {
+                        print("resultado : ${value}");
+                      });
                       Navigator.of(context).pop();
                       buildPush(context);
                     });

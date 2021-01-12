@@ -150,7 +150,9 @@ class _PedidoItemCreatePageState extends State<PedidoItemCreatePage> {
                 if (p.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    pedidoItemController.create(p);
+                    pedidoItemController.create(p).then((value) {
+                      print("resultado : ${value}");
+                    });
                     Navigator.of(context).pop();
                     buildPush(context);
                   });

@@ -372,9 +372,8 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   if (c.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
-                      categoriaController.create(c).then((categoria) {
-                        var resultado = categoria;
-                        print("resultado : ${resultado}");
+                      categoriaController.create(c).then((value) {
+                        print("resultado : ${value}");
                       });
                       Navigator.of(context).pop();
                       buildPush(context);

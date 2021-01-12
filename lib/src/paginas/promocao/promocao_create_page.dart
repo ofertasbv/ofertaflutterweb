@@ -629,7 +629,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                       print("Início: ${dateFormat.format(p.dataInicio)}");
                       print("Final: ${dateFormat.format(p.dataFinal)}");
 
-                      promocaoController.create(p);
+                      promocaoController.create(p).then((value) {
+                        print("resultado : ${value}");
+                      });
                       Navigator.of(context).pop();
                       buildPush(context);
                     });

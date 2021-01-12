@@ -1219,7 +1219,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       p.estoque.percentual =
                           double.tryParse(controllerPecentual.text);
 
-                      // produtoController.create(p);
+                      produtoController.create(p).then((value) {
+                        print("resultado : ${value}");
+                      });
                       // Navigator.of(context).pop();
                       // buildPush(context);
                     });

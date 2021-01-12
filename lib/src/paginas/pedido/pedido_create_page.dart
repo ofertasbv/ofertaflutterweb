@@ -592,9 +592,11 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                       print("Produto: ${item.produto.nome}");
                     }
 
-                    // pedidoController.create(p);
-                    // Navigator.of(context).pop();
-                    // buildPush(context);
+                    pedidoController.create(p).then((value) {
+                      print("resultado : ${value}");
+                    });
+                    Navigator.of(context).pop();
+                    buildPush(context);
                   });
                 } else {
                   dialogs.information(

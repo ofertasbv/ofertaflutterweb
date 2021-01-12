@@ -198,7 +198,9 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
                     s.categoria = categoriaController.categoriaSelecionada;
-                    subCategoriaController.create(s);
+                    subCategoriaController.create(s).then((value) {
+                      print("resultado : ${value}");
+                    });
                     Navigator.of(context).pop();
                     buildPush(context);
                   });

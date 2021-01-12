@@ -156,9 +156,8 @@ class _PromocaoTipoCreatePageState extends State<PromocaoTipoCreatePage> {
                 if (promocaoTipo.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    promocaoTipoController.create(promocaoTipo).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
+                    promocaoTipoController.create(promocaoTipo).then((value) {
+                      print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
                     buildPush(context);

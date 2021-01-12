@@ -154,9 +154,8 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
                 if (p.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    permissaoController.create(p).then((arquivo) {
-                      var resultado = arquivo;
-                      print("resultado : ${resultado}");
+                    permissaoController.create(p).then((value) {
+                      print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
                     buildPush(context);

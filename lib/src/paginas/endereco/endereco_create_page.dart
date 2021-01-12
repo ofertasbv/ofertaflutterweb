@@ -463,7 +463,9 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                     print("Longitude: ${endereco.longitude}");
 
                     endereco.cidade = cidadeSelecionada;
-                    enderecoController.create(endereco);
+                    enderecoController.create(endereco).then((value) {
+                      print("resultado : ${value}");
+                    });
                     buildPush(context);
                   });
                 } else {
