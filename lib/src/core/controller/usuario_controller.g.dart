@@ -136,6 +136,14 @@ mixin _$UsuarioController on UsuarioControllerBase, Store {
     return _$getLoginAsyncAction.run(() => super.getLogin(email, senha));
   }
 
+  final _$loginTokenAsyncAction =
+      AsyncAction('UsuarioControllerBase.loginToken');
+
+  @override
+  Future<int> loginToken(Usuario p) {
+    return _$loginTokenAsyncAction.run(() => super.loginToken(p));
+  }
+
   final _$createAsyncAction = AsyncAction('UsuarioControllerBase.create');
 
   @override

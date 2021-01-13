@@ -9,6 +9,66 @@ part of 'pedido_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PedidoController on PedidoControllerBase, Store {
+  final _$valorTotalAtom = Atom(name: 'PedidoControllerBase.valorTotal');
+
+  @override
+  double get valorTotal {
+    _$valorTotalAtom.reportRead();
+    return super.valorTotal;
+  }
+
+  @override
+  set valorTotal(double value) {
+    _$valorTotalAtom.reportWrite(value, super.valorTotal, () {
+      super.valorTotal = value;
+    });
+  }
+
+  final _$descontoAtom = Atom(name: 'PedidoControllerBase.desconto');
+
+  @override
+  double get desconto {
+    _$descontoAtom.reportRead();
+    return super.desconto;
+  }
+
+  @override
+  set desconto(double value) {
+    _$descontoAtom.reportWrite(value, super.desconto, () {
+      super.desconto = value;
+    });
+  }
+
+  final _$totalAtom = Atom(name: 'PedidoControllerBase.total');
+
+  @override
+  double get total {
+    _$totalAtom.reportRead();
+    return super.total;
+  }
+
+  @override
+  set total(double value) {
+    _$totalAtom.reportWrite(value, super.total, () {
+      super.total = value;
+    });
+  }
+
+  final _$totalDescontoAtom = Atom(name: 'PedidoControllerBase.totalDesconto');
+
+  @override
+  double get totalDesconto {
+    _$totalDescontoAtom.reportRead();
+    return super.totalDesconto;
+  }
+
+  @override
+  set totalDesconto(double value) {
+    _$totalDescontoAtom.reportWrite(value, super.totalDesconto, () {
+      super.totalDesconto = value;
+    });
+  }
+
   final _$pedidosAtom = Atom(name: 'PedidoControllerBase.pedidos');
 
   @override
@@ -105,9 +165,27 @@ mixin _$PedidoController on PedidoControllerBase, Store {
     return _$updateAsyncAction.run(() => super.update(id, p));
   }
 
+  final _$PedidoControllerBaseActionController =
+      ActionController(name: 'PedidoControllerBase');
+
+  @override
+  double calculateDesconto() {
+    final _$actionInfo = _$PedidoControllerBaseActionController.startAction(
+        name: 'PedidoControllerBase.calculateDesconto');
+    try {
+      return super.calculateDesconto();
+    } finally {
+      _$PedidoControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
+valorTotal: ${valorTotal},
+desconto: ${desconto},
+total: ${total},
+totalDesconto: ${totalDesconto},
 pedidos: ${pedidos},
 pedido: ${pedido},
 error: ${error},

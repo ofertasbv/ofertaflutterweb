@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
+import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
 import 'package:nosso/src/core/controller/cliente_controller.dart';
@@ -51,6 +52,7 @@ void main() async {
   getIt.registerSingleton<FavoritoController>(FavoritoController());
   getIt.registerSingleton<UsuarioController>(UsuarioController());
   getIt.registerSingleton<VendedorController>(VendedorController());
+  getIt.registerSingleton<CartaoController>(CartaoController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

@@ -19,12 +19,12 @@ class CorCreatePage extends StatefulWidget {
   CorCreatePage({Key key, this.cor}) : super(key: key);
 
   @override
-  _CorCreatePageState createState() => _CorCreatePageState(c: cor);
+  _CorCreatePageState createState() => _CorCreatePageState(c: this.cor);
 }
 
 class _CorCreatePageState extends State<CorCreatePage> {
   var corController = GetIt.I.get<CorController>();
-  Dialogs dialogs = Dialogs();
+  var dialogs = Dialogs();
 
   Cor c;
   File file;
