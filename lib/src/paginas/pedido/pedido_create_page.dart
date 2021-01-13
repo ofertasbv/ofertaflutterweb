@@ -487,71 +487,71 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Status do pedido"),
-                            RadioListTile(
-                              controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("EMITIDA"),
-                              value: "EMITIDA",
-                              groupValue: p.statusPedido == null
-                                  ? p.statusPedido = statusPedido
-                                  : p.statusPedido,
-                              secondary: const Icon(Icons.check_outlined),
-                              onChanged: (String valor) {
-                                setState(() {
-                                  p.statusPedido = valor;
-                                  print("STATUS: " + p.statusPedido);
-                                });
-                              },
-                            ),
-                            RadioListTile(
-                              controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("ORCAMENTO"),
-                              value: "ORCAMENTO",
-                              groupValue: p.statusPedido == null
-                                  ? p.statusPedido = statusPedido
-                                  : p.statusPedido,
-                              secondary: const Icon(Icons.local_atm),
-                              onChanged: (String valor) {
-                                setState(() {
-                                  p.statusPedido = valor;
-                                  print("STATUS: " + p.statusPedido);
-                                });
-                              },
-                            ),
-                            RadioListTile(
-                              controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("CANCELADA"),
-                              value: "CANCELADA",
-                              groupValue: p.statusPedido == null
-                                  ? p.statusPedido = statusPedido
-                                  : p.statusPedido,
-                              secondary: const Icon(Icons.delete_forever_sharp),
-                              onChanged: (String valor) {
-                                setState(() {
-                                  p.statusPedido = valor;
-                                  print("STATUS: " + p.statusPedido);
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.all(5),
+                //   child: Container(
+                //     padding: EdgeInsets.all(5),
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: Colors.grey),
+                //       borderRadius: BorderRadius.circular(5),
+                //     ),
+                //     child: Column(
+                //       children: <Widget>[
+                //         Column(
+                //           crossAxisAlignment: CrossAxisAlignment.center,
+                //           children: <Widget>[
+                //             Text("Status do pedido"),
+                //             RadioListTile(
+                //               controlAffinity: ListTileControlAffinity.trailing,
+                //               title: Text("EMITIDA"),
+                //               value: "EMITIDA",
+                //               groupValue: p.statusPedido == null
+                //                   ? p.statusPedido = statusPedido
+                //                   : p.statusPedido,
+                //               secondary: const Icon(Icons.check_outlined),
+                //               onChanged: (String valor) {
+                //                 setState(() {
+                //                   p.statusPedido = valor;
+                //                   print("STATUS: " + p.statusPedido);
+                //                 });
+                //               },
+                //             ),
+                //             RadioListTile(
+                //               controlAffinity: ListTileControlAffinity.trailing,
+                //               title: Text("ORCAMENTO"),
+                //               value: "ORCAMENTO",
+                //               groupValue: p.statusPedido == null
+                //                   ? p.statusPedido = statusPedido
+                //                   : p.statusPedido,
+                //               secondary: const Icon(Icons.local_atm),
+                //               onChanged: (String valor) {
+                //                 setState(() {
+                //                   p.statusPedido = valor;
+                //                   print("STATUS: " + p.statusPedido);
+                //                 });
+                //               },
+                //             ),
+                //             RadioListTile(
+                //               controlAffinity: ListTileControlAffinity.trailing,
+                //               title: Text("CANCELADA"),
+                //               value: "CANCELADA",
+                //               groupValue: p.statusPedido == null
+                //                   ? p.statusPedido = statusPedido
+                //                   : p.statusPedido,
+                //               secondary: const Icon(Icons.delete_forever_sharp),
+                //               onChanged: (String valor) {
+                //                 setState(() {
+                //                   p.statusPedido = valor;
+                //                   print("STATUS: " + p.statusPedido);
+                //                 });
+                //               },
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

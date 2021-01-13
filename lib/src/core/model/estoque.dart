@@ -1,10 +1,12 @@
+import 'package:nosso/src/core/enum/estoque_status.dart';
+
 class Estoque {
   int id;
   int quantidade;
   double valorUnitario;
   double valorVenda;
   double percentual;
-  String estoqueStatus;
+  EstoqueStatus estoqueStatus;
   DateTime dataRegistro;
   DateTime dataVencimento;
 

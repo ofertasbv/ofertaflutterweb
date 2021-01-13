@@ -1,4 +1,4 @@
-
+import 'package:nosso/src/core/enum/tipo_endereco.dart';
 import 'package:nosso/src/core/model/cidade.dart';
 
 class Endereco {
@@ -10,20 +10,20 @@ class Endereco {
   String cep;
   double latitude;
   double longitude;
-  String tipoEndereco;
+  TipoEndereco tipoEndereco;
   Cidade cidade;
 
   Endereco(
       {this.id,
-        this.logradouro,
-        this.numero,
-        this.complemento,
-        this.bairro,
-        this.cep,
-        this.latitude,
-        this.longitude,
-        this.tipoEndereco,
-        this.cidade});
+      this.logradouro,
+      this.numero,
+      this.complemento,
+      this.bairro,
+      this.cep,
+      this.latitude,
+      this.longitude,
+      this.tipoEndereco,
+      this.cidade});
 
   Endereco.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,7 +36,7 @@ class Endereco {
     longitude = json['longitude'];
     tipoEndereco = json['tipoEndereco'];
     cidade =
-    json['cidade'] != null ? new Cidade.fromJson(json['cidade']) : null;
+        json['cidade'] != null ? new Cidade.fromJson(json['cidade']) : null;
   }
 
   Map<String, dynamic> toJson() {

@@ -1,3 +1,4 @@
+import 'package:nosso/src/core/enum/pedido_status.dart';
 import 'package:nosso/src/core/model/cliente.dart';
 import 'package:nosso/src/core/model/loja.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
@@ -13,7 +14,7 @@ class Pedido {
   List<PedidoItem> pedidoItems;
   Cliente cliente;
   Loja loja;
-  String statusPedido;
+  PedidoStatus statusPedido;
   String formaPagamento;
   DateTime dataHoraEntrega;
   DateTime dataRegistro;

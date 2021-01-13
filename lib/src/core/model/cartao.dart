@@ -1,11 +1,14 @@
+import 'package:nosso/src/core/enum/cartao_emissor.dart';
+import 'package:nosso/src/core/enum/cartao_tipo.dart';
+
 class Cartao {
   int id;
   String nome;
   String numeroCartao;
   String numeroSeguranca;
   DateTime dataValidade;
-  String cartaoEmissor;
-  String cartaoTipo;
+  CartaoEmissor cartaoEmissor;
+  CartaoTipo cartaoTipo;
 
   Cartao({
     this.id,
