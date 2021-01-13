@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/core/model/cartao.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/format/uppercasetext.dart';
 import 'package:nosso/src/util/validador/validador_cartao.dart';
 
 class CartaoCreatePage extends StatefulWidget {
@@ -87,6 +90,9 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
   }
 
   buildListViewForm(BuildContext context) {
+    var dateFormat = DateFormat('dd/MM/yyyy');
+    var maskFormatterNumero = new MaskTextInputFormatter(
+        mask: '####-####-####-####', filter: {"#": RegExp(r'[0-9]')});
     var focus = FocusScope.of(context);
 
     return ListView(
@@ -115,6 +121,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         onSaved: (value) => c.numeroCartao = value,
                         validator: validateNumeroCartao,
                         decoration: InputDecoration(
+                          labelText: "Número do cartão",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
@@ -123,6 +130,10 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           prefixIcon: Icon(Icons.credit_card),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [maskFormatterNumero],
+                        maxLength: 23,
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -130,6 +141,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         onSaved: (value) => c.nome = value,
                         validator: validateNome,
                         decoration: InputDecoration(
+                          labelText: "Nome do titular",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
@@ -138,15 +150,19 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           prefixIcon: Icon(Icons.account_circle),
                         ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [UpperCaeseText()],
+                        maxLength: 50,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
                         initialValue: c.dataValidade,
                         onSaved: (value) => c.dataValidade = value,
                         validator: validateDataValidade,
+                        format: dateFormat,
                         decoration: InputDecoration(
-                          labelText: "data validade",
-                          hintText: "99-99",
+                          labelText: "Data de validade",
                           prefixIcon: Icon(
                             Icons.calendar_today,
                             color: Colors.grey,
@@ -172,6 +188,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        keyboardType: TextInputType.datetime,
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -179,6 +196,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         onSaved: (value) => c.numeroSeguranca = value,
                         validator: validateNumeroSeguranca,
                         decoration: InputDecoration(
+                          labelText: "Código de segurança",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
@@ -188,7 +206,8 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                           prefixIcon: Icon(Icons.enhanced_encryption),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
+                        maxLength: 3,
                       ),
                     ],
                   ),
