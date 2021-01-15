@@ -7,9 +7,6 @@ import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class DialogTamanho extends StatefulWidget {
-
-
-
   @override
   _DialogTamanhoState createState() => _DialogTamanhoState();
 }
@@ -114,4 +111,3 @@ class AlertTamanho {
     );
   }
 }
-

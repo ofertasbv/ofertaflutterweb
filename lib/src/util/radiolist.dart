@@ -8,11 +8,24 @@ class TesteRadioList extends StatefulWidget {
 class _TesteRadioListState extends State<TesteRadioList> {
   List<User> users;
   User selectedUser;
+  bool checkSelect = false;
 
   @override
   void initState() {
     super.initState();
     users = User.getUsers();
+  }
+
+  onSelected(bool selected, User user) {
+    if (selected == true) {
+      setState(() {
+        users.add(user);
+      });
+    } else {
+      setState(() {
+        users.remove(user);
+      });
+    }
   }
 
   setSelectedUser(User user) {
@@ -29,18 +42,28 @@ class _TesteRadioListState extends State<TesteRadioList> {
       ),
       body: Container(
         child: Center(
-          child: RaisedButton(
-            child: Text("dialog"),
-            onPressed: () {
-              teste();
-            },
+          child: Column(
+            children: [
+              RaisedButton(
+                child: Text("RadioList"),
+                onPressed: () {
+                  testeRadioList();
+                },
+              ),
+              RaisedButton(
+                child: Text("CheckBox"),
+                onPressed: () {
+                  testeCheckBoxList();
+                },
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  teste() {
+  testeRadioList() {
     return showDialog(
       context: context,
       builder: (context) {
@@ -84,45 +107,45 @@ class _TesteRadioListState extends State<TesteRadioList> {
     );
   }
 
-  dialog(BuildContext context) {
+  testeCheckBoxList() {
     return showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(32.0))),
-          contentPadding: EdgeInsets.only(top: 10.0),
-          content: Container(
-            width: 300.0,
-            child: ListView(
-              children: users.map((u) {
-                return RadioListTile<User>(
-                  value: u,
-                  groupValue: selectedUser,
-                  title: Text(u.firstName),
-                  subtitle: Text(u.lastName),
-                  selected: selectedUser == u,
-                  activeColor: Colors.green,
-                  autofocus: true,
-                  toggleable: true,
-                  secondary: Icon(Icons.select_all_outlined),
-                  onChanged: (valor) {
-                    setState(() {
-                      setSelectedUser(valor);
-                    });
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text("Teste checkBox"),
+              content: Container(
+                width: 300.0,
+                child: ListView.builder(
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    User u = users[index];
+                    return CheckboxListTile(
+                      value: users.contains(users[index]),
+                      title: Text(u.firstName),
+                      subtitle: Text(u.lastName),
+                      activeColor: Colors.green,
+                      onChanged: (bool valor) {
+                        checkSelect = valor;
+                        onSelected(checkSelect, u);
+                        print("Clicado: ${checkSelect} - ${u.firstName}");
+                        for (User s in users) {
+                          print("Lista: ${s.firstName}");
+                        }
+                      },
+                    );
                   },
-                );
-              }).toList(),
-            ),
-          ),
-          actions: [
-            FlatButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("ok"),
-            )
-          ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text("Cancelar"),
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -144,10 +167,6 @@ class User {
       User(userId: 4, firstName: "Deep", lastName: "Sen"),
       User(userId: 5, firstName: "Emily", lastName: "Jane"),
       User(userId: 6, firstName: "Aaron", lastName: "Jackson"),
-      User(userId: 7, firstName: "Ben", lastName: "John"),
-      User(userId: 8, firstName: "Carrie", lastName: "Brown"),
-      User(userId: 9, firstName: "Deep", lastName: "Sen"),
-      User(userId: 10, firstName: "Emily", lastName: "Jane"),
     ];
   }
 }

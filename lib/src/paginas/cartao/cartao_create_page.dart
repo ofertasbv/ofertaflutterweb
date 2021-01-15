@@ -17,6 +17,7 @@ import 'package:nosso/src/util/validador/validador_cartao.dart';
 
 class CartaoCreatePage extends StatefulWidget {
   Cartao cartao;
+
   CartaoCreatePage({Key key, this.cartao}) : super(key: key);
 
   @override
@@ -104,7 +105,72 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
             title: Text("Dados ddo cartão de crédito"),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.all(15),
+          child: Container(
+            height: 200,
+            decoration: new BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).primaryColor,
+                  Theme.of(context).accentColor
+                ],
+              ),
+              border: Border.all(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Text("FABIO R COSTA"),
+                      Icon(Icons.wifi),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Text(
+                        "XXXX-XXXX-XXXX-9999",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Icon(Icons.credit_card),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Text("Data Validade 12/21"),
+                      Icon(Icons.calendar_today_rounded),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(10),
           child: Form(
