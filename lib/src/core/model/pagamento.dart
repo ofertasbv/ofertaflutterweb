@@ -9,7 +9,7 @@ class Pagamento {
   DateTime dataPagamento;
   PagamentoForma pagamentoForma;
   PagamentoTipo pagamentoTipo;
-  List<Fatura> faturas = List<Fatura>();
+  List<Fatura> faturas;
 
   Pagamento({
     this.id,
