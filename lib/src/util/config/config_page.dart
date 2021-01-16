@@ -12,6 +12,7 @@ import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/paginas/favorito/favorito_page.dart';
 import 'package:nosso/src/paginas/loja/loja_page.dart';
 import 'package:nosso/src/paginas/marca/marca_page.dart';
+import 'package:nosso/src/paginas/pagamento/pagamento_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedidoitem_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
@@ -933,6 +934,40 @@ class _ConfigPageState extends State<ConfigPage> {
                 padding: EdgeInsets.all(10),
               ),
               Text("Card Pay", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PagamentoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.credit_card_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Pagamento", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
