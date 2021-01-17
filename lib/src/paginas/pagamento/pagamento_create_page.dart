@@ -12,8 +12,9 @@ import 'package:nosso/src/core/model/pagamento.dart';
 import 'package:nosso/src/paginas/pagamento/pagamento_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
-import 'package:nosso/src/util/format/uppercasetext.dart';
-import 'package:nosso/src/util/validador/validador_cartao.dart';
+import 'package:nosso/src/util/steps/step_menu_etapa.dart';
+import 'package:nosso/src/util/validador/validador_pagamento.dart';
+import 'package:steps/steps.dart';
 
 class PagamentoCreatePage extends StatefulWidget {
   Pagamento pagamento;
@@ -22,23 +23,27 @@ class PagamentoCreatePage extends StatefulWidget {
 
   @override
   _PagamentoCreatePageState createState() =>
-      _PagamentoCreatePageState(c: this.pagamento);
+      _PagamentoCreatePageState(p: this.pagamento);
 }
 
 class _PagamentoCreatePageState extends State<PagamentoCreatePage>
-    with ValidadorCartao {
-  _PagamentoCreatePageState({this.c});
+    with ValidadorPagamento {
+  _PagamentoCreatePageState({this.p});
 
   var pagamentoController = GetIt.I.get<PagamentoController>();
   var dialogs = Dialogs();
 
-  Pagamento c;
+  var quantidadeController = TextEditingController();
+  var valorTotalController = TextEditingController();
+
+  Pagamento p;
   Controller controller;
+  String pagamentoForma;
 
   @override
   void initState() {
-    if (c == null) {
-      c = Pagamento();
+    if (p == null) {
+      p = Pagamento();
     }
     super.initState();
   }
@@ -62,7 +67,7 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cartão cadastro"),
+        title: Text("Pagamento cadastro"),
         actions: <Widget>[
           SizedBox(width: 20),
           IconButton(
@@ -102,73 +107,14 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
           color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("Dados ddo cartão de crédito"),
+            title: Text("Dados de pagamento"),
           ),
         ),
         SizedBox(height: 10),
-        Container(
-          padding: EdgeInsets.all(15),
-          child: Container(
-            height: 200,
-            decoration: new BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).primaryColor,
-                  Theme.of(context).accentColor
-                ],
-              ),
-              border: Border.all(
-                color: Colors.transparent,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Text("FABIO R COSTA"),
-                      Icon(Icons.wifi),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Text(
-                        "XXXX-XXXX-XXXX-9999",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(Icons.credit_card),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Text("Data Validade 12/21"),
-                      Icon(Icons.calendar_today_rounded),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                )
-              ],
-            ),
-          ),
+        StepMenuEtapa(
+          colorPedido: Colors.orangeAccent,
+          colorPagamento: Colors.grey,
+          colorConfirmacao: Colors.orangeAccent,
         ),
         SizedBox(height: 0),
         Container(
@@ -183,16 +129,20 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        validator: validateNumeroCartao,
+                        controller: quantidadeController,
+                        onSaved: (value) {
+                          p.quantidade = int.tryParse(value);
+                        },
+                        validator: validateQuantidade,
                         decoration: InputDecoration(
-                          labelText: "Número do cartão",
+                          labelText: "Quantidade",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Nº do cartão",
+                          hintText: "Quantidade",
                           hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.credit_card),
+                          prefixIcon: Icon(Icons.confirmation_number_outlined),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.number,
@@ -201,26 +151,32 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        validator: validateNome,
+                        controller: valorTotalController,
+                        onSaved: (value) {
+                          p.valor = double.tryParse(value);
+                        },
+                        validator: validateValorTotal,
                         decoration: InputDecoration(
-                          labelText: "Nome do titular",
+                          labelText: "Valor total",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Nome do cartão",
+                          hintText: "valor total",
                           hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.account_circle),
+                          prefixIcon: Icon(Icons.monetization_on_outlined),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
-                        inputFormatters: [UpperCaeseText()],
-                        maxLength: 50,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [maskFormatterNumero],
+                        maxLength: 23,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
-                        validator: validateDataValidade,
+                        initialValue: p.dataPagamento,
                         format: dateFormat,
+                        validator: validateDataPagamento,
+                        onSaved: (value) => p.dataPagamento = value,
                         decoration: InputDecoration(
                           labelText: "Data de validade",
                           prefixIcon: Icon(
@@ -250,23 +206,6 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
                         },
                         keyboardType: TextInputType.datetime,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        validator: validateNumeroSeguranca,
-                        decoration: InputDecoration(
-                          labelText: "Código de segurança",
-                          border: OutlineInputBorder(
-                            gapPadding: 0.0,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          hintText: "Código de segurança",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.enhanced_encryption),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                      ),
                     ],
                   ),
                 ),
@@ -274,7 +213,79 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
+        Container(
+          padding: EdgeInsets.all(15),
+          child: Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Column(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Forma de pagamento"),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: Text("DINHEIRO/ESPÉCIE"),
+                      value: "DINHEIRO",
+                      groupValue: pagamentoForma,
+                      secondary: const Icon(Icons.monetization_on_outlined),
+                      onChanged: (String valor) {
+                        setState(() {
+                          pagamentoForma = valor;
+                          print("Pagamento: " + pagamentoForma);
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: Text("BOLETO BANCÁRIO"),
+                      value: "BOLETO_BANCARIO",
+                      groupValue: pagamentoForma,
+                      secondary: const Icon(Icons.picture_as_pdf_outlined),
+                      onChanged: (String valor) {
+                        setState(() {
+                          pagamentoForma = valor;
+                          print("Pagamento: " + pagamentoForma);
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: Text("TRANSFERÊNCIA BANCÁRIA"),
+                      value: "TRANSFERENCIA_BANCARIA",
+                      groupValue: pagamentoForma,
+                      secondary: const Icon(Icons.atm_outlined),
+                      onChanged: (String valor) {
+                        setState(() {
+                          pagamentoForma = valor;
+                          print("Pagamento: " + pagamentoForma);
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      controlAffinity: ListTileControlAffinity.trailing,
+                      title: Text("CARTÃO DE CRÉDIDO"),
+                      value: "CARTAO_CREDITO",
+                      groupValue: pagamentoForma,
+                      secondary: const Icon(Icons.credit_card),
+                      onChanged: (String valor) {
+                        setState(() {
+                          pagamentoForma = valor;
+                          print("Pagamento: " + pagamentoForma);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
         Container(
           padding: EdgeInsets.all(10),
           child: RaisedButton.icon(
@@ -282,10 +293,10 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
             icon: Icon(Icons.check),
             onPressed: () {
               if (controller.validate()) {
-                if (c.id == null) {
+                if (p.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    pagamentoController.create(c).then((value) {
+                    pagamentoController.create(p).then((value) {
                       print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
@@ -295,7 +306,7 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    pagamentoController.update(c.id, c);
+                    pagamentoController.update(p.id, p);
                     Navigator.of(context).pop();
                     buildPush(context);
                   });

@@ -18,6 +18,7 @@ import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/permissao/permissao_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/steps/step_menu_etapa.dart';
 import 'package:nosso/src/util/validador/validador_pedido.dart';
 
 class PedidoCreatePage extends StatefulWidget {
@@ -46,7 +47,6 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
   Usuario loja;
   Loja l;
   Cliente c;
-  String formaPagamento;
   String statusPedido;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -159,6 +159,12 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
           ),
         ),
         SizedBox(height: 10),
+        StepMenuEtapa(
+          colorPedido: Colors.grey,
+          colorPagamento: Colors.orangeAccent,
+          colorConfirmacao: Colors.orangeAccent,
+        ),
+        SizedBox(height: 0),
         Container(
           padding: EdgeInsets.all(10),
           child: Form(
@@ -419,65 +425,44 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text("Forma de pagamento"),
+                            Text("Status do pedido"),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("DINHEIRO/ESPÉCIE"),
-                              value: "DINHEIRO",
-                              groupValue: p.formaPagamento == null
-                                  ? p.formaPagamento = formaPagamento
-                                  : p.formaPagamento,
-                              secondary: const Icon(Icons.local_atm),
+                              title: Text("CRIADO"),
+                              value: "CRIADO",
+                              groupValue: statusPedido,
+                              secondary: const Icon(Icons.shop_outlined),
                               onChanged: (String valor) {
                                 setState(() {
-                                  p.formaPagamento = valor;
-                                  print("Pagamento: " + p.formaPagamento);
+                                  statusPedido = valor;
+                                  print("STATUS: " + statusPedido);
                                 });
                               },
                             ),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("BOLETO BANCÁRIO"),
-                              value: "BOLETO_BANCARIO",
-                              groupValue: p.formaPagamento == null
-                                  ? p.formaPagamento = formaPagamento
-                                  : p.formaPagamento,
+                              title: Text("CANCELADO"),
+                              value: "CANCELADO",
+                              groupValue: statusPedido,
                               secondary:
-                                  const Icon(Icons.picture_as_pdf_outlined),
+                                  const Icon(Icons.delete_outline_outlined),
                               onChanged: (String valor) {
                                 setState(() {
-                                  p.formaPagamento = valor;
-                                  print("Pagamento: " + p.formaPagamento);
+                                  statusPedido = valor;
+                                  print("STATUS: " + statusPedido);
                                 });
                               },
                             ),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("TRANSFERÊNCIA BANCÁRIA"),
-                              value: "TRANSFERENCIA_BANCARIA",
-                              groupValue: p.formaPagamento == null
-                                  ? p.formaPagamento = formaPagamento
-                                  : p.formaPagamento,
-                              secondary: const Icon(Icons.local_atm),
+                              title: Text("ENTREGUE"),
+                              value: "ENTREGUE",
+                              groupValue: statusPedido,
+                              secondary: const Icon(Icons.delivery_dining),
                               onChanged: (String valor) {
                                 setState(() {
-                                  p.formaPagamento = valor;
-                                  print("Pagamento: " + p.formaPagamento);
-                                });
-                              },
-                            ),
-                            RadioListTile(
-                              controlAffinity: ListTileControlAffinity.trailing,
-                              title: Text("CARTÃO DE CRÉDIDO"),
-                              value: "CARTAO_CREDITO",
-                              groupValue: p.formaPagamento == null
-                                  ? p.formaPagamento = formaPagamento
-                                  : p.formaPagamento,
-                              secondary: const Icon(Icons.local_atm),
-                              onChanged: (String valor) {
-                                setState(() {
-                                  p.formaPagamento = valor;
-                                  print("Pagamento: " + p.formaPagamento);
+                                  statusPedido = valor;
+                                  print("STATUS: " + statusPedido);
                                 });
                               },
                             ),
@@ -487,71 +472,6 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                     ),
                   ),
                 ),
-                // Container(
-                //   padding: EdgeInsets.all(5),
-                //   child: Container(
-                //     padding: EdgeInsets.all(5),
-                //     decoration: BoxDecoration(
-                //       border: Border.all(color: Colors.grey),
-                //       borderRadius: BorderRadius.circular(5),
-                //     ),
-                //     child: Column(
-                //       children: <Widget>[
-                //         Column(
-                //           crossAxisAlignment: CrossAxisAlignment.center,
-                //           children: <Widget>[
-                //             Text("Status do pedido"),
-                //             RadioListTile(
-                //               controlAffinity: ListTileControlAffinity.trailing,
-                //               title: Text("EMITIDA"),
-                //               value: "EMITIDA",
-                //               groupValue: p.statusPedido == null
-                //                   ? p.statusPedido = statusPedido
-                //                   : p.statusPedido,
-                //               secondary: const Icon(Icons.check_outlined),
-                //               onChanged: (String valor) {
-                //                 setState(() {
-                //                   p.statusPedido = valor;
-                //                   print("STATUS: " + p.statusPedido);
-                //                 });
-                //               },
-                //             ),
-                //             RadioListTile(
-                //               controlAffinity: ListTileControlAffinity.trailing,
-                //               title: Text("ORCAMENTO"),
-                //               value: "ORCAMENTO",
-                //               groupValue: p.statusPedido == null
-                //                   ? p.statusPedido = statusPedido
-                //                   : p.statusPedido,
-                //               secondary: const Icon(Icons.local_atm),
-                //               onChanged: (String valor) {
-                //                 setState(() {
-                //                   p.statusPedido = valor;
-                //                   print("STATUS: " + p.statusPedido);
-                //                 });
-                //               },
-                //             ),
-                //             RadioListTile(
-                //               controlAffinity: ListTileControlAffinity.trailing,
-                //               title: Text("CANCELADA"),
-                //               value: "CANCELADA",
-                //               groupValue: p.statusPedido == null
-                //                   ? p.statusPedido = statusPedido
-                //                   : p.statusPedido,
-                //               secondary: const Icon(Icons.delete_forever_sharp),
-                //               onChanged: (String valor) {
-                //                 setState(() {
-                //                   p.statusPedido = valor;
-                //                   print("STATUS: " + p.statusPedido);
-                //                 });
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ],
             ),
           ),

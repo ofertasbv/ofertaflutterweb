@@ -585,13 +585,14 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       SizedBox(height: 10),
                       TextFormField(
                         controller: controllerQuantidade,
+                        initialValue: p.valorTotal.toString(),
                         onSaved: (value) {
-                          p.estoque.quantidade = int.tryParse(value);
+                          p.valorTotal = double.tryParse(value);
                         },
                         validator: validateQuantidade,
                         decoration: InputDecoration(
-                          labelText: "Quantidade",
-                          hintText: "quantidade",
+                          labelText: "Valor total",
+                          hintText: "Valor total",
                           prefixIcon: Icon(
                             Icons.mode_edit,
                             color: Colors.grey,

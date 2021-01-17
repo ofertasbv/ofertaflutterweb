@@ -4,6 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/paginas/cartao/cartao_create_page.dart';
+import 'package:nosso/src/paginas/pagamento/pagamento_create_page.dart';
 import 'package:nosso/src/paginas/pagamento/pagamento_list.dart';
 
 class PagamentoPage extends StatelessWidget {
@@ -46,7 +47,7 @@ class PagamentoPage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return CartaoCreatePage();
+                return PagamentoCreatePage();
               },
             ),
           );

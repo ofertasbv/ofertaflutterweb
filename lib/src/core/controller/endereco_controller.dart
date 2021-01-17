@@ -53,6 +53,16 @@ abstract class EnderecoControllerBase with Store {
   }
 
   @action
+  Future<Endereco> getCep(String cep) async {
+    try {
+      enderecoSelecionado = await enderecoRepository.getByCep(cep);
+      return enderecoSelecionado;
+    } catch (e) {
+      error = e;
+    }
+  }
+
+  @action
   Future<int> create(Endereco p) async {
     try {
       endereco = await enderecoRepository.create(p.toJson());

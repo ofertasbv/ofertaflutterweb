@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/api/dio/custon_dio.dart';
 import 'package:nosso/src/core/model/endereco.dart';
 
@@ -35,6 +32,17 @@ class EnderecoRepository {
       print("carregando enderecos by pessoa");
       var response = await dio.client.get("/enderecos/pessoa/${id}");
       return (response.data as List).map((c) => Endereco.fromJson(c)).toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    return null;
+  }
+
+  Future<Endereco> getByCep(String cep) async {
+    try {
+      print("carregando enderecos by cep");
+      var response = await dio.client.get("/enderecos/$cep");
+      return Endereco.fromJson(response.data);
     } on DioError catch (e) {
       print(e.message);
     }

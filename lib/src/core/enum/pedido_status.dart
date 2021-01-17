@@ -1,5 +1,5 @@
 enum PedidoStatus {
-  ORCAMENTO,
-  EMITIDA,
-  CANCELADA,
+  CONFIRMADO,
+  ENTREGUE,
+  CANCELADO,
 }

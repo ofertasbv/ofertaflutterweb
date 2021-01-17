@@ -14,6 +14,7 @@ import 'package:nosso/src/core/controller/estado_controller.dart';
 import 'package:nosso/src/core/controller/favorito_controller.dart';
 import 'package:nosso/src/core/controller/loja_controller.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
+import 'package:nosso/src/core/controller/pagamento_controller.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/pedido_controller.dart';
 import 'package:nosso/src/core/controller/permissao_controller.dart';
@@ -26,6 +27,7 @@ import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/controller/vendedor_controller.dart';
+import 'package:nosso/src/core/model/pagamento.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 
@@ -53,6 +55,7 @@ void main() async {
   getIt.registerSingleton<UsuarioController>(UsuarioController());
   getIt.registerSingleton<VendedorController>(VendedorController());
   getIt.registerSingleton<CartaoController>(CartaoController());
+  getIt.registerSingleton<PagamentoController>(PagamentoController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
