@@ -1,5 +1,3 @@
-
-
 import 'package:nosso/src/core/model/endereco.dart';
 import 'package:nosso/src/core/model/estado.dart';
 
@@ -15,7 +13,7 @@ class Cidade {
     id = json['id'];
     nome = json['nome'];
     estado =
-    json['estado'] != null ? new Estado.fromJson(json['estado']) : null;
+        json['estado'] != null ? new Estado.fromJson(json['estado']) : null;
     if (json['enderecos'] != null) {
       enderecos = new List<Endereco>();
       json['enderecos'].forEach((v) {

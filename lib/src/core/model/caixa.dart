@@ -1,20 +1,20 @@
-class CaixaFluxoSaida {
+class Caixa {
   int id;
   String descricao;
-  double valorSaida;
+  String referencia;
   DateTime dataRegistro;
 
-  CaixaFluxoSaida({
+  Caixa({
     this.id,
     this.descricao,
-    this.valorSaida,
+    this.referencia,
     this.dataRegistro,
   });
 
-  CaixaFluxoSaida.fromJson(Map<String, dynamic> json) {
+  Caixa.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     descricao = json['descricao'];
-    valorSaida = json['valorSaida'];
+    referencia = json['referencia'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
   }
 
@@ -22,7 +22,7 @@ class CaixaFluxoSaida {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['descricao'] = this.descricao;
-    data['valorSaida'] = this.valorSaida;
+    data['referencia'] = this.referencia;
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     return data;
   }
