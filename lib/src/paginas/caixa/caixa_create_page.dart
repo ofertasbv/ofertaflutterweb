@@ -7,7 +7,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
+import 'package:nosso/src/core/model/caixa.dart';
 import 'package:nosso/src/core/model/cartao.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
@@ -15,30 +17,29 @@ import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/format/uppercasetext.dart';
 import 'package:nosso/src/util/validador/validador_cartao.dart';
 
-class CartaoCreatePage extends StatefulWidget {
-  Cartao cartao;
+class CaixaCreatePage extends StatefulWidget {
+  Caixa caixa;
 
-  CartaoCreatePage({Key key, this.cartao}) : super(key: key);
+  CaixaCreatePage({Key key, this.caixa}) : super(key: key);
 
   @override
-  _CartaoCreatePageState createState() =>
-      _CartaoCreatePageState(c: this.cartao);
+  _CaixaCreatePageState createState() => _CaixaCreatePageState(c: this.caixa);
 }
 
-class _CartaoCreatePageState extends State<CartaoCreatePage>
+class _CaixaCreatePageState extends State<CaixaCreatePage>
     with ValidadorCartao {
-  _CartaoCreatePageState({this.c});
+  _CaixaCreatePageState({this.c});
 
-  var cartaoController = GetIt.I.get<CartaoController>();
+  var caixaController = GetIt.I.get<CaixaController>();
   var dialogs = Dialogs();
 
-  Cartao c;
+  Caixa c;
   Controller controller;
 
   @override
   void initState() {
     if (c == null) {
-      c = Cartao();
+      c = Caixa();
     }
     super.initState();
   }
@@ -62,7 +63,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cartão cadastro"),
+        title: Text("Caixa cadastro"),
         actions: <Widget>[
           SizedBox(width: 20),
           IconButton(
@@ -78,11 +79,11 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
       ),
       body: Observer(
         builder: (context) {
-          if (cartaoController.dioError == null) {
+          if (caixaController.dioError == null) {
             return buildListViewForm(context);
           } else {
-            print("Erro: ${cartaoController.mensagem}");
-            showToast("${cartaoController.mensagem}");
+            print("Erro: ${caixaController.mensagem}");
+            showToast("${caixaController.mensagem}");
             return buildListViewForm(context);
           }
         },
@@ -102,7 +103,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
           color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("Dados do cartão de crédito"),
+            title: Text("Dados do caixa"),
           ),
         ),
         SizedBox(height: 10),
@@ -183,16 +184,16 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        initialValue: c.numeroCartao,
-                        onSaved: (value) => c.numeroCartao = value,
+                        initialValue: c.descricao,
+                        onSaved: (value) => c.descricao = value,
                         validator: validateNumeroCartao,
                         decoration: InputDecoration(
-                          labelText: "Número do cartão",
+                          labelText: "Descrição do caixa",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Nº do cartão",
+                          hintText: "Descrição",
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           prefixIcon: Icon(Icons.credit_card),
                         ),
@@ -203,16 +204,16 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        initialValue: c.nome,
-                        onSaved: (value) => c.nome = value,
+                        initialValue: c.referencia,
+                        onSaved: (value) => c.referencia = value,
                         validator: validateNome,
                         decoration: InputDecoration(
-                          labelText: "Nome do titular",
+                          labelText: "Referencia do caixa",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Nome do cartão",
+                          hintText: "Referencia do caixa",
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           prefixIcon: Icon(Icons.account_circle),
                         ),
@@ -223,12 +224,12 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
-                        initialValue: c.dataValidade,
-                        onSaved: (value) => c.dataValidade = value,
+                        initialValue: c.dataRegistro,
+                        onSaved: (value) => c.dataRegistro = value,
                         validator: validateDataValidade,
                         format: dateFormat,
                         decoration: InputDecoration(
-                          labelText: "Data de validade",
+                          labelText: "Data de registro",
                           prefixIcon: Icon(
                             Icons.calendar_today,
                             color: Colors.grey,
@@ -256,25 +257,6 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         },
                         keyboardType: TextInputType.datetime,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        initialValue: c.numeroSeguranca,
-                        onSaved: (value) => c.numeroSeguranca = value,
-                        validator: validateNumeroSeguranca,
-                        decoration: InputDecoration(
-                          labelText: "Código de segurança",
-                          border: OutlineInputBorder(
-                            gapPadding: 0.0,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          hintText: "Código de segurança",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.enhanced_encryption),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                      ),
                     ],
                   ),
                 ),
@@ -293,7 +275,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    cartaoController.create(c).then((value) {
+                    caixaController.create(c).then((value) {
                       print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
@@ -303,7 +285,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    cartaoController.update(c.id, c);
+                    caixaController.update(c.id, c);
                     Navigator.of(context).pop();
                     buildPush(context);
                   });

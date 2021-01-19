@@ -4,6 +4,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
+import 'package:nosso/src/core/controller/caixa_controller.dart';
+import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
@@ -27,8 +29,6 @@ import 'package:flutter/services.dart';
 import 'package:nosso/src/core/controller/tamanho_controller.dart';
 import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/controller/vendedor_controller.dart';
-import 'package:nosso/src/core/model/pagamento.dart';
-import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/util/config/config_page.dart';
 
 void main() async {
@@ -56,6 +56,8 @@ void main() async {
   getIt.registerSingleton<VendedorController>(VendedorController());
   getIt.registerSingleton<CartaoController>(CartaoController());
   getIt.registerSingleton<PagamentoController>(PagamentoController());
+  getIt.registerSingleton<CaixaController>(CaixaController());
+  getIt.registerSingleton<CaixafluxoController>(CaixafluxoController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

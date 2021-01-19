@@ -1,44 +1,50 @@
 import 'dart:async';
 
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:nosso/src/core/controller/cartao_controller.dart';
-import 'package:nosso/src/core/model/cartao.dart';
+import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
+import 'package:nosso/src/core/model/caixafluxo.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
-import 'package:nosso/src/util/format/uppercasetext.dart';
+import 'package:nosso/src/util/validador/validador_caixafluxo.dart';
 import 'package:nosso/src/util/validador/validador_cartao.dart';
 
-class CartaoCreatePage extends StatefulWidget {
-  Cartao cartao;
+class CaixaFluxoCreatePage extends StatefulWidget {
+  CaixaFluxo caixaFluxo;
 
-  CartaoCreatePage({Key key, this.cartao}) : super(key: key);
+  CaixaFluxoCreatePage({Key key, this.caixaFluxo}) : super(key: key);
 
   @override
-  _CartaoCreatePageState createState() =>
-      _CartaoCreatePageState(c: this.cartao);
+  _CaixaFluxoCreatePageState createState() =>
+      _CaixaFluxoCreatePageState(c: this.caixaFluxo);
 }
 
-class _CartaoCreatePageState extends State<CartaoCreatePage>
-    with ValidadorCartao {
-  _CartaoCreatePageState({this.c});
+class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
+    with ValidadorCaixaFluxo {
+  _CaixaFluxoCreatePageState({this.c});
 
-  var cartaoController = GetIt.I.get<CartaoController>();
+  var caixafluxoController = GetIt.I.get<CaixafluxoController>();
   var dialogs = Dialogs();
 
-  Cartao c;
+  var saldoAnteriorController = TextEditingController();
+  var valorEntradaController = TextEditingController();
+  var valorSaidaController = TextEditingController();
+  var valorTotalController = TextEditingController();
+
+  CaixaFluxo c;
   Controller controller;
 
   @override
   void initState() {
     if (c == null) {
-      c = Cartao();
+      c = CaixaFluxo();
     }
     super.initState();
   }
@@ -62,7 +68,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cartão cadastro"),
+        title: Text("Caixa Fluxo cadastro"),
         actions: <Widget>[
           SizedBox(width: 20),
           IconButton(
@@ -78,11 +84,11 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
       ),
       body: Observer(
         builder: (context) {
-          if (cartaoController.dioError == null) {
+          if (caixafluxoController.dioError == null) {
             return buildListViewForm(context);
           } else {
-            print("Erro: ${cartaoController.mensagem}");
-            showToast("${cartaoController.mensagem}");
+            print("Erro: ${caixafluxoController.mensagem}");
+            showToast("${caixafluxoController.mensagem}");
             return buildListViewForm(context);
           }
         },
@@ -102,7 +108,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
           color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("Dados do cartão de crédito"),
+            title: Text("Dados do fluxo de caixa"),
           ),
         ),
         SizedBox(height: 10),
@@ -183,16 +189,16 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        initialValue: c.numeroCartao,
-                        onSaved: (value) => c.numeroCartao = value,
-                        validator: validateNumeroCartao,
+                        initialValue: c.descricao,
+                        onSaved: (value) => c.descricao = value,
+                        validator: validateDescricao,
                         decoration: InputDecoration(
-                          labelText: "Número do cartão",
+                          labelText: "Descrição do caixa",
                           border: OutlineInputBorder(
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Nº do cartão",
+                          hintText: "Descrição",
                           hintStyle: TextStyle(color: Colors.grey[400]),
                           prefixIcon: Icon(Icons.credit_card),
                         ),
@@ -203,32 +209,144 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                       ),
                       SizedBox(height: 10),
                       TextFormField(
-                        initialValue: c.nome,
-                        onSaved: (value) => c.nome = value,
-                        validator: validateNome,
+                        controller: saldoAnteriorController,
+                        validator: validateSaldoAnterior,
+                        onSaved: (value) {
+                          c.saldoAnterior = double.tryParse(value);
+                        },
                         decoration: InputDecoration(
-                          labelText: "Nome do titular",
-                          border: OutlineInputBorder(
-                            gapPadding: 0.0,
-                            borderRadius: BorderRadius.circular(5),
+                          labelText: "Saldo anterior",
+                          hintText: "Saldo anterior",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
                           ),
-                          hintText: "Nome do cartão",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.account_circle),
+                          suffixIcon: IconButton(
+                            onPressed: () => saldoAnteriorController.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.text,
-                        inputFormatters: [UpperCaeseText()],
-                        maxLength: 50,
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: false),
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: valorEntradaController,
+                        validator: validateValorEntrada,
+                        onSaved: (value) {
+                          c.valorEntrada = double.tryParse(value);
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Valor entrada",
+                          hintText: "Valor entrada",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorEntradaController.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: false),
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: valorSaidaController,
+                        validator: validateValorSaida,
+                        onSaved: (value) {
+                          c.valorSaida = double.tryParse(value);
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Valor saída",
+                          hintText: "Valor saída",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorSaidaController.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: false),
+                        maxLength: 6,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
+                        controller: valorTotalController,
+                        validator: validateValorTotal,
+                        onSaved: (value) {
+                          c.valorTotal = double.tryParse(value);
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Valor total",
+                          hintText: "Valor total",
+                          prefixIcon: Icon(
+                            Icons.monetization_on_outlined,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () => valorTotalController.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType:
+                            TextInputType.numberWithOptions(decimal: false),
+                        maxLength: 6,
                       ),
                       SizedBox(height: 10),
                       DateTimeField(
-                        initialValue: c.dataValidade,
-                        onSaved: (value) => c.dataValidade = value,
-                        validator: validateDataValidade,
+                        initialValue: c.dataRegistro,
+                        onSaved: (value) => c.dataRegistro = value,
+                        validator: validateDataAbertura,
                         format: dateFormat,
                         decoration: InputDecoration(
-                          labelText: "Data de validade",
+                          labelText: "Data de registro",
                           prefixIcon: Icon(
                             Icons.calendar_today,
                             color: Colors.grey,
@@ -256,25 +374,6 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         },
                         keyboardType: TextInputType.datetime,
                       ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        initialValue: c.numeroSeguranca,
-                        onSaved: (value) => c.numeroSeguranca = value,
-                        validator: validateNumeroSeguranca,
-                        decoration: InputDecoration(
-                          labelText: "Código de segurança",
-                          border: OutlineInputBorder(
-                            gapPadding: 0.0,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          hintText: "Código de segurança",
-                          hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.enhanced_encryption),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3,
-                      ),
                     ],
                   ),
                 ),
@@ -293,7 +392,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    cartaoController.create(c).then((value) {
+                    caixafluxoController.create(c).then((value) {
                       print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
@@ -303,7 +402,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    cartaoController.update(c.id, c);
+                    caixafluxoController.update(c.id, c);
                     Navigator.of(context).pop();
                     buildPush(context);
                   });
