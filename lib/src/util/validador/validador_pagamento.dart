@@ -22,7 +22,7 @@ class ValidadorPagamento {
 
   String validateDataPagamento(DateTime dataPagamento) {
     if (dataPagamento == null) {
-      return "Preencha a data de validade";
+      return "Preencha a data de pagamento";
     }
     return null;
   }

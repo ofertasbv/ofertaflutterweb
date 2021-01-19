@@ -287,6 +287,7 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.cpf,
                         onSaved: (value) => p.cpf = value,
@@ -313,6 +314,7 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                         keyboardType: TextInputType.number,
                         maxLength: 14,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.telefone,
                         onSaved: (value) => p.telefone = value,
@@ -336,14 +338,9 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.phone,
                         inputFormatters: [maskFormatterCelular],
+                        maxLength: 50,
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: <Widget>[
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
@@ -365,6 +362,7 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                         ),
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
+                        maxLength: 50,
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -437,7 +435,7 @@ class _VendedorCreatePageState extends State<VendedorCreatePage>
                     ],
                   ),
                 ),
-                SizedBox(height: 0),
+                SizedBox(height: 10),
               ],
             ),
           ),

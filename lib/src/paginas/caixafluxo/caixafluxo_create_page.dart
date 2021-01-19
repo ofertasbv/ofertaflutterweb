@@ -97,7 +97,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   }
 
   buildListViewForm(BuildContext context) {
-    var dateFormat = DateFormat('dd/MM/yyyy');
+    var dateFormat = DateFormat('dd/MM/yyyy HH:mm');
     var maskFormatterNumero = new MaskTextInputFormatter(
         mask: '####-####-####-####', filter: {"#": RegExp(r'[0-9]')});
     var focus = FocusScope.of(context);
@@ -135,8 +135,8 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                   padding: EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      Text("FABIO R COSTA"),
-                      Icon(Icons.wifi),
+                      Text("ABERTURA DE CAIXA"),
+                      Icon(Icons.vpn_key_outlined),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -148,13 +148,13 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                   child: Row(
                     children: [
                       Text(
-                        "XXXX-XXXX-XXXX-9999",
+                        "${dateFormat.format(DateTime.now())}",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Icon(Icons.credit_card),
+                      Icon(Icons.calculate_outlined),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,

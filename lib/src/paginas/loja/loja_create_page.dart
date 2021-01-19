@@ -238,6 +238,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Column(
@@ -246,7 +247,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         initialValue: p.nome,
                         onSaved: (value) => p.nome = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o nome fantazia" : null,
                         decoration: InputDecoration(
                           labelText: "Nome fantazia",
                           hintText: "nome",
@@ -267,11 +268,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.razaoSocial,
                         onSaved: (value) => p.razaoSocial = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha a razão social" : null,
                         decoration: InputDecoration(
                           labelText: "Razão social ",
                           hintText: "razão social",
@@ -291,11 +293,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.cnpj,
                         onSaved: (value) => p.cnpj = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o cnpj" : null,
                         decoration: InputDecoration(
                           labelText: "Cnpj",
                           hintText: "Cnpj",
@@ -317,11 +320,12 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         inputFormatters: [maskFormatterCNPJ],
                         maxLength: 17,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.telefone,
                         onSaved: (value) => p.telefone = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o telefone" : null,
                         decoration: InputDecoration(
                           labelText: "Telefone",
                           hintText: "Telefone celular",
@@ -340,15 +344,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.phone,
                         inputFormatters: [maskFormatterCelular],
+                        maxLength: 50,
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: <Widget>[
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
@@ -370,8 +368,9 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                         ),
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
+                        maxLength: 50,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: senhaController,
                         onSaved: (value) => p.usuario.senha = value,
@@ -441,6 +440,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorLoja {
                     ],
                   ),
                 ),
+                SizedBox(height: 10),
                 // SizedBox(height: 0),
                 // Column(
                 //   crossAxisAlignment: CrossAxisAlignment.start,

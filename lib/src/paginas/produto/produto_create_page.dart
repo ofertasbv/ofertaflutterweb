@@ -585,7 +585,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       SizedBox(height: 10),
                       TextFormField(
                         controller: controllerQuantidade,
-                        initialValue: p.valorTotal.toString(),
                         onSaved: (value) {
                           p.valorTotal = double.tryParse(value);
                         },

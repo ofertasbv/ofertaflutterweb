@@ -198,6 +198,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Container(
@@ -267,7 +268,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         initialValue: p.nome,
                         onSaved: (value) => p.nome = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o nome completo" : null,
                         decoration: InputDecoration(
                           labelText: "Nome completo",
                           hintText: "nome",
@@ -287,11 +288,12 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.cpf,
                         onSaved: (value) => p.cpf = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o cpf" : null,
                         decoration: InputDecoration(
                           labelText: "cpf",
                           hintText: "cpf",
@@ -313,11 +315,12 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         keyboardType: TextInputType.number,
                         maxLength: 14,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.telefone,
                         onSaved: (value) => p.telefone = value,
                         validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                            value.isEmpty ? "Preencha o telefone" : null,
                         decoration: InputDecoration(
                           labelText: "Telefone",
                           hintText: "Telefone celular",
@@ -336,14 +339,9 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.phone,
                         inputFormatters: [maskFormatterCelular],
+                        maxLength: 50,
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Column(
-                    children: <Widget>[
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
@@ -365,6 +363,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         ),
                         onEditingComplete: () => focus.nextFocus(),
                         keyboardType: TextInputType.emailAddress,
+                        maxLength: 50,
                       ),
                       SizedBox(height: 10),
                       TextFormField(

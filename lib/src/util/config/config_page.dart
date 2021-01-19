@@ -63,39 +63,17 @@ class _ConfigPageState extends State<ConfigPage> {
         children: <Widget>[
           builderBodyBack(),
           Container(
-              child: Column(
-            children: [
-              Container(
-                height: 80,
-                width: double.infinity,
-                color: Colors.transparent,
-                padding: EdgeInsets.all(8),
-                child: Container(
-                  height: 80,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.transparent),
-                    borderRadius: BorderRadius.circular(10),
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                Expanded(
+                  child: Container(
+                    child: buildGridViewConfig(context),
                   ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    "FROM BY GDADOS 2021",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Divider(),
-              Expanded(
-                child: Container(
-                  child: buildGridViewConfig(context),
-                ),
-              )
-            ],
-          )),
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

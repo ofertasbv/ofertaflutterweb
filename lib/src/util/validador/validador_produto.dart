@@ -29,7 +29,7 @@ class ValidadorProduto {
     if (quantidade != null) {
       if (quantidade <= 0) return "Deve ter pelo menos 1 estoque";
     } else {
-      return "Quantidade inválida";
+      return "Preencha a quantidade";
     }
     return null;
   }
@@ -40,7 +40,7 @@ class ValidadorProduto {
       if (!text.contains(".") || text.split(".")[1].length != 2)
         return "Utilize 2 casas decimais";
     } else {
-      return "Valor inválido";
+      return "Preencha o valor unitário";
     }
     return null;
   }
@@ -51,7 +51,7 @@ class ValidadorProduto {
       if (!text.contains(".") || text.split(".")[1].length != 2)
         return "Utilize 2 casas decimais";
     } else {
-      return "Valor inválido";
+      return "Preencha o valor de venda";
     }
     return null;
   }
@@ -62,14 +62,14 @@ class ValidadorProduto {
       if (!text.contains(".") || text.split(".")[1].length != 2)
         return "Utilize 2 casas decimais";
     } else {
-      return "Valor inválido";
+      return "Preencha o percentual de venda";
     }
     return null;
   }
 
   String validateDateRegistro(DateTime dataRegistro) {
     if (dataRegistro == null) {
-      return "Preencha a data registro";
+      return "Preencha a data de registro";
     }
     return null;
   }
