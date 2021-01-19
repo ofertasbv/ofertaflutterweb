@@ -4,7 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedidoitem_list.dart';
-import 'package:nosso/src/util/pdv/caixa_page.dart';
+import 'package:nosso/src/util/pdv/caixa_pdv_page.dart';
 
 class PedidoItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();

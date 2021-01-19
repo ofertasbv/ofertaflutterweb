@@ -10,7 +10,7 @@ import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
 import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
-import 'package:nosso/src/util/pdv/caixa_page.dart';
+import 'package:nosso/src/util/pdv/caixa_pdv_page.dart';
 
 class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();

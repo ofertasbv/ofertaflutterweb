@@ -304,7 +304,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(
                   "QUANTIDADE",
                   style: TextStyle(
@@ -332,7 +332,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(
                   "VALOR UNITÁRIO",
                   style: TextStyle(
@@ -360,7 +360,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
                   keyboardType: TextInputType.number,
                   maxLength: 13,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(
                   "SUBTOTAL",
                   style: TextStyle(
@@ -388,7 +388,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(
                   "DESCONTO",
                   style: TextStyle(
@@ -417,7 +417,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Text(
                   "VALOR TOTAL",
                   style: TextStyle(

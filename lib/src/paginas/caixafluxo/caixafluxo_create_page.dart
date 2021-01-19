@@ -140,7 +140,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                   padding: EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      Text("ABERTURA DE CAIXA"),
+                      Text("FLUXO DE CAIXA"),
                       Icon(Icons.vpn_key_outlined),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
