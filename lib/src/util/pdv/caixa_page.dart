@@ -19,12 +19,12 @@ import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 import 'package:nosso/src/util/validador/validador_pdv.dart';
 
-class CaixaPageHome extends StatefulWidget {
+class CaixaPDVPage extends StatefulWidget {
   @override
-  _CaixaPageHomeState createState() => _CaixaPageHomeState();
+  _CaixaPDVPageState createState() => _CaixaPDVPageState();
 }
 
-class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
+class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
   var produtoController = GetIt.I.get<ProdutoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var focusScopeNode = FocusScopeNode();
@@ -272,7 +272,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "CÓDIGO DE BARRA",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -308,7 +308,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "QUANTIDADE",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -336,7 +336,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "VALOR UNITÁRIO",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -364,7 +364,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "SUBTOTAL",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -392,7 +392,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "DESCONTO",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -421,7 +421,7 @@ class _CaixaPageHomeState extends State<CaixaPageHome> with ValidadorPDV {
                 Text(
                   "VALOR TOTAL",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -30,14 +30,14 @@ class VendedorCreatePage extends StatefulWidget {
 
 class _VendedorCreatePageState extends State<VendedorCreatePage>
     with ValidadorCliente {
+  _VendedorCreatePageState({this.p});
+
   var vendedorController = GetIt.I.get<VendedorController>();
-  Dialogs dialogs = Dialogs();
+  var dialogs = Dialogs();
 
   Vendedor p;
   Endereco e;
   Usuario u;
-
-  _VendedorCreatePageState({this.p});
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

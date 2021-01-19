@@ -756,7 +756,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           );
                         },
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 30),
                       DateTimeField(
                         initialValue: p.estoque.dataVencimento,
                         format: dateFormat,

@@ -174,7 +174,7 @@ class _ConfigPageState extends State<ConfigPage> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaPageHome();
+                  return CaixaPDVPage();
                 },
               ),
             );

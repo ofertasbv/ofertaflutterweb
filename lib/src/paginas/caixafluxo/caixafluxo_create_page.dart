@@ -9,10 +9,13 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
+import 'package:nosso/src/core/controller/vendedor_controller.dart';
 import 'package:nosso/src/core/model/caixafluxo.dart';
+import 'package:nosso/src/core/model/vendedor.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/dropdown/dropdown_vendedor.dart';
 import 'package:nosso/src/util/validador/validador_caixafluxo.dart';
 import 'package:nosso/src/util/validador/validador_cartao.dart';
 
@@ -31,6 +34,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   _CaixaFluxoCreatePageState({this.c});
 
   var caixafluxoController = GetIt.I.get<CaixafluxoController>();
+  var vendedorController = GetIt.I.get<VendedorController>();
   var dialogs = Dialogs();
 
   var saldoAnteriorController = TextEditingController();
@@ -39,6 +43,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   var valorTotalController = TextEditingController();
 
   CaixaFluxo c;
+  Vendedor vendedorSelecionado;
   Controller controller;
 
   @override
@@ -165,8 +170,8 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                   padding: EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      Text("Data Validade 12/21"),
-                      Icon(Icons.calendar_today_rounded),
+                      Text("CAIXA 01 - PC01"),
+                      Icon(Icons.computer),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,16 +183,52 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
         ),
         SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(5),
           child: Form(
             key: controller.formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                DropDownVendedor(vendedorSelecionado),
+                Observer(
+                  builder: (context) {
+                    if (vendedorController.vendedoreSelecionado == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: vendedorController.mensagem == null
+                              ? Text(
+                                  "campo obrigatório *",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  "${vendedorController.mensagem}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(height: 0),
                 Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(15),
                   child: Column(
                     children: <Widget>[
+                      SizedBox(height: 0),
                       TextFormField(
                         initialValue: c.descricao,
                         onSaved: (value) => c.descricao = value,
@@ -381,9 +422,9 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(20),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),
