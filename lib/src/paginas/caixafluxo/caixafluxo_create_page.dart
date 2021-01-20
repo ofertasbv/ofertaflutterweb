@@ -38,6 +38,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   var caixafluxoController = GetIt.I.get<CaixafluxoController>();
   var vendedorController = GetIt.I.get<VendedorController>();
   var dialogs = Dialogs();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   var saldoAnteriorController = TextEditingController();
   var valorEntradaController = TextEditingController();
@@ -46,6 +47,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
 
   CaixaFluxo c;
   Caixa caixa;
+  bool status;
   Vendedor vendedorSelecionado;
   Controller controller;
 
@@ -53,6 +55,9 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   void initState() {
     if (c == null) {
       c = CaixaFluxo();
+      status = false;
+    } else {
+      status = c.status;
     }
     super.initState();
   }
@@ -72,9 +77,30 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
     );
   }
 
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
+    );
+  }
+
+  verificaCaixaStatus(bool status) {
+    if (status == true) {
+      this.c.caixaStatus = "ABERTO";
+    } else {
+      this.c.caixaStatus = "FECHADO";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Caixa Fluxo cadastro"),
         actions: <Widget>[
@@ -116,14 +142,16 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
           color: Theme.of(context).accentColor.withOpacity(0.1),
           padding: EdgeInsets.all(0),
           child: ListTile(
-            title: Text("Dados do fluxo de caixa"),
+            title: Text("Fluxo de caixa"),
+            subtitle: Text("${caixa.descricao} - ${caixa.referencia}"),
+            trailing: Text("${dateFormat.format(DateTime.now())}"),
           ),
         ),
         SizedBox(height: 10),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: Container(
-            height: 200,
+            height: 110,
             decoration: new BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -140,58 +168,35 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Chip(
-                        label: Text(
-                          "CAIXA ESTÁ ${caixa.caixaStatus}",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                  padding: EdgeInsets.all(15),
+                  child: Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: SwitchListTile(
+                            autofocus: true,
+                            title: Text("Abertura de caixa? "),
+                            subtitle: Text("sim/não"),
+                            value: c.status = status,
+                            secondary: const Icon(Icons.check_outlined),
+                            onChanged: (bool valor) {
+                              setState(() {
+                                status = valor;
+                                verificaCaixaStatus(status);
+                                print("Status: " + c.status.toString());
+                              });
+                              showSnackbar(context, "CAIXA ${c.caixaStatus}");
+                            },
                           ),
                         ),
-                        backgroundColor: Colors.orangeAccent,
-                      ),
-                      Icon(Icons.vpn_key_outlined),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                      ],
+                    ),
                   ),
                 ),
-                SizedBox(height: 0),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Text(
-                        "${dateFormat.format(DateTime.now())}",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Icon(Icons.calculate_outlined),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                ),
-                SizedBox(height: 0),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      Chip(
-                        label: Text("${caixa.descricao} - ${caixa.referencia}"),
-                      ),
-                      Icon(Icons.computer),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  ),
-                )
               ],
             ),
           ),

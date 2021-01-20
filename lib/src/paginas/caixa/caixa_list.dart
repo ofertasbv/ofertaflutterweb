@@ -70,53 +70,67 @@ class _CaixaListState extends State<CaixaList>
         Caixa c = caixas[index];
 
         return GestureDetector(
-          child: ListTile(
-            isThreeLine: true,
-            leading: Container(
-              padding: EdgeInsets.all(1),
-              decoration: new BoxDecoration(
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Container(
+              margin: EdgeInsets.only(top: 0),
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Theme.of(context).primaryColor,
-                    Theme.of(context).primaryColor
+                    Theme.of(context).accentColor
                   ],
                 ),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(35),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 21),
+                    blurRadius: 54,
+                    color: Colors.black.withOpacity(0.05),
+                  )
+                ],
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: CircleAvatar(
-                backgroundColor: Colors.grey[100],
-                radius: 20,
-                child: Text(
-                  c.descricao.substring(0, 1).toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+              child: ListTile(
+                isThreeLine: true,
+                leading: Container(
+                  padding: EdgeInsets.all(1),
+                  decoration: new BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColor
+                      ],
+                    ),
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(35),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    radius: 20,
+                    child: Text(
+                      c.descricao.substring(0, 1).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
+                title: Text(c.descricao),
+                subtitle: Text(c.caixaStatus),
+                trailing: Container(
+                  height: 80,
+                  width: 50,
+                  child: buildPopupMenuButton(context, c),
+                ),
               ),
-            ),
-            title: Text(c.descricao),
-            subtitle: Text(c.caixaStatus),
-            trailing: Container(
-              height: 80,
-              width: 50,
-              child: buildPopupMenuButton(context, c),
             ),
           ),
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return CaixaFluxoCreatePage(caixa: c);
-                },
-              ),
-            );
-          },
         );
       },
     );

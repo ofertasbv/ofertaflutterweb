@@ -8,7 +8,8 @@ class CaixaFluxo {
   double valorSaida;
   double valorTotal;
   DateTime dataRegistro;
-  CaixaStatus caixaStatus;
+  String caixaStatus;
+  bool status;
 
   CaixaFluxo({
     this.id,
@@ -19,6 +20,7 @@ class CaixaFluxo {
     this.valorTotal,
     this.dataRegistro,
     this.caixaStatus,
+    this.status,
   });
 
   CaixaFluxo.fromJson(Map<String, dynamic> json) {
@@ -30,6 +32,7 @@ class CaixaFluxo {
     valorTotal = json['valorTotal'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     caixaStatus = json['caixaStatus'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +44,7 @@ class CaixaFluxo {
     data['valorSaida'] = this.valorSaida;
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['caixaStatus'] = this.caixaStatus;
+    data['status'] = this.status;
     return data;
   }
 }
