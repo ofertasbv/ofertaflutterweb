@@ -9,6 +9,7 @@ import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/subcategoria_controller.dart';
 import 'package:nosso/src/core/model/categoria.dart';
 import 'package:nosso/src/paginas/subcategoria/subcategoria_produto.dart';
+import 'package:nosso/src/util/load/circular_progresso.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
 class CategoriaSubCategoria extends StatefulWidget {
@@ -98,7 +99,7 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
           }
 
           if (categorias == null) {
-            return CircularProgressorMini();
+            return CircularProgressor();
           }
 
           if (categorias.length == 0) {
@@ -143,7 +144,10 @@ class _CategoriaSubCategoriaState extends State<CategoriaSubCategoria> {
               padding: EdgeInsets.all(1),
               decoration: new BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Theme.of(context).primaryColor, Theme.of(context).primaryColor],
+                  colors: [
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).primaryColor
+                  ],
                 ),
                 border: Border.all(
                   color: Colors.black,

@@ -256,7 +256,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
                         },
                         keyboardType: TextInputType.datetime,
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: c.numeroSeguranca,
                         onSaved: (value) => c.numeroSeguranca = value,

@@ -10,7 +10,7 @@ class Endereco {
   String cep;
   double latitude;
   double longitude;
-  TipoEndereco tipoEndereco;
+  String tipoEndereco;
   Cidade cidade;
 
   Endereco(

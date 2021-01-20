@@ -13,7 +13,7 @@ class StepMenuEtapa extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       child: Container(
-        height: 120,
+        height: 70,
         alignment: Alignment.topCenter,
         child: Steps(
           direction: Axis.horizontal,
@@ -29,7 +29,7 @@ class StepMenuEtapa extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Pedido',
-                    style: TextStyle(fontSize: 10.0),
+                    style: TextStyle(fontSize: 12.0),
                   ),
                 ],
               ),

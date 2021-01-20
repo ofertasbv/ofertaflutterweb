@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/paginas/caixa/caixa_page.dart';
 import 'package:nosso/src/paginas/caixafluxo/caixafluxo_page.dart';
+import 'package:nosso/src/paginas/caixafluxoentrada/caixafluxoentrada_page.dart';
+import 'package:nosso/src/paginas/caixafluxosaida/caixafluxosaida_page.dart';
+import 'package:nosso/src/paginas/pdv/caixa_pdv_page.dart';
+import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
-import 'package:nosso/src/util/pdv/caixa_pdv_page.dart';
 
 class CaixaControlePage extends StatelessWidget {
   var dateFormat = DateFormat('dd/MM/yyyy HH:mm');
@@ -48,6 +51,13 @@ class CaixaControlePage extends StatelessWidget {
                       Theme.of(context).accentColor
                     ],
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 21),
+                      blurRadius: 54,
+                      color: Colors.black.withOpacity(0.05),
+                    )
+                  ],
                   border: Border.all(
                     color: Colors.transparent,
                     width: 1,
@@ -271,7 +281,7 @@ class CaixaControlePage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaFluxoPage();
+                  return CaixaFluxoEntradaPage();
                 },
               ),
             );
@@ -297,7 +307,7 @@ class CaixaControlePage extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(15),
               ),
-              Text("Entradas", style: TextStyle(fontSize: 12)),
+              Text("Receitas", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),
@@ -306,7 +316,7 @@ class CaixaControlePage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaFluxoPage();
+                  return CaixaFluxoSaidaPage();
                 },
               ),
             );
@@ -332,7 +342,42 @@ class CaixaControlePage extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(15),
               ),
-              Text("Saídas", style: TextStyle(fontSize: 12)),
+              Text("Despesas", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PedidoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.monetization_on_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(15),
+              ),
+              Text("Vendas", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

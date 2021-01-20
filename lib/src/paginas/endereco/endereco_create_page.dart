@@ -176,6 +176,13 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("seu endereço, é rapido e seguro"),
+          ),
+        ),
+        Container(
           padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
@@ -183,54 +190,56 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 SizedBox(height: 10),
-                // Container(
-                //   padding: EdgeInsets.all(5),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //       border: Border.all(color: Colors.grey),
-                //       borderRadius: BorderRadius.circular(5),
-                //     ),
-                //     padding: EdgeInsets.all(5),
-                //     child: Column(
-                //       children: <Widget>[
-                //         SizedBox(height: 15),
-                //         Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: <Widget>[
-                //             RadioListTile(
-                //               controlAffinity: ListTileControlAffinity.trailing,
-                //               title: Text("COMERCIAL"),
-                //               value: "COMERCIAL",
-                //               groupValue: endereco.tipoEndereco == null
-                //                   ? tipoEndereco
-                //                   : endereco.tipoEndereco,
-                //               onChanged: (String valor) {
-                //                 setState(() {
-                //                   endereco.tipoEndereco = valor;
-                //                   print("resultado: " + endereco.tipoEndereco);
-                //                 });
-                //               },
-                //             ),
-                //             RadioListTile(
-                //               controlAffinity: ListTileControlAffinity.trailing,
-                //               title: Text("RESIDENCIAL"),
-                //               value: "RESIDENCIAL",
-                //               groupValue: endereco.tipoEndereco == null
-                //                   ? tipoEndereco
-                //                   : endereco.tipoEndereco,
-                //               onChanged: (String valor) {
-                //                 setState(() {
-                //                   endereco.tipoEndereco = valor;
-                //                   print("resultado: " + endereco.tipoEndereco);
-                //                 });
-                //               },
-                //             ),
-                //           ],
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 15),
+                        Text("Tipo de endereço"),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("COMERCIAL"),
+                              value: "COMERCIAL",
+                              groupValue: endereco.tipoEndereco == null
+                                  ? tipoEndereco
+                                  : endereco.tipoEndereco,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  endereco.tipoEndereco = valor;
+                                  print("resultado: " + endereco.tipoEndereco);
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              controlAffinity: ListTileControlAffinity.trailing,
+                              title: Text("RESIDENCIAL"),
+                              value: "RESIDENCIAL",
+                              groupValue: endereco.tipoEndereco == null
+                                  ? tipoEndereco
+                                  : endereco.tipoEndereco,
+                              onChanged: (String valor) {
+                                setState(() {
+                                  endereco.tipoEndereco = valor;
+                                  print("resultado: " + endereco.tipoEndereco);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(5),

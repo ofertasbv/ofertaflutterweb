@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
-import 'package:nosso/src/paginas/caixa/caixa_page.dart';
 import 'package:nosso/src/paginas/caixacontrole/caixa_controle_page.dart';
-import 'package:nosso/src/paginas/caixafluxo/caixafluxo_page.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
@@ -29,7 +27,6 @@ import 'package:nosso/src/paginas/vendedor/vendedor_page.dart';
 import 'package:nosso/src/util/Examples/teste_mapa.dart';
 import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
 import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
-import 'package:nosso/src/util/pdv/caixa_pdv_page.dart';
 import 'package:nosso/src/util/radiolist.dart';
 
 class ConfigPage extends StatefulWidget {

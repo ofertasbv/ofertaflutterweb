@@ -5,12 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
-import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/pedido/pedido_create_page.dart';
-import 'package:nosso/src/paginas/pedido/pedido_page.dart';
 import 'package:nosso/src/paginas/pedidoitem/pedito_itens_page.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
-import 'package:nosso/src/util/pdv/caixa_pdv_page.dart';
 
 class ItemPage extends StatelessWidget {
   var pedidoItemController = GetIt.I.get<PedidoItemController>();

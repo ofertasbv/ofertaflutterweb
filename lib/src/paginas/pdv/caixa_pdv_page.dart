@@ -264,6 +264,15 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
       child: ListView(
         children: [
           Container(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            padding: EdgeInsets.all(0),
+            child: ListTile(
+              title: Text("CAIXA ABERTO"),
+              subtitle: Text("CAIXA - 01"),
+              trailing: Text("${dateFormat.format(DateTime.now())}"),
+            ),
+          ),
+          Container(
             padding: EdgeInsets.all(15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
