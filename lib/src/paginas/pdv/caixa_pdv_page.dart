@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/controller/pedidoItem_controller.dart';
 import 'package:nosso/src/core/controller/produto_controller.dart';
+import 'package:nosso/src/core/model/caixa.dart';
 import 'package:nosso/src/core/model/pedidoitem.dart';
 import 'package:nosso/src/core/model/produto.dart';
 import 'package:nosso/src/paginas/pedidoitem/itens_page.dart';
@@ -20,11 +21,17 @@ import 'package:nosso/src/util/snackbar/snackbar_global.dart';
 import 'package:nosso/src/util/validador/validador_pdv.dart';
 
 class CaixaPDVPage extends StatefulWidget {
+  Caixa caixa;
+
+  CaixaPDVPage({Key key, this.caixa}) : super(key: key);
+
   @override
-  _CaixaPDVPageState createState() => _CaixaPDVPageState();
+  _CaixaPDVPageState createState() => _CaixaPDVPageState(caixa: this.caixa);
 }
 
 class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
+  _CaixaPDVPageState({this.caixa});
+
   var produtoController = GetIt.I.get<ProdutoController>();
   var pedidoItemController = GetIt.I.get<PedidoItemController>();
   var focusScopeNode = FocusScopeNode();
@@ -43,6 +50,7 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
   var totalVolumesController = TextEditingController();
   var foto;
 
+  Caixa caixa;
   Controller controller;
 
   @override
@@ -267,8 +275,8 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
             color: Theme.of(context).primaryColor.withOpacity(0.1),
             padding: EdgeInsets.all(0),
             child: ListTile(
-              title: Text("CAIXA ABERTO"),
-              subtitle: Text("CAIXA - 01"),
+              title: Text("CAIXA ESTÁ ${caixa.caixaStatus}"),
+              subtitle: Text("${caixa.descricao} - ${caixa.referencia}"),
               trailing: Text("${dateFormat.format(DateTime.now())}"),
             ),
           ),

@@ -7,6 +7,8 @@ import 'package:get_it/get_it.dart';
 import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/model/caixa.dart';
 import 'package:nosso/src/paginas/caixa/caixa_create_page.dart';
+import 'package:nosso/src/paginas/caixafluxo/caixafluxo_create_page.dart';
+import 'package:nosso/src/paginas/pdv/caixa_pdv_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class CaixaList extends StatefulWidget {
@@ -99,7 +101,7 @@ class _CaixaListState extends State<CaixaList>
               ),
             ),
             title: Text(c.descricao),
-            subtitle: Text("cod: ${c.id}"),
+            subtitle: Text(c.caixaStatus),
             trailing: Container(
               height: 80,
               width: 50,
@@ -110,7 +112,7 @@ class _CaixaListState extends State<CaixaList>
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaCreatePage(caixa: c);
+                  return CaixaFluxoCreatePage(caixa: c);
                 },
               ),
             );
@@ -125,8 +127,27 @@ class _CaixaListState extends State<CaixaList>
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),
       onSelected: (valor) {
-        if (valor == "novo") {
-          print("novo");
+        if (valor == "fluxo") {
+          print("fluxo");
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return CaixaFluxoCreatePage(caixa: c);
+              },
+            ),
+          );
+        }
+        if (valor == "pdv") {
+          print("pdv");
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return CaixaPDVPage(caixa: c);
+              },
+            ),
+          );
         }
         if (valor == "editar") {
           print("editar");
@@ -145,10 +166,17 @@ class _CaixaListState extends State<CaixaList>
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
         const PopupMenuItem<String>(
-          value: 'novo',
+          value: 'fluxo',
           child: ListTile(
             leading: Icon(Icons.add),
-            title: Text('novo'),
+            title: Text('fluxo'),
+          ),
+        ),
+        const PopupMenuItem<String>(
+          value: 'pdv',
+          child: ListTile(
+            leading: Icon(Icons.add),
+            title: Text('pdv'),
           ),
         ),
         const PopupMenuItem<String>(

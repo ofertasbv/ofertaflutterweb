@@ -176,7 +176,7 @@ class CaixaControlePage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaPDVPage();
+                  return CaixaPage();
                 },
               ),
             );
@@ -246,7 +246,7 @@ class CaixaControlePage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaFluxoPage();
+                  return CaixaPage();
                 },
               ),
             );

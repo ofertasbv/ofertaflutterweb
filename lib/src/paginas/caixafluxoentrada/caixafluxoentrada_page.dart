@@ -13,7 +13,7 @@ class CaixaFluxoEntradaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Caixa entradas"),
+        title: Text("Caixa receitas"),
         actions: <Widget>[
           Observer(
             builder: (context) {

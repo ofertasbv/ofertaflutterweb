@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
 import 'package:nosso/src/core/controller/vendedor_controller.dart';
+import 'package:nosso/src/core/model/caixa.dart';
 import 'package:nosso/src/core/model/caixafluxo.dart';
 import 'package:nosso/src/core/model/vendedor.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
@@ -17,21 +18,22 @@ import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_vendedor.dart';
 import 'package:nosso/src/util/validador/validador_caixafluxo.dart';
-import 'package:nosso/src/util/validador/validador_cartao.dart';
 
 class CaixaFluxoCreatePage extends StatefulWidget {
   CaixaFluxo caixaFluxo;
+  Caixa caixa;
 
-  CaixaFluxoCreatePage({Key key, this.caixaFluxo}) : super(key: key);
+  CaixaFluxoCreatePage({Key key, this.caixaFluxo, this.caixa})
+      : super(key: key);
 
   @override
   _CaixaFluxoCreatePageState createState() =>
-      _CaixaFluxoCreatePageState(c: this.caixaFluxo);
+      _CaixaFluxoCreatePageState(c: this.caixaFluxo, caixa: this.caixa);
 }
 
 class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
     with ValidadorCaixaFluxo {
-  _CaixaFluxoCreatePageState({this.c});
+  _CaixaFluxoCreatePageState({this.c, this.caixa});
 
   var caixafluxoController = GetIt.I.get<CaixafluxoController>();
   var vendedorController = GetIt.I.get<VendedorController>();
@@ -43,6 +45,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   var valorTotalController = TextEditingController();
 
   CaixaFluxo c;
+  Caixa caixa;
   Vendedor vendedorSelecionado;
   Controller controller;
 
@@ -118,7 +121,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
         ),
         SizedBox(height: 10),
         Container(
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(10),
           child: Container(
             height: 200,
             decoration: new BoxDecoration(
@@ -137,17 +140,27 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      Text("FLUXO DE CAIXA"),
+                      Chip(
+                        label: Text(
+                          "CAIXA ESTÁ ${caixa.caixaStatus}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        backgroundColor: Colors.orangeAccent,
+                      ),
                       Icon(Icons.vpn_key_outlined),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 0),
                 Container(
                   padding: EdgeInsets.all(15),
                   child: Row(
@@ -165,12 +178,14 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                     crossAxisAlignment: CrossAxisAlignment.center,
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 0),
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(10),
                   child: Row(
                     children: [
-                      Text("CAIXA 01 - PC01"),
+                      Chip(
+                        label: Text("${caixa.descricao} - ${caixa.referencia}"),
+                      ),
                       Icon(Icons.computer),
                     ],
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -239,14 +254,14 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                             gapPadding: 0.0,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          hintText: "Descrição",
+                          hintText: "Descrição breve",
                           hintStyle: TextStyle(color: Colors.grey[400]),
-                          prefixIcon: Icon(Icons.credit_card),
+                          prefixIcon: Icon(Icons.edit_attributes_outlined),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [maskFormatterNumero],
-                        maxLength: 23,
+                        keyboardType: TextInputType.text,
+                        maxLength: 255,
+                        maxLines: null,
                       ),
                       SizedBox(height: 10),
                       TextFormField(

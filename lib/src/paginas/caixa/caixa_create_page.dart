@@ -11,6 +11,7 @@ import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/core/model/caixa.dart';
 import 'package:nosso/src/core/model/cartao.dart';
+import 'package:nosso/src/paginas/caixa/caixa_page.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
@@ -32,14 +33,19 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
 
   var caixaController = GetIt.I.get<CaixaController>();
   var dialogs = Dialogs();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   Caixa c;
+  bool status;
   Controller controller;
 
   @override
   void initState() {
     if (c == null) {
       c = Caixa();
+      status = false;
+    } else {
+      status = c.status;
     }
     super.initState();
   }
@@ -59,9 +65,30 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
     );
   }
 
+  showSnackbar(BuildContext context, String content) {
+    scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(content),
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () {},
+        ),
+      ),
+    );
+  }
+
+  verificaCaixaStatus(bool status) {
+    if (status == true) {
+      this.c.caixaStatus = "ABERTO";
+    } else {
+      this.c.caixaStatus = "FECHADO";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text("Caixa cadastro"),
         actions: <Widget>[
@@ -92,7 +119,7 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
   }
 
   buildListViewForm(BuildContext context) {
-    var dateFormat = DateFormat('dd/MM/yyyy HH:mm');
+    var dateFormat = DateFormat('dd/MM/yyyy');
     var maskFormatterNumero = new MaskTextInputFormatter(
         mask: '####-####-####-####', filter: {"#": RegExp(r'[0-9]')});
     var focus = FocusScope.of(context);
@@ -133,8 +160,8 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
                           prefixIcon: Icon(Icons.credit_card),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [maskFormatterNumero],
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [UpperCaeseText()],
                         maxLength: 23,
                       ),
                       SizedBox(height: 10),
@@ -199,6 +226,37 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
             ),
           ),
         ),
+        Container(
+          padding: EdgeInsets.all(15),
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: SwitchListTile(
+                    autofocus: true,
+                    title: Text("Abertura de caixa? "),
+                    subtitle: Text("sim/não"),
+                    value: c.status = status,
+                    secondary: const Icon(Icons.check_outlined),
+                    onChanged: (bool valor) {
+                      setState(() {
+                        status = valor;
+                        verificaCaixaStatus(status);
+                        print("Status: " + c.status.toString());
+                      });
+                      showSnackbar(context, "CAIXA ${c.caixaStatus}");
+                    },
+                  ),
+                ),
+                SizedBox(height: 30),
+              ],
+            ),
+          ),
+        ),
         SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(10),
@@ -237,7 +295,7 @@ class _CaixaCreatePageState extends State<CaixaCreatePage>
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CartaoPage(),
+        builder: (context) => CaixaPage(),
       ),
     );
   }
