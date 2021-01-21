@@ -180,6 +180,7 @@ class _LojaCreatePageState extends State<LojaCreatePage> with ValidadorPessoa {
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("faça seu cadastro, é rapido e seguro"),
+            trailing: Icon(Icons.local_convenience_store_outlined),
           ),
         ),
         Container(

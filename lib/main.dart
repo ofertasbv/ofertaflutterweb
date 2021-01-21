@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
@@ -90,6 +91,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.orangeAccent,
         accentColor: Colors.orangeAccent[400],
         primarySwatch: Colors.grey,
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),
         cardTheme: CardTheme(
           elevation: 0,
           color: Colors.transparent,

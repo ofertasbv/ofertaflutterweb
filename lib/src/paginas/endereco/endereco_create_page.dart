@@ -17,6 +17,7 @@ import 'package:nosso/src/core/model/estado.dart';
 import 'package:nosso/src/paginas/endereco/endereco_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
+import 'package:nosso/src/util/validador/validador_endereco.dart';
 
 class EnderecoCreatePage extends StatefulWidget {
   Endereco endereco;
@@ -28,7 +29,8 @@ class EnderecoCreatePage extends StatefulWidget {
       _EnderecoCreatePageState(endereco: endereco);
 }
 
-class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
+class _EnderecoCreatePageState extends State<EnderecoCreatePage>
+    with ValidadorEndereco {
   var enderecoController = GetIt.I.get<EnderecoController>();
   var estadoController = GetIt.I.get<EstadoController>();
   var cidadeController = GetIt.I.get<CidadeController>();
@@ -180,6 +182,7 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("seu endereço, é rapido e seguro"),
+            trailing: Icon(Icons.location_on_outlined),
           ),
         ),
         Container(
@@ -247,10 +250,36 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       TextFormField(
+                        initialValue: endereco.logradouro,
+                        onSaved: (value) => endereco.logradouro = value,
+                        validator: validateLogradouro,
+                        decoration: InputDecoration(
+                          labelText: "Logradouro",
+                          hintText: "Logradouro",
+                          prefixIcon: Icon(
+                            Icons.location_on,
+                            color: Colors.grey,
+                          ),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          labelStyle: TextStyle(color: Colors.black),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        keyboardType: TextInputType.text,
+                        maxLength: 255,
+                      ),
+                      SizedBox(height: 10),
+                      TextFormField(
                         initialValue: endereco.complemento,
                         onSaved: (value) => endereco.complemento = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateComplemento,
                         decoration: InputDecoration(
                           labelText: "Complemento",
                           hintText: "Complemento",
@@ -273,11 +302,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: controllerNumero,
                         onSaved: (value) => endereco.numero = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateNumero,
                         decoration: InputDecoration(
                           labelText: "Número",
                           hintText: "Número",
@@ -300,11 +329,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         keyboardType: TextInputType.number,
                         maxLength: 10,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: controllerCep,
                         onSaved: (value) => endereco.cep = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateCep,
                         decoration: InputDecoration(
                           labelText: "Cep",
                           hintText: "Cep",
@@ -329,11 +358,11 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         ],
                         maxLength: 9,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: controllerBairro,
                         onSaved: (value) => endereco.bairro = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateBairro,
                         decoration: InputDecoration(
                           labelText: "Bairro",
                           hintText: "Bairro",
@@ -354,12 +383,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         keyboardType: TextInputType.text,
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: controllerLatitude,
                         onSaved: (value) =>
                             endereco.latitude = double.tryParse(value),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateLatitude,
                         decoration: InputDecoration(
                           labelText: "Latitude",
                           hintText: "Latidute",
@@ -382,12 +411,12 @@ class _EnderecoCreatePageState extends State<EnderecoCreatePage> {
                         keyboardType: TextInputType.numberWithOptions(),
                         maxLength: 50,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: controllerLongitude,
                         onSaved: (value) =>
                             endereco.longitude = double.tryParse(value),
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateLongitude,
                         decoration: InputDecoration(
                           labelText: "Longitude",
                           hintText: "Longitude",

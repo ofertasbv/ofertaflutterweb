@@ -77,8 +77,8 @@ class _CaixaListState extends State<CaixaList>
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).accentColor
+                    Colors.grey[200],
+                    Colors.grey[300],
                   ],
                 ),
                 boxShadow: [
@@ -88,7 +88,7 @@ class _CaixaListState extends State<CaixaList>
                     color: Colors.black.withOpacity(0.05),
                   )
                 ],
-                border: Border.all(color: Colors.grey),
+                border: Border.all(color: Colors.transparent),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListTile(
@@ -109,7 +109,9 @@ class _CaixaListState extends State<CaixaList>
                     borderRadius: BorderRadius.circular(35),
                   ),
                   child: CircleAvatar(
-                    backgroundColor: Colors.grey[100],
+                    backgroundColor: c.caixaStatus == "ABERTO"
+                        ? Colors.green[600]
+                        : Colors.red[600],
                     radius: 20,
                     child: Text(
                       c.descricao.substring(0, 1).toUpperCase(),
@@ -182,14 +184,14 @@ class _CaixaListState extends State<CaixaList>
         const PopupMenuItem<String>(
           value: 'fluxo',
           child: ListTile(
-            leading: Icon(Icons.add),
+            leading: Icon(Icons.computer_outlined),
             title: Text('fluxo'),
           ),
         ),
         const PopupMenuItem<String>(
           value: 'pdv',
           child: ListTile(
-            leading: Icon(Icons.add),
+            leading: Icon(Icons.shop_outlined),
             title: Text('pdv'),
           ),
         ),

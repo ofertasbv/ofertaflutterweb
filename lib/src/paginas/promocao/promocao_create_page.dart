@@ -445,8 +445,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       DateTimeField(
                         initialValue: p.dataInicio,
                         format: dateFormat,
@@ -480,8 +481,9 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       DateTimeField(
                         initialValue: p.dataFinal,
                         format: dateFormat,
@@ -515,6 +517,7 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
                     ],
                   ),

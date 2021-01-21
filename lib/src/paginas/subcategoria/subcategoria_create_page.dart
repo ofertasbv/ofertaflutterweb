@@ -107,6 +107,15 @@ class _SubCategoriaCreatePageState extends State<SubCategoriaCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar departamento"),
+            trailing: Icon(Icons.list_alt_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(5),
           child: Form(
             key: controller.formKey,

@@ -201,7 +201,7 @@ class _UsuarioLoginState extends State<UsuarioLogin> with LoginValidators {
                         obscureText: !usuarioController.senhaVisivel,
                         maxLength: 8,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 0),
                     ],
                   ),
                 ),

@@ -435,7 +435,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                           ),
                   ],
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Container(
                   padding: EdgeInsets.all(15),
                   width: double.maxFinite,
@@ -526,7 +526,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                         maxLength: 100,
                         maxLines: null,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.descricao,
                         onSaved: (value) => p.descricao = value,
@@ -554,7 +554,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                         maxLength: 100,
                         maxLines: null,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.sku,
                         onSaved: (value) => p.sku = value,
@@ -755,8 +755,9 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 10),
                       DateTimeField(
                         initialValue: p.estoque.dataVencimento,
                         format: dateFormat,
@@ -790,6 +791,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
                     ],
                   ),
@@ -1010,7 +1012,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                             },
                           ),
                         ),
-                        SizedBox(height: 10),
                       ],
                     ),
                   ),
@@ -1157,22 +1158,6 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
               icon: Icon(Icons.check),
               onPressed: () {
                 if (controller.validate()) {
-                  // if (p.foto == null) {
-                  //   showModalBottomSheet(
-                  //     context: context,
-                  //     builder: (context) => ImageSourceSheet(
-                  //       onImageSelected: (image) {
-                  //         setState(() {
-                  //           Navigator.of(context).pop();
-                  //           file = image;
-                  //           String arquivo = file.path.split('/').last;
-                  //           print("Image: ${arquivo}");
-                  //           enableButton();
-                  //         });
-                  //       },
-                  //     ),
-                  //   );
-                  // } else {
                   if (p.id == null) {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
@@ -1275,9 +1260,7 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                     });
                   }
                 }
-              }
-              // },
-              ),
+              }),
         ),
         SizedBox(height: 20),
       ],

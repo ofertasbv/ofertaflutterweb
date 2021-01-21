@@ -103,6 +103,7 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("Dados do cartão de crédito"),
+            trailing: Icon(Icons.credit_card_outlined),
           ),
         ),
         SizedBox(height: 10),
@@ -282,9 +283,9 @@ class _CartaoCreatePageState extends State<CartaoCreatePage>
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 0),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),

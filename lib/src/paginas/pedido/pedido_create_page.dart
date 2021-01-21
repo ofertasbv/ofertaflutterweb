@@ -234,6 +234,7 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             TextInputType.numberWithOptions(decimal: true),
                         maxLength: 6,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: valorFreteCotroller,
                         onSaved: (value) {
@@ -375,8 +376,9 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       DateTimeField(
                         initialValue: p.dataHoraEntrega,
                         format: dateFormat,
@@ -407,8 +409,9 @@ class _PedidoCreatePageState extends State<PedidoCreatePage>
                             lastDate: DateTime(2030),
                           );
                         },
+                        maxLength: 10,
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                     ],
                   ),
                 ),

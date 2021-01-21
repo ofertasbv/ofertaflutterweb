@@ -100,6 +100,15 @@ class _PermissaoCreatePageState extends State<PermissaoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar permissão de acesso"),
+            trailing: Icon(Icons.vpn_key_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,

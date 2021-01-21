@@ -138,6 +138,7 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("faça seu cadastro, é rapido e seguro"),
+            trailing: Icon(Icons.person_outline),
           ),
         ),
         SizedBox(height: 20),

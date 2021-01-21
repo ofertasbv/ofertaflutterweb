@@ -10,6 +10,7 @@ import 'package:nosso/src/core/controller/usuario_controller.dart';
 import 'package:nosso/src/core/model/usuario.dart';
 import 'package:nosso/src/paginas/usuario/usuario_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/validador/validador_pessoa.dart';
 
 class UsuarioCreatePage extends StatefulWidget {
   Usuario usuario;
@@ -21,7 +22,8 @@ class UsuarioCreatePage extends StatefulWidget {
       _UsuarioCreatePageState(u: this.usuario);
 }
 
-class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
+class _UsuarioCreatePageState extends State<UsuarioCreatePage>
+    with ValidadorPessoa {
   var usuarioController = GetIt.I.get<UsuarioController>();
   Dialogs dialogs = Dialogs();
 
@@ -111,6 +113,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("Alterar login"),
+            trailing: Icon(Icons.email_outlined),
           ),
         ),
         SizedBox(height: 20),
@@ -128,10 +131,9 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                       TextFormField(
                         controller: emailController,
                         onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
-                          labelText: "Email",
+                          labelText: "Email antigo",
                           hintText: "email@gmail.com",
                           prefixIcon: Icon(
                             Icons.email_outlined,
@@ -156,8 +158,7 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                       TextFormField(
                         controller: emailController,
                         onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
                           labelText: "Novo email",
                           hintText: "email@gmail.com",
@@ -180,11 +181,11 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
+                      SizedBox(height: 10),
                       TextFormField(
                         controller: confirmaEmailController,
                         onSaved: (value) => u.email = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
+                        validator: validateEmail,
                         decoration: InputDecoration(
                           labelText: "Comfirmar email",
                           hintText: "email@gmail.com",
@@ -214,9 +215,9 @@ class _UsuarioCreatePageState extends State<UsuarioCreatePage> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 10),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),

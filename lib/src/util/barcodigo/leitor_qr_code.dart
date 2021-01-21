@@ -80,16 +80,19 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xff676B76), Color(0xffA0A4AE)],
+                colors: [
+                  Colors.grey[200],
+                  Colors.grey[300],
+                ],
                 begin: Alignment.bottomRight,
                 end: Alignment.topLeft,
               ),
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0xff676B76).withOpacity(0.4),
-                  blurRadius: 40,
-                  offset: Offset(0, 20),
+                  color: Color(0xff676B76).withOpacity(0.2),
+                  blurRadius: 5,
+                  offset: Offset(0, 5),
                 ),
               ],
             ),
@@ -102,11 +105,11 @@ class _LeitorQRCodeState extends State<LeitorQRCode> {
                     : ListTile(
                         title: Text(
                           "USE O SCANNER PARA LER O QR CODE",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.black),
                         ),
                         leading: Icon(
                           Icons.camera_alt_outlined,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                         onTap: () {
                           barcodeScanning();

@@ -275,8 +275,12 @@ class _CaixaPDVPageState extends State<CaixaPDVPage> with ValidadorPDV {
             color: Theme.of(context).primaryColor.withOpacity(0.1),
             padding: EdgeInsets.all(0),
             child: ListTile(
-              title: Text("CAIXA ESTÁ ${caixa.caixaStatus}"),
-              subtitle: Text("${caixa.descricao} - ${caixa.referencia}"),
+              title: caixa == null
+                  ? Text("CAIXA SEM STATUS")
+                  : Text("CAIXA ESTÁ ${caixa.caixaStatus}"),
+              subtitle: caixa == null
+                  ? Text("CAIXA SEM REFERENCIA")
+                  : Text("${caixa.descricao} - ${caixa.referencia}"),
               trailing: Text("${dateFormat.format(DateTime.now())}"),
             ),
           ),

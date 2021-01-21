@@ -146,7 +146,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.all(0),
-          color: Theme.of(context).accentColor.withOpacity(0.1),
+          color: Colors.grey[300],
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -310,7 +310,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
         ),
         SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),

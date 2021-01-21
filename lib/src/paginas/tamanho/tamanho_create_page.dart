@@ -102,6 +102,15 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar tamanho de produtos"),
+            trailing: Icon(Icons.format_size_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(15),
           child: Form(
             key: controller.formKey,
@@ -140,7 +149,6 @@ class _TamanhoCreatePageState extends State<TamanhoCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
-                      SizedBox(height: 10),
                     ],
                   ),
                 ),

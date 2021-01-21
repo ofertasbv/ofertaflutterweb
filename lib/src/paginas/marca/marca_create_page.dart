@@ -98,6 +98,15 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar marca de produtos"),
+            trailing: Icon(Icons.shopping_cart_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
@@ -135,7 +144,6 @@ class _MarcaCreatePageState extends State<MarcaCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
-                      SizedBox(height: 10),
                     ],
                   ),
                 ),

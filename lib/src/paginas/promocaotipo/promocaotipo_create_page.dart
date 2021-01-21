@@ -101,6 +101,15 @@ class _PromocaoTipoCreatePageState extends State<PromocaoTipoCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar tipo de promoções"),
+            trailing: Icon(Icons.add_alert_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
@@ -137,7 +146,6 @@ class _PromocaoTipoCreatePageState extends State<PromocaoTipoCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
-                      SizedBox(height: 10),
                     ],
                   ),
                 ),

@@ -101,6 +101,15 @@ class _CorCreatePageState extends State<CorCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          color: Theme.of(context).accentColor.withOpacity(0.1),
+          padding: EdgeInsets.all(0),
+          child: ListTile(
+            title: Text("Cadastrar cor de produtos"),
+            trailing: Icon(Icons.color_lens_outlined),
+          ),
+        ),
+        SizedBox(height: 10),
+        Container(
           padding: EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
@@ -137,7 +146,6 @@ class _CorCreatePageState extends State<CorCreatePage> {
                         maxLength: 50,
                         maxLines: 1,
                       ),
-                      SizedBox(height: 10),
                     ],
                   ),
                 ),

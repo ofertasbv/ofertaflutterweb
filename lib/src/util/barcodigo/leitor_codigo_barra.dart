@@ -100,16 +100,19 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
               padding: EdgeInsets.all(30),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Color(0xff676B76), Color(0xffA0A4AE)],
+                  colors: [
+                    Colors.grey[200],
+                    Colors.grey[300],
+                  ],
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
                 ),
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xff676B76).withOpacity(0.4),
-                    blurRadius: 40,
-                    offset: Offset(0, 20),
+                    color: Color(0xff676B76).withOpacity(0.2),
+                    blurRadius: 5,
+                    offset: Offset(0, 5),
                   ),
                 ],
               ),
@@ -131,17 +134,17 @@ class _LeitorCodigoBarraState extends State<LeitorCodigoBarra> {
                           onPressed: () => barcodeScanning,
                           icon: Icon(
                             Icons.camera_alt,
-                            color: Colors.white,
+                            color: Colors.orangeAccent,
                           ),
                         ),
                         suffixIcon: IconButton(
                           onPressed: () => codigoBarraController.clear(),
                           icon: Icon(Icons.clear),
                         ),
-                        filled: true,
+                        filled: false,
                         fillColor: Colors.grey[600],
-                        hintStyle: TextStyle(color: Colors.white),
-                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.orangeAccent),
+                        labelStyle: TextStyle(color: Colors.orangeAccent),
                         contentPadding:
                             EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
                         border: OutlineInputBorder(

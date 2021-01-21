@@ -108,6 +108,7 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("Dados de pagamento"),
+            trailing: Icon(Icons.credit_card),
           ),
         ),
         SizedBox(height: 10),
@@ -287,7 +288,7 @@ class _PagamentoCreatePageState extends State<PagamentoCreatePage>
           ),
         ),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           child: RaisedButton.icon(
             label: Text("Enviar formulário"),
             icon: Icon(Icons.check),
