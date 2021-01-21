@@ -51,6 +51,7 @@ class Pedido {
     }
     cliente =
         json['cliente'] != null ? new Cliente.fromJson(json['cliente']) : null;
+
     loja = json['loja'] != null ? new Loja.fromJson(json['loja']) : null;
 
     statusPedido = json['statusPedido'];

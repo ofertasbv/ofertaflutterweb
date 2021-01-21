@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,7 +17,7 @@ import 'package:nosso/src/paginas/cliente/cliente_page.dart';
 import 'package:nosso/src/paginas/usuario/usuario_login_page.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/upload/upload_response.dart';
-import 'package:nosso/src/util/validador/validador_cliente.dart';
+import 'package:nosso/src/util/validador/validador_pessoa.dart';
 
 class ClienteCreatePage extends StatefulWidget {
   Cliente cliente;
@@ -29,7 +30,7 @@ class ClienteCreatePage extends StatefulWidget {
 }
 
 class _ClienteCreatePageState extends State<ClienteCreatePage>
-    with ValidadorCliente {
+    with ValidadorPessoa {
   var clienteController = GetIt.I.get<ClienteController>();
   Dialogs dialogs = Dialogs();
 
@@ -129,8 +130,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
         mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
 
     p.usuario = u;
-
-    print("Cliente form: ${p.nome}");
 
     return ListView(
       children: <Widget>[
@@ -342,6 +341,42 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                         maxLength: 50,
                       ),
                       SizedBox(height: 10),
+                      DateTimeField(
+                        initialValue: p.dataRegistro,
+                        format: dateFormat,
+                        validator: validateDateRegsitro,
+                        onSaved: (value) => p.dataRegistro = value,
+                        decoration: InputDecoration(
+                          labelText: "data registro",
+                          hintText: "99-09-9999",
+                          prefixIcon: Icon(
+                            Icons.calendar_today,
+                            color: Colors.grey,
+                          ),
+                          suffixIcon: Icon(Icons.close),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[900]),
+                            gapPadding: 1,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                        onEditingComplete: () => focus.nextFocus(),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                            context: context,
+                            firstDate: DateTime(2000),
+                            initialDate: currentValue ?? DateTime.now(),
+                            locale: Locale('pt', 'BR'),
+                            lastDate: DateTime(2030),
+                          );
+                        },
+                        maxLength: 10,
+                      ),
+                      SizedBox(height: 10),
                       TextFormField(
                         initialValue: p.usuario.email,
                         onSaved: (value) => p.usuario.email = value,
@@ -456,9 +491,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                   } else {
                     dialogs.information(context, "prepando para o cadastro...");
                     Timer(Duration(seconds: 3), () {
-                      DateTime agora = DateTime.now();
-                      p.dataRegistro = agora;
-
                       print("Pessoa: ${p.tipoPessoa}");
                       print("Nome: ${p.nome}");
                       print("CPF: ${p.cpf}");
@@ -481,9 +513,6 @@ class _ClienteCreatePageState extends State<ClienteCreatePage>
                     dialogs.information(
                         context, "preparando para o alteração...");
                     Timer(Duration(seconds: 3), () {
-                      DateTime agora = DateTime.now();
-                      p.dataRegistro = agora;
-
                       print("Pessoa: ${p.tipoPessoa}");
                       print("Nome: ${p.nome}");
                       print("CPF: ${p.cpf}");

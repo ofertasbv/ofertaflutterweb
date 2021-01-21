@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nosso/src/home/home.dart';
 import 'package:nosso/src/paginas/arquivo/arquivo_page.dart';
 import 'package:nosso/src/paginas/caixacontrole/caixa_controle_page.dart';
+import 'package:nosso/src/paginas/caixafluxo/caixafluxo_page.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/categoria/categoria_page.dart';
 import 'package:nosso/src/paginas/cliente/cliente_page.dart';
@@ -27,7 +28,7 @@ import 'package:nosso/src/paginas/vendedor/vendedor_page.dart';
 import 'package:nosso/src/util/Examples/teste_mapa.dart';
 import 'package:nosso/src/util/barcodigo/leitor_codigo_barra.dart';
 import 'package:nosso/src/util/barcodigo/leitor_qr_code.dart';
-import 'package:nosso/src/util/radiolist.dart';
+import 'package:nosso/src/util/componentes/radiolist.dart';
 
 class ConfigPage extends StatefulWidget {
   @override
@@ -948,6 +949,40 @@ class _ConfigPageState extends State<ConfigPage> {
                 padding: EdgeInsets.all(10),
               ),
               Text("Controle caixa", style: TextStyle(fontSize: 12)),
+            ],
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return CaixaFluxoPage();
+                },
+              ),
+            );
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).primaryColor.withOpacity(1),
+                  foregroundColor: Colors.grey[100],
+                  radius: 20,
+                  child: Icon(
+                    Icons.credit_card_outlined,
+                    size: 20,
+                  ),
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+              Text("Caixa fluxo", style: TextStyle(fontSize: 12)),
             ],
           ),
         ),

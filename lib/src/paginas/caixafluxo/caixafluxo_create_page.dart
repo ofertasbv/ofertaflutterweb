@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
 import 'package:nosso/src/core/controller/vendedor_controller.dart';
 import 'package:nosso/src/core/model/caixa.dart';
@@ -16,7 +19,9 @@ import 'package:nosso/src/core/model/vendedor.dart';
 import 'package:nosso/src/paginas/cartao/cartao_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
+import 'package:nosso/src/util/dropdown/dropdown_caixa.dart';
 import 'package:nosso/src/util/dropdown/dropdown_vendedor.dart';
+import 'package:nosso/src/util/format/currencyInputFormatter.dart';
 import 'package:nosso/src/util/validador/validador_caixafluxo.dart';
 
 class CaixaFluxoCreatePage extends StatefulWidget {
@@ -36,6 +41,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   _CaixaFluxoCreatePageState({this.c, this.caixa});
 
   var caixafluxoController = GetIt.I.get<CaixafluxoController>();
+  var caixaController = GetIt.I.get<CaixaController>();
   var vendedorController = GetIt.I.get<VendedorController>();
   var dialogs = Dialogs();
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,10 +50,13 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
   var valorEntradaController = TextEditingController();
   var valorSaidaController = TextEditingController();
   var valorTotalController = TextEditingController();
+  var saldoController = new MaskedTextController(mask: '000.000.000-00');
+  var saldoC = new MoneyMaskedTextController();
 
   CaixaFluxo c;
   Caixa caixa;
   bool status;
+  Caixa caixaSelecionado;
   Vendedor vendedorSelecionado;
   Controller controller;
 
@@ -58,6 +67,10 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
       status = false;
     } else {
       status = c.status;
+      saldoAnteriorController.text = c.saldoAnterior.toStringAsFixed(2);
+      valorEntradaController.text = c.valorEntrada.toStringAsFixed(2);
+      valorSaidaController.text = c.valorSaida.toStringAsFixed(2);
+      valorTotalController.text = c.valorTotal.toStringAsFixed(2);
     }
     super.initState();
   }
@@ -134,6 +147,8 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
     var dateFormat = DateFormat('dd/MM/yyyy HH:mm');
     var maskFormatterNumero = new MaskTextInputFormatter(
         mask: '####-####-####-####', filter: {"#": RegExp(r'[0-9]')});
+    var formatMoeda = new NumberFormat("#,##0.00", "pt_BR");
+
     var focus = FocusScope.of(context);
 
     return ListView(
@@ -143,7 +158,9 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
           padding: EdgeInsets.all(0),
           child: ListTile(
             title: Text("Fluxo de caixa"),
-            subtitle: Text("${caixa.descricao} - ${caixa.referencia}"),
+            subtitle: caixa == null
+                ? Text("CAIXA SEM STATUS")
+                : Text("${caixa.descricao} - ${caixa.referencia}"),
             trailing: Text("${dateFormat.format(DateTime.now())}"),
           ),
         ),
@@ -210,6 +227,39 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                DropDownCaixa(caixaSelecionado),
+                Observer(
+                  builder: (context) {
+                    if (caixaController.caixaSelecionado == null) {
+                      return Container(
+                        padding: EdgeInsets.only(left: 25),
+                        child: Container(
+                          child: caixaController.mensagem == null
+                              ? Text(
+                                  "campo obrigatório *",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                )
+                              : Text(
+                                  "${caixaController.mensagem}",
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                        ),
+                      );
+                    }
+                    return Container(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Container(
+                        child: Icon(Icons.check_outlined, color: Colors.green),
+                      ),
+                    );
+                  },
+                ),
                 DropDownVendedor(vendedorSelecionado),
                 Observer(
                   builder: (context) {
@@ -283,7 +333,7 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                             color: Colors.grey,
                           ),
                           suffixIcon: IconButton(
-                            onPressed: () => saldoAnteriorController.clear(),
+                            onPressed: () => saldoC.clear(),
                             icon: Icon(Icons.clear),
                           ),
                           contentPadding:
@@ -297,9 +347,8 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                           ),
                         ),
                         onEditingComplete: () => focus.nextFocus(),
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: false),
-                        maxLength: 6,
+                        keyboardType: TextInputType.number,
+                        maxLength: 10,
                       ),
                       SizedBox(height: 10),
                       TextFormField(
@@ -453,6 +502,19 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
+                    c.caixa = caixa;
+                    c.vendedor = vendedorController.vendedoreSelecionado;
+                    print("Descrição: ${c.descricao}");
+                    print("Saldo anterior: ${c.saldoAnterior}");
+                    print("Valor de entrada: ${c.valorEntrada}");
+                    print("Valor de saida: ${c.valorSaida}");
+                    print("Valor total: ${c.valorTotal}");
+                    print("Caixa status: ${c.caixaStatus}");
+                    print("Status: ${c.status}");
+                    print("Data Registro: ${c.dataRegistro}");
+                    print("Caixa: ${c.caixa.descricao}");
+                    print("Operador: ${c.vendedor.nome}");
+
                     caixafluxoController.create(c).then((value) {
                       print("resultado : ${value}");
                     });
@@ -463,9 +525,21 @@ class _CaixaFluxoCreatePageState extends State<CaixaFluxoCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    caixafluxoController.update(c.id, c);
-                    Navigator.of(context).pop();
-                    buildPush(context);
+                    c.vendedor = vendedorController.vendedoreSelecionado;
+                    print("Descrição: ${c.descricao}");
+                    print("Saldo anterior: ${c.saldoAnterior}");
+                    print("Valor de entrada: ${c.valorEntrada}");
+                    print("Valor de saida: ${c.valorSaida}");
+                    print("Valor total: ${c.valorTotal}");
+                    print("Caixa status: ${c.caixaStatus}");
+                    print("Status: ${c.status}");
+                    print("Data Registro: ${c.dataRegistro}");
+                    print("Caixa: ${c.caixa.descricao}");
+                    print("Operador: ${c.vendedor.nome}");
+
+                    // caixafluxoController.update(c.id, c);
+                    // Navigator.of(context).pop();
+                    // buildPush(context);
                   });
                 }
               }

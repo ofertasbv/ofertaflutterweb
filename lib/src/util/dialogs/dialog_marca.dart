@@ -18,8 +18,6 @@ class _DialogMarcaState extends State<DialogMarca> {
 
   var marcaController = GetIt.I.get<MarcaController>();
 
-  AlertMarca alertMarca = AlertMarca();
-
   Marca marca;
 
   @override

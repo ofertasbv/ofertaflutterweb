@@ -31,7 +31,7 @@ class DropDownVendedor extends StatelessWidget {
               subtitle: vendedor == null
                   ? Text("Selecione operador")
                   : Text(vendedor.nome),
-              leading: Icon(Icons.list_alt_outlined),
+              leading: Icon(Icons.person_add_alt),
               trailing: Icon(Icons.arrow_drop_down_sharp),
               onTap: () {
                 alertVendedor.alert(context, vendedor);

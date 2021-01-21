@@ -184,17 +184,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        // labelStyle: TextStyle(color: Colors.black),
-        // prefixStyle: TextStyle(color: Colors.indigo[900]),
-        // hintStyle: TextStyle(color: Colors.indigo[900]),
-        // fillColor: Colors.grey[100],
-        // alignLabelWithHint: true,
-        // contentPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-        // focusColor: Colors.indigo[900],
-        // hoverColor: Colors.indigo,
-        // suffixStyle: TextStyle(color: Colors.green),
-        // errorStyle: TextStyle(color: Colors.red),
-
         labelStyle: TextStyle(color: Colors.black),
         prefixStyle: TextStyle(color: Colors.green[900]),
         hintStyle: TextStyle(color: Colors.yellow[900]),
@@ -204,7 +193,6 @@ class MyApp extends StatelessWidget {
         hoverColor: Colors.yellow,
         suffixStyle: TextStyle(color: Colors.green),
         errorStyle: TextStyle(color: Colors.red),
-
         isDense: true,
         filled: true,
       ),

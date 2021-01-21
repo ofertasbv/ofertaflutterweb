@@ -13,7 +13,7 @@ class VendedorController = VendedorControllerBase with _$VendedorController;
 abstract class VendedorControllerBase with Store {
   VendedorRepository vendedorRepository;
 
-  ClienteControllerBase() {
+  VendedorControllerBase() {
     vendedorRepository = VendedorRepository();
   }
 
@@ -21,7 +21,7 @@ abstract class VendedorControllerBase with Store {
   List<Vendedor> vendedores;
 
   @observable
-  int cliente;
+  int vendedor;
 
   @observable
   var formData;
@@ -92,11 +92,11 @@ abstract class VendedorControllerBase with Store {
   @action
   Future<int> create(Vendedor p) async {
     try {
-      cliente = await vendedorRepository.create(p.toJson());
-      if (cliente == null) {
+      vendedor = await vendedorRepository.create(p.toJson());
+      if (vendedor == null) {
         mensagem = "sem dados";
       } else {
-        return cliente;
+        return vendedor;
       }
     } on DioError catch (e) {
       mensagem = e.message;
@@ -107,8 +107,8 @@ abstract class VendedorControllerBase with Store {
   @action
   Future<int> update(int id, Vendedor p) async {
     try {
-      cliente = await vendedorRepository.update(id, p.toJson());
-      return cliente;
+      vendedor = await vendedorRepository.update(id, p.toJson());
+      return vendedor;
     } on DioError catch (e) {
       mensagem = e.message;
       dioError = e;

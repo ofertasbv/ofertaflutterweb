@@ -80,7 +80,7 @@ class VendedorRepository {
 
     FormData formData = FormData.fromMap(paramentros);
     var response = await dio.client
-        .post(ConstantApi.urlList + "/clientes/upload", data: formData);
+        .post(ConstantApi.urlList + "/vendedores/upload", data: formData);
     return response.toString();
   }
 }

@@ -1,65 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/vendedor_controller.dart';
-import 'package:nosso/src/core/model/vendedor.dart';
+import 'package:nosso/src/core/controller/caixa_controller.dart';
+import 'package:nosso/src/core/controller/marca_controller.dart';
+import 'package:nosso/src/core/model/caixa.dart';
+import 'package:nosso/src/core/model/marca.dart';
 import 'package:nosso/src/util/load/circular_progresso_mini.dart';
 
-class DialogVendedor extends StatefulWidget {
-  Vendedor vendedor;
-
-  DialogVendedor(this.vendedor);
+class DialogCaixa extends StatefulWidget {
+  Caixa caixa;
+  DialogCaixa(this.caixa);
 
   @override
-  _DialogVendedorState createState() => _DialogVendedorState(this.vendedor);
+  _DialogCaixaState createState() => _DialogCaixaState(this.caixa);
 }
 
-class _DialogVendedorState extends State<DialogVendedor> {
-  _DialogVendedorState(this.vendedor);
+class _DialogCaixaState extends State<DialogCaixa> {
+  _DialogCaixaState(this.caixa);
 
-  var vendedorController = GetIt.I.get<VendedorController>();
-
-  Vendedor vendedor;
+  var caixaController = GetIt.I.get<CaixaController>();
+  Caixa caixa;
 
   @override
   void initState() {
-    vendedorController.getAll();
+    caixaController.getAll();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return builderConteudoListvendedors();
+    return builderConteudoListMarca();
   }
 
-  builderConteudoListvendedors() {
+  builderConteudoListMarca() {
     return Container(
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<Vendedor> vendedores = vendedorController.vendedores;
-          if (vendedorController.error != null) {
+          List<Caixa> caixas = caixaController.caixas;
+          if (caixaController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
-          if (vendedores == null) {
+          if (caixas == null) {
             return CircularProgressorMini();
           }
 
-          return builderListvendedors(vendedores);
+          return builderListMarcas(caixas);
         },
       ),
     );
   }
 
-  builderListvendedors(List<Vendedor> vendedores) {
+  builderListMarcas(List<Caixa> caixas) {
     double containerWidth = 160;
     double containerHeight = 20;
 
     return ListView.builder(
-      itemCount: vendedores.length,
+      itemCount: caixas.length,
       itemBuilder: (context, index) {
-        Vendedor c = vendedores[index];
+        Caixa c = caixas[index];
 
         return Column(
           children: [
@@ -77,26 +77,24 @@ class _DialogVendedorState extends State<DialogVendedor> {
                     ),
                     borderRadius: BorderRadius.circular(35),
                   ),
-                  child: c.foto != null
-                      ? CircleAvatar(
-                          backgroundColor: Colors.grey[100],
-                          radius: 20,
-                          backgroundImage: NetworkImage(
-                            "${vendedorController.arquivo + c.foto}",
-                          ),
-                        )
-                      : CircleAvatar(
-                          backgroundColor: Colors.grey[100],
-                          radius: 20,
-                          child: Icon(Icons.photo),
-                        ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.grey[100],
+                    radius: 15,
+                    child: Text(
+                      c.descricao.substring(0, 1).toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-                title: Text(c.nome),
+                title: Text(c.descricao),
               ),
               onTap: () {
-                vendedorController.vendedoreSelecionado = c;
-                print(
-                    "vendedor: ${vendedorController.vendedoreSelecionado.nome}");
+                caixaController.caixaSelecionado = c;
+                print("Marca: ${caixaController.caixaSelecionado.descricao}");
                 Navigator.of(context).pop();
               },
             ),
@@ -108,8 +106,8 @@ class _DialogVendedorState extends State<DialogVendedor> {
   }
 }
 
-class AlertVendedor {
-  alert(BuildContext context, Vendedor vendedor) {
+class AlertCaixa {
+  alert(BuildContext context, Caixa caixa) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -119,7 +117,7 @@ class AlertVendedor {
           contentPadding: EdgeInsets.only(top: 10.0),
           content: Container(
             width: 300.0,
-            child: DialogVendedor(vendedor),
+            child: DialogCaixa(caixa),
           ),
           actions: [
             FlatButton(

@@ -1,4 +1,5 @@
-import 'package:nosso/src/core/enum/caixa_status.dart';
+import 'package:nosso/src/core/model/caixa.dart';
+import 'package:nosso/src/core/model/vendedor.dart';
 
 class CaixaFluxo {
   int id;
@@ -10,6 +11,8 @@ class CaixaFluxo {
   DateTime dataRegistro;
   String caixaStatus;
   bool status;
+  Caixa caixa;
+  Vendedor vendedor;
 
   CaixaFluxo({
     this.id,
@@ -21,6 +24,8 @@ class CaixaFluxo {
     this.dataRegistro,
     this.caixaStatus,
     this.status,
+    this.caixa,
+    this.vendedor,
   });
 
   CaixaFluxo.fromJson(Map<String, dynamic> json) {
@@ -33,6 +38,12 @@ class CaixaFluxo {
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
     caixaStatus = json['caixaStatus'];
     status = json['status'];
+
+    caixa = json['caixa'] != null ? new Caixa.fromJson(json['caixa']) : null;
+
+    vendedor = json['vendedor'] != null
+        ? new Vendedor.fromJson(json['vendedor'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +56,14 @@ class CaixaFluxo {
     data['dataRegistro'] = this.dataRegistro.toIso8601String();
     data['caixaStatus'] = this.caixaStatus;
     data['status'] = this.status;
+
+    if (this.caixa != null) {
+      data['caixa'] = this.caixa.toJson();
+    }
+
+    if (this.vendedor != null) {
+      data['vendedor'] = this.vendedor.toJson();
+    }
     return data;
   }
 }

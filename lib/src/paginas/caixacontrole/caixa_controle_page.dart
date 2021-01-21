@@ -43,7 +43,7 @@ class CaixaControlePage extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(15),
               child: Container(
-                height: 200,
+                height: 150,
                 decoration: new BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -103,17 +103,6 @@ class CaixaControlePage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      padding: EdgeInsets.all(15),
-                      child: Row(
-                        children: [
-                          Text("Data Validade 12/21"),
-                          Icon(Icons.calendar_today_rounded),
-                        ],
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                      ),
-                    )
                   ],
                 ),
               ),

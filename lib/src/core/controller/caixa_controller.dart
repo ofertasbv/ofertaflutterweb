@@ -21,6 +21,9 @@ abstract class CaixaControllerBase with Store {
   int caixa;
 
   @observable
+  Caixa caixaSelecionado;
+
+  @observable
   Exception error;
 
   @observable
