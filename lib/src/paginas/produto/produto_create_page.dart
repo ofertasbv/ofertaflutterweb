@@ -10,7 +10,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
-import 'package:nosso/src/api/constants/constant_api.dart';
 import 'package:nosso/src/core/controller/cor_controller.dart';
 import 'package:nosso/src/core/controller/marca_controller.dart';
 import 'package:nosso/src/core/controller/promocao_controller.dart';
@@ -30,7 +29,6 @@ import 'package:nosso/src/core/model/tamanho.dart';
 import 'package:nosso/src/core/model/uploadFileResponse.dart';
 import 'package:nosso/src/paginas/produto/produto_tab.dart';
 import 'package:nosso/src/util/componentes/image_source_sheet.dart';
-import 'package:nosso/src/util/componentes/images_widget.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_cor.dart';
 import 'package:nosso/src/util/dropdown/dropdown_loja.dart';
@@ -284,6 +282,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
+                  height: 350,
+                  color: Colors.grey[400],
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -302,8 +302,8 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                       );
                     },
                     child: Container(
+                      color: Colors.grey[600],
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[300],
                       child: Container(
                         width: double.infinity,
                         child: Column(
@@ -314,14 +314,13 @@ class _ProdutoCreatePageState extends State<ProdutoCreatePage>
                                     file,
                                     fit: BoxFit.fitWidth,
                                     width: double.infinity,
-                                    height: 300,
+                                    height: 340,
                                   )
                                 : p.foto != null
                                     ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoProduto +
-                                              p.foto,
+                                          produtoController.arquivo + p.foto,
                                         ),
                                       )
                                     : CircleAvatar(

@@ -174,6 +174,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
+                  height: 350,
+                  color: Colors.grey[400],
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -192,8 +194,8 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                       );
                     },
                     child: Container(
+                      color: Colors.grey[600],
                       padding: EdgeInsets.all(5),
-                      color: Colors.grey[300],
                       child: Container(
                         width: double.infinity,
                         child: Column(
@@ -203,13 +205,14 @@ class _PromocaoCreatePageState extends State<PromocaoCreatePage>
                                 ? Image.file(
                                     file,
                                     fit: BoxFit.fitWidth,
+                                    width: double.infinity,
+                                    height: 340,
                                   )
                                 : p.foto != null
                                     ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoPromocao +
-                                              p.foto,
+                                          promocaoController.arquivo + p.foto,
                                         ),
                                       )
                                     : CircleAvatar(

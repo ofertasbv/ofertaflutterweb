@@ -9,30 +9,32 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
+import 'package:nosso/src/core/controller/caixafluxosaida_controller.dart';
 import 'package:nosso/src/core/controller/vendedor_controller.dart';
 import 'package:nosso/src/core/model/caixafluxo.dart';
+import 'package:nosso/src/core/model/caixasaida.dart';
 import 'package:nosso/src/core/model/vendedor.dart';
-import 'package:nosso/src/paginas/cartao/cartao_page.dart';
+import 'package:nosso/src/paginas/caixafluxosaida/caixafluxosaida_page.dart';
 import 'package:nosso/src/paginas/produto/produto_search.dart';
 import 'package:nosso/src/util/dialogs/dialogs.dart';
 import 'package:nosso/src/util/dropdown/dropdown_vendedor.dart';
 import 'package:nosso/src/util/validador/validador_caixafluxo.dart';
-import 'package:nosso/src/util/validador/validador_cartao.dart';
 
 class CaixaFluxoSaidaCreatePage extends StatefulWidget {
-  CaixaFluxo caixaFluxo;
+  CaixaFluxoSaida saida;
 
-  CaixaFluxoSaidaCreatePage({Key key, this.caixaFluxo}) : super(key: key);
+  CaixaFluxoSaidaCreatePage({Key key, this.saida}) : super(key: key);
 
   @override
   _CaixaFluxoSaidaCreatePageState createState() =>
-      _CaixaFluxoSaidaCreatePageState(c: this.caixaFluxo);
+      _CaixaFluxoSaidaCreatePageState(c: this.saida);
 }
 
 class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
     with ValidadorCaixaFluxo {
   _CaixaFluxoSaidaCreatePageState({this.c});
 
+  var caixafluxosaidaController = GetIt.I.get<CaixafluxosaidaController>();
   var caixafluxoController = GetIt.I.get<CaixafluxoController>();
   var vendedorController = GetIt.I.get<VendedorController>();
   var dialogs = Dialogs();
@@ -42,14 +44,15 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
   var valorSaidaController = TextEditingController();
   var valorTotalController = TextEditingController();
 
-  CaixaFluxo c;
+  CaixaFluxoSaida c;
+  CaixaFluxo caixaFluxo;
   Vendedor vendedorSelecionado;
   Controller controller;
 
   @override
   void initState() {
     if (c == null) {
-      c = CaixaFluxo();
+      c = CaixaFluxoSaida();
     }
     super.initState();
   }
@@ -249,71 +252,6 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
                         maxLength: 23,
                       ),
                       SizedBox(height: 10),
-                      TextFormField(
-                        controller: saldoAnteriorController,
-                        validator: validateSaldoAnterior,
-                        onSaved: (value) {
-                          c.saldoAnterior = double.tryParse(value);
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Saldo anterior",
-                          hintText: "Saldo anterior",
-                          prefixIcon: Icon(
-                            Icons.monetization_on_outlined,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () => saldoAnteriorController.clear(),
-                            icon: Icon(Icons.clear),
-                          ),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: false),
-                        maxLength: 6,
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: valorEntradaController,
-                        validator: validateValorEntrada,
-                        onSaved: (value) {
-                          c.valorEntrada = double.tryParse(value);
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Valor entrada",
-                          hintText: "Valor entrada",
-                          prefixIcon: Icon(
-                            Icons.monetization_on_outlined,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () => valorEntradaController.clear(),
-                            icon: Icon(Icons.clear),
-                          ),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: false),
-                        maxLength: 6,
-                      ),
                       SizedBox(height: 10),
                       TextFormField(
                         controller: valorSaidaController,
@@ -330,39 +268,6 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
                           ),
                           suffixIcon: IconButton(
                             onPressed: () => valorSaidaController.clear(),
-                            icon: Icon(Icons.clear),
-                          ),
-                          contentPadding:
-                              EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.purple[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        onEditingComplete: () => focus.nextFocus(),
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: false),
-                        maxLength: 6,
-                      ),
-                      SizedBox(height: 10),
-                      TextFormField(
-                        controller: valorTotalController,
-                        validator: validateValorTotal,
-                        onSaved: (value) {
-                          c.valorTotal = double.tryParse(value);
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Valor total",
-                          hintText: "Valor total",
-                          prefixIcon: Icon(
-                            Icons.monetization_on_outlined,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: IconButton(
-                            onPressed: () => valorTotalController.clear(),
                             icon: Icon(Icons.clear),
                           ),
                           contentPadding:
@@ -433,7 +338,7 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
                 if (c.id == null) {
                   dialogs.information(context, "prepando para o cadastro...");
                   Timer(Duration(seconds: 3), () {
-                    caixafluxoController.create(c).then((value) {
+                    caixafluxosaidaController.create(c).then((value) {
                       print("resultado : ${value}");
                     });
                     Navigator.of(context).pop();
@@ -443,7 +348,7 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
                   dialogs.information(
                       context, "preparando para o alteração...");
                   Timer(Duration(seconds: 3), () {
-                    caixafluxoController.update(c.id, c);
+                    caixafluxosaidaController.update(c.id, c);
                     Navigator.of(context).pop();
                     buildPush(context);
                   });
@@ -460,7 +365,7 @@ class _CaixaFluxoSaidaCreatePageState extends State<CaixaFluxoSaidaCreatePage>
     return Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CartaoPage(),
+        builder: (context) => CaixaFluxoSaidaPage(),
       ),
     );
   }

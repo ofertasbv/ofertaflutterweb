@@ -148,13 +148,15 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
     return ListView(
       children: <Widget>[
         Container(
+          padding: EdgeInsets.all(0),
+          color: Colors.grey[300],
           child: Form(
             key: controller.formKey,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  color: Colors.grey[300],
+                  height: 350,
+                  color: Colors.grey[400],
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -173,6 +175,7 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                       );
                     },
                     child: Container(
+                      color: Colors.grey[600],
                       padding: EdgeInsets.all(5),
                       child: Container(
                         width: double.infinity,
@@ -182,16 +185,15 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                             file != null
                                 ? Image.file(
                                     file,
-                                    fit: BoxFit.cover,
-                                    height: 300,
+                                    fit: BoxFit.fitWidth,
                                     width: double.infinity,
+                                    height: 340,
                                   )
                                 : c.foto != null
                                     ? CircleAvatar(
                                         radius: 50,
                                         backgroundImage: NetworkImage(
-                                          ConstantApi.urlArquivoCategoria +
-                                              c.foto,
+                                          categoriaController.arquivo + c.foto,
                                         ),
                                       )
                                     : CircleAvatar(
@@ -207,7 +209,6 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                   ),
                 ),
                 Container(
-                  color: Colors.grey[300],
                   padding: EdgeInsets.all(5),
                   child: Column(
                     children: <Widget>[
@@ -216,40 +217,47 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            RaisedButton(
-                              child: Icon(Icons.delete_forever),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledDelete
-                                  ? () => categoriaController.deleteFoto(c.foto)
-                                  : null,
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.delete_forever),
+                                onPressed: isEnabledDelete
+                                    ? () =>
+                                        categoriaController.deleteFoto(c.foto)
+                                    : null,
+                              ),
                             ),
-                            RaisedButton(
-                              child: Icon(Icons.photo),
-                              shape: new CircleBorder(),
-                              onPressed: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => ImageSourceSheet(
-                                    onImageSelected: (image) {
-                                      setState(() {
-                                        Navigator.of(context).pop();
-                                        file = image;
-                                        String arquivo =
-                                            file.path.split('/').last;
-                                        print("Image: ${arquivo}");
-                                        enableButton();
-                                      });
-                                    },
-                                  ),
-                                );
-                              },
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.photo),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => ImageSourceSheet(
+                                      onImageSelected: (image) {
+                                        setState(() {
+                                          Navigator.of(context).pop();
+                                          file = image;
+                                          String arquivo =
+                                              file.path.split('/').last;
+                                          print("Image: ${arquivo}");
+                                          enableButton();
+                                        });
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
-                            RaisedButton(
-                              child: Icon(Icons.check),
-                              shape: new CircleBorder(),
-                              onPressed: isEnabledEnviar
-                                  ? () => onClickUpload()
-                                  : null,
+                            CircleAvatar(
+                              child: IconButton(
+                                splashColor: Colors.black,
+                                icon: Icon(Icons.check),
+                                onPressed: isEnabledEnviar
+                                    ? () => onClickUpload()
+                                    : null,
+                              ),
                             )
                           ],
                         ),
@@ -257,95 +265,56 @@ class _CategoriaCreatePageState extends State<CategoriaCreatePage> {
                     ],
                   ),
                 ),
-                ExpansionTile(
-                  title: Text("Descrição"),
-                  children: [
-                    uploadFileResponse.fileName != null
-                        ? Container(
-                            height: 300,
-                            padding: EdgeInsets.all(5),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  child: ListTile(
-                                    title: Text("fileName"),
-                                    subtitle:
-                                        Text("${uploadFileResponse.fileName}"),
-                                  ),
-                                ),
-                                Container(
-                                  child: ListTile(
-                                    title: Text("fileDownloadUri"),
-                                    subtitle: Text(
-                                        "${uploadFileResponse.fileDownloadUri}"),
-                                  ),
-                                ),
-                                Container(
-                                  child: ListTile(
-                                    title: Text("fileType"),
-                                    subtitle:
-                                        Text("${uploadFileResponse.fileType}"),
-                                  ),
-                                ),
-                                Container(
-                                  child: ListTile(
-                                    title: Text("size"),
-                                    subtitle:
-                                        Text("${uploadFileResponse.size}"),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(
-                            padding: EdgeInsets.all(15),
-                            child: Text("Deve anexar uma foto"),
-                            alignment: Alignment.bottomLeft,
-                          ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Container(
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        initialValue: c.nome,
-                        onSaved: (value) => c.nome = value,
-                        validator: (value) =>
-                            value.isEmpty ? "campo obrigário" : null,
-                        decoration: InputDecoration(
-                          labelText: "Nome",
-                          hintText: "nome categoria",
-                          prefixIcon: Icon(
-                            Icons.edit,
-                            color: Colors.grey,
-                          ),
-                          suffixIcon: Icon(Icons.close),
-                          labelStyle: TextStyle(color: Colors.black),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.lime[900]),
-                            gapPadding: 1,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        keyboardType: TextInputType.text,
-                        maxLength: 50,
-                        maxLines: 1,
-                        //initialValue: c.nome,
-                      ),
-                      SizedBox(height: 10),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
         ),
-        SizedBox(height: 0),
+        ExpansionTile(
+          title: Text("Descrição"),
+          children: [
+            uploadFileResponse.fileName != null
+                ? Container(
+                    height: 300,
+                    padding: EdgeInsets.all(5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: ListTile(
+                            title: Text("fileName"),
+                            subtitle: Text("${uploadFileResponse.fileName}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("fileDownloadUri"),
+                            subtitle:
+                                Text("${uploadFileResponse.fileDownloadUri}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("fileType"),
+                            subtitle: Text("${uploadFileResponse.fileType}"),
+                          ),
+                        ),
+                        Container(
+                          child: ListTile(
+                            title: Text("size"),
+                            subtitle: Text("${uploadFileResponse.size}"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.all(15),
+                    child: Text("Deve anexar uma foto"),
+                    alignment: Alignment.bottomLeft,
+                  ),
+          ],
+        ),
+        SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(15),
           child: RaisedButton.icon(

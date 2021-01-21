@@ -24,8 +24,7 @@ class CaixaFluxoEntrada {
     valorEntrada = json['valorEntrada'];
     dataRegistro = DateTime.tryParse(json['dataRegistro'].toString());
 
-    pedido =
-        json['pedido'] != null ? new Pedido.fromJson(json['pedido']) : null;
+    caixa = json['caixa'] != null ? new Caixa.fromJson(json['caixa']) : null;
 
     pedido =
         json['pedido'] != null ? new Pedido.fromJson(json['pedido']) : null;
@@ -42,8 +41,8 @@ class CaixaFluxoEntrada {
       data['caixa'] = this.caixa.toJson();
     }
 
-    if (this.caixa != null) {
-      data['caixa'] = this.caixa.toJson();
+    if (this.pedido != null) {
+      data['pedido'] = this.pedido.toJson();
     }
 
     return data;

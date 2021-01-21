@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:nosso/src/core/controller/arquivo_controller.dart';
 import 'package:nosso/src/core/controller/caixa_controller.dart';
 import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
+import 'package:nosso/src/core/controller/caixafluxoentrada_controller.dart';
+import 'package:nosso/src/core/controller/caixafluxosaida_controller.dart';
 import 'package:nosso/src/core/controller/cartao_controller.dart';
 import 'package:nosso/src/core/controller/categoria_controller.dart';
 import 'package:nosso/src/core/controller/cidade_controller.dart';
@@ -59,6 +61,11 @@ void main() async {
   getIt.registerSingleton<PagamentoController>(PagamentoController());
   getIt.registerSingleton<CaixaController>(CaixaController());
   getIt.registerSingleton<CaixafluxoController>(CaixafluxoController());
+
+  getIt.registerSingleton<CaixafluxosaidaController>(
+      CaixafluxosaidaController());
+  getIt.registerSingleton<CaixafluxoentradaController>(
+      CaixafluxoentradaController());
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

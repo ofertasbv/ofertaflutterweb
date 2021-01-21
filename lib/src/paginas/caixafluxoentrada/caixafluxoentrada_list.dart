@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nosso/src/core/controller/caixafluxo_controller.dart';
-import 'package:nosso/src/core/model/caixafluxo.dart';
-import 'package:nosso/src/paginas/caixafluxo/caixafluxo_create_page.dart';
+import 'package:nosso/src/core/controller/caixafluxoentrada_controller.dart';
+import 'package:nosso/src/core/model/caixaentrada.dart';
+import 'package:nosso/src/paginas/caixafluxoentrada/caixafluxoentrada_create_page.dart';
 import 'package:nosso/src/util/load/circular_progresso.dart';
 
 class CaixaFluxoEntradaList extends StatefulWidget {
@@ -16,16 +16,16 @@ class CaixaFluxoEntradaList extends StatefulWidget {
 
 class _CaixaFluxoEntradaListState extends State<CaixaFluxoEntradaList>
     with AutomaticKeepAliveClientMixin<CaixaFluxoEntradaList> {
-  var caixafluxoController = GetIt.I.get<CaixafluxoController>();
+  var caixafluxoentradaController = GetIt.I.get<CaixafluxoentradaController>();
 
   @override
   void initState() {
-    caixafluxoController.getAll();
+    caixafluxoentradaController.getAll();
     super.initState();
   }
 
   Future<void> onRefresh() {
-    return caixafluxoController.getAll();
+    return caixafluxoentradaController.getAll();
   }
 
   bool isLoading = true;
@@ -40,32 +40,33 @@ class _CaixaFluxoEntradaListState extends State<CaixaFluxoEntradaList>
       padding: EdgeInsets.only(top: 0),
       child: Observer(
         builder: (context) {
-          List<CaixaFluxo> caixaFluxos = caixafluxoController.caixaFluxos;
-          if (caixafluxoController.error != null) {
+          List<CaixaFluxoEntrada> entradas =
+              caixafluxoentradaController.caixaEntradas;
+          if (caixafluxoentradaController.error != null) {
             return Text("Não foi possível carregados dados");
           }
 
-          if (caixaFluxos == null) {
+          if (entradas == null) {
             return CircularProgressor();
           }
 
           return RefreshIndicator(
             onRefresh: onRefresh,
-            child: builderList(caixaFluxos),
+            child: builderList(entradas),
           );
         },
       ),
     );
   }
 
-  builderList(List<CaixaFluxo> caixaFluxos) {
+  builderList(List<CaixaFluxoEntrada> entradas) {
     double containerWidth = 160;
     double containerHeight = 20;
 
     return ListView.builder(
-      itemCount: caixaFluxos.length,
+      itemCount: entradas.length,
       itemBuilder: (context, index) {
-        CaixaFluxo c = caixaFluxos[index];
+        CaixaFluxoEntrada c = entradas[index];
 
         return GestureDetector(
           child: ListTile(
@@ -110,7 +111,7 @@ class _CaixaFluxoEntradaListState extends State<CaixaFluxoEntradaList>
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return CaixaFluxoCreatePage(caixaFluxo: c);
+                  return CaixaFluxoEntradaCreatePage(entrada: c);
                 },
               ),
             );
@@ -121,7 +122,7 @@ class _CaixaFluxoEntradaListState extends State<CaixaFluxoEntradaList>
   }
 
   PopupMenuButton<String> buildPopupMenuButton(
-      BuildContext context, CaixaFluxo c) {
+      BuildContext context, CaixaFluxoEntrada c) {
     return PopupMenuButton<String>(
       padding: EdgeInsets.zero,
       icon: Icon(Icons.more_vert),
@@ -135,7 +136,7 @@ class _CaixaFluxoEntradaListState extends State<CaixaFluxoEntradaList>
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return CaixaFluxoCreatePage(caixaFluxo: c);
+                return CaixaFluxoEntradaCreatePage(entrada: c);
               },
             ),
           );

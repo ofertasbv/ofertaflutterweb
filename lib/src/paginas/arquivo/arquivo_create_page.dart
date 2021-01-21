@@ -152,6 +152,8 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
             child: Column(
               children: <Widget>[
                 Container(
+                  height: 350,
+                  color: Colors.grey[400],
                   child: GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
@@ -170,6 +172,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                       );
                     },
                     child: Container(
+                      color: Colors.grey[600],
                       padding: EdgeInsets.all(5),
                       child: Container(
                         width: double.infinity,
@@ -181,7 +184,7 @@ class _ArquivoCreatePageState extends State<ArquivoCreatePage> {
                                     file,
                                     fit: BoxFit.fitWidth,
                                     width: double.infinity,
-                                    height: 300,
+                                    height: 340,
                                   )
                                 : a.foto != null
                                     ? CircleAvatar(
