@@ -115,6 +115,13 @@ mixin _$EnderecoController on EnderecoControllerBase, Store {
     return _$getAllByPessoaAsyncAction.run(() => super.getAllByPessoa(id));
   }
 
+  final _$getCepAsyncAction = AsyncAction('EnderecoControllerBase.getCep');
+
+  @override
+  Future<Endereco> getCep(String cep) {
+    return _$getCepAsyncAction.run(() => super.getCep(cep));
+  }
+
   final _$createAsyncAction = AsyncAction('EnderecoControllerBase.create');
 
   @override

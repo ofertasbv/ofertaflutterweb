@@ -24,18 +24,18 @@ mixin _$VendedorController on VendedorControllerBase, Store {
     });
   }
 
-  final _$clienteAtom = Atom(name: 'VendedorControllerBase.cliente');
+  final _$vendedorAtom = Atom(name: 'VendedorControllerBase.vendedor');
 
   @override
-  int get cliente {
-    _$clienteAtom.reportRead();
-    return super.cliente;
+  int get vendedor {
+    _$vendedorAtom.reportRead();
+    return super.vendedor;
   }
 
   @override
-  set cliente(int value) {
-    _$clienteAtom.reportWrite(value, super.cliente, () {
-      super.cliente = value;
+  set vendedor(int value) {
+    _$vendedorAtom.reportWrite(value, super.vendedor, () {
+      super.vendedor = value;
     });
   }
 
@@ -223,7 +223,7 @@ mixin _$VendedorController on VendedorControllerBase, Store {
   String toString() {
     return '''
 vendedores: ${vendedores},
-cliente: ${cliente},
+vendedor: ${vendedor},
 formData: ${formData},
 senhaVisivel: ${senhaVisivel},
 vendedoreSelecionado: ${vendedoreSelecionado},
